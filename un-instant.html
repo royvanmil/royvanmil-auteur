@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Un instant, ou Deux… — Roy VAN MIL</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,500&family=EB+Garamond:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --noir:#161210;--bois-fonce:#3a2a1c;--bois:#5a4029;
+    --laiton:#c9a25e;--laiton-clair:#e6c98a;
+    --creme:#e8dcc4;--creme-doux:#c8b895;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'EB Garamond',Georgia,serif;
+    background:radial-gradient(ellipse at 50% 0%, #241a12 0%, var(--noir) 70%), var(--noir);
+    color:var(--creme);min-height:100vh;
+  }
+  body::before{content:"";position:fixed;inset:0;
+    background:radial-gradient(circle at 50% 30%, rgba(201,162,94,.08), transparent 55%);
+    pointer-events:none;z-index:0;}
+  .wrap{position:relative;z-index:2;max-width:1000px;margin:0 auto;padding:1.5rem 1.2rem 4rem}
+
+  .retour{display:inline-flex;align-items:center;gap:.4rem;color:var(--laiton-clair);
+    text-decoration:none;font-family:'Cormorant Garamond',serif;letter-spacing:.08em;
+    text-transform:uppercase;font-size:.85rem;margin-bottom:2rem;opacity:.85;transition:opacity .2s;}
+  .retour:hover{opacity:1}
+
+  .livre-page{display:grid;grid-template-columns:minmax(220px,320px) 1fr;
+    gap:clamp(1.5rem,5vw,3.5rem);align-items:start;}
+  .couverture{width:100%;border-radius:4px;
+    box-shadow:0 20px 50px -12px rgba(0,0,0,.8), 0 0 0 1px rgba(201,162,94,.2);}
+
+  .infos h1{font-family:'Cormorant Garamond',serif;font-weight:700;
+    font-size:clamp(2rem,5vw,3rem);line-height:1.05;color:var(--creme);margin-bottom:.4rem;}
+  .auteur{font-style:italic;color:var(--laiton-clair);font-size:1.15rem;margin-bottom:1.6rem;}
+  .filet{height:1px;background:linear-gradient(90deg,var(--laiton),transparent);margin:1.4rem 0}
+  .infos p{font-size:1.08rem;line-height:1.7;color:var(--creme-doux);margin-bottom:1rem}
+  .intro-cite{font-style:italic;color:var(--creme);font-size:1.12rem;line-height:1.7;}
+
+  /* liste des 16 histoires */
+  .histoires{
+    columns:2;column-gap:2rem;list-style:none;
+    margin:1.4rem 0;counter-reset:h;
+  }
+  .histoires li{
+    break-inside:avoid;padding:.35rem 0 .35rem 2rem;position:relative;
+    font-size:1.02rem;color:var(--creme);counter-increment:h;
+  }
+  .histoires li::before{
+    content:counter(h,decimal-leading-zero);
+    position:absolute;left:0;top:.35rem;
+    font-family:'Cormorant Garamond',serif;color:var(--laiton);
+    font-size:.95rem;font-weight:600;
+  }
+
+  .boutons{display:flex;flex-wrap:wrap;gap:1rem;margin-top:2rem}
+  .btn{display:inline-flex;align-items:center;gap:.6rem;padding:.9rem 1.6rem;border-radius:6px;
+    font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.15rem;letter-spacing:.03em;
+    text-decoration:none;cursor:pointer;border:none;transition:transform .2s, box-shadow .2s;}
+  .btn-attente{
+    background:transparent;color:var(--creme-doux);border:1px dashed var(--laiton);
+    cursor:default;opacity:.85;
+  }
+
+  .galerie-titre{font-family:'Cormorant Garamond',serif;font-weight:600;
+    font-size:clamp(1.6rem,4vw,2.2rem);color:var(--laiton-clair);text-align:center;margin:4rem 0 .5rem;}
+  .galerie-soustitre{text-align:center;font-style:italic;color:var(--creme-doux);margin-bottom:2rem;}
+  .galerie{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.4rem;}
+  .vignette{position:relative;cursor:pointer;border-radius:6px;overflow:hidden;
+    box-shadow:0 12px 30px -10px rgba(0,0,0,.7), 0 0 0 1px rgba(201,162,94,.18);
+    background:#efe7d6;transition:transform .25s, box-shadow .25s;}
+  .vignette img{display:block;width:100%;height:auto}
+  .vignette:hover{transform:translateY(-5px);box-shadow:0 18px 38px -10px rgba(0,0,0,.8)}
+  .vignette .loupe{position:absolute;bottom:.7rem;right:.7rem;background:rgba(22,18,16,.82);
+    color:var(--laiton-clair);width:2.2rem;height:2.2rem;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;font-size:1.05rem;opacity:0;transition:opacity .25s;}
+  .vignette:hover .loupe{opacity:1}
+  .vignette-legende{text-align:center;font-size:.9rem;color:var(--creme-doux);margin-top:.5rem;font-style:italic;}
+
+  .lightbox{position:fixed;inset:0;z-index:100;background:rgba(10,8,6,.94);
+    display:none;align-items:center;justify-content:center;padding:2rem;cursor:zoom-out;}
+  .lightbox.actif{display:flex}
+  .lightbox img{max-width:96vw;max-height:92vh;border-radius:4px;box-shadow:0 0 60px rgba(0,0,0,.9);}
+  .lightbox-fermer{position:absolute;top:1.2rem;right:1.6rem;color:var(--creme);font-size:2.4rem;
+    line-height:1;background:none;border:none;cursor:pointer;font-family:'Cormorant Garamond',serif;}
+
+  @media (max-width:640px){
+    .livre-page{grid-template-columns:1fr;justify-items:center;text-align:center}
+    .couverture{max-width:260px}
+    .histoires{columns:1;text-align:left;display:inline-block}
+    .boutons{justify-content:center}
+    .filet{width:60%;margin-left:auto;margin-right:auto}
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <a class="retour" href="index.html">← Retour à la bibliothèque</a>
+
+    <div class="livre-page">
+      <img class="couverture" src="img/couv-un-instant.png" alt="Un instant, ou Deux…">
+
+      <div class="infos">
+        <h1>Un instant, ou Deux…</h1>
+        <div class="auteur">Roy VAN MIL</div>
+
+        <p class="intro-cite">16 microhistoires pour sourire, réfléchir… et se souvenir de l'essentiel.</p>
+
+        <div class="filet"></div>
+
+        <p>Un grand-père qui bondit dans un salon. Une simple poignée de main qui fait du bien. Un château qui se réveille pour un banquet invisible. Des machines qui jugent, des voisins qu'on croyait perdus, des présences qu'on ne devrait plus revoir.</p>
+
+        <p>Un petit livre à emporter partout, à lire par fragments, et à laisser vivre dans sa propre imagination.</p>
+
+        <div class="filet"></div>
+
+        <ol class="histoires">
+          <li>Le bouton rouge</li>
+          <li>Les Deux</li>
+          <li>La main qui fait du bien</li>
+          <li>Les Dormeurs</li>
+          <li>Je sais déjà</li>
+          <li>L'Autre Monde</li>
+          <li>La Révolution numérique</li>
+          <li>Présences passées</li>
+          <li>La Bouteille d'Armagnac</li>
+          <li>Le Banquet invisible</li>
+          <li>Le Casque</li>
+          <li>La Valise</li>
+          <li>La vidéo savait</li>
+          <li>Le vieux four</li>
+          <li>Ma Tante</li>
+          <li>La Décision finale</li>
+        </ol>
+
+        <div class="boutons">
+          <span class="btn btn-attente">📖 Bientôt disponible sur Amazon</span>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="galerie-titre">Quelques illustrations</h2>
+    <p class="galerie-soustitre">Des dessins au crayon, entre douceur et étrangeté. Cliquez pour agrandir.</p>
+
+    <div class="galerie">
+      <figure style="margin:0">
+        <div class="vignette" onclick="ouvrir('img/ui-main.png')">
+          <img src="img/ui-main.png" alt="La main qui fait du bien" loading="lazy"><span class="loupe">⤢</span>
+        </div>
+        <figcaption class="vignette-legende">La main qui fait du bien</figcaption>
+      </figure>
+      <figure style="margin:0">
+        <div class="vignette" onclick="ouvrir('img/ui-banquet.png')">
+          <img src="img/ui-banquet.png" alt="Le Banquet invisible" loading="lazy"><span class="loupe">⤢</span>
+        </div>
+        <figcaption class="vignette-legende">Le Banquet invisible</figcaption>
+      </figure>
+      <figure style="margin:0">
+        <div class="vignette" onclick="ouvrir('img/ui-casque.png')">
+          <img src="img/ui-casque.png" alt="Le Casque" loading="lazy"><span class="loupe">⤢</span>
+        </div>
+        <figcaption class="vignette-legende">Le Casque</figcaption>
+      </figure>
+      <figure style="margin:0">
+        <div class="vignette" onclick="ouvrir('img/ui-video.png')">
+          <img src="img/ui-video.png" alt="La vidéo savait" loading="lazy"><span class="loupe">⤢</span>
+        </div>
+        <figcaption class="vignette-legende">La vidéo savait</figcaption>
+      </figure>
+      <figure style="margin:0">
+        <div class="vignette" onclick="ouvrir('img/ui-presences.png')">
+          <img src="img/ui-presences.png" alt="Présences passées" loading="lazy"><span class="loupe">⤢</span>
+        </div>
+        <figcaption class="vignette-legende">Présences passées</figcaption>
+      </figure>
+      <figure style="margin:0">
+        <div class="vignette" onclick="ouvrir('img/ui-revolution.png')">
+          <img src="img/ui-revolution.png" alt="La Révolution numérique" loading="lazy"><span class="loupe">⤢</span>
+        </div>
+        <figcaption class="vignette-legende">La Révolution numérique</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <div class="lightbox" id="lightbox" onclick="fermer()">
+    <button class="lightbox-fermer" onclick="fermer()" aria-label="Fermer">✕</button>
+    <img id="lightbox-img" src="" alt="">
+  </div>
+
+  <script>
+    function ouvrir(src){
+      var lb=document.getElementById('lightbox');
+      document.getElementById('lightbox-img').src=src;
+      lb.classList.add('actif');document.body.style.overflow='hidden';
+    }
+    function fermer(){
+      document.getElementById('lightbox').classList.remove('actif');
+      document.body.style.overflow='';
+    }
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')fermer();});
+  </script>
+</body>
+</html>

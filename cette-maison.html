@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cette maison, elle vaut vraiment le prix ? — Roy VAN MIL</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,500&family=EB+Garamond:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --noir:#161210;
+    --bois-fonce:#3a2a1c;
+    --bois:#5a4029;
+    --laiton:#c9a25e;
+    --laiton-clair:#e6c98a;
+    --creme:#e8dcc4;
+    --creme-doux:#c8b895;
+    --amazon:#e0952a;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'EB Garamond',Georgia,serif;
+    background:radial-gradient(ellipse at 50% 0%, #241a12 0%, var(--noir) 70%), var(--noir);
+    color:var(--creme);
+    min-height:100vh;
+  }
+  body::before{
+    content:"";position:fixed;inset:0;
+    background:radial-gradient(circle at 50% 30%, rgba(201,162,94,.08), transparent 55%);
+    pointer-events:none;z-index:0;
+  }
+  .wrap{position:relative;z-index:2;max-width:1000px;margin:0 auto;padding:1.5rem 1.2rem 4rem}
+
+  /* retour */
+  .retour{
+    display:inline-flex;align-items:center;gap:.4rem;
+    color:var(--laiton-clair);text-decoration:none;
+    font-family:'Cormorant Garamond',serif;letter-spacing:.08em;
+    text-transform:uppercase;font-size:.85rem;
+    margin-bottom:2rem;opacity:.85;transition:opacity .2s;
+  }
+  .retour:hover{opacity:1}
+
+  .livre-page{
+    display:grid;
+    grid-template-columns:minmax(220px,320px) 1fr;
+    gap:clamp(1.5rem,5vw,3.5rem);
+    align-items:start;
+  }
+  .couverture{
+    width:100%;border-radius:4px;
+    box-shadow:0 20px 50px -12px rgba(0,0,0,.8), 0 0 0 1px rgba(201,162,94,.2);
+  }
+
+  .infos h1{
+    font-family:'Cormorant Garamond',serif;
+    font-weight:700;
+    font-size:clamp(2rem,5vw,3rem);
+    line-height:1.05;
+    color:var(--creme);
+    margin-bottom:.4rem;
+  }
+  .auteur{
+    font-style:italic;color:var(--laiton-clair);
+    font-size:1.15rem;margin-bottom:1.6rem;
+  }
+  .filet{height:1px;background:linear-gradient(90deg,var(--laiton),transparent);margin:1.4rem 0}
+  .infos p{font-size:1.08rem;line-height:1.7;color:var(--creme-doux);margin-bottom:1rem}
+
+  .liste-verif{list-style:none;margin:1.2rem 0}
+  .liste-verif li{
+    position:relative;padding-left:1.7rem;margin-bottom:.6rem;
+    font-size:1.05rem;color:var(--creme);
+  }
+  .liste-verif li::before{
+    content:"✓";position:absolute;left:0;color:var(--laiton);font-weight:700;
+  }
+
+  .boutons{display:flex;flex-wrap:wrap;gap:1rem;margin-top:2rem}
+  .btn{
+    display:inline-flex;align-items:center;gap:.6rem;
+    padding:.9rem 1.6rem;border-radius:6px;
+    font-family:'Cormorant Garamond',serif;font-weight:600;
+    font-size:1.15rem;letter-spacing:.03em;
+    text-decoration:none;cursor:pointer;border:none;
+    transition:transform .2s, box-shadow .2s;
+  }
+  .btn-amazon{
+    background:linear-gradient(180deg,#f0a838,var(--amazon));
+    color:#2a1c08;box-shadow:0 8px 20px -6px rgba(224,149,42,.6);
+  }
+  .btn-amazon:hover{transform:translateY(-3px);box-shadow:0 12px 26px -6px rgba(224,149,42,.75)}
+  .btn-clim{
+    background:transparent;color:var(--laiton-clair);
+    border:1px solid var(--laiton);
+  }
+  .btn-clim:hover{background:rgba(201,162,94,.12);transform:translateY(-3px)}
+
+  @media (max-width:640px){
+    .livre-page{grid-template-columns:1fr;justify-items:center;text-align:center}
+    .couverture{max-width:260px}
+    .liste-verif{text-align:left;display:inline-block}
+    .boutons{justify-content:center}
+    .filet{width:60%;margin-left:auto;margin-right:auto}
+  }
+
+  /* ---- galerie aperçu ---- */
+  .galerie-titre{
+    font-family:'Cormorant Garamond',serif;
+    font-weight:600;font-size:clamp(1.6rem,4vw,2.2rem);
+    color:var(--laiton-clair);text-align:center;
+    margin:4rem 0 .5rem;
+  }
+  .galerie-soustitre{
+    text-align:center;font-style:italic;color:var(--creme-doux);
+    margin-bottom:2rem;
+  }
+  .galerie{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:1.4rem;
+  }
+  .vignette{
+    position:relative;cursor:pointer;border-radius:6px;overflow:hidden;
+    box-shadow:0 12px 30px -10px rgba(0,0,0,.7), 0 0 0 1px rgba(201,162,94,.18);
+    background:#fff;
+    transition:transform .25s, box-shadow .25s;
+  }
+  .vignette img{display:block;width:100%;height:auto}
+  .vignette:hover{transform:translateY(-5px);box-shadow:0 18px 38px -10px rgba(0,0,0,.8)}
+  .vignette .loupe{
+    position:absolute;bottom:.7rem;right:.7rem;
+    background:rgba(22,18,16,.82);color:var(--laiton-clair);
+    width:2.2rem;height:2.2rem;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-size:1.05rem;opacity:0;transition:opacity .25s;
+  }
+  .vignette:hover .loupe{opacity:1}
+  .vignette-legende{
+    text-align:center;font-size:.9rem;color:var(--creme-doux);
+    margin-top:.5rem;font-style:italic;
+  }
+
+  /* ---- lightbox plein écran ---- */
+  .lightbox{
+    position:fixed;inset:0;z-index:100;
+    background:rgba(10,8,6,.94);
+    display:none;align-items:center;justify-content:center;
+    padding:2rem;cursor:zoom-out;
+  }
+  .lightbox.actif{display:flex}
+  .lightbox img{
+    max-width:96vw;max-height:92vh;
+    border-radius:4px;box-shadow:0 0 60px rgba(0,0,0,.9);
+  }
+  .lightbox-fermer{
+    position:absolute;top:1.2rem;right:1.6rem;
+    color:var(--creme);font-size:2.4rem;line-height:1;
+    background:none;border:none;cursor:pointer;
+    font-family:'Cormorant Garamond',serif;
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <a class="retour" href="index.html">← Retour à la bibliothèque</a>
+
+    <div class="livre-page">
+      <img class="couverture" src="img/couv-cette-maison.jpg" alt="Cette maison, elle vaut vraiment le prix ?">
+
+      <div class="infos">
+        <h1>Cette maison, elle vaut vraiment le prix ?</h1>
+        <div class="auteur">Roy VAN MIL</div>
+
+        <p>Le guide pratique pour visiter et acheter une maison en toute confiance. Un œil d'expert pour vous aider à vérifier les détails techniques avant de signer.</p>
+
+        <p>Vous vous projetez déjà dans votre futur logement, mais vous ne savez pas comment vérifier les installations essentielles ? Ce guide vous donne un vrai regard d'expert pendant votre visite — sans avoir besoin d'être du métier.</p>
+
+        <div class="filet"></div>
+
+        <p>Avec des illustrations simples, des fiches claires et des conseils de terrain, vous avancez pas à pas et contrôlez les points clés :</p>
+
+        <ul class="liste-verif">
+          <li>Électricité &amp; tableau électrique</li>
+          <li>Plomberie &amp; évacuations</li>
+          <li>Chauffage &amp; chauffe-eau</li>
+          <li>Climatisation &amp; VMC</li>
+          <li>Humidité, ventilation &amp; signaux d'alarme</li>
+        </ul>
+
+        <p>Checklists visuelles · Points clés · Conseils de base — 15 ans d'expérience sur le terrain à votre service.</p>
+
+        <div class="boutons">
+          <a class="btn btn-amazon" href="https://amzn.eu/d/08jvr7MH" target="_blank" rel="noopener">Disponible sur Amazon</a>
+          <a class="btn btn-clim" href="gagner-une-clim.html">🎁 Gagner une clim</a>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="galerie-titre">Un aperçu de l'intérieur</h2>
+    <p class="galerie-soustitre">Des fiches illustrées, claires et pratiques. Cliquez pour agrandir.</p>
+
+    <div class="galerie">
+      <figure style="margin:0">
+        <div class="vignette" onclick="ouvrir('img/couv-cette-maison-arriere.jpg')">
+          <img src="img/couv-cette-maison-arriere.jpg" alt="Quatrième de couverture" loading="lazy">
+          <span class="loupe">⤢</span>
+        </div>
+        <figcaption class="vignette-legende">La quatrième de couverture</figcaption>
+      </figure>
+
+      <figure style="margin:0">
+        <div class="vignette" onclick="ouvrir('img/cm-fiche-circuits.png')">
+          <img src="img/cm-fiche-circuits.png" alt="Fiche : les circuits électriques" loading="lazy">
+          <span class="loupe">⤢</span>
+        </div>
+        <figcaption class="vignette-legende">Les circuits électriques</figcaption>
+      </figure>
+
+      <figure style="margin:0">
+        <div class="vignette" onclick="ouvrir('img/cm-fiche-ventilations.png')">
+          <img src="img/cm-fiche-ventilations.png" alt="Fiche : les ventilations et l'équilibre des pressions" loading="lazy">
+          <span class="loupe">⤢</span>
+        </div>
+        <figcaption class="vignette-legende">Ventilations &amp; pressions</figcaption>
+      </figure>
+
+      <figure style="margin:0">
+        <div class="vignette" onclick="ouvrir('img/cm-fiche-hygrometrie.png')">
+          <img src="img/cm-fiche-hygrometrie.png" alt="Fiche : l'hygrométrie dans une maison" loading="lazy">
+          <span class="loupe">⤢</span>
+        </div>
+        <figcaption class="vignette-legende">L'hygrométrie</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <div class="lightbox" id="lightbox" onclick="fermer()">
+    <button class="lightbox-fermer" onclick="fermer()" aria-label="Fermer">✕</button>
+    <img id="lightbox-img" src="" alt="">
+  </div>
+
+  <script>
+    function ouvrir(src){
+      var lb=document.getElementById('lightbox');
+      document.getElementById('lightbox-img').src=src;
+      lb.classList.add('actif');
+      document.body.style.overflow='hidden';
+    }
+    function fermer(){
+      document.getElementById('lightbox').classList.remove('actif');
+      document.body.style.overflow='';
+    }
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')fermer();});
+  </script>
+</html>
