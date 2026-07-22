@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Indiana Fraise</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,500&family=EB+Garamond:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --noir:#12100e;--bois-fonce:#2a1f16;
+    --laiton:#c9a25e;--laiton-clair:#e6c98a;
+    --creme:#e8dcc4;--creme-doux:#c8b895;
+    --vert:#4a7a3a;--vert-clair:#6ea04f;
+    --rouge:#8a2820;--rouge-clair:#b23a2c;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    font-family:'EB Garamond',Georgia,serif;
+    background:radial-gradient(ellipse at 50% 15%, #241a12 0%, var(--noir) 70%), var(--noir);
+    color:var(--creme);min-height:100vh;overflow-x:hidden;
+  }
+  body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+    background:radial-gradient(circle at 50% 25%, rgba(201,162,94,.08), transparent 55%);}
+
+  /* chapeau dans le coin */
+  .chapeau{
+    position:absolute;top:1rem;left:1.2rem;z-index:3;
+    width:clamp(90px,16vw,150px);
+    filter:drop-shadow(0 8px 16px rgba(0,0,0,.7));
+    transform:rotate(-6deg);
+  }
+
+  .wrap{position:relative;z-index:2;max-width:760px;margin:0 auto;
+    padding:5.5rem 1.4rem 4rem;text-align:center;}
+
+  .salut{
+    font-family:'Cormorant Garamond',serif;font-weight:600;
+    font-size:clamp(2rem,6vw,3.4rem);line-height:1.05;
+    color:var(--creme);margin-bottom:1rem;
+    text-shadow:0 2px 18px rgba(0,0,0,.6);
+  }
+  .intro{
+    font-size:1.2rem;line-height:1.75;color:var(--creme-doux);
+    max-width:52ch;margin:0 auto 3rem;font-style:italic;
+  }
+  .intro .accent{color:var(--laiton-clair);font-style:normal}
+
+  .choix{display:flex;flex-direction:column;gap:1.2rem;max-width:520px;margin:0 auto}
+  .btn{
+    display:flex;align-items:center;gap:1rem;
+    padding:1.3rem 1.6rem;border-radius:10px;
+    font-family:'Cormorant Garamond',serif;font-weight:600;
+    font-size:clamp(1.15rem,3.2vw,1.5rem);
+    text-decoration:none;cursor:pointer;border:none;text-align:left;
+    transition:transform .22s, box-shadow .22s, filter .22s;
+    color:var(--creme);
+  }
+  .btn .ico{font-size:1.6rem;flex-shrink:0}
+  .btn .txt{line-height:1.2}
+  .btn .sub{display:block;font-family:'EB Garamond',serif;font-weight:400;
+    font-size:.9rem;font-style:italic;opacity:.85;margin-top:.15rem}
+
+  .btn-vert{
+    background:linear-gradient(180deg,var(--vert-clair),var(--vert));
+    box-shadow:0 10px 24px -8px rgba(74,122,58,.6);
+  }
+  .btn-vert:hover{transform:translateY(-4px);box-shadow:0 16px 32px -8px rgba(74,122,58,.75)}
+
+  .btn-rouge{
+    background:linear-gradient(180deg,var(--rouge-clair),var(--rouge));
+    box-shadow:0 10px 24px -8px rgba(138,40,32,.6);
+  }
+  .btn-rouge:hover{transform:translateY(-4px);box-shadow:0 16px 32px -8px rgba(138,40,32,.8)}
+
+  .btn-info{
+    background:transparent;color:var(--laiton-clair);
+    border:1px solid var(--laiton);
+  }
+  .btn-info:hover{background:rgba(201,162,94,.12);transform:translateY(-4px)}
+
+  @media (max-width:520px){
+    .btn{padding:1.1rem 1.2rem}
+  }
+</style>
+</head>
+<body>
+  <img class="chapeau" src="img/indiana_naked_hat.png" alt="">
+
+  <div class="wrap">
+    <h1 class="salut">Bonjour Indiana Fraise</h1>
+    <p class="intro">
+      Un livre t'attend. Mais à toi de choisir <span class="accent">comment</span> tu veux l'obtenir…
+      La voie tranquille, ou celle qui fait battre le cœur un peu plus fort.
+    </p>
+
+    <div class="choix">
+      <a class="btn btn-vert" href="indiana-maison.html">
+        <span class="ico">📦</span>
+        <span class="txt">Livraison à la maison
+          <span class="sub">Donne-moi ton adresse, je te l'envoie.</span>
+        </span>
+      </a>
+
+      <a class="btn btn-rouge" href="indiana-nuit.html">
+        <span class="ico">🕯️</span>
+        <span class="txt">Exploration dans un lieu abandonné pour le trouver…
+          <span class="sub">Si tu oses venir le chercher toi-même. La nuit.</span>
+        </span>
+      </a>
+
+      <a class="btn btn-info" href="indiana-infos.html">
+        <span class="ico">ℹ️</span>
+        <span class="txt">En savoir plus
+          <span class="sub">Qui je suis, et pourquoi ce livre.</span>
+        </span>
+      </a>
+    </div>
+  </div>
+</body>
+</html>
