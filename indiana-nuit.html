@@ -25,6 +25,14 @@
     display:flex;flex-direction:column;align-items:center;justify-content:center;
     text-align:center;padding:2rem;transition:opacity 1s;}
   .porte.partie{opacity:0;pointer-events:none}
+  .porte img.portrait-mort{
+    width:min(300px,68vw);border-radius:50%;margin-bottom:1.6rem;
+    box-shadow:0 0 60px -6px rgba(140,30,20,.7), 0 0 0 1px rgba(184,80,60,.4);
+    animation:pulseMort 3.5s ease-in-out infinite}
+  @keyframes pulseMort{
+    0%,100%{box-shadow:0 0 50px -8px rgba(140,30,20,.55), 0 0 0 1px rgba(184,80,60,.35)}
+    50%{box-shadow:0 0 80px -4px rgba(180,40,25,.85), 0 0 0 1px rgba(200,90,70,.55)}
+  }
   .porte h2{font-family:'Cormorant Garamond',serif;font-weight:600;
     font-size:clamp(1.8rem,6vw,2.8rem);color:#d9bd88;margin-bottom:1rem;
     text-shadow:0 0 24px rgba(120,20,15,.5)}
@@ -120,7 +128,7 @@
     display:none;align-items:center;justify-content:center}
   .jumpscare.on{display:flex;animation:flashScare .55s steps(2) 3}
   @keyframes flashScare{0%{background:#000}50%{background:#2a0a08}100%{background:#000}}
-  .jumpscare img{width:100vw;height:100vh;object-fit:cover;
+  .jumpscare img{max-width:100vw;max-height:100vh;width:auto;height:auto;object-fit:contain;
     animation:zoomScare .55s ease-out}
   @keyframes zoomScare{0%{transform:scale(1.35);opacity:.15}55%{transform:scale(1.08)}100%{transform:scale(1)}}
 
@@ -138,6 +146,7 @@
 <body>
 
   <div class="porte" id="porte">
+    <img class="portrait-mort" src="img/indiana-mort.png" alt="">
     <h2>Tu es sûr ?</h2>
     <p>Ce que tu vas voir n'est pas fait pour les cœurs fragiles. Le son rend l'expérience… bien pire.</p>
     <div class="avert">&#9888; Chuchotements &amp; apparitions</div>
@@ -206,17 +215,20 @@
     }
     function chuchoter(){
       if(!audioCtx||!sonActif) return;
-      var dur=0.8+Math.random()*0.9;
+      var dur=1.0+Math.random()*1.1;
       var b=audioCtx.createBuffer(1, Math.floor(audioCtx.sampleRate*dur), audioCtx.sampleRate);
       var dd=b.getChannelData(0);
       for(var i=0;i<dd.length;i++){
-        var env=Math.sin(Math.PI*i/dd.length);
-        dd[i]=(Math.random()*2-1)*env*0.5;
+        var env=Math.sin(Math.PI*i/dd.length);          // fondu entrée/sortie
+        dd[i]=(Math.random()*2-1)*env;
       }
       var s=audioCtx.createBufferSource(); s.buffer=b;
+      // deux bandes qui glissent -> souffle "magique" chuchoté
       var f=audioCtx.createBiquadFilter(); f.type="bandpass";
-      f.frequency.value=900+Math.random()*1400; f.Q.value=6;
-      var g=audioCtx.createGain(); g.gain.value=0.42;
+      f.frequency.setValueAtTime(700+Math.random()*600, audioCtx.currentTime);
+      f.frequency.linearRampToValueAtTime(1600+Math.random()*1400, audioCtx.currentTime+dur);
+      f.Q.value=9;
+      var g=audioCtx.createGain(); g.gain.value=0.55;
       var pan=audioCtx.createStereoPanner? audioCtx.createStereoPanner():null;
       s.connect(f); f.connect(g);
       if(pan){ pan.pan.value=Math.random()*2-1; g.connect(pan); pan.connect(audioCtx.destination); }
@@ -255,46 +267,55 @@
       o.connect(og); og.connect(audioCtx.destination); o.start(); o.stop(audioCtx.currentTime+0.7);
       hurlement();
     }
-    // hurlement de femme (synthétisé : porteuse aiguë + vibrato + formants + bruit de souffle)
+    // 6 profils de hurlement différents [freqDébut, freqPic, freqFin, durée, type1, type2]
+    var HURLEMENTS=[
+      {f0:600, fp:1150, f1:820,  dur:1.5, t1:"sawtooth", t2:"square",   vib:6.5},
+      {f0:750, fp:1500, f1:600,  dur:1.2, t1:"square",   t2:"sawtooth", vib:8},
+      {f0:500, fp:900,  f1:500,  dur:2.0, t1:"sawtooth", t2:"triangle", vib:5},
+      {f0:820, fp:1700, f1:1100, dur:1.1, t1:"square",   t2:"sawtooth", vib:9.5},
+      {f0:640, fp:1300, f1:700,  dur:1.7, t1:"sawtooth", t2:"square",   vib:7},
+      {f0:900, fp:1900, f1:1200, dur:1.0, t1:"square",   t2:"square",   vib:11}
+    ];
+    var dernierHurl=-1;
     function hurlement(){
       if(!audioCtx||!sonActif) return;
-      var t=audioCtx.currentTime, dur=1.5;
+      var idx;
+      do{ idx=Math.floor(Math.random()*HURLEMENTS.length); }
+      while(idx===dernierHurl);
+      dernierHurl=idx;
+      var p=HURLEMENTS[idx];
+      var t=audioCtx.currentTime, dur=p.dur;
+
       var out=audioCtx.createGain();
       out.gain.setValueAtTime(0,t);
-      out.gain.linearRampToValueAtTime(0.9,t+0.08);     // attaque brutale
-      out.gain.setValueAtTime(0.9,t+dur-0.5);
-      out.gain.exponentialRampToValueAtTime(0.001,t+dur); // extinction
+      out.gain.linearRampToValueAtTime(1.4,t+0.07);       // plus fort
+      out.gain.setValueAtTime(1.4,t+dur-0.5);
+      out.gain.exponentialRampToValueAtTime(0.001,t+dur);
       out.connect(audioCtx.destination);
 
-      // fréquence du cri : monte vite puis retombe (glissando de panique)
       var freqEnv=function(osc){
-        osc.frequency.setValueAtTime(600,t);
-        osc.frequency.exponentialRampToValueAtTime(1150,t+0.25);
-        osc.frequency.setValueAtTime(1150,t+0.7);
-        osc.frequency.exponentialRampToValueAtTime(820,t+dur);
+        osc.frequency.setValueAtTime(p.f0,t);
+        osc.frequency.exponentialRampToValueAtTime(p.fp,t+0.25);
+        osc.frequency.setValueAtTime(p.fp,t+dur*0.5);
+        osc.frequency.exponentialRampToValueAtTime(p.f1,t+dur);
       };
-      // deux oscillateurs (corde vocale un peu rauque)
-      var o1=audioCtx.createOscillator(); o1.type="sawtooth"; freqEnv(o1);
-      var o2=audioCtx.createOscillator(); o2.type="square";  freqEnv(o2);
-      o2.detune.value=12;
-      // vibrato
-      var vib=audioCtx.createOscillator(); vib.frequency.value=6.5;
-      var vibG=audioCtx.createGain(); vibG.gain.value=28;
+      var o1=audioCtx.createOscillator(); o1.type=p.t1; freqEnv(o1);
+      var o2=audioCtx.createOscillator(); o2.type=p.t2; freqEnv(o2); o2.detune.value=12;
+      var vib=audioCtx.createOscillator(); vib.frequency.value=p.vib;
+      var vibG=audioCtx.createGain(); vibG.gain.value=30;
       vib.connect(vibG); vibG.connect(o1.frequency); vibG.connect(o2.frequency);
-      // formants (résonances vocales)
       var f1=audioCtx.createBiquadFilter(); f1.type="bandpass"; f1.frequency.value=900; f1.Q.value=8;
       var f2=audioCtx.createBiquadFilter(); f2.type="bandpass"; f2.frequency.value=2200; f2.Q.value=10;
-      var mix=audioCtx.createGain(); mix.gain.value=0.5;
+      var mix=audioCtx.createGain(); mix.gain.value=0.6;
       o1.connect(mix); o2.connect(mix);
       mix.connect(f1); mix.connect(f2);
       f1.connect(out); f2.connect(out);
-      // souffle rauque par-dessus
       var nb=audioCtx.createBuffer(1,Math.floor(audioCtx.sampleRate*dur),audioCtx.sampleRate);
       var nd=nb.getChannelData(0);
       for(var i=0;i<nd.length;i++){ nd[i]=(Math.random()*2-1); }
       var noise=audioCtx.createBufferSource(); noise.buffer=nb;
       var nf=audioCtx.createBiquadFilter(); nf.type="bandpass"; nf.frequency.value=1600; nf.Q.value=4;
-      var ng=audioCtx.createGain(); ng.gain.value=0.25;
+      var ng=audioCtx.createGain(); ng.gain.value=0.32;
       noise.connect(nf); nf.connect(ng); ng.connect(out);
 
       o1.start(t); o2.start(t); vib.start(t); noise.start(t);
