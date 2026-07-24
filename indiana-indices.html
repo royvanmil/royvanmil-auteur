@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Les Indices — L'Exploration de la Nuit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --laiton:#b89350;--laiton-clair:#d9bd88;
+    --creme:#c9beac;--creme-doux:#9a8d78;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'EB Garamond',Georgia,serif;
+    background:#04050a;color:var(--creme);
+    min-height:100vh;overflow-x:hidden;position:relative;
+  }
+
+  /* ===== FOND (même que la nuit) ===== */
+  .scene{position:fixed;inset:0;z-index:0;overflow:hidden;background:#04050a}
+  .scene .fond{position:absolute;inset:0;
+    background:url("img/fond-nuit.png") center/cover no-repeat;
+    animation:respireFond 24s ease-in-out infinite alternate}
+  @keyframes respireFond{0%{transform:scale(1.03)}100%{transform:scale(1.09)}}
+  .scene::after{content:"";position:absolute;inset:0;
+    background:radial-gradient(ellipse at 50% 40%, rgba(4,5,10,.55) 20%, rgba(4,5,10,.88) 100%)}
+
+  .brume{position:absolute;inset:-15%;z-index:1;pointer-events:none;
+    background:
+      radial-gradient(ellipse 55% 35% at 25% 80%, rgba(160,165,175,.10), transparent 60%),
+      radial-gradient(ellipse 50% 32% at 72% 88%, rgba(150,155,165,.09), transparent 60%);
+    animation:ramper 26s ease-in-out infinite alternate;}
+  @keyframes ramper{0%{transform:translate(-4%,0)}100%{transform:translate(5%,-2%)}}
+
+  /* ===== CONTENU ===== */
+  .wrap{position:relative;z-index:5;max-width:1000px;margin:0 auto;padding:1.5rem 1.4rem 5rem}
+  .retour{display:inline-flex;align-items:center;gap:.4rem;color:var(--laiton-clair);
+    text-decoration:none;font-family:'Cormorant Garamond',serif;letter-spacing:.08em;
+    text-transform:uppercase;font-size:.85rem;margin-bottom:2.5rem;opacity:.7;transition:opacity .2s}
+  .retour:hover{opacity:1}
+
+  .titre-zone{text-align:center;margin:1.5rem 0 1rem}
+  h1{font-family:'Cormorant Garamond',serif;font-weight:700;
+    font-size:clamp(2.2rem,7vw,3.6rem);line-height:1;color:#e6ded0;
+    text-shadow:0 0 30px rgba(0,0,0,.9), 0 0 60px rgba(120,20,15,.4)}
+  .soustitre{text-align:center;font-style:italic;color:var(--laiton-clair);
+    font-size:1.1rem;line-height:1.6;max-width:44ch;margin:.8rem auto 0;opacity:.9}
+
+  .progression{text-align:center;font-family:'Cormorant Garamond',serif;
+    letter-spacing:.15em;text-transform:uppercase;font-size:.9rem;
+    color:var(--laiton-clair);margin:2rem 0 2.5rem;opacity:.85}
+
+  /* ===== GRILLE DE TOMBES ===== */
+  .cimetiere{display:grid;grid-template-columns:repeat(5,1fr);
+    gap:clamp(.7rem,2vw,1.4rem);max-width:820px;margin:0 auto}
+  @media (max-width:640px){.cimetiere{grid-template-columns:repeat(3,1fr)}}
+  @media (max-width:380px){.cimetiere{grid-template-columns:repeat(2,1fr)}}
+
+  .tombe{position:relative;aspect-ratio:3/4;cursor:pointer;
+    border:none;background:none;padding:0;font-family:inherit;
+    transition:transform .25s}
+  .tombe:hover:not(.verrou){transform:translateY(-4px)}
+
+  /* pierre tombale dessinée */
+  .pierre{position:absolute;inset:0;
+    background:linear-gradient(180deg,#6a6a72 0%, #4c4c54 45%, #363640 100%);
+    border-radius:46% 46% 8% 8%/38% 38% 6% 6%;
+    box-shadow:0 10px 22px -6px rgba(0,0,0,.75), inset 0 3px 8px rgba(255,255,255,.12),
+      inset 0 -10px 20px rgba(0,0,0,.5);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:.3rem;overflow:hidden;transition:opacity .5s, transform .5s;}
+  .pierre::before{content:"";position:absolute;top:8%;left:12%;right:12%;bottom:10%;
+    border:1px solid rgba(0,0,0,.25);border-radius:44% 44% 6% 6%/34% 34% 4% 4%;
+    pointer-events:none}
+  .num{font-family:'Cormorant Garamond',serif;font-weight:700;
+    font-size:clamp(1.4rem,4vw,2rem);color:#1c1c22;
+    text-shadow:0 1px 0 rgba(255,255,255,.18)}
+  .rip{font-family:'Cormorant Garamond',serif;letter-spacing:.15em;
+    font-size:.62rem;color:#2a2a30;opacity:.8}
+  .cadenas{position:absolute;bottom:10%;font-size:1rem;opacity:.55}
+
+  .terre{position:absolute;left:-4%;right:-4%;bottom:-2%;height:20%;
+    background:linear-gradient(180deg,#2a2018,#160f0a);
+    border-radius:50%/100% 100% 0 0;z-index:-1}
+
+  .tombe.verrou{cursor:not-allowed}
+  .tombe.verrou .pierre{filter:grayscale(.6) brightness(.5)}
+  .tombe.dispo .pierre{animation:appel 2.4s ease-in-out infinite}
+  @keyframes appel{0%,100%{box-shadow:0 10px 22px -6px rgba(0,0,0,.75), inset 0 3px 8px rgba(255,255,255,.12), inset 0 -10px 20px rgba(0,0,0,.5)}
+    50%{box-shadow:0 10px 26px -4px rgba(0,0,0,.8), 0 0 26px -2px rgba(201,162,94,.5), inset 0 3px 8px rgba(255,255,255,.15), inset 0 -10px 20px rgba(0,0,0,.5)}}
+
+  /* état ouvert : la pierre bascule et révèle */
+  .tombe.ouvert .pierre{opacity:0;transform:translateY(-40%) rotate(-8deg);pointer-events:none}
+
+  /* ===== INDICES RÉVÉLÉS (liste sous la grille) ===== */
+  .indices-reveles{max-width:720px;margin:3rem auto 0;display:flex;flex-direction:column;gap:1rem}
+  .indice-carte{
+    background:rgba(6,8,14,.82);border:1px solid rgba(184,147,80,.3);border-radius:10px;
+    padding:1.2rem 1.5rem;backdrop-filter:blur(3px);
+    box-shadow:0 14px 40px -18px rgba(0,0,0,.9);
+    animation:apparait .5s ease-out}
+  @keyframes apparait{0%{opacity:0;transform:translateY(12px)}100%{opacity:1;transform:translateY(0)}}
+  .indice-carte .tete{display:flex;align-items:baseline;gap:.7rem;margin-bottom:.5rem}
+  .indice-carte .no{font-family:'Cormorant Garamond',serif;font-weight:700;
+    color:var(--laiton-clair);font-size:1.3rem}
+  .indice-carte .label{font-family:'Cormorant Garamond',serif;letter-spacing:.12em;
+    text-transform:uppercase;font-size:.75rem;color:var(--laiton);opacity:.8}
+  .indice-carte p{font-size:1.1rem;line-height:1.7;color:var(--creme-doux)}
+
+  .fin-msg{text-align:center;margin:3rem auto 0;max-width:44ch;
+    font-style:italic;color:var(--laiton-clair);font-size:1.15rem;line-height:1.7;
+    display:none}
+  .fin-msg.on{display:block;animation:apparait .6s ease-out}
+
+  @media (prefers-reduced-motion:reduce){
+    .brume,.fond,.tombe.dispo .pierre{animation:none}
+  }
+</style>
+</head>
+<body>
+
+  <div class="scene">
+    <div class="fond"></div>
+    <div class="brume"></div>
+  </div>
+
+  <div class="wrap">
+    <a class="retour" href="indiana-nuit.html">&#8592; Retour</a>
+
+    <div class="titre-zone">
+      <h1>Les Indices</h1>
+      <p class="soustitre">Vingt-cinq tombes. Vingt-cinq indices. Mais une seule s'ouvre &#224; la fois &#8212; suis-les dans l'ordre.</p>
+    </div>
+
+    <div class="progression" id="progression">Indice 1 sur 25</div>
+
+    <div class="cimetiere" id="cimetiere"></div>
+
+    <div class="indices-reveles" id="revelees"></div>
+
+    <div class="fin-msg" id="finMsg">
+      Tu les as tous trouv&#233;s. Le reste t'attend l&#224;-bas, dans le noir. Bonne chasse.
+    </div>
+  </div>
+
+  <script>
+    // ====== LES 25 INDICES (à remplir plus tard) ======
+    // Remplace le texte "..." de chaque indice quand tu auras le lieu.
+    var INDICES = [
+      "Indice 1 — bientôt révélé…",
+      "Indice 2 — bientôt révélé…",
+      "Indice 3 — bientôt révélé…",
+      "Indice 4 — bientôt révélé…",
+      "Indice 5 — bientôt révélé…",
+      "Indice 6 — bientôt révélé…",
+      "Indice 7 — bientôt révélé…",
+      "Indice 8 — bientôt révélé…",
+      "Indice 9 — bientôt révélé…",
+      "Indice 10 — bientôt révélé…",
+      "Indice 11 — bientôt révélé…",
+      "Indice 12 — bientôt révélé…",
+      "Indice 13 — bientôt révélé…",
+      "Indice 14 — bientôt révélé…",
+      "Indice 15 — bientôt révélé…",
+      "Indice 16 — bientôt révélé…",
+      "Indice 17 — bientôt révélé…",
+      "Indice 18 — bientôt révélé…",
+      "Indice 19 — bientôt révélé…",
+      "Indice 20 — bientôt révélé…",
+      "Indice 21 — bientôt révélé…",
+      "Indice 22 — bientôt révélé…",
+      "Indice 23 — bientôt révélé…",
+      "Indice 24 — bientôt révélé…",
+      "Indice 25 — bientôt révélé…"
+    ];
+
+    var TOTAL = INDICES.length;
+    var prochain = 0;               // index du prochain indice à ouvrir
+    var cimetiere = document.getElementById('cimetiere');
+    var revelees  = document.getElementById('revelees');
+    var progression = document.getElementById('progression');
+    var finMsg = document.getElementById('finMsg');
+
+    // construire les 25 tombes
+    for(var i=0;i<TOTAL;i++){
+      (function(i){
+        var t=document.createElement('button');
+        t.className='tombe '+(i===0?'dispo':'verrou');
+        t.setAttribute('aria-label','Tombe '+(i+1));
+        t.innerHTML=
+          '<div class="terre"></div>'+
+          '<div class="pierre">'+
+            '<div class="num">'+(i+1)+'</div>'+
+            '<div class="rip">R.I.P.</div>'+
+            (i===0?'':'<div class="cadenas">🔒</div>')+
+          '</div>';
+        t.addEventListener('click',function(){ ouvrir(i,t); });
+        cimetiere.appendChild(t);
+      })(i);
+    }
+
+    function ouvrir(i,t){
+      if(i!==prochain) return;               // séquentiel : seulement le prochain
+      t.classList.remove('dispo');
+      t.classList.add('ouvert');
+
+      // ajouter la carte d'indice révélé
+      var c=document.createElement('div');
+      c.className='indice-carte';
+      c.innerHTML=
+        '<div class="tete"><span class="no">'+(i+1)+'</span>'+
+        '<span class="label">Indice révélé</span></div>'+
+        '<p>'+INDICES[i]+'</p>';
+      revelees.appendChild(c);
+
+      prochain++;
+      majProgression();
+
+      // déverrouiller la tombe suivante
+      if(prochain<TOTAL){
+        var suivante=cimetiere.children[prochain];
+        suivante.classList.remove('verrou');
+        suivante.classList.add('dispo');
+        var cad=suivante.querySelector('.cadenas');
+        if(cad) cad.remove();
+      } else {
+        finMsg.classList.add('on');
+        progression.textContent='Les 25 indices révélés';
+      }
+    }
+
+    function majProgression(){
+      if(prochain<TOTAL){
+        progression.textContent='Indice '+(prochain+1)+' sur '+TOTAL;
+      }
+    }
+
+    // ====== COMPTEUR ======
+    var API="https://compteurs.royvanmil86.workers.dev";
+    function compte(cle){ try{ fetch(API+"/compte?c="+cle,{mode:"cors",keepalive:true}); }catch(e){} }
+    if(!sessionStorage.getItem("vu-ind-indices")){
+      sessionStorage.setItem("vu-ind-indices","1"); compte("indiana");
+    }
+  </script>
+</body>
+</html>
