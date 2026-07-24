@@ -72,6 +72,15 @@
     transform:translateY(-2px);
     box-shadow:0 14px 30px rgba(242,181,68,.30), inset 0 1px 0 rgba(255,255,255,.32);
   }
+  .btn-lire{
+    background:transparent;color:var(--laiton-clair);
+    border:1px solid rgba(201,162,94,.55);
+  }
+  .btn-lire:hover{
+    transform:translateY(-2px);
+    border-color:var(--laiton);
+    background:rgba(201,162,94,.08);
+  }
 
   .galerie-titre{font-family:'Cormorant Garamond',serif;font-weight:600;
     font-size:clamp(1.6rem,4vw,2.2rem);color:var(--laiton-clair);text-align:center;margin:4rem 0 .5rem;}
@@ -145,7 +154,8 @@
         </ol>
 
         <div class="boutons">
-          <a class="btn btn-attente" href="https://amzn.eu/d/0fEAc7cG" target="_blank" rel="noopener noreferrer">📖 Disponible sur Amazon</a>
+          <a class="btn btn-lire" href="extraits-un-instant.html">✒️ Lire quelques extraits</a>
+          <a class="btn btn-attente" href="https://amzn.eu/d/0fEAc7cG" target="_blank" rel="noopener noreferrer" onclick="compte('clic-amazon')">📖 Disponible sur Amazon</a>
         </div>
       </div>
     </div>
@@ -227,6 +237,15 @@
       document.body.style.overflow='';
     }
     document.addEventListener('keydown',function(e){if(e.key==='Escape')fermer();});
+
+    var API = "https://compteurs.royvanmil86.workers.dev";
+    function compte(cle){
+      try{ fetch(API + "/compte?c=" + cle, {mode:"cors", keepalive:true}); }catch(e){}
+    }
+    if(!sessionStorage.getItem("vu-livre")){
+      sessionStorage.setItem("vu-livre","1");
+      compte("livre");
+    }
   </script>
 </body>
 </html>

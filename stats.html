@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Stats</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=EB+Garamond:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root{--noir:#161210;--laiton:#c9a25e;--laiton-clair:#e6c98a;--creme:#e8dcc4;--creme-doux:#c8b895;}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    font-family:'EB Garamond',Georgia,serif;
+    background:radial-gradient(ellipse at 50% 0%, #241a12 0%, var(--noir) 70%), var(--noir);
+    color:var(--creme);min-height:100vh;
+    display:flex;align-items:center;justify-content:center;padding:2rem;
+  }
+  .carte{width:100%;max-width:420px}
+  h1{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.7rem;
+    color:var(--laiton-clair);text-align:center;margin-bottom:.4rem}
+  .date{text-align:center;font-style:italic;color:var(--creme-doux);
+    font-size:.9rem;margin-bottom:2rem;opacity:.8}
+  .ligne{display:flex;justify-content:space-between;align-items:baseline;
+    padding:.8rem 0;border-bottom:1px solid rgba(201,162,94,.18)}
+  .ligne:last-child{border-bottom:none}
+  .nom{color:var(--creme-doux);font-size:1.05rem}
+  .valeur{font-family:'Cormorant Garamond',serif;font-weight:600;
+    font-size:1.5rem;color:var(--laiton-clair)}
+  .maj{text-align:center;margin-top:2rem}
+  .maj button{background:transparent;border:1px solid rgba(201,162,94,.5);
+    color:var(--laiton-clair);font-family:'Cormorant Garamond',serif;font-size:1rem;
+    padding:.5rem 1.2rem;border-radius:5px;cursor:pointer;transition:background .2s}
+  .maj button:hover{background:rgba(201,162,94,.1)}
+</style>
+</head>
+<body>
+  <div class="carte">
+    <h1>Compteurs</h1>
+    <div class="date" id="date">—</div>
+    <div id="liste">
+      <div class="ligne"><span class="nom">Chargement…</span><span class="valeur">—</span></div>
+    </div>
+    <div class="maj"><button onclick="charger()">Actualiser</button></div>
+  </div>
+
+  <script>
+    var API = "https://compteurs.royvanmil86.workers.dev";
+    var NOMS = {
+      "accueil":"Page d'accueil",
+      "livre":"Page du livre",
+      "extraits":"Page extraits",
+      "clic-amazon":"Clics vers Amazon"
+    };
+
+    function charger(){
+      fetch(API + "/stats")
+        .then(function(r){ return r.json(); })
+        .then(function(d){
+          var html = "";
+          for(var cle in NOMS){
+            html += '<div class="ligne"><span class="nom">' + NOMS[cle] +
+                    '</span><span class="valeur">' + (d[cle] || 0) + '</span></div>';
+          }
+          document.getElementById("liste").innerHTML = html;
+          document.getElementById("date").textContent =
+            new Date().toLocaleString("fr-FR");
+        })
+        .catch(function(){
+          document.getElementById("liste").innerHTML =
+            '<div class="ligne"><span class="nom">Erreur de chargement</span><span class="valeur">✕</span></div>';
+        });
+    }
+    charger();
+  </script>
+</body>
+</html>

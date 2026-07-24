@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lire un extrait — Un instant, ou Deux… — Roy VAN MIL</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --noir:#161210;--bois-fonce:#3a2a1c;--bois:#5a4029;
+    --laiton:#c9a25e;--laiton-clair:#e6c98a;
+    --creme:#e8dcc4;--creme-doux:#c8b895;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'EB Garamond',Georgia,serif;
+    background:radial-gradient(ellipse at 50% 0%, #241a12 0%, var(--noir) 70%), var(--noir);
+    color:var(--creme);min-height:100vh;
+  }
+  body::before{content:"";position:fixed;inset:0;
+    background:radial-gradient(circle at 50% 30%, rgba(201,162,94,.08), transparent 55%);
+    pointer-events:none;z-index:0;}
+  .wrap{position:relative;z-index:2;max-width:760px;margin:0 auto;padding:1.5rem 1.2rem 4rem}
+
+  .retour{display:inline-flex;align-items:center;gap:.4rem;color:var(--laiton-clair);
+    text-decoration:none;font-family:'Cormorant Garamond',serif;letter-spacing:.08em;
+    text-transform:uppercase;font-size:.85rem;margin-bottom:2.5rem;opacity:.85;transition:opacity .2s;}
+  .retour:hover{opacity:1}
+
+  .entete{text-align:center;margin-bottom:3rem}
+  .entete h1{font-family:'Cormorant Garamond',serif;font-weight:700;
+    font-size:clamp(1.9rem,5vw,2.8rem);line-height:1.15;color:var(--creme);margin-bottom:.7rem;}
+  .entete .soustitre{font-style:italic;color:var(--laiton-clair);font-size:1.1rem;line-height:1.6}
+
+  .filet{height:1px;background:linear-gradient(90deg,transparent,var(--laiton),transparent);margin:3rem 0}
+
+  .extrait-num{font-family:'Cormorant Garamond',serif;color:var(--laiton);
+    font-size:.85rem;letter-spacing:.18em;text-transform:uppercase;margin-bottom:.35rem;text-align:center}
+  .extrait-titre{font-family:'Cormorant Garamond',serif;font-weight:600;
+    font-size:clamp(1.6rem,4vw,2.1rem);color:var(--laiton-clair);margin-bottom:2rem;text-align:center}
+
+  .texte p{
+    font-size:1.15rem;line-height:1.9;color:var(--creme-doux);
+    margin-bottom:1.2rem;
+  }
+  .texte p.dialogue{font-style:italic;padding-left:1.2rem;color:var(--creme)}
+
+  .suite{font-style:italic;color:var(--laiton);text-align:center;
+    font-size:1.05rem;margin-top:2.2rem;opacity:.9}
+
+  .zone-btn{text-align:center;margin-top:1.6rem}
+  .btn{display:inline-flex;align-items:center;gap:.6rem;padding:.9rem 1.7rem;border-radius:6px;
+    font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.15rem;letter-spacing:.03em;
+    text-decoration:none;cursor:pointer;border:none;transition:transform .2s, box-shadow .2s;}
+  .btn-attente{
+    background:linear-gradient(180deg,#f2b544 0%, #dfa02a 100%);
+    color:#2b1d10;border:1px solid #f0c86f;
+    box-shadow:0 10px 26px rgba(242,181,68,.24), inset 0 1px 0 rgba(255,255,255,.28);
+  }
+  .btn-attente:hover{
+    transform:translateY(-2px);
+    box-shadow:0 14px 30px rgba(242,181,68,.30), inset 0 1px 0 rgba(255,255,255,.32);
+  }
+
+  .final{text-align:center;margin-top:1rem}
+  .final p{font-size:1.1rem;color:var(--creme-doux);line-height:1.7;font-style:italic}
+
+  @media (max-width:640px){
+    .texte p{font-size:1.08rem;line-height:1.85}
+    .wrap{padding:1.2rem 1.1rem 3rem}
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <a class="retour" href="un-instant.html">← Retour au livre</a>
+
+    <div class="entete">
+      <h1>Avant de choisir un livre,<br>autant en lire quelques lignes…</h1>
+      <p class="soustitre">Les premières pages de deux microhistoires,<br>volontairement très différentes.</p>
+    </div>
+
+    <div class="filet"></div>
+
+    <div class="extrait-num">Histoire 02</div>
+    <div class="extrait-titre">Les Deux</div>
+    <div class="texte">
+      <p>Ils s'étaient déjà croisés plusieurs fois avant de vraiment se connaître. Lui accompagnait son père sur les marchés des villages voisins, où ils vendaient quelques outils, des clous et tout ce qu'ils parvenaient encore à fabriquer. Elle venait parfois avec sa mère pour échanger des œufs, du beurre ou des légumes. Ils se saluaient sans y penser, échangeaient deux ou trois mots, puis chacun repartait de son côté. À cette époque, rien ne laissait imaginer qu'ils passeraient un jour toute leur vie ensemble.</p>
+
+      <p>La guerre changea les habitudes avant de changer les hommes. Les jeunes partirent, les maisons se vidèrent et les familles qui, jusque-là, ne faisaient que se connaître de vue commencèrent à s'entraider. On partageait ce qu'on avait : un morceau de pain, quelques pommes de terre, une place près du feu ou une paire de bras pour rentrer du bois avant la nuit. C'est ainsi que leurs parents se rapprochèrent. Ils découvrirent alors qu'ils se connaissaient depuis bien plus longtemps qu'ils ne l'avaient jamais raconté, liés par de vieilles histoires de famille dont personne ne semblait vouloir donner tous les détails.</p>
+
+      <p>Un soir d'hiver, il la trouva devant une grange, penchée sur un sac de farine beaucoup trop lourd pour elle. Il le souleva sans demander la permission et le porta jusqu'à la cuisine. Pour faire le malin, il prétendit que le sac ne pesait rien et qu'il aurait pu en prendre deux autres sur chaque épaule. Elle le regarda, parfaitement sérieuse, puis lui répondit qu'il aurait surtout pu commencer par fermer sa braguette. Il baissa les yeux, devint rouge jusqu'aux oreilles et entendit son rire pour la première fois.</p>
+
+      <p>Après cela, il trouva toujours une raison de revenir. Un outil à rapporter, une charnière à réparer, un message de son père ou un sac à déplacer. Elle n'était pas dupe, mais elle le laissait faire. Il racontait des histoires trop longues, exagérait ses exploits et inventait des plaisanteries qui ne la faisaient pas toujours rire. Pourtant, un jour, elle l'attendit devant la maison. Il ne lui demanda jamais depuis combien de temps elle se trouvait là. Elle ne le lui dit jamais non plus.</p>
+
+      <p class="suite">La suite dans le livre…</p>
+    </div>
+
+    <div class="zone-btn">
+      <a class="btn btn-attente" href="https://amzn.eu/d/0fEAc7cG" target="_blank" rel="noopener noreferrer" onclick="compte('clic-amazon')">J'en veux encore !</a>
+    </div>
+
+    <div class="filet"></div>
+
+    <div class="extrait-num">Histoire 03</div>
+    <div class="extrait-titre">La main qui fait du bien</div>
+    <div class="texte">
+      <p>Le véhicule de secours rouge s'arrêta devant une vieille maison de pierre aux volets fatigués. La porte d'entrée était déjà grande ouverte. Quatre pompiers volontaires descendirent presque en même temps, saisirent les sacs de secours, la bouteille d'oxygène et le défibrillateur, puis traversèrent rapidement le petit jardin.</p>
+
+      <p>Une femme âgée les attendait dans le couloir. Elle avait un mouchoir serré dans le poing et le visage ruisselant de larmes. Elle tenta de leur parler, mais sa voix se brisa dès les premiers mots.</p>
+
+      <p class="dialogue">— Il est dans le salon… Il buvait son café… Il a fait un drôle de bruit et il est tombé…</p>
+
+      <p>Son mari était allongé sur le carrelage, entre la table basse et un vieux fauteuil en velours. Il portait encore ses chaussons. Une tasse renversée avait répandu une flaque sombre près de sa main droite. Son visage était gris, sa bouche entrouverte et sa poitrine parfaitement immobile.</p>
+
+      <p>D'une voix cassée, brisée par les sanglots, la vieille dame répéta :</p>
+
+      <p class="dialogue">— Faites quelque chose… je vous en supplie…</p>
+
+      <p>Trois pompiers se placèrent autour du corps, chacun à sa position, sans un mot échangé. Des gestes cent fois répétés à l'entraînement. Même volontaires, ils avaient suivi des formations lourdes, des heures de mannequins et de simulations. Ce jour-là, ce n'était plus un mannequin. C'était une vie entre leurs mains, et ils le savaient.</p>
+
+      <p>Le quatrième pompier resta auprès de l'épouse afin de l'éloigner légèrement et de recueillir les premières informations.</p>
+
+      <p>Le chef d'équipe vérifia rapidement la respiration et chercha un pouls au niveau du cou. Il ne sentit rien.</p>
+
+      <p class="dialogue">— Arrêt cardiaque. On commence.</p>
+
+      <p>Le premier équipier sortit le masque, le ballon de ventilation et le raccorda à la bouteille d'oxygène. Il régla le débit d'un geste sûr, bascula légèrement la tête du patient et vérifia que les voies respiratoires étaient libres.</p>
+
+      <p class="suite">La suite dans le livre…</p>
+    </div>
+
+    <div class="zone-btn">
+      <a class="btn btn-attente" href="https://amzn.eu/d/0fEAc7cG" target="_blank" rel="noopener noreferrer" onclick="compte('clic-amazon')">J'en veux encore !</a>
+    </div>
+
+    <div class="filet"></div>
+
+    <div class="final">
+      <p>Deux ambiances, deux époques, deux débuts…<br>et quatorze autres histoires à découvrir.</p>
+    </div>
+  </div>
+
+  <script>
+    var API = "https://compteurs.royvanmil86.workers.dev";
+    function compte(cle){
+      try{ fetch(API + "/compte?c=" + cle, {mode:"cors", keepalive:true}); }catch(e){}
+    }
+    if(!sessionStorage.getItem("vu-extraits")){
+      sessionStorage.setItem("vu-extraits","1");
+      compte("extraits");
+    }
+  </script>
+</body>
+</html>
