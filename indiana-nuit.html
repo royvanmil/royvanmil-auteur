@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>L'Exploration de la Nuit — Indiana Fraise</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sang:#7a1810;--laiton:#b8935080;--laiton-clair:#d9bd88;
+    --creme:#c9beac;--creme-doux:#9a8d78;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'EB Garamond',Georgia,serif;
+    background:#05060a;color:var(--creme);
+    min-height:100vh;overflow-x:hidden;position:relative;
+  }
+
+  /* ---------- CIEL & CHÂTEAU (fond fixe) ---------- */
+  .scene{position:fixed;inset:0;z-index:0;overflow:hidden;background:
+    linear-gradient(180deg,#0a0d16 0%, #10131d 40%, #0a0a0e 100%);}
+  .lune{position:absolute;top:8%;left:50%;transform:translateX(-50%);
+    width:120px;height:120px;border-radius:50%;
+    background:radial-gradient(circle at 40% 40%, #d8d3c4, #9a957f 70%, #6f6a58);
+    box-shadow:0 0 60px 20px rgba(200,195,175,.25), 0 0 140px 60px rgba(150,150,130,.12);}
+  .lune::after{content:"";position:absolute;inset:0;border-radius:50%;
+    background:radial-gradient(circle at 65% 30%, rgba(0,0,0,.18) 8%, transparent 9%),
+               radial-gradient(circle at 40% 60%, rgba(0,0,0,.14) 6%, transparent 7%);}
+  .etoiles{position:absolute;inset:0;
+    background-image:
+      radial-gradient(1px 1px at 20% 30%, #fff, transparent),
+      radial-gradient(1px 1px at 60% 15%, #fff, transparent),
+      radial-gradient(1px 1px at 80% 40%, #ddd, transparent),
+      radial-gradient(1px 1px at 35% 50%, #fff, transparent),
+      radial-gradient(1px 1px at 90% 20%, #ccc, transparent),
+      radial-gradient(1px 1px at 10% 60%, #fff, transparent);
+    opacity:.5;animation:scintiller 5s ease-in-out infinite alternate;}
+  @keyframes scintiller{0%{opacity:.3}100%{opacity:.65}}
+
+  /* château en silhouette (SVG collé en bas) */
+  .chateau{position:absolute;bottom:0;left:0;width:100%;height:auto;
+    filter:drop-shadow(0 0 20px rgba(0,0,0,.9));}
+  .chateau svg{display:block;width:100%;height:auto}
+  .fenetre{fill:#c8901f;opacity:.0;animation:lueur 6s ease-in-out infinite}
+  .fenetre.f2{animation-delay:2s}
+  .fenetre.f3{animation-delay:3.6s}
+  @keyframes lueur{0%,100%{opacity:0}45%,55%{opacity:.6}}
+
+  /* brume qui rampe */
+  .brume{position:absolute;inset:0;pointer-events:none;
+    background:
+      radial-gradient(ellipse 60% 30% at 20% 85%, rgba(150,150,160,.10), transparent 60%),
+      radial-gradient(ellipse 55% 28% at 75% 90%, rgba(140,140,150,.09), transparent 60%);
+    animation:ramper 22s ease-in-out infinite alternate;}
+  @keyframes ramper{0%{transform:translateX(-4%)}100%{transform:translateX(4%)}}
+
+  /* ---------- PETITS FANTÔMES qui flottent ---------- */
+  .spectre{position:fixed;z-index:1;pointer-events:none;
+    opacity:0;filter:blur(.4px) drop-shadow(0 0 12px rgba(200,210,220,.5));
+    animation:flotter 16s linear infinite;}
+  .spectre svg{width:60px;height:auto}
+  @keyframes flotter{
+    0%{opacity:0;transform:translateY(20px) scale(.9)}
+    12%{opacity:.55}
+    50%{transform:translateY(-30px) scale(1)}
+    88%{opacity:.4}
+    100%{opacity:0;transform:translateY(-80px) scale(1.05)}
+  }
+  .s1{left:12%;bottom:20%;animation-delay:0s}
+  .s2{left:78%;bottom:28%;animation-delay:5s}
+  .s3{left:45%;bottom:12%;animation-delay:9s}
+  .s4{left:88%;bottom:15%;animation-delay:13s}
+
+  /* ---------- CONTENU ---------- */
+  .wrap{position:relative;z-index:3;max-width:760px;margin:0 auto;
+    padding:1.5rem 1.4rem 5rem;}
+
+  .retour{display:inline-flex;align-items:center;gap:.4rem;color:var(--laiton-clair);
+    text-decoration:none;font-family:'Cormorant Garamond',serif;letter-spacing:.08em;
+    text-transform:uppercase;font-size:.85rem;margin-bottom:3rem;opacity:.7;transition:opacity .2s;}
+  .retour:hover{opacity:1}
+
+  .titre-zone{text-align:center;margin:2rem 0 3.5rem}
+  h1{font-family:'Cormorant Garamond',serif;font-weight:700;
+    font-size:clamp(2.6rem,9vw,5rem);line-height:.95;color:#e6ded0;
+    text-shadow:0 0 30px rgba(0,0,0,.9), 0 0 60px rgba(120,20,15,.4);
+    letter-spacing:.02em;}
+  h1 .nuit{display:block;font-size:.62em;color:var(--laiton-clair);
+    letter-spacing:.3em;margin-top:.5rem;text-transform:uppercase;opacity:.9}
+
+  .bloc{background:rgba(10,12,18,.72);border:1px solid rgba(184,147,80,.25);
+    border-radius:12px;padding:1.8rem 1.8rem;margin-bottom:2.5rem;
+    backdrop-filter:blur(3px);box-shadow:0 20px 50px -20px rgba(0,0,0,.9);}
+  .bloc-titre{font-family:'Cormorant Garamond',serif;font-weight:600;
+    font-size:1.6rem;color:var(--laiton-clair);margin-bottom:1rem;text-align:center;
+    letter-spacing:.04em;}
+  .bloc p{font-size:1.15rem;line-height:1.85;color:var(--creme-doux);margin-bottom:1rem}
+  .bloc p:last-child{margin-bottom:0}
+  .bloc .accent{color:var(--creme)}
+
+  .coffre-zone{text-align:center;margin:1rem 0 2.5rem}
+  .coffre-zone img{width:min(420px,88%);border-radius:8px;
+    box-shadow:0 24px 60px -18px rgba(0,0,0,.95), 0 0 0 1px rgba(184,147,80,.3);
+    filter:brightness(.92) contrast(1.05);}
+  .coffre-legende{margin-top:1rem;font-style:italic;color:var(--creme-doux);font-size:1.05rem}
+
+  .indices{text-align:center;border:1px dashed rgba(184,147,80,.4);
+    border-radius:12px;padding:2rem 1.6rem;background:rgba(10,12,18,.55);}
+  .indices .ico{font-size:2rem;display:block;margin-bottom:.6rem}
+  .indices-titre{font-family:'Cormorant Garamond',serif;font-size:1.5rem;
+    color:var(--laiton-clair);margin-bottom:.6rem}
+  .indices p{color:var(--creme-doux);font-size:1.1rem;line-height:1.7;font-style:italic}
+
+  /* ---------- GRAND FANTÔME (apparition rare) ---------- */
+  .grand-spectre{position:fixed;inset:0;z-index:2;pointer-events:none;
+    display:flex;align-items:center;justify-content:center;opacity:0;}
+  .grand-spectre svg{width:min(520px,86vw);height:auto;
+    filter:blur(1px) drop-shadow(0 0 40px rgba(180,200,210,.4));}
+  .grand-spectre.apparait{animation:surgir 3.4s ease-in-out}
+  @keyframes surgir{
+    0%{opacity:0;transform:scale(1.15)}
+    18%{opacity:.0}
+    30%{opacity:.72}
+    45%{opacity:.5}
+    60%{opacity:.75}
+    100%{opacity:0;transform:scale(1.02)}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    .spectre,.brume,.etoiles,.grand-spectre{animation:none}
+    .spectre{opacity:.3}
+  }
+</style>
+</head>
+<body>
+
+  <!-- ===== SCÈNE DE FOND ===== -->
+  <div class="scene">
+    <div class="etoiles"></div>
+    <div class="lune"></div>
+    <div class="brume"></div>
+    <div class="chateau">
+      <svg viewBox="0 0 1200 320" preserveAspectRatio="xMidYMax meet" xmlns="http://www.w3.org/2000/svg">
+        <g fill="#05060a">
+          <!-- corps principal -->
+          <rect x="380" y="150" width="440" height="170"/>
+          <!-- tour gauche -->
+          <rect x="250" y="90" width="120" height="230"/>
+          <rect x="245" y="70" width="130" height="26"/>
+          <polygon points="250,70 310,20 370,70"/>
+          <!-- tour droite -->
+          <rect x="830" y="90" width="120" height="230"/>
+          <rect x="825" y="70" width="130" height="26"/>
+          <polygon points="830,70 890,20 950,70"/>
+          <!-- tour centrale haute -->
+          <rect x="560" y="60" width="80" height="260"/>
+          <rect x="552" y="44" width="96" height="20"/>
+          <polygon points="560,44 600,4 640,44"/>
+          <!-- créneaux corps -->
+          <rect x="380" y="140" width="26" height="20"/>
+          <rect x="430" y="140" width="26" height="20"/>
+          <rect x="480" y="140" width="26" height="20"/>
+          <rect x="690" y="140" width="26" height="20"/>
+          <rect x="740" y="140" width="26" height="20"/>
+          <rect x="790" y="140" width="26" height="20"/>
+          <!-- ailes basses -->
+          <rect x="120" y="200" width="150" height="120"/>
+          <rect x="930" y="200" width="150" height="120"/>
+        </g>
+        <!-- fenêtres qui s'allument -->
+        <rect class="fenetre"    x="292" y="130" width="16" height="26"/>
+        <rect class="fenetre f2" x="586" y="120" width="18" height="30"/>
+        <rect class="fenetre f3" x="872" y="140" width="16" height="26"/>
+        <rect class="fenetre f2" x="470" y="200" width="16" height="30"/>
+        <rect class="fenetre f3" x="700" y="210" width="16" height="30"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- ===== PETITS SPECTRES ===== -->
+  <div class="spectre s1"></div>
+  <div class="spectre s2"></div>
+  <div class="spectre s3"></div>
+  <div class="spectre s4"></div>
+
+  <!-- ===== GRAND SPECTRE ===== -->
+  <div class="grand-spectre" id="grandSpectre">
+    <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="gspec" cx="50%" cy="35%" r="65%">
+          <stop offset="0%" stop-color="#e8eef2" stop-opacity="0.95"/>
+          <stop offset="55%" stop-color="#aebcc4" stop-opacity="0.6"/>
+          <stop offset="100%" stop-color="#6b7880" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <!-- voile -->
+      <path d="M150 30 C90 30 70 90 70 150 C70 230 60 300 55 380 C80 340 95 360 115 380
+               C130 350 140 360 150 385 C160 360 170 350 185 380 C205 360 220 340 245 380
+               C240 300 230 230 230 150 C230 90 210 30 150 30 Z" fill="url(#gspec)"/>
+      <!-- yeux creux -->
+      <ellipse cx="120" cy="130" rx="14" ry="22" fill="#05060a" opacity="0.85"/>
+      <ellipse cx="180" cy="130" rx="14" ry="22" fill="#05060a" opacity="0.85"/>
+      <!-- bouche hurlante -->
+      <ellipse cx="150" cy="195" rx="18" ry="34" fill="#05060a" opacity="0.8"/>
+    </svg>
+  </div>
+
+  <!-- ===== CONTENU ===== -->
+  <div class="wrap">
+    <a class="retour" href="indiana-fraise.html">← Retour</a>
+
+    <div class="titre-zone">
+      <h1>L'Exploration<span class="nuit">de la Nuit</span></h1>
+    </div>
+
+    <div class="bloc">
+      <div class="bloc-titre">Le concept</div>
+      <p>Tu as choisi la voie qui fait battre le cœur un peu plus fort. Bien.</p>
+      <p>Quelque part autour d'<span class="accent">Agen</span>, dans un lieu oublié des vivants, je vais dissimuler un <span class="accent">coffre</span>. À l'intérieur : mon livre — et l'histoire que je t'ai dédiée.</p>
+      <p>Pas de carte au trésor pour l'instant. Pas de croix rouge. Seulement la promesse qu'il t'attendra, dans le noir, patient, jusqu'à ce que tu viennes le chercher. <span class="accent">La nuit, évidemment.</span></p>
+      <p>Prends ta lampe. Prends ta caméra si le cœur t'en dit. Et viens voir qui — ou quoi — garde ce coffre.</p>
+    </div>
+
+    <div class="coffre-zone">
+      <img src="img/coffre.jpg" alt="Le coffre à trouver">
+      <div class="coffre-legende">Voici ce que tu cherches. Retiens-le bien.</div>
+    </div>
+
+    <div class="indices">
+      <span class="ico">🗝️</span>
+      <div class="indices-titre">Les indices arrivent…</div>
+      <p>Le lieu n'est pas encore prêt. Reviens sur cette page : les premiers indices y apparaîtront bientôt, un à un.</p>
+    </div>
+  </div>
+
+  <script>
+    // ---- injecter le SVG des petits fantômes ----
+    var ghostSVG =
+      '<svg viewBox="0 0 100 130" xmlns="http://www.w3.org/2000/svg">' +
+      '<defs><radialGradient id="g" cx="50%" cy="35%" r="70%">' +
+      '<stop offset="0%" stop-color="#eaf0f4" stop-opacity="0.9"/>' +
+      '<stop offset="60%" stop-color="#b3c0c8" stop-opacity="0.55"/>' +
+      '<stop offset="100%" stop-color="#6b7880" stop-opacity="0"/>' +
+      '</radialGradient></defs>' +
+      '<path d="M50 8 C28 8 20 32 20 55 C20 85 16 110 14 126 C24 112 30 120 38 128 ' +
+      'C44 116 48 122 50 129 C52 122 56 116 62 128 C70 120 76 112 86 126 ' +
+      'C84 110 80 85 80 55 C80 32 72 8 50 8 Z" fill="url(#g)"/>' +
+      '<ellipse cx="40" cy="50" rx="5" ry="8" fill="#05060a" opacity="0.8"/>' +
+      '<ellipse cx="60" cy="50" rx="5" ry="8" fill="#05060a" opacity="0.8"/>' +
+      '<ellipse cx="50" cy="72" rx="6" ry="11" fill="#05060a" opacity="0.7"/>' +
+      '</svg>';
+    document.querySelectorAll('.spectre').forEach(function(el){ el.innerHTML = ghostSVG; });
+
+    // ---- apparition rare du grand fantôme ----
+    var grand = document.getElementById('grandSpectre');
+    function hanter(){
+      grand.classList.remove('apparait');
+      void grand.offsetWidth;            // reset animation
+      grand.classList.add('apparait');
+      // prochaine apparition dans 18 à 40 s
+      setTimeout(hanter, 18000 + Math.random()*22000);
+    }
+    setTimeout(hanter, 6000);            // première apparition après 6 s
+
+    // ---- compteur ----
+    var API = "https://compteurs.royvanmil86.workers.dev";
+    function compte(cle){ try{ fetch(API+"/compte?c="+cle,{mode:"cors",keepalive:true}); }catch(e){} }
+    if(!sessionStorage.getItem("vu-ind-nuit")){
+      sessionStorage.setItem("vu-ind-nuit","1");
+      compte("indiana");
+    }
+  </script>
+</body>
+</html>

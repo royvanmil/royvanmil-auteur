@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>En savoir plus — Indiana Fraise</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --noir:#12100e;--laiton:#c9a25e;--laiton-clair:#e6c98a;
+    --creme:#e8dcc4;--creme-doux:#c8b895;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    font-family:'EB Garamond',Georgia,serif;
+    background:radial-gradient(ellipse at 50% 10%, #241a12 0%, var(--noir) 70%), var(--noir);
+    color:var(--creme);min-height:100vh;
+  }
+  body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+    background:radial-gradient(circle at 50% 20%, rgba(201,162,94,.08), transparent 55%);}
+  .wrap{position:relative;z-index:2;max-width:700px;margin:0 auto;padding:1.5rem 1.4rem 4rem}
+
+  .retour{display:inline-flex;align-items:center;gap:.4rem;color:var(--laiton-clair);
+    text-decoration:none;font-family:'Cormorant Garamond',serif;letter-spacing:.08em;
+    text-transform:uppercase;font-size:.85rem;margin-bottom:2.5rem;opacity:.8;transition:opacity .2s;}
+  .retour:hover{opacity:1}
+
+  h1{font-family:'Cormorant Garamond',serif;font-weight:600;
+    font-size:clamp(2rem,6vw,3rem);line-height:1.05;color:var(--creme);
+    margin-bottom:.4rem;text-align:center;text-shadow:0 2px 18px rgba(0,0,0,.6);}
+  .soustitre{text-align:center;font-style:italic;color:var(--laiton-clair);
+    font-size:1.15rem;margin-bottom:2.5rem}
+
+  .filet{height:1px;background:linear-gradient(90deg,transparent,var(--laiton),transparent);margin:2.2rem 0}
+
+  p{font-size:1.15rem;line-height:1.85;color:var(--creme-doux);margin-bottom:1.2rem}
+  .accent{color:var(--laiton-clair)}
+
+  .encadre{
+    background:rgba(201,162,94,.07);border:1px solid rgba(201,162,94,.28);
+    border-radius:10px;padding:1.4rem 1.6rem;margin:2rem 0;
+  }
+  .encadre p{margin-bottom:0}
+  .demande{
+    font-weight:600;color:var(--creme);font-size:1.18rem;line-height:1.7;
+  }
+
+  .liberte{list-style:none;margin:1rem 0}
+  .liberte li{position:relative;padding-left:1.8rem;margin-bottom:.7rem;
+    font-size:1.1rem;color:var(--creme);line-height:1.6}
+  .liberte li::before{content:"✦";position:absolute;left:0;color:var(--laiton);top:.1rem}
+
+  .signature{text-align:right;font-style:italic;color:var(--laiton-clair);
+    font-size:1.2rem;margin-top:2rem}
+
+  .mail{text-align:center;margin-top:2.5rem}
+  .mail a{color:var(--laiton-clair);text-decoration:none;font-size:1.1rem;
+    border-bottom:1px solid rgba(201,162,94,.4)}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <a class="retour" href="indiana-fraise.html">← Retour</a>
+
+    <h1>Pourquoi tout ça ?</h1>
+    <p class="soustitre">Un mot, d'un lecteur à un explorateur.</p>
+
+    <div class="filet"></div>
+
+    <p>Salut Indiana,</p>
+
+    <p>Je suis tes vidéos sur YouTube. Ces explorations de nuit, dans les lieux abandonnés et les endroits oubliés — <span class="accent">j'adore vraiment ce que tu fais</span>. L'ambiance, le frisson, le respect que tu as pour ces endroits.</p>
+
+    <p>J'écris des livres. Et dans l'un d'eux, il y a une histoire que je t'ai <span class="accent">dédiée</span>. C'est aussi simple que ça.</p>
+
+    <p>Comme tu habites du côté d'Agen et que je ne suis pas très loin, j'ai eu une idée : plutôt que de simplement te poster le bouquin, je peux aller <span class="accent">cacher un coffre</span> quelque part, avec le livre dedans. Et te laisser venir le chercher. La nuit. Dans un endroit qui te ressemble.</p>
+
+    <p>Juste pour le plaisir de la chose.</p>
+
+    <div class="encadre">
+      <p class="demande">Si l'aventure te tente et que tu tournes une vidéo là-bas, est-ce que je pourrais utiliser quelques images pour créer une petite page sur mon site, avec un lien vers ta vidéo ? Seulement si tu es d'accord — sinon ça ne change rien.</p>
+    </div>
+
+    <p>Et pour être bien clair sur mes intentions :</p>
+
+    <ul class="liberte">
+      <li>Je ne te demande <span class="accent">aucune pub</span>. Tu en fais si tu veux, comme tu veux, ou pas du tout.</li>
+      <li>Je ne veux <span class="accent">aucun argent</span>, ni rien en retour.</li>
+      <li>Tu peux utiliser librement tout le contenu de mon site, y revenir et le partager autant que tu le souhaites.</li>
+      <li>Et si un jour tu veux que je retire tout ce qui te concerne, un mot suffit — je le fais.</li>
+    </ul>
+
+    <p>Voilà. Le reste, c'est à toi de choisir.</p>
+
+    <div class="signature">— Roy</div>
+
+    <div class="mail">
+      <a href="mailto:royvanmilperso@gmail.com?subject=Indiana%20Fraise">M'écrire : royvanmilperso@gmail.com</a>
+    </div>
+  </div>
+
+  <script>
+    var API = "https://compteurs.royvanmil86.workers.dev";
+    function compte(cle){ try{ fetch(API+"/compte?c="+cle,{mode:"cors",keepalive:true}); }catch(e){} }
+    if(!sessionStorage.getItem("vu-ind-infos")){
+      sessionStorage.setItem("vu-ind-infos","1");
+      compte("indiana");
+    }
+  </script>
+</body>
+</html>

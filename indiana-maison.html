@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Livraison à la maison — Indiana Fraise</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --noir:#12100e;--laiton:#c9a25e;--laiton-clair:#e6c98a;
+    --creme:#e8dcc4;--creme-doux:#c8b895;
+    --vert:#4a7a3a;--vert-clair:#6ea04f;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    font-family:'EB Garamond',Georgia,serif;
+    background:radial-gradient(ellipse at 50% 15%, #241a12 0%, var(--noir) 70%), var(--noir);
+    color:var(--creme);min-height:100vh;
+  }
+  body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+    background:radial-gradient(circle at 50% 25%, rgba(201,162,94,.08), transparent 55%);}
+  .wrap{position:relative;z-index:2;max-width:640px;margin:0 auto;
+    padding:1.5rem 1.4rem 4rem;text-align:center;}
+
+  .retour{display:inline-flex;align-items:center;gap:.4rem;color:var(--laiton-clair);
+    text-decoration:none;font-family:'Cormorant Garamond',serif;letter-spacing:.08em;
+    text-transform:uppercase;font-size:.85rem;margin-bottom:3rem;opacity:.8;transition:opacity .2s;}
+  .retour:hover{opacity:1}
+
+  h1{font-family:'Cormorant Garamond',serif;font-weight:600;
+    font-size:clamp(2rem,6vw,3.2rem);line-height:1.05;color:var(--creme);margin-bottom:1.4rem;
+    text-shadow:0 2px 18px rgba(0,0,0,.6);}
+  .ico-haut{font-size:3rem;margin-bottom:1rem;display:block}
+
+  p{font-size:1.18rem;line-height:1.8;color:var(--creme-doux);max-width:46ch;margin:0 auto 1.3rem}
+  .accent{color:var(--laiton-clair)}
+
+  .btn{
+    display:inline-flex;align-items:center;gap:.7rem;margin-top:1.5rem;
+    padding:1.1rem 2rem;border-radius:10px;
+    font-family:'Cormorant Garamond',serif;font-weight:600;
+    font-size:clamp(1.15rem,3.5vw,1.5rem);letter-spacing:.02em;
+    text-decoration:none;cursor:pointer;border:none;color:var(--creme);
+    background:linear-gradient(180deg,var(--vert-clair),var(--vert));
+    box-shadow:0 10px 24px -8px rgba(74,122,58,.6);
+    transition:transform .22s, box-shadow .22s;
+  }
+  .btn:hover{transform:translateY(-4px);box-shadow:0 16px 32px -8px rgba(74,122,58,.8)}
+
+  .note{font-size:1rem;font-style:italic;color:var(--creme-doux);opacity:.75;margin-top:2rem}
+  .mail-brut{color:var(--laiton-clair);font-style:normal}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <a class="retour" href="indiana-fraise.html">← Retour</a>
+
+    <span class="ico-haut">📦</span>
+    <h1>La voie tranquille</h1>
+
+    <p>Pas envie de courir dans le noir ce soir ? Aucun souci.</p>
+    <p>Clique sur le bouton ci-dessous : ton logiciel de messagerie s'ouvre avec un message déjà prêt. Tu n'as plus qu'à <span class="accent">écrire ton adresse</span> et l'envoyer. Je t'expédie le livre.</p>
+
+    <a class="btn" href="mailto:royvanmilperso@gmail.com?subject=Indiana%20Fraise%20—%20Livraison%20à%20la%20maison&amp;body=Bonjour%20Roy%2C%0A%0AJe%20choisis%20la%20livraison%20à%20la%20maison%20!%0A%0AVoici%20mon%20adresse%20%3A%0A%0A%0AMerci%20!%0AIndiana">✉️ Ouvrir le message</a>
+
+    <p class="note">Si le bouton ne fait rien, écris-moi directement à<br>
+      <span class="mail-brut">royvanmilperso@gmail.com</span></p>
+  </div>
+
+  <script>
+    var API = "https://compteurs.royvanmil86.workers.dev";
+    function compte(cle){ try{ fetch(API+"/compte?c="+cle,{mode:"cors",keepalive:true}); }catch(e){} }
+    if(!sessionStorage.getItem("vu-ind-maison")){
+      sessionStorage.setItem("vu-ind-maison","1");
+      compte("indiana");
+    }
+  </script>
+</body>
+</html>
