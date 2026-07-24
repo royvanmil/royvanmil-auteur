@@ -9,95 +9,107 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
 <style>
   :root{
-    --sang:#7a1810;--laiton:#b8935080;--laiton-clair:#d9bd88;
+    --laiton:#b89350;--laiton-clair:#d9bd88;
     --creme:#c9beac;--creme-doux:#9a8d78;
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
   body{
     font-family:'EB Garamond',Georgia,serif;
-    background:#05060a;color:var(--creme);
+    background:#04050a;color:var(--creme);
     min-height:100vh;overflow-x:hidden;position:relative;
   }
 
-  /* ---------- CIEL & CHÂTEAU (fond fixe) ---------- */
-  .scene{position:fixed;inset:0;z-index:0;overflow:hidden;background:
-    linear-gradient(180deg,#0a0d16 0%, #10131d 40%, #0a0a0e 100%);}
-  .lune{position:absolute;top:8%;left:50%;transform:translateX(-50%);
-    width:120px;height:120px;border-radius:50%;
-    background:radial-gradient(circle at 40% 40%, #d8d3c4, #9a957f 70%, #6f6a58);
-    box-shadow:0 0 60px 20px rgba(200,195,175,.25), 0 0 140px 60px rgba(150,150,130,.12);}
-  .lune::after{content:"";position:absolute;inset:0;border-radius:50%;
-    background:radial-gradient(circle at 65% 30%, rgba(0,0,0,.18) 8%, transparent 9%),
-               radial-gradient(circle at 40% 60%, rgba(0,0,0,.14) 6%, transparent 7%);}
-  .etoiles{position:absolute;inset:0;
+  /* ===== PORTE ===== */
+  .porte{position:fixed;inset:0;z-index:200;background:#04050a;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;padding:2rem;transition:opacity 1s;}
+  .porte.partie{opacity:0;pointer-events:none}
+  .porte h2{font-family:'Cormorant Garamond',serif;font-weight:600;
+    font-size:clamp(1.8rem,6vw,2.8rem);color:#d9bd88;margin-bottom:1rem;
+    text-shadow:0 0 24px rgba(120,20,15,.5)}
+  .porte p{color:var(--creme-doux);font-size:1.1rem;max-width:40ch;
+    line-height:1.7;margin-bottom:2rem;font-style:italic}
+  .porte .avert{color:#a8443a;font-size:.95rem;letter-spacing:.05em;
+    text-transform:uppercase;margin-bottom:2.5rem;opacity:.85}
+  .porte button{
+    background:linear-gradient(180deg,#3a1512,#1e0a08);
+    color:#d9bd88;border:1px solid rgba(184,80,60,.5);
+    font-family:'Cormorant Garamond',serif;font-weight:600;
+    font-size:1.4rem;letter-spacing:.05em;padding:1rem 2.4rem;border-radius:8px;
+    cursor:pointer;transition:transform .2s, box-shadow .2s, background .2s;
+    box-shadow:0 0 30px -6px rgba(140,30,20,.6)}
+  .porte button:hover{transform:scale(1.05);
+    box-shadow:0 0 50px -4px rgba(160,40,25,.85);background:linear-gradient(180deg,#4a1a16,#26100c)}
+
+  /* ===== SCÈNE ===== */
+  .scene{position:fixed;inset:0;z-index:0;overflow:hidden;
+    background:radial-gradient(ellipse at 50% 20%, #0c1018 0%, #06070c 55%, #030308 100%);}
+  .lune{position:absolute;top:6%;left:50%;transform:translateX(-50%);
+    width:100px;height:100px;border-radius:50%;
+    background:radial-gradient(circle at 42% 40%, #cfc9b6, #8f8a74 68%, #565241);
+    box-shadow:0 0 50px 16px rgba(190,185,165,.22), 0 0 120px 50px rgba(120,120,100,.1);}
+  .etoiles{position:absolute;inset:0;opacity:.5;
     background-image:
-      radial-gradient(1px 1px at 20% 30%, #fff, transparent),
-      radial-gradient(1px 1px at 60% 15%, #fff, transparent),
-      radial-gradient(1px 1px at 80% 40%, #ddd, transparent),
-      radial-gradient(1px 1px at 35% 50%, #fff, transparent),
-      radial-gradient(1px 1px at 90% 20%, #ccc, transparent),
-      radial-gradient(1px 1px at 10% 60%, #fff, transparent);
-    opacity:.5;animation:scintiller 5s ease-in-out infinite alternate;}
-  @keyframes scintiller{0%{opacity:.3}100%{opacity:.65}}
+      radial-gradient(1px 1px at 15% 25%,#fff,transparent),
+      radial-gradient(1px 1px at 55% 12%,#fff,transparent),
+      radial-gradient(1px 1px at 82% 33%,#ddd,transparent),
+      radial-gradient(1px 1px at 33% 44%,#fff,transparent),
+      radial-gradient(1px 1px at 92% 18%,#ccc,transparent),
+      radial-gradient(1px 1px at 8% 55%,#fff,transparent);
+    animation:scint 5s ease-in-out infinite alternate;}
+  @keyframes scint{0%{opacity:.3}100%{opacity:.6}}
 
-  /* château en silhouette (SVG collé en bas) */
-  .chateau{position:absolute;bottom:0;left:0;width:100%;height:auto;
-    filter:drop-shadow(0 0 20px rgba(0,0,0,.9));}
-  .chateau svg{display:block;width:100%;height:auto}
-  .fenetre{fill:#c8901f;opacity:.0;animation:lueur 6s ease-in-out infinite}
-  .fenetre.f2{animation-delay:2s}
-  .fenetre.f3{animation-delay:3.6s}
-  @keyframes lueur{0%,100%{opacity:0}45%,55%{opacity:.6}}
+  .foret{position:absolute;bottom:0;left:0;width:100%;height:auto;z-index:1}
+  .foret svg{display:block;width:100%;height:auto}
 
-  /* brume qui rampe */
-  .brume{position:absolute;inset:0;pointer-events:none;
+  .brume{position:absolute;inset:-15%;z-index:2;pointer-events:none;
     background:
-      radial-gradient(ellipse 60% 30% at 20% 85%, rgba(150,150,160,.10), transparent 60%),
-      radial-gradient(ellipse 55% 28% at 75% 90%, rgba(140,140,150,.09), transparent 60%);
-    animation:ramper 22s ease-in-out infinite alternate;}
-  @keyframes ramper{0%{transform:translateX(-4%)}100%{transform:translateX(4%)}}
+      radial-gradient(ellipse 55% 35% at 25% 80%, rgba(160,165,175,.14), transparent 60%),
+      radial-gradient(ellipse 50% 32% at 72% 88%, rgba(150,155,165,.12), transparent 60%),
+      radial-gradient(ellipse 70% 40% at 50% 95%, rgba(140,145,155,.16), transparent 65%);
+    animation:ramper 20s ease-in-out infinite alternate;}
+  .brume2{animation-duration:32s;animation-direction:alternate-reverse;opacity:.7}
+  @keyframes ramper{0%{transform:translate(-4%,0)}100%{transform:translate(5%,-2%)}}
 
-  /* ---------- PETITS FANTÔMES qui flottent ---------- */
-  .spectre{position:fixed;z-index:1;pointer-events:none;
-    opacity:0;filter:blur(.4px) drop-shadow(0 0 12px rgba(200,210,220,.5));
-    animation:flotter 16s linear infinite;}
-  .spectre svg{width:60px;height:auto}
-  @keyframes flotter{
-    0%{opacity:0;transform:translateY(20px) scale(.9)}
-    12%{opacity:.55}
-    50%{transform:translateY(-30px) scale(1)}
-    88%{opacity:.4}
-    100%{opacity:0;transform:translateY(-80px) scale(1.05)}
+  .yeux{position:fixed;z-index:3;pointer-events:none;display:flex;gap:14px;opacity:0;
+    animation:cligne 9s ease-in-out infinite}
+  .yeux span{width:11px;height:11px;border-radius:50%;
+    background:radial-gradient(circle,#fff 30%,#c9302a 75%,transparent);
+    box-shadow:0 0 12px 3px rgba(230,60,50,.6)}
+  .yeux.y1{top:34%;left:12%;animation-delay:2s}
+  .yeux.y2{top:52%;left:82%;animation-delay:6s}
+  .yeux.y3{top:68%;left:24%;animation-delay:11s}
+  @keyframes cligne{0%,100%{opacity:0}46%,54%{opacity:.9}}
+
+  .titan{position:fixed;bottom:-4%;left:50%;transform:translateX(-50%);z-index:2;
+    width:min(560px,94vw);opacity:0;pointer-events:none;
+    animation:titanApp 26s ease-in-out infinite}
+  .titan svg{width:100%;height:auto;filter:blur(1px) drop-shadow(0 0 40px rgba(150,170,185,.35))}
+  @keyframes titanApp{
+    0%,100%{opacity:0;transform:translateX(-50%) translateY(40px)}
+    40%,60%{opacity:.55;transform:translateX(-50%) translateY(0)}
   }
-  .s1{left:12%;bottom:20%;animation-delay:0s}
-  .s2{left:78%;bottom:28%;animation-delay:5s}
-  .s3{left:45%;bottom:12%;animation-delay:9s}
-  .s4{left:88%;bottom:15%;animation-delay:13s}
 
-  /* ---------- CONTENU ---------- */
-  .wrap{position:relative;z-index:3;max-width:760px;margin:0 auto;
-    padding:1.5rem 1.4rem 5rem;}
-
+  /* ===== CONTENU ===== */
+  .wrap{position:relative;z-index:5;max-width:760px;margin:0 auto;padding:1.5rem 1.4rem 5rem}
   .retour{display:inline-flex;align-items:center;gap:.4rem;color:var(--laiton-clair);
     text-decoration:none;font-family:'Cormorant Garamond',serif;letter-spacing:.08em;
-    text-transform:uppercase;font-size:.85rem;margin-bottom:3rem;opacity:.7;transition:opacity .2s;}
+    text-transform:uppercase;font-size:.85rem;margin-bottom:3rem;opacity:.65;transition:opacity .2s}
   .retour:hover{opacity:1}
 
   .titre-zone{text-align:center;margin:2rem 0 3.5rem}
   h1{font-family:'Cormorant Garamond',serif;font-weight:700;
     font-size:clamp(2.6rem,9vw,5rem);line-height:.95;color:#e6ded0;
-    text-shadow:0 0 30px rgba(0,0,0,.9), 0 0 60px rgba(120,20,15,.4);
-    letter-spacing:.02em;}
+    text-shadow:0 0 30px rgba(0,0,0,.9), 0 0 70px rgba(120,20,15,.45);letter-spacing:.02em}
   h1 .nuit{display:block;font-size:.62em;color:var(--laiton-clair);
     letter-spacing:.3em;margin-top:.5rem;text-transform:uppercase;opacity:.9}
 
-  .bloc{background:rgba(10,12,18,.72);border:1px solid rgba(184,147,80,.25);
-    border-radius:12px;padding:1.8rem 1.8rem;margin-bottom:2.5rem;
-    backdrop-filter:blur(3px);box-shadow:0 20px 50px -20px rgba(0,0,0,.9);}
-  .bloc-titre{font-family:'Cormorant Garamond',serif;font-weight:600;
-    font-size:1.6rem;color:var(--laiton-clair);margin-bottom:1rem;text-align:center;
-    letter-spacing:.04em;}
+  .bloc{background:rgba(6,8,14,.78);border:1px solid rgba(184,147,80,.25);border-radius:12px;
+    padding:1.8rem;margin-bottom:2.5rem;backdrop-filter:blur(3px);
+    box-shadow:0 20px 50px -20px rgba(0,0,0,.95)}
+  .bloc-titre{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.6rem;
+    color:var(--laiton-clair);margin-bottom:1rem;text-align:center;letter-spacing:.04em}
   .bloc p{font-size:1.15rem;line-height:1.85;color:var(--creme-doux);margin-bottom:1rem}
   .bloc p:last-child{margin-bottom:0}
   .bloc .accent{color:var(--creme)}
@@ -105,113 +117,110 @@
   .coffre-zone{text-align:center;margin:1rem 0 2.5rem}
   .coffre-zone img{width:min(420px,88%);border-radius:8px;
     box-shadow:0 24px 60px -18px rgba(0,0,0,.95), 0 0 0 1px rgba(184,147,80,.3);
-    filter:brightness(.92) contrast(1.05);}
+    filter:brightness(.9) contrast(1.05)}
   .coffre-legende{margin-top:1rem;font-style:italic;color:var(--creme-doux);font-size:1.05rem}
 
-  .indices{text-align:center;border:1px dashed rgba(184,147,80,.4);
-    border-radius:12px;padding:2rem 1.6rem;background:rgba(10,12,18,.55);}
+  .indices{text-align:center;border:1px dashed rgba(184,147,80,.4);border-radius:12px;
+    padding:2rem 1.6rem;background:rgba(6,8,14,.6)}
   .indices .ico{font-size:2rem;display:block;margin-bottom:.6rem}
   .indices-titre{font-family:'Cormorant Garamond',serif;font-size:1.5rem;
     color:var(--laiton-clair);margin-bottom:.6rem}
   .indices p{color:var(--creme-doux);font-size:1.1rem;line-height:1.7;font-style:italic}
 
-  /* ---------- GRAND FANTÔME (apparition rare) ---------- */
-  .grand-spectre{position:fixed;inset:0;z-index:2;pointer-events:none;
-    display:flex;align-items:center;justify-content:center;opacity:0;}
-  .grand-spectre svg{width:min(520px,86vw);height:auto;
-    filter:blur(1px) drop-shadow(0 0 40px rgba(180,200,210,.4));}
-  .grand-spectre.apparait{animation:surgir 3.4s ease-in-out}
-  @keyframes surgir{
-    0%{opacity:0;transform:scale(1.15)}
-    18%{opacity:.0}
-    30%{opacity:.72}
-    45%{opacity:.5}
-    60%{opacity:.75}
-    100%{opacity:0;transform:scale(1.02)}
-  }
+  /* ===== JUMPSCARE ===== */
+  .jumpscare{position:fixed;inset:0;z-index:300;background:#000;
+    display:none;align-items:center;justify-content:center}
+  .jumpscare.on{display:flex;animation:flashScare .55s steps(2) 3}
+  @keyframes flashScare{0%{background:#000}50%{background:#2a0a08}100%{background:#000}}
+  .jumpscare svg{width:min(600px,96vw);height:auto;
+    animation:zoomScare .6s ease-out;filter:drop-shadow(0 0 40px rgba(200,0,0,.4))}
+  @keyframes zoomScare{0%{transform:scale(.4);opacity:.2}60%{transform:scale(1.12)}100%{transform:scale(1)}}
+
+  .son-toggle{position:fixed;bottom:1rem;right:1rem;z-index:50;
+    background:rgba(6,8,14,.8);border:1px solid rgba(184,147,80,.35);
+    color:var(--laiton-clair);border-radius:50%;width:2.8rem;height:2.8rem;
+    font-size:1.1rem;cursor:pointer;transition:transform .2s}
+  .son-toggle:hover{transform:scale(1.1)}
 
   @media (prefers-reduced-motion:reduce){
-    .spectre,.brume,.etoiles,.grand-spectre{animation:none}
-    .spectre{opacity:.3}
+    .brume,.etoiles,.yeux,.titan{animation:none}
   }
 </style>
 </head>
 <body>
 
-  <!-- ===== SCÈNE DE FOND ===== -->
+  <div class="porte" id="porte">
+    <h2>Tu es sûr ?</h2>
+    <p>Ce que tu vas voir n'est pas fait pour les cœurs fragiles. Le son rend l'expérience… bien pire.</p>
+    <div class="avert">&#9888; Chuchotements &amp; apparitions</div>
+    <button onclick="entrer()">&#128367;&#65039; J'entre dans le noir</button>
+  </div>
+
   <div class="scene">
     <div class="etoiles"></div>
     <div class="lune"></div>
-    <div class="brume"></div>
-    <div class="chateau">
-      <svg viewBox="0 0 1200 320" preserveAspectRatio="xMidYMax meet" xmlns="http://www.w3.org/2000/svg">
-        <g fill="#05060a">
-          <!-- corps principal -->
-          <rect x="380" y="150" width="440" height="170"/>
-          <!-- tour gauche -->
-          <rect x="250" y="90" width="120" height="230"/>
-          <rect x="245" y="70" width="130" height="26"/>
-          <polygon points="250,70 310,20 370,70"/>
-          <!-- tour droite -->
-          <rect x="830" y="90" width="120" height="230"/>
-          <rect x="825" y="70" width="130" height="26"/>
-          <polygon points="830,70 890,20 950,70"/>
-          <!-- tour centrale haute -->
-          <rect x="560" y="60" width="80" height="260"/>
-          <rect x="552" y="44" width="96" height="20"/>
-          <polygon points="560,44 600,4 640,44"/>
-          <!-- créneaux corps -->
-          <rect x="380" y="140" width="26" height="20"/>
-          <rect x="430" y="140" width="26" height="20"/>
-          <rect x="480" y="140" width="26" height="20"/>
-          <rect x="690" y="140" width="26" height="20"/>
-          <rect x="740" y="140" width="26" height="20"/>
-          <rect x="790" y="140" width="26" height="20"/>
-          <!-- ailes basses -->
-          <rect x="120" y="200" width="150" height="120"/>
-          <rect x="930" y="200" width="150" height="120"/>
-        </g>
-        <!-- fenêtres qui s'allument -->
-        <rect class="fenetre"    x="292" y="130" width="16" height="26"/>
-        <rect class="fenetre f2" x="586" y="120" width="18" height="30"/>
-        <rect class="fenetre f3" x="872" y="140" width="16" height="26"/>
-        <rect class="fenetre f2" x="470" y="200" width="16" height="30"/>
-        <rect class="fenetre f3" x="700" y="210" width="16" height="30"/>
+
+    <div class="titan">
+      <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+        <defs><radialGradient id="tg" cx="50%" cy="30%" r="60%">
+          <stop offset="0%" stop-color="#aebcc6" stop-opacity=".5"/>
+          <stop offset="60%" stop-color="#5c6771" stop-opacity=".35"/>
+          <stop offset="100%" stop-color="#2a3138" stop-opacity="0"/></radialGradient></defs>
+        <path d="M150 40 C120 40 105 75 108 120 C80 140 55 175 45 210 C75 195 95 205 110 225
+                 C120 255 135 250 150 250 C165 250 180 255 190 225 C205 205 225 195 255 210
+                 C245 175 220 140 192 120 C195 75 180 40 150 40 Z" fill="url(#tg)"/>
+        <circle cx="132" cy="110" r="8" fill="#efe" opacity=".95"/>
+        <circle cx="168" cy="110" r="8" fill="#efe" opacity=".95"/>
       </svg>
     </div>
+
+    <div class="foret">
+      <svg viewBox="0 0 1200 300" preserveAspectRatio="xMidYMax meet" xmlns="http://www.w3.org/2000/svg">
+        <g fill="#04050a">
+          <rect x="0" y="180" width="1200" height="120"/>
+          <path d="M120 300 L120 120 Q118 90 100 70 Q118 95 135 100 Q150 80 145 60 Q160 90 150 110 L150 300 Z"/>
+          <path d="M300 300 L300 90 Q296 55 270 40 Q296 70 320 72 Q340 45 330 25 Q356 65 340 95 L335 300 Z"/>
+          <path d="M520 300 L520 140 Q516 110 496 92 Q520 116 542 118 Q558 96 552 78 Q574 112 556 134 L550 300 Z"/>
+          <path d="M720 300 L720 80 Q714 44 686 28 Q716 62 742 64 Q764 36 752 16 Q782 60 762 92 L756 300 Z"/>
+          <path d="M940 300 L940 130 Q935 100 912 82 Q938 108 962 110 Q980 86 972 66 Q998 104 978 130 L972 300 Z"/>
+          <path d="M1090 300 L1090 110 Q1085 78 1060 60 Q1088 90 1112 92 Q1132 66 1122 46 Q1150 86 1128 116 L1122 300 Z"/>
+        </g>
+      </svg>
+    </div>
+
+    <div class="brume"></div>
+    <div class="brume brume2"></div>
+
+    <div class="yeux y1"><span></span><span></span></div>
+    <div class="yeux y2"><span></span><span></span></div>
+    <div class="yeux y3"><span></span><span></span></div>
   </div>
 
-  <!-- ===== PETITS SPECTRES ===== -->
-  <div class="spectre s1"></div>
-  <div class="spectre s2"></div>
-  <div class="spectre s3"></div>
-  <div class="spectre s4"></div>
-
-  <!-- ===== GRAND SPECTRE ===== -->
-  <div class="grand-spectre" id="grandSpectre">
-    <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <radialGradient id="gspec" cx="50%" cy="35%" r="65%">
-          <stop offset="0%" stop-color="#e8eef2" stop-opacity="0.95"/>
-          <stop offset="55%" stop-color="#aebcc4" stop-opacity="0.6"/>
-          <stop offset="100%" stop-color="#6b7880" stop-opacity="0"/>
-        </radialGradient>
-      </defs>
-      <!-- voile -->
-      <path d="M150 30 C90 30 70 90 70 150 C70 230 60 300 55 380 C80 340 95 360 115 380
-               C130 350 140 360 150 385 C160 360 170 350 185 380 C205 360 220 340 245 380
-               C240 300 230 230 230 150 C230 90 210 30 150 30 Z" fill="url(#gspec)"/>
-      <!-- yeux creux -->
-      <ellipse cx="120" cy="130" rx="14" ry="22" fill="#05060a" opacity="0.85"/>
-      <ellipse cx="180" cy="130" rx="14" ry="22" fill="#05060a" opacity="0.85"/>
-      <!-- bouche hurlante -->
-      <ellipse cx="150" cy="195" rx="18" ry="34" fill="#05060a" opacity="0.8"/>
+  <div class="jumpscare" id="jumpscare">
+    <svg viewBox="0 0 300 380" xmlns="http://www.w3.org/2000/svg">
+      <defs><radialGradient id="face" cx="50%" cy="42%" r="60%">
+        <stop offset="0%" stop-color="#e9e6dd"/><stop offset="70%" stop-color="#9c988c"/>
+        <stop offset="100%" stop-color="#4b4841"/></radialGradient></defs>
+      <path d="M150 20 C80 20 40 80 40 160 C40 210 60 250 80 280 L90 340 C95 360 110 372 150 372
+               C190 372 205 360 210 340 L220 280 C240 250 260 210 260 160 C260 80 220 20 150 20 Z" fill="url(#face)"/>
+      <ellipse cx="105" cy="160" rx="30" ry="40" fill="#000"/>
+      <ellipse cx="195" cy="160" rx="30" ry="40" fill="#000"/>
+      <circle cx="105" cy="168" r="6" fill="#c9302a"/>
+      <circle cx="195" cy="168" r="6" fill="#c9302a"/>
+      <path d="M150 190 L132 245 Q150 258 168 245 Z" fill="#000"/>
+      <path d="M100 295 Q150 320 200 295 Q195 330 150 335 Q105 330 100 295 Z" fill="#0a0a0a"/>
+      <g fill="#d8d3c4">
+        <rect x="112" y="298" width="10" height="20"/><rect x="128" y="302" width="10" height="22"/>
+        <rect x="144" y="304" width="10" height="24"/><rect x="160" y="302" width="10" height="22"/>
+        <rect x="176" y="298" width="10" height="20"/>
+      </g>
     </svg>
   </div>
 
-  <!-- ===== CONTENU ===== -->
+  <button class="son-toggle" id="sonToggle" onclick="toggleSon()" title="Couper/activer le son" style="display:none">&#128266;</button>
+
   <div class="wrap">
-    <a class="retour" href="indiana-fraise.html">← Retour</a>
+    <a class="retour" href="indiana-fraise.html">&#8592; Retour</a>
 
     <div class="titre-zone">
       <h1>L'Exploration<span class="nuit">de la Nuit</span></h1>
@@ -219,59 +228,126 @@
 
     <div class="bloc">
       <div class="bloc-titre">Le concept</div>
-      <p>Tu as choisi la voie qui fait battre le cœur un peu plus fort. Bien.</p>
-      <p>Quelque part autour d'<span class="accent">Agen</span>, dans un lieu oublié des vivants, je vais dissimuler un <span class="accent">coffre</span>. À l'intérieur : mon livre — et l'histoire que je t'ai dédiée.</p>
-      <p>Pas de carte au trésor pour l'instant. Pas de croix rouge. Seulement la promesse qu'il t'attendra, dans le noir, patient, jusqu'à ce que tu viennes le chercher. <span class="accent">La nuit, évidemment.</span></p>
-      <p>Prends ta lampe. Prends ta caméra si le cœur t'en dit. Et viens voir qui — ou quoi — garde ce coffre.</p>
+      <p>Tu as choisi la voie qui fait battre le c&#339;ur un peu plus fort. Bien.</p>
+      <p>Quelque part autour d'<span class="accent">Agen</span>, dans un lieu oubli&#233; des vivants, je vais dissimuler un <span class="accent">coffre</span>. &#192; l'int&#233;rieur : mon livre &#8212; et l'histoire que je t'ai d&#233;di&#233;e.</p>
+      <p>Pas de carte au tr&#233;sor pour l'instant. Pas de croix rouge. Seulement la promesse qu'il t'attendra, dans le noir, patient, jusqu'&#224; ce que tu viennes le chercher. <span class="accent">La nuit, &#233;videmment.</span></p>
+      <p>Prends ta lampe. Prends ta cam&#233;ra si le c&#339;ur t'en dit. Et viens voir qui &#8212; ou quoi &#8212; garde ce coffre.</p>
     </div>
 
     <div class="coffre-zone">
-      <img src="img/coffre.jpg" alt="Le coffre à trouver">
+      <img src="img/coffre.jpg" alt="Le coffre &#224; trouver">
       <div class="coffre-legende">Voici ce que tu cherches. Retiens-le bien.</div>
     </div>
 
     <div class="indices">
-      <span class="ico">🗝️</span>
-      <div class="indices-titre">Les indices arrivent…</div>
-      <p>Le lieu n'est pas encore prêt. Reviens sur cette page : les premiers indices y apparaîtront bientôt, un à un.</p>
+      <span class="ico">&#128273;</span>
+      <div class="indices-titre">Les indices arrivent&#8230;</div>
+      <p>Le lieu n'est pas encore pr&#234;t. Reviens sur cette page : les premiers indices y appara&#238;tront bient&#244;t, un &#224; un.</p>
     </div>
   </div>
 
   <script>
-    // ---- injecter le SVG des petits fantômes ----
-    var ghostSVG =
-      '<svg viewBox="0 0 100 130" xmlns="http://www.w3.org/2000/svg">' +
-      '<defs><radialGradient id="g" cx="50%" cy="35%" r="70%">' +
-      '<stop offset="0%" stop-color="#eaf0f4" stop-opacity="0.9"/>' +
-      '<stop offset="60%" stop-color="#b3c0c8" stop-opacity="0.55"/>' +
-      '<stop offset="100%" stop-color="#6b7880" stop-opacity="0"/>' +
-      '</radialGradient></defs>' +
-      '<path d="M50 8 C28 8 20 32 20 55 C20 85 16 110 14 126 C24 112 30 120 38 128 ' +
-      'C44 116 48 122 50 129 C52 122 56 116 62 128 C70 120 76 112 86 126 ' +
-      'C84 110 80 85 80 55 C80 32 72 8 50 8 Z" fill="url(#g)"/>' +
-      '<ellipse cx="40" cy="50" rx="5" ry="8" fill="#05060a" opacity="0.8"/>' +
-      '<ellipse cx="60" cy="50" rx="5" ry="8" fill="#05060a" opacity="0.8"/>' +
-      '<ellipse cx="50" cy="72" rx="6" ry="11" fill="#05060a" opacity="0.7"/>' +
-      '</svg>';
-    document.querySelectorAll('.spectre').forEach(function(el){ el.innerHTML = ghostSVG; });
-
-    // ---- apparition rare du grand fantôme ----
-    var grand = document.getElementById('grandSpectre');
-    function hanter(){
-      grand.classList.remove('apparait');
-      void grand.offsetWidth;            // reset animation
-      grand.classList.add('apparait');
-      // prochaine apparition dans 18 à 40 s
-      setTimeout(hanter, 18000 + Math.random()*22000);
+    var audioCtx=null, sonActif=true, ventGain=null, chuchoTimer=null;
+    function initSon(){
+      if(audioCtx) return;
+      try{ audioCtx = new (window.AudioContext||window.webkitAudioContext)(); }catch(e){ return; }
+      var buf = audioCtx.createBuffer(1, audioCtx.sampleRate*2, audioCtx.sampleRate);
+      var d = buf.getChannelData(0);
+      for(var i=0;i<d.length;i++){ d[i]=Math.random()*2-1; }
+      var vent = audioCtx.createBufferSource(); vent.buffer=buf; vent.loop=true;
+      var filtre = audioCtx.createBiquadFilter(); filtre.type="lowpass"; filtre.frequency.value=380;
+      ventGain = audioCtx.createGain(); ventGain.gain.value=0.14;
+      var lfo=audioCtx.createOscillator(); lfo.frequency.value=0.08;
+      var lfoGain=audioCtx.createGain(); lfoGain.gain.value=0.08;
+      lfo.connect(lfoGain); lfoGain.connect(ventGain.gain);
+      vent.connect(filtre); filtre.connect(ventGain); ventGain.connect(audioCtx.destination);
+      vent.start(); lfo.start();
+      programmerChuchotements();
     }
-    setTimeout(hanter, 6000);            // première apparition après 6 s
+    function chuchoter(){
+      if(!audioCtx||!sonActif) return;
+      var dur=0.8+Math.random()*0.9;
+      var b=audioCtx.createBuffer(1, Math.floor(audioCtx.sampleRate*dur), audioCtx.sampleRate);
+      var dd=b.getChannelData(0);
+      for(var i=0;i<dd.length;i++){
+        var env=Math.sin(Math.PI*i/dd.length);
+        dd[i]=(Math.random()*2-1)*env*0.5;
+      }
+      var s=audioCtx.createBufferSource(); s.buffer=b;
+      var f=audioCtx.createBiquadFilter(); f.type="bandpass";
+      f.frequency.value=900+Math.random()*1400; f.Q.value=6;
+      var g=audioCtx.createGain(); g.gain.value=0.22;
+      var pan=audioCtx.createStereoPanner? audioCtx.createStereoPanner():null;
+      s.connect(f); f.connect(g);
+      if(pan){ pan.pan.value=Math.random()*2-1; g.connect(pan); pan.connect(audioCtx.destination); }
+      else g.connect(audioCtx.destination);
+      s.start();
+    }
+    function programmerChuchotements(){
+      clearTimeout(chuchoTimer);
+      chuchoter();
+      chuchoTimer=setTimeout(programmerChuchotements, 4000+Math.random()*7000);
+    }
+    function battement(n){
+      if(!audioCtx||!sonActif||n<=0) return;
+      var t=audioCtx.currentTime;
+      [0,0.28].forEach(function(off){
+        var o=audioCtx.createOscillator(); o.type="sine"; o.frequency.value=55;
+        var g=audioCtx.createGain(); g.gain.setValueAtTime(0,t+off);
+        g.gain.linearRampToValueAtTime(0.5,t+off+0.03);
+        g.gain.exponentialRampToValueAtTime(0.001,t+off+0.22);
+        o.connect(g); g.connect(audioCtx.destination); o.start(t+off); o.stop(t+off+0.25);
+      });
+      setTimeout(function(){ battement(n-1); }, 700);
+    }
+    function coupScare(){
+      if(!audioCtx||!sonActif) return;
+      var dur=0.7;
+      var b=audioCtx.createBuffer(1,Math.floor(audioCtx.sampleRate*dur),audioCtx.sampleRate);
+      var dd=b.getChannelData(0);
+      for(var i=0;i<dd.length;i++){ dd[i]=(Math.random()*2-1)*(1-i/dd.length); }
+      var s=audioCtx.createBufferSource(); s.buffer=b;
+      var g=audioCtx.createGain(); g.gain.value=0.6;
+      s.connect(g); g.connect(audioCtx.destination); s.start();
+      var o=audioCtx.createOscillator(); o.type="sawtooth"; o.frequency.value=70;
+      var og=audioCtx.createGain(); og.gain.setValueAtTime(0.5,audioCtx.currentTime);
+      og.gain.exponentialRampToValueAtTime(0.001,audioCtx.currentTime+0.7);
+      o.connect(og); og.connect(audioCtx.destination); o.start(); o.stop(audioCtx.currentTime+0.7);
+    }
+    function toggleSon(){
+      sonActif=!sonActif;
+      document.getElementById('sonToggle').innerHTML = sonActif?"&#128266;":"&#128263;";
+      if(ventGain) ventGain.gain.value = sonActif?0.14:0;
+      if(sonActif) programmerChuchotements(); else clearTimeout(chuchoTimer);
+    }
 
-    // ---- compteur ----
-    var API = "https://compteurs.royvanmil86.workers.dev";
+    var js=document.getElementById('jumpscare');
+    function declencher(){
+      battement(2);
+      setTimeout(function(){
+        js.classList.add('on'); coupScare();
+        if(navigator.vibrate) navigator.vibrate([80,40,120]);
+        setTimeout(function(){ js.classList.remove('on'); }, 1400);
+      }, 1500);
+    }
+    function planifierScare(){
+      var delai = 12000 + Math.random()*20000;
+      setTimeout(function(){ declencher(); planifierScare(); }, delai);
+    }
+
+    function entrer(){
+      document.getElementById('porte').classList.add('partie');
+      document.getElementById('sonToggle').style.display='block';
+      initSon();
+      if(audioCtx && audioCtx.state==='suspended') audioCtx.resume();
+      setTimeout(function(){ declencher(); }, 4000);
+      planifierScare();
+    }
+
+    var API="https://compteurs.royvanmil86.workers.dev";
     function compte(cle){ try{ fetch(API+"/compte?c="+cle,{mode:"cors",keepalive:true}); }catch(e){} }
     if(!sessionStorage.getItem("vu-ind-nuit")){
-      sessionStorage.setItem("vu-ind-nuit","1");
-      compte("indiana");
+      sessionStorage.setItem("vu-ind-nuit","1"); compte("indiana");
     }
   </script>
 </body>
