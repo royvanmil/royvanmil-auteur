@@ -130,5 +130,16 @@
     <div class="bientot">Bientôt</div>
     <div class="sous-bientot">Un roman gothique en préparation.</div>
   </div>
+
+  <script>
+    var API = "https://compteurs.royvanmil86.workers.dev";
+    function compte(cle){
+      try{ fetch(API + "/compte?c=" + cle, {mode:"cors", keepalive:true}); }catch(e){}
+    }
+    if(!sessionStorage.getItem("vu-livre3")){
+      sessionStorage.setItem("vu-livre3","1");
+      compte("livre3-cloche");
+    }
+  </script>
 </body>
 </html>

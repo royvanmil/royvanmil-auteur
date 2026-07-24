@@ -193,7 +193,7 @@
         <p>Checklists visuelles · Points clés · Conseils de base — 15 ans d'expérience sur le terrain à votre service.</p>
 
         <div class="boutons">
-          <a class="btn btn-amazon" href="https://amzn.eu/d/08jvr7MH" target="_blank" rel="noopener">Disponible sur Amazon</a>
+          <a class="btn btn-amazon" href="https://amzn.eu/d/08jvr7MH" target="_blank" rel="noopener" onclick="compte('clic-amazon')">Disponible sur Amazon</a>
           <a class="btn btn-clim" href="https://www.pro2tec.net/livre.html" target="_blank" rel="noopener">🎁 Gagner une clim</a>
         </div>
       </div>
@@ -262,5 +262,14 @@
       document.body.style.overflow='';
     }
     document.addEventListener('keydown',function(e){if(e.key==='Escape')fermer();});
+
+    var API = "https://compteurs.royvanmil86.workers.dev";
+    function compte(cle){
+      try{ fetch(API + "/compte?c=" + cle, {mode:"cors", keepalive:true}); }catch(e){}
+    }
+    if(!sessionStorage.getItem("vu-livre1")){
+      sessionStorage.setItem("vu-livre1","1");
+      compte("livre1-maison");
+    }
   </script>
 </html>

@@ -117,5 +117,16 @@
       </a>
     </div>
   </div>
+
+  <script>
+    var API = "https://compteurs.royvanmil86.workers.dev";
+    function compte(cle){
+      try{ fetch(API + "/compte?c=" + cle, {mode:"cors", keepalive:true}); }catch(e){}
+    }
+    if(!sessionStorage.getItem("vu-indiana")){
+      sessionStorage.setItem("vu-indiana","1");
+      compte("indiana");
+    }
+  </script>
 </body>
 </html>

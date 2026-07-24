@@ -249,5 +249,16 @@
     <a href="https://www.instagram.com/royvanmil.auteur/" target="_blank" rel="noopener">Instagram</a>
   </footer>
 
+  <script>
+    var API = "https://compteurs.royvanmil86.workers.dev";
+    function compte(cle){
+      try{ fetch(API + "/compte?c=" + cle, {mode:"cors", keepalive:true}); }catch(e){}
+    }
+    if(!sessionStorage.getItem("vu-accueil")){
+      sessionStorage.setItem("vu-accueil","1");
+      compte("accueil");
+    }
+  </script>
+
 </body>
 </html>
