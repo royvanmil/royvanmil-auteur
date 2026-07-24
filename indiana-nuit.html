@@ -43,31 +43,19 @@
     box-shadow:0 0 50px -4px rgba(160,40,25,.85);background:linear-gradient(180deg,#4a1a16,#26100c)}
 
   /* ===== SCÈNE ===== */
-  .scene{position:fixed;inset:0;z-index:0;overflow:hidden;
-    background:radial-gradient(ellipse at 50% 20%, #0c1018 0%, #06070c 55%, #030308 100%);}
-  .lune{position:absolute;top:6%;left:50%;transform:translateX(-50%);
-    width:100px;height:100px;border-radius:50%;
-    background:radial-gradient(circle at 42% 40%, #cfc9b6, #8f8a74 68%, #565241);
-    box-shadow:0 0 50px 16px rgba(190,185,165,.22), 0 0 120px 50px rgba(120,120,100,.1);}
-  .etoiles{position:absolute;inset:0;opacity:.5;
-    background-image:
-      radial-gradient(1px 1px at 15% 25%,#fff,transparent),
-      radial-gradient(1px 1px at 55% 12%,#fff,transparent),
-      radial-gradient(1px 1px at 82% 33%,#ddd,transparent),
-      radial-gradient(1px 1px at 33% 44%,#fff,transparent),
-      radial-gradient(1px 1px at 92% 18%,#ccc,transparent),
-      radial-gradient(1px 1px at 8% 55%,#fff,transparent);
-    animation:scint 5s ease-in-out infinite alternate;}
-  @keyframes scint{0%{opacity:.3}100%{opacity:.6}}
-
-  .foret{position:absolute;bottom:0;left:0;width:100%;height:auto;z-index:1}
-  .foret svg{display:block;width:100%;height:auto}
+  .scene{position:fixed;inset:0;z-index:0;overflow:hidden;background:#04050a}
+  .scene .fond{position:absolute;inset:0;
+    background:url("img/fond-nuit.png") center/cover no-repeat;
+    animation:respireFond 20s ease-in-out infinite alternate}
+  @keyframes respireFond{0%{transform:scale(1.02)}100%{transform:scale(1.08)}}
+  .scene::after{content:"";position:absolute;inset:0;
+    background:radial-gradient(ellipse at 50% 45%, transparent 30%, rgba(4,5,10,.7) 100%)}
 
   .brume{position:absolute;inset:-15%;z-index:2;pointer-events:none;
     background:
-      radial-gradient(ellipse 55% 35% at 25% 80%, rgba(160,165,175,.14), transparent 60%),
-      radial-gradient(ellipse 50% 32% at 72% 88%, rgba(150,155,165,.12), transparent 60%),
-      radial-gradient(ellipse 70% 40% at 50% 95%, rgba(140,145,155,.16), transparent 65%);
+      radial-gradient(ellipse 55% 35% at 25% 80%, rgba(160,165,175,.12), transparent 60%),
+      radial-gradient(ellipse 50% 32% at 72% 88%, rgba(150,155,165,.10), transparent 60%),
+      radial-gradient(ellipse 70% 40% at 50% 95%, rgba(140,145,155,.14), transparent 65%);
     animation:ramper 20s ease-in-out infinite alternate;}
   .brume2{animation-duration:32s;animation-direction:alternate-reverse;opacity:.7}
   @keyframes ramper{0%{transform:translate(-4%,0)}100%{transform:translate(5%,-2%)}}
@@ -77,9 +65,9 @@
   .yeux span{width:11px;height:11px;border-radius:50%;
     background:radial-gradient(circle,#fff 30%,#c9302a 75%,transparent);
     box-shadow:0 0 12px 3px rgba(230,60,50,.6)}
-  .yeux.y1{top:34%;left:12%;animation-delay:2s}
-  .yeux.y2{top:52%;left:82%;animation-delay:6s}
-  .yeux.y3{top:68%;left:24%;animation-delay:11s}
+  .yeux.y1{top:30%;left:9%;animation-delay:2s}
+  .yeux.y2{top:58%;left:88%;animation-delay:6s}
+  .yeux.y3{top:72%;left:20%;animation-delay:11s}
   @keyframes cligne{0%,100%{opacity:0}46%,54%{opacity:.9}}
 
   .titan{position:fixed;bottom:-4%;left:50%;transform:translateX(-50%);z-index:2;
@@ -132,9 +120,9 @@
     display:none;align-items:center;justify-content:center}
   .jumpscare.on{display:flex;animation:flashScare .55s steps(2) 3}
   @keyframes flashScare{0%{background:#000}50%{background:#2a0a08}100%{background:#000}}
-  .jumpscare svg{width:min(600px,96vw);height:auto;
-    animation:zoomScare .6s ease-out;filter:drop-shadow(0 0 40px rgba(200,0,0,.4))}
-  @keyframes zoomScare{0%{transform:scale(.4);opacity:.2}60%{transform:scale(1.12)}100%{transform:scale(1)}}
+  .jumpscare img{width:100vw;height:100vh;object-fit:cover;
+    animation:zoomScare .55s ease-out}
+  @keyframes zoomScare{0%{transform:scale(1.35);opacity:.15}55%{transform:scale(1.08)}100%{transform:scale(1)}}
 
   .son-toggle{position:fixed;bottom:1rem;right:1rem;z-index:50;
     background:rgba(6,8,14,.8);border:1px solid rgba(184,147,80,.35);
@@ -157,64 +145,16 @@
   </div>
 
   <div class="scene">
-    <div class="etoiles"></div>
-    <div class="lune"></div>
-
-    <div class="titan">
-      <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
-        <defs><radialGradient id="tg" cx="50%" cy="30%" r="60%">
-          <stop offset="0%" stop-color="#aebcc6" stop-opacity=".5"/>
-          <stop offset="60%" stop-color="#5c6771" stop-opacity=".35"/>
-          <stop offset="100%" stop-color="#2a3138" stop-opacity="0"/></radialGradient></defs>
-        <path d="M150 40 C120 40 105 75 108 120 C80 140 55 175 45 210 C75 195 95 205 110 225
-                 C120 255 135 250 150 250 C165 250 180 255 190 225 C205 205 225 195 255 210
-                 C245 175 220 140 192 120 C195 75 180 40 150 40 Z" fill="url(#tg)"/>
-        <circle cx="132" cy="110" r="8" fill="#efe" opacity=".95"/>
-        <circle cx="168" cy="110" r="8" fill="#efe" opacity=".95"/>
-      </svg>
-    </div>
-
-    <div class="foret">
-      <svg viewBox="0 0 1200 300" preserveAspectRatio="xMidYMax meet" xmlns="http://www.w3.org/2000/svg">
-        <g fill="#04050a">
-          <rect x="0" y="180" width="1200" height="120"/>
-          <path d="M120 300 L120 120 Q118 90 100 70 Q118 95 135 100 Q150 80 145 60 Q160 90 150 110 L150 300 Z"/>
-          <path d="M300 300 L300 90 Q296 55 270 40 Q296 70 320 72 Q340 45 330 25 Q356 65 340 95 L335 300 Z"/>
-          <path d="M520 300 L520 140 Q516 110 496 92 Q520 116 542 118 Q558 96 552 78 Q574 112 556 134 L550 300 Z"/>
-          <path d="M720 300 L720 80 Q714 44 686 28 Q716 62 742 64 Q764 36 752 16 Q782 60 762 92 L756 300 Z"/>
-          <path d="M940 300 L940 130 Q935 100 912 82 Q938 108 962 110 Q980 86 972 66 Q998 104 978 130 L972 300 Z"/>
-          <path d="M1090 300 L1090 110 Q1085 78 1060 60 Q1088 90 1112 92 Q1132 66 1122 46 Q1150 86 1128 116 L1122 300 Z"/>
-        </g>
-      </svg>
-    </div>
-
+    <div class="fond"></div>
     <div class="brume"></div>
     <div class="brume brume2"></div>
-
     <div class="yeux y1"><span></span><span></span></div>
     <div class="yeux y2"><span></span><span></span></div>
     <div class="yeux y3"><span></span><span></span></div>
   </div>
 
   <div class="jumpscare" id="jumpscare">
-    <svg viewBox="0 0 300 380" xmlns="http://www.w3.org/2000/svg">
-      <defs><radialGradient id="face" cx="50%" cy="42%" r="60%">
-        <stop offset="0%" stop-color="#e9e6dd"/><stop offset="70%" stop-color="#9c988c"/>
-        <stop offset="100%" stop-color="#4b4841"/></radialGradient></defs>
-      <path d="M150 20 C80 20 40 80 40 160 C40 210 60 250 80 280 L90 340 C95 360 110 372 150 372
-               C190 372 205 360 210 340 L220 280 C240 250 260 210 260 160 C260 80 220 20 150 20 Z" fill="url(#face)"/>
-      <ellipse cx="105" cy="160" rx="30" ry="40" fill="#000"/>
-      <ellipse cx="195" cy="160" rx="30" ry="40" fill="#000"/>
-      <circle cx="105" cy="168" r="6" fill="#c9302a"/>
-      <circle cx="195" cy="168" r="6" fill="#c9302a"/>
-      <path d="M150 190 L132 245 Q150 258 168 245 Z" fill="#000"/>
-      <path d="M100 295 Q150 320 200 295 Q195 330 150 335 Q105 330 100 295 Z" fill="#0a0a0a"/>
-      <g fill="#d8d3c4">
-        <rect x="112" y="298" width="10" height="20"/><rect x="128" y="302" width="10" height="22"/>
-        <rect x="144" y="304" width="10" height="24"/><rect x="160" y="302" width="10" height="22"/>
-        <rect x="176" y="298" width="10" height="20"/>
-      </g>
-    </svg>
+    <img id="scareImg" src="img/scare1.png" alt="">
   </div>
 
   <button class="son-toggle" id="sonToggle" onclick="toggleSon()" title="Couper/activer le son" style="display:none">&#128266;</button>
@@ -276,7 +216,7 @@
       var s=audioCtx.createBufferSource(); s.buffer=b;
       var f=audioCtx.createBiquadFilter(); f.type="bandpass";
       f.frequency.value=900+Math.random()*1400; f.Q.value=6;
-      var g=audioCtx.createGain(); g.gain.value=0.22;
+      var g=audioCtx.createGain(); g.gain.value=0.42;
       var pan=audioCtx.createStereoPanner? audioCtx.createStereoPanner():null;
       s.connect(f); f.connect(g);
       if(pan){ pan.pan.value=Math.random()*2-1; g.connect(pan); pan.connect(audioCtx.destination); }
@@ -313,6 +253,52 @@
       var og=audioCtx.createGain(); og.gain.setValueAtTime(0.5,audioCtx.currentTime);
       og.gain.exponentialRampToValueAtTime(0.001,audioCtx.currentTime+0.7);
       o.connect(og); og.connect(audioCtx.destination); o.start(); o.stop(audioCtx.currentTime+0.7);
+      hurlement();
+    }
+    // hurlement de femme (synthétisé : porteuse aiguë + vibrato + formants + bruit de souffle)
+    function hurlement(){
+      if(!audioCtx||!sonActif) return;
+      var t=audioCtx.currentTime, dur=1.5;
+      var out=audioCtx.createGain();
+      out.gain.setValueAtTime(0,t);
+      out.gain.linearRampToValueAtTime(0.9,t+0.08);     // attaque brutale
+      out.gain.setValueAtTime(0.9,t+dur-0.5);
+      out.gain.exponentialRampToValueAtTime(0.001,t+dur); // extinction
+      out.connect(audioCtx.destination);
+
+      // fréquence du cri : monte vite puis retombe (glissando de panique)
+      var freqEnv=function(osc){
+        osc.frequency.setValueAtTime(600,t);
+        osc.frequency.exponentialRampToValueAtTime(1150,t+0.25);
+        osc.frequency.setValueAtTime(1150,t+0.7);
+        osc.frequency.exponentialRampToValueAtTime(820,t+dur);
+      };
+      // deux oscillateurs (corde vocale un peu rauque)
+      var o1=audioCtx.createOscillator(); o1.type="sawtooth"; freqEnv(o1);
+      var o2=audioCtx.createOscillator(); o2.type="square";  freqEnv(o2);
+      o2.detune.value=12;
+      // vibrato
+      var vib=audioCtx.createOscillator(); vib.frequency.value=6.5;
+      var vibG=audioCtx.createGain(); vibG.gain.value=28;
+      vib.connect(vibG); vibG.connect(o1.frequency); vibG.connect(o2.frequency);
+      // formants (résonances vocales)
+      var f1=audioCtx.createBiquadFilter(); f1.type="bandpass"; f1.frequency.value=900; f1.Q.value=8;
+      var f2=audioCtx.createBiquadFilter(); f2.type="bandpass"; f2.frequency.value=2200; f2.Q.value=10;
+      var mix=audioCtx.createGain(); mix.gain.value=0.5;
+      o1.connect(mix); o2.connect(mix);
+      mix.connect(f1); mix.connect(f2);
+      f1.connect(out); f2.connect(out);
+      // souffle rauque par-dessus
+      var nb=audioCtx.createBuffer(1,Math.floor(audioCtx.sampleRate*dur),audioCtx.sampleRate);
+      var nd=nb.getChannelData(0);
+      for(var i=0;i<nd.length;i++){ nd[i]=(Math.random()*2-1); }
+      var noise=audioCtx.createBufferSource(); noise.buffer=nb;
+      var nf=audioCtx.createBiquadFilter(); nf.type="bandpass"; nf.frequency.value=1600; nf.Q.value=4;
+      var ng=audioCtx.createGain(); ng.gain.value=0.25;
+      noise.connect(nf); nf.connect(ng); ng.connect(out);
+
+      o1.start(t); o2.start(t); vib.start(t); noise.start(t);
+      o1.stop(t+dur); o2.stop(t+dur); vib.stop(t+dur); noise.stop(t+dur);
     }
     function toggleSon(){
       sonActif=!sonActif;
@@ -322,12 +308,23 @@
     }
 
     var js=document.getElementById('jumpscare');
+    var scareImg=document.getElementById('scareImg');
+    // Ajoute ici d'autres visages quand tu les as : "img/scare2.png", ...
+    var SCARES=["img/scare1.png","img/scare2.png","img/scare3.png","img/scare4.png","img/scare5.png"];
+    // précharger
+    SCARES.forEach(function(src){ var i=new Image(); i.src=src; });
+    var dernierScare=-1;
     function declencher(){
       battement(2);
       setTimeout(function(){
+        var idx;
+        do{ idx=Math.floor(Math.random()*SCARES.length); }
+        while(SCARES.length>1 && idx===dernierScare);
+        dernierScare=idx;
+        scareImg.src = SCARES[idx];
         js.classList.add('on'); coupScare();
         if(navigator.vibrate) navigator.vibrate([80,40,120]);
-        setTimeout(function(){ js.classList.remove('on'); }, 1400);
+        setTimeout(function(){ js.classList.remove('on'); }, 1700);
       }, 1500);
     }
     function planifierScare(){
