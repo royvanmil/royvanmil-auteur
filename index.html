@@ -3,7 +3,48 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Roy VAN MIL — Auteur</title>
+<title>Roy Van Mil — Auteur et écrivain dans le Gers</title>
+<meta name="description" content="Roy Van Mil, auteur et écrivain installé dans le Gers. Découvrez ses livres : le guide Cette maison elle vaut vraiment le prix ?, les microhistoires Un instant ou Deux, et le roman gothique La Cloche des Morts.">
+<meta name="keywords" content="Roy Van Mil, Roy VAN MIL, royvanmil, Roy auteur, Roy écrivain, écrivain Gers, auteur Gers, Vic-Fezensac, La Cloche des Morts, Un instant ou Deux, microhistoires">
+<meta name="author" content="Roy Van Mil">
+<link rel="canonical" href="https://royvanmil.fr/">
+
+<!-- Open Graph (partage Facebook / Instagram) -->
+<meta property="og:type" content="profile">
+<meta property="og:title" content="Roy Van Mil — Auteur et écrivain dans le Gers">
+<meta property="og:description" content="Des histoires à ouvrir, des maisons à comprendre, une cloche qui sonne dans la nuit. Découvrez les livres de Roy Van Mil.">
+<meta property="og:image" content="https://royvanmil.fr/img/roy-auteur.jpg">
+<meta property="og:url" content="https://royvanmil.fr/">
+<meta property="og:locale" content="fr_FR">
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- Données structurées : l'auteur et ses livres -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Roy Van Mil",
+  "jobTitle": "Auteur",
+  "url": "https://royvanmil.fr/",
+  "image": "https://royvanmil.fr/img/roy-auteur.jpg",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Vic-Fezensac",
+    "postalCode": "32190",
+    "addressRegion": "Gers",
+    "addressCountry": "FR"
+  },
+  "sameAs": [
+    "https://www.instagram.com/royvanmil.auteur/"
+  ],
+  "author": [
+    { "@type": "Book", "name": "Cette maison, elle vaut vraiment le prix ?", "url": "https://royvanmil.fr/cette-maison.html" },
+    { "@type": "Book", "name": "Un instant, ou Deux…", "url": "https://royvanmil.fr/un-instant.html" },
+    { "@type": "Book", "name": "La Cloche des Morts", "url": "https://royvanmil.fr/la-cloche-des-morts.html" }
+  ]
+}
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,500&family=EB+Garamond:wght@400;500&display=swap" rel="stylesheet">
@@ -45,6 +86,7 @@
     position:relative;z-index:2;
   }
   .eyebrow{
+    display:block;
     font-family:'Cormorant Garamond',serif;
     font-weight:700;
     letter-spacing:.34em;
@@ -55,7 +97,9 @@
     padding-left:.34em;
     text-shadow:0 1px 8px rgba(0,0,0,.6);
   }
-  h1{
+  h1{margin:0}
+  .h1-role{
+    display:block;
     font-family:'Cormorant Garamond',serif;
     font-weight:600;
     font-size:clamp(2.6rem,8vw,5rem);
@@ -213,9 +257,8 @@
 <body>
 
   <header>
-    <div class="eyebrow">Roy VAN MIL</div>
-    <h1>Auteur</h1>
-    <img class="portrait" src="img/roy-auteur.jpg" alt="Roy VAN MIL">
+    <h1><span class="eyebrow">Roy VAN MIL</span><span class="h1-role">Auteur</span></h1>
+    <img class="portrait" src="img/roy-auteur.jpg" alt="Roy VAN MIL, auteur et écrivain dans le Gers">
     <p class="sous-titre">Des histoires à ouvrir, des maisons à comprendre, une cloche qui sonne dans la nuit.</p>
   </header>
 
