@@ -75,6 +75,38 @@
   }
   .retour:hover{opacity:1}
 
+  /* ---- sélecteur de langue ---- */
+  .langues{
+    position:absolute;top:1.1rem;right:1.2rem;z-index:6;
+    display:flex;gap:.35rem;
+    font-family:'Cormorant Garamond',serif;
+  }
+  .langues button{
+    background:rgba(22,18,16,.55);
+    color:var(--creme-doux);
+    border:1px solid rgba(201,162,94,.45);
+    border-radius:5px;
+    padding:.32rem .62rem;
+    font-family:inherit;font-size:.92rem;font-weight:600;
+    letter-spacing:.08em;cursor:pointer;
+    transition:all .2s;
+  }
+  .langues button:hover{color:var(--laiton-clair);border-color:var(--laiton)}
+  .langues button.actif{
+    background:linear-gradient(180deg,var(--laiton-clair),var(--laiton));
+    color:#2a1c08;border-color:var(--laiton-clair);
+  }
+  .mention-fr{
+    display:none;margin-top:1.2rem;padding:.6rem .9rem;
+    border:1px solid rgba(201,162,94,.4);border-radius:6px;
+    background:rgba(201,162,94,.08);
+    font-style:italic;color:var(--laiton-clair);font-size:1rem;
+  }
+  @media (max-width:480px){
+    .langues{top:.7rem;right:.7rem}
+    .langues button{padding:.28rem .5rem;font-size:.82rem}
+  }
+
   .livre-page{
     display:grid;
     grid-template-columns:minmax(220px,320px) 1fr;
@@ -197,7 +229,12 @@
 </head>
 <body>
   <div class="wrap">
-    <a class="retour" href="index.html">← Retour à la bibliothèque</a>
+    <div class="langues" role="group" aria-label="Choix de la langue">
+      <button data-lang="fr" onclick="setLang('fr')">FR</button>
+      <button data-lang="en" onclick="setLang('en')">EN</button>
+      <button data-lang="nl" onclick="setLang('nl')">NL</button>
+    </div>
+    <a class="retour" href="index.html" data-i18n="retour">← Retour à la bibliothèque</a>
 
     <div class="livre-page">
       <img class="couverture" src="img/couv-cette-maison.jpg" alt="Cette maison, elle vaut vraiment le prix ?">
@@ -206,33 +243,35 @@
         <h1>Cette maison, elle vaut vraiment le prix ?</h1>
         <div class="auteur">Roy VAN MIL</div>
 
-        <p>Le guide pratique pour visiter et acheter une maison en toute confiance. Un œil d'expert pour vous aider à vérifier les détails techniques avant de signer.</p>
+        <p data-i18n="p1">Le guide pratique pour visiter et acheter une maison en toute confiance. Un œil d'expert pour vous aider à vérifier les détails techniques avant de signer.</p>
 
-        <p>Vous vous projetez déjà dans votre futur logement, mais vous ne savez pas comment vérifier les installations essentielles ? Ce guide vous donne un vrai regard d'expert pendant votre visite — sans avoir besoin d'être du métier.</p>
+        <p data-i18n="p2">Vous vous projetez déjà dans votre futur logement, mais vous ne savez pas comment vérifier les installations essentielles ? Ce guide vous donne un vrai regard d'expert pendant votre visite — sans avoir besoin d'être du métier.</p>
 
         <div class="filet"></div>
 
-        <p>Avec des illustrations simples, des fiches claires et des conseils de terrain, vous avancez pas à pas et contrôlez les points clés :</p>
+        <p data-i18n="p3">Avec des illustrations simples, des fiches claires et des conseils de terrain, vous avancez pas à pas et contrôlez les points clés :</p>
 
         <ul class="liste-verif">
-          <li>Électricité &amp; tableau électrique</li>
-          <li>Plomberie &amp; évacuations</li>
-          <li>Chauffage &amp; chauffe-eau</li>
-          <li>Climatisation &amp; VMC</li>
-          <li>Humidité, ventilation &amp; signaux d'alarme</li>
+          <li data-i18n="li1">Électricité &amp; tableau électrique</li>
+          <li data-i18n="li2">Plomberie &amp; évacuations</li>
+          <li data-i18n="li3">Chauffage &amp; chauffe-eau</li>
+          <li data-i18n="li4">Climatisation &amp; VMC</li>
+          <li data-i18n="li5">Humidité, ventilation &amp; signaux d'alarme</li>
         </ul>
 
-        <p>Checklists visuelles · Points clés · Conseils de base — 15 ans d'expérience sur le terrain à votre service.</p>
+        <p data-i18n="p4">Checklists visuelles · Points clés · Conseils de base — 15 ans d'expérience sur le terrain à votre service.</p>
 
         <div class="boutons">
-          <a class="btn btn-amazon" href="https://amzn.eu/d/08jvr7MH" target="_blank" rel="noopener" onclick="compte('clic-amazon')">Disponible sur Amazon</a>
-          <a class="btn btn-clim" href="https://www.pro2tec.net/livre.html" target="_blank" rel="noopener">🎁 Gagner une clim</a>
+          <a class="btn btn-amazon" href="https://amzn.eu/d/08jvr7MH" target="_blank" rel="noopener" onclick="compte('clic-amazon')" data-i18n="btn-amazon">Disponible sur Amazon</a>
+          <a class="btn btn-clim" href="https://www.pro2tec.net/livre.html" target="_blank" rel="noopener" data-i18n="btn-clim">🎁 Gagner une clim</a>
         </div>
+
+        <p class="mention-fr" data-i18n="mention-fr"></p>
       </div>
     </div>
 
-    <h2 class="galerie-titre">Un aperçu de l'intérieur</h2>
-    <p class="galerie-soustitre">Des fiches illustrées, claires et pratiques. Cliquez pour agrandir.</p>
+    <h2 class="galerie-titre" data-i18n="gal-titre">Un aperçu de l'intérieur</h2>
+    <p class="galerie-soustitre" data-i18n="gal-sous">Des fiches illustrées, claires et pratiques. Cliquez pour agrandir.</p>
 
     <div class="galerie">
       <figure style="margin:0">
@@ -240,7 +279,7 @@
           <img src="img/couv-cette-maison.jpg" alt="Couverture avant" loading="lazy">
           <span class="loupe">⤢</span>
         </div>
-        <figcaption class="vignette-legende">La couverture</figcaption>
+        <figcaption class="vignette-legende" data-i18n="leg-couv">La couverture</figcaption>
       </figure>
 
       <figure style="margin:0">
@@ -248,7 +287,7 @@
           <img src="img/couv-cette-maison-arriere.jpg" alt="Quatrième de couverture" loading="lazy">
           <span class="loupe">⤢</span>
         </div>
-        <figcaption class="vignette-legende">La quatrième de couverture</figcaption>
+        <figcaption class="vignette-legende" data-i18n="leg-quatre">La quatrième de couverture</figcaption>
       </figure>
 
       <figure style="margin:0">
@@ -256,7 +295,7 @@
           <img src="img/cm-fiche-circuits.png" alt="Fiche : les circuits électriques" loading="lazy">
           <span class="loupe">⤢</span>
         </div>
-        <figcaption class="vignette-legende">Les circuits électriques</figcaption>
+        <figcaption class="vignette-legende" data-i18n="leg-circuits">Les circuits électriques</figcaption>
       </figure>
 
       <figure style="margin:0">
@@ -264,7 +303,7 @@
           <img src="img/cm-fiche-ventilations.png" alt="Fiche : les ventilations et l'équilibre des pressions" loading="lazy">
           <span class="loupe">⤢</span>
         </div>
-        <figcaption class="vignette-legende">Ventilations &amp; pressions</figcaption>
+        <figcaption class="vignette-legende" data-i18n="leg-vent">Ventilations &amp; pressions</figcaption>
       </figure>
 
       <figure style="margin:0">
@@ -272,7 +311,7 @@
           <img src="img/cm-fiche-hygrometrie.png" alt="Fiche : l'hygrométrie dans une maison" loading="lazy">
           <span class="loupe">⤢</span>
         </div>
-        <figcaption class="vignette-legende">L'hygrométrie</figcaption>
+        <figcaption class="vignette-legende" data-i18n="leg-hygro">L'hygrométrie</figcaption>
       </figure>
     </div>
   </div>
@@ -281,6 +320,100 @@
     <button class="lightbox-fermer" onclick="fermer()" aria-label="Fermer">✕</button>
     <img id="lightbox-img" src="" alt="">
   </div>
+
+  <script>
+    /* ---- traductions ---- */
+    var I18N = {
+      fr:{
+        retour:"← Retour à la bibliothèque",
+        p1:"Le guide pratique pour visiter et acheter une maison en toute confiance. Un œil d'expert pour vous aider à vérifier les détails techniques avant de signer.",
+        p2:"Vous vous projetez déjà dans votre futur logement, mais vous ne savez pas comment vérifier les installations essentielles ? Ce guide vous donne un vrai regard d'expert pendant votre visite — sans avoir besoin d'être du métier.",
+        p3:"Avec des illustrations simples, des fiches claires et des conseils de terrain, vous avancez pas à pas et contrôlez les points clés :",
+        li1:"Électricité & tableau électrique",
+        li2:"Plomberie & évacuations",
+        li3:"Chauffage & chauffe-eau",
+        li4:"Climatisation & VMC",
+        li5:"Humidité, ventilation & signaux d'alarme",
+        p4:"Checklists visuelles · Points clés · Conseils de base — 15 ans d'expérience sur le terrain à votre service.",
+        "btn-amazon":"Disponible sur Amazon",
+        "btn-clim":"🎁 Gagner une clim",
+        "mention-fr":"",
+        "gal-titre":"Un aperçu de l'intérieur",
+        "gal-sous":"Des fiches illustrées, claires et pratiques. Cliquez pour agrandir.",
+        "leg-couv":"La couverture",
+        "leg-quatre":"La quatrième de couverture",
+        "leg-circuits":"Les circuits électriques",
+        "leg-vent":"Ventilations & pressions",
+        "leg-hygro":"L'hygrométrie"
+      },
+      en:{
+        retour:"← Back to the library",
+        p1:"The practical guide to visiting and buying a house with confidence. An expert eye to help you check the technical details before you sign.",
+        p2:"You can already picture yourself in your future home, but you don't know how to check the essential systems? This guide gives you a real expert's eye during your visit — without needing to be a professional.",
+        p3:"With simple illustrations, clear fact sheets and field advice, you move forward step by step and check the key points:",
+        li1:"Electricity & fuse box",
+        li2:"Plumbing & drainage",
+        li3:"Heating & water heater",
+        li4:"Air conditioning & ventilation (VMC)",
+        li5:"Damp, ventilation & warning signs",
+        p4:"Visual checklists · Key points · Basic advice — 15 years of field experience at your service.",
+        "btn-amazon":"Available on Amazon",
+        "btn-clim":"🎁 Win an air conditioner",
+        "mention-fr":"This book is available in French only.",
+        "gal-titre":"A look inside",
+        "gal-sous":"Illustrated, clear and practical fact sheets. Click to enlarge.",
+        "leg-couv":"The cover",
+        "leg-quatre":"The back cover",
+        "leg-circuits":"The electrical circuits",
+        "leg-vent":"Ventilation & pressures",
+        "leg-hygro":"Humidity"
+      },
+      nl:{
+        retour:"← Terug naar de bibliotheek",
+        p1:"De praktische gids om met vertrouwen een huis te bezichtigen en te kopen. Een deskundige blik om je te helpen de technische details te controleren voordat je tekent.",
+        p2:"Je ziet jezelf al in je toekomstige woning, maar weet je niet hoe je de essentiële installaties moet controleren? Deze gids geeft je een echte deskundige blik tijdens je bezichtiging — zonder dat je vakman hoeft te zijn.",
+        p3:"Met eenvoudige illustraties, heldere fiches en praktijkadvies ga je stap voor stap vooruit en controleer je de belangrijkste punten:",
+        li1:"Elektriciteit & meterkast",
+        li2:"Loodgieterij & afvoer",
+        li3:"Verwarming & boiler",
+        li4:"Airconditioning & ventilatie (VMC)",
+        li5:"Vocht, ventilatie & waarschuwingssignalen",
+        p4:"Visuele checklists · Kernpunten · Basisadvies — 15 jaar praktijkervaring tot je dienst.",
+        "btn-amazon":"Verkrijgbaar op Amazon",
+        "btn-clim":"🎁 Win een airco",
+        "mention-fr":"Dit boek is alleen in het Frans verkrijgbaar.",
+        "gal-titre":"Een kijkje binnenin",
+        "gal-sous":"Geïllustreerde, heldere en praktische fiches. Klik om te vergroten.",
+        "leg-couv":"De cover",
+        "leg-quatre":"De achterkant",
+        "leg-circuits":"De elektrische circuits",
+        "leg-vent":"Ventilatie & drukverschillen",
+        "leg-hygro":"Luchtvochtigheid"
+      }
+    };
+
+    function setLang(lang){
+      var dict = I18N[lang] || I18N.fr;
+      document.querySelectorAll('[data-i18n]').forEach(function(el){
+        var key = el.getAttribute('data-i18n');
+        if(dict[key] !== undefined) el.textContent = dict[key];
+      });
+      document.documentElement.lang = lang;
+      document.querySelectorAll('.langues button').forEach(function(b){
+        b.classList.toggle('actif', b.getAttribute('data-lang') === lang);
+      });
+      // afficher la mention seulement en EN et NL
+      var m = document.querySelector('.mention-fr');
+      if(m){ m.style.display = (lang === 'fr') ? 'none' : 'block'; }
+      try{ localStorage.setItem('rvm-lang', lang); }catch(e){}
+    }
+
+    (function(){
+      var saved = 'fr';
+      try{ saved = localStorage.getItem('rvm-lang') || 'fr'; }catch(e){}
+      setLang(saved);
+    })();
+  </script>
 
   <script>
     function ouvrir(src){

@@ -72,6 +72,33 @@
     position:absolute;left:1.2rem;top:1.5rem;}
   .retour:hover{opacity:1}
 
+  /* ---- sélecteur de langue ---- */
+  .langues{
+    position:absolute;top:1.5rem;right:1.2rem;z-index:60;
+    display:flex;gap:.35rem;font-family:'Cormorant Garamond',serif;
+  }
+  .langues button{
+    background:rgba(15,13,11,.6);color:var(--creme-doux);
+    border:1px solid rgba(184,147,80,.5);border-radius:5px;
+    padding:.32rem .62rem;font-family:inherit;font-size:.92rem;font-weight:600;
+    letter-spacing:.08em;cursor:pointer;transition:all .2s;
+  }
+  .langues button:hover{color:var(--laiton-clair);border-color:var(--laiton-clair)}
+  .langues button.actif{
+    background:linear-gradient(180deg,var(--laiton-clair),#b89350);
+    color:#2a1c08;border-color:var(--laiton-clair);
+  }
+  .mention-fr{
+    display:none;margin:1.6rem auto 0;max-width:520px;padding:.6rem .9rem;
+    border:1px solid rgba(184,147,80,.4);border-radius:6px;
+    background:rgba(184,147,80,.08);
+    font-style:italic;color:var(--laiton-clair);font-size:1rem;
+  }
+  @media (max-width:480px){
+    .langues{top:.8rem;right:.7rem}
+    .langues button{padding:.28rem .5rem;font-size:.82rem}
+  }
+
   .couverture{
     width:min(300px,72vw);margin:3.5rem auto 2.2rem;border-radius:4px;
     box-shadow:0 30px 70px -15px rgba(0,0,0,.9), 0 0 0 1px rgba(184,147,80,.25);
@@ -148,7 +175,12 @@
 <body>
   <div class="intro-brume"></div>
   <div class="wrap">
-    <a class="retour" href="index.html">← Retour à la bibliothèque</a>
+    <div class="langues" role="group" aria-label="Choix de la langue">
+      <button data-lang="fr" onclick="setLang('fr')">FR</button>
+      <button data-lang="en" onclick="setLang('en')">EN</button>
+      <button data-lang="nl" onclick="setLang('nl')">NL</button>
+    </div>
+    <a class="retour" href="index.html" data-i18n="retour">← Retour à la bibliothèque</a>
 
     <img class="couverture" src="img/couv-cloche.png" alt="La Cloche des Morts">
 
@@ -156,16 +188,77 @@
     <div class="auteur">Roy VAN MIL</div>
 
     <div class="teaser">
-      <p>An <span class="accent">720</span>. Un petit village presque disparu dans le brouillard. Tout y semble paisible, tout y semble normal. Sauf la mort — et la façon dont on la rejoint.</p>
-      <p>Car ici, ce n'est pas la mort qui vient chercher les gens : ce sont les gens qui la rejoignent, d'eux-mêmes, lorsque vient leur appel.</p>
-      <p>Mais quand l'appel ne vient pas, il ne reste qu'une chose : vivre. Vivre dans la souffrance, enfermé, oublié — jusqu'à ce que la tour sonne, enfin, pour la délivrance.</p>
-      <p>Entre brume et silence, un enfant qui ne parle qu'avec ses figurines de bois devient le seul témoin de ce que le village préfère ne pas voir. Un roman gothique où le deuil, l'amour et le mystère s'entremêlent, et où la cloche des morts pourrait bien sonner à l'heure la plus inattendue.</p>
+      <p data-i18n-html="t1">An <span class="accent">720</span>. Un petit village presque disparu dans le brouillard. Tout y semble paisible, tout y semble normal. Sauf la mort — et la façon dont on la rejoint.</p>
+      <p data-i18n="t2">Car ici, ce n'est pas la mort qui vient chercher les gens : ce sont les gens qui la rejoignent, d'eux-mêmes, lorsque vient leur appel.</p>
+      <p data-i18n="t3">Mais quand l'appel ne vient pas, il ne reste qu'une chose : vivre. Vivre dans la souffrance, enfermé, oublié — jusqu'à ce que la tour sonne, enfin, pour la délivrance.</p>
+      <p data-i18n="t4">Entre brume et silence, un enfant qui ne parle qu'avec ses figurines de bois devient le seul témoin de ce que le village préfère ne pas voir. Un roman gothique où le deuil, l'amour et le mystère s'entremêlent, et où la cloche des morts pourrait bien sonner à l'heure la plus inattendue.</p>
     </div>
 
     <div class="cloche">🔔</div>
-    <div class="bientot">Bientôt</div>
-    <div class="sous-bientot">Un roman gothique en préparation.</div>
+    <div class="bientot" data-i18n="bientot">Bientôt</div>
+    <div class="sous-bientot" data-i18n="sous-bientot">Un roman gothique en préparation.</div>
+    <p class="mention-fr" data-i18n="mention-fr"></p>
   </div>
+
+  <script>
+    /* ---- traductions ---- */
+    var I18N = {
+      fr:{
+        retour:"← Retour à la bibliothèque",
+        t1:'An <span class="accent">720</span>. Un petit village presque disparu dans le brouillard. Tout y semble paisible, tout y semble normal. Sauf la mort — et la façon dont on la rejoint.',
+        t2:"Car ici, ce n'est pas la mort qui vient chercher les gens : ce sont les gens qui la rejoignent, d'eux-mêmes, lorsque vient leur appel.",
+        t3:"Mais quand l'appel ne vient pas, il ne reste qu'une chose : vivre. Vivre dans la souffrance, enfermé, oublié — jusqu'à ce que la tour sonne, enfin, pour la délivrance.",
+        t4:"Entre brume et silence, un enfant qui ne parle qu'avec ses figurines de bois devient le seul témoin de ce que le village préfère ne pas voir. Un roman gothique où le deuil, l'amour et le mystère s'entremêlent, et où la cloche des morts pourrait bien sonner à l'heure la plus inattendue.",
+        bientot:"Bientôt",
+        "sous-bientot":"Un roman gothique en préparation.",
+        "mention-fr":""
+      },
+      en:{
+        retour:"← Back to the library",
+        t1:'The year <span class="accent">720</span>. A small village almost lost in the fog. Everything seems peaceful, everything seems normal. Except death — and the way one goes to meet it.',
+        t2:"For here, it is not death that comes for people: it is people who go to it, of their own accord, when their call comes.",
+        t3:"But when the call does not come, only one thing remains: to live. To live in suffering, shut away, forgotten — until the tower rings, at last, for deliverance.",
+        t4:"Between mist and silence, a child who speaks only through his wooden figurines becomes the sole witness to what the village would rather not see. A gothic novel where grief, love and mystery intertwine, and where the bell of the dead may well ring at the most unexpected hour.",
+        bientot:"Coming soon",
+        "sous-bientot":"A gothic novel in preparation.",
+        "mention-fr":"This book will be available in French only."
+      },
+      nl:{
+        retour:"← Terug naar de bibliotheek",
+        t1:'Het jaar <span class="accent">720</span>. Een klein dorp bijna verdwenen in de mist. Alles lijkt er vredig, alles lijkt er normaal. Behalve de dood — en de manier waarop men die tegemoet gaat.',
+        t2:"Want hier is het niet de dood die de mensen komt halen: het zijn de mensen die er zelf naartoe gaan, wanneer hun oproep komt.",
+        t3:"Maar wanneer de oproep niet komt, blijft er maar één ding over: leven. Leven in lijden, opgesloten, vergeten — totdat de toren eindelijk luidt, voor de verlossing.",
+        t4:"Tussen mist en stilte wordt een kind dat alleen met zijn houten figuurtjes spreekt de enige getuige van wat het dorp liever niet ziet. Een gotische roman waarin rouw, liefde en mysterie zich verweven, en waarin de klok van de doden zou kunnen luiden op het meest onverwachte uur.",
+        bientot:"Binnenkort",
+        "sous-bientot":"Een gotische roman in voorbereiding.",
+        "mention-fr":"Dit boek zal alleen in het Frans verkrijgbaar zijn."
+      }
+    };
+
+    function setLang(lang){
+      var dict = I18N[lang] || I18N.fr;
+      document.querySelectorAll('[data-i18n]').forEach(function(el){
+        var key = el.getAttribute('data-i18n');
+        if(dict[key] !== undefined) el.textContent = dict[key];
+      });
+      document.querySelectorAll('[data-i18n-html]').forEach(function(el){
+        var key = el.getAttribute('data-i18n-html');
+        if(dict[key] !== undefined) el.innerHTML = dict[key];
+      });
+      document.documentElement.lang = lang;
+      document.querySelectorAll('.langues button').forEach(function(b){
+        b.classList.toggle('actif', b.getAttribute('data-lang') === lang);
+      });
+      var m = document.querySelector('.mention-fr');
+      if(m){ m.style.display = (lang === 'fr') ? 'none' : 'block'; }
+      try{ localStorage.setItem('rvm-lang', lang); }catch(e){}
+    }
+    (function(){
+      var saved = 'fr';
+      try{ saved = localStorage.getItem('rvm-lang') || 'fr'; }catch(e){}
+      setLang(saved);
+    })();
+  </script>
 
   <script>
     var API = "https://compteurs.royvanmil86.workers.dev";

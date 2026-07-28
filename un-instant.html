@@ -62,6 +62,33 @@
     text-transform:uppercase;font-size:.85rem;margin-bottom:2rem;opacity:.85;transition:opacity .2s;}
   .retour:hover{opacity:1}
 
+  /* ---- sélecteur de langue ---- */
+  .langues{
+    position:absolute;top:1.1rem;right:1.2rem;z-index:6;
+    display:flex;gap:.35rem;font-family:'Cormorant Garamond',serif;
+  }
+  .langues button{
+    background:rgba(22,18,16,.55);color:var(--creme-doux);
+    border:1px solid rgba(201,162,94,.45);border-radius:5px;
+    padding:.32rem .62rem;font-family:inherit;font-size:.92rem;font-weight:600;
+    letter-spacing:.08em;cursor:pointer;transition:all .2s;
+  }
+  .langues button:hover{color:var(--laiton-clair);border-color:var(--laiton)}
+  .langues button.actif{
+    background:linear-gradient(180deg,var(--laiton-clair),var(--laiton));
+    color:#2a1c08;border-color:var(--laiton-clair);
+  }
+  .mention-fr{
+    display:none;margin-top:1.2rem;padding:.6rem .9rem;
+    border:1px solid rgba(201,162,94,.4);border-radius:6px;
+    background:rgba(201,162,94,.08);
+    font-style:italic;color:var(--laiton-clair);font-size:1rem;
+  }
+  @media (max-width:480px){
+    .langues{top:.7rem;right:.7rem}
+    .langues button{padding:.28rem .5rem;font-size:.82rem}
+  }
+
   .livre-page{display:grid;grid-template-columns:minmax(220px,320px) 1fr;
     gap:clamp(1.5rem,5vw,3.5rem);align-items:start;}
   .couverture{width:100%;border-radius:4px;
@@ -147,7 +174,12 @@
 </head>
 <body>
   <div class="wrap">
-    <a class="retour" href="index.html">← Retour à la bibliothèque</a>
+    <div class="langues" role="group" aria-label="Choix de la langue">
+      <button data-lang="fr" onclick="setLang('fr')">FR</button>
+      <button data-lang="en" onclick="setLang('en')">EN</button>
+      <button data-lang="nl" onclick="setLang('nl')">NL</button>
+    </div>
+    <a class="retour" href="index.html" data-i18n="retour">← Retour à la bibliothèque</a>
 
     <div class="livre-page">
       <img class="couverture" src="img/couv-un-instant.png" alt="Un instant, ou Deux…">
@@ -156,13 +188,13 @@
         <h1>Un instant, ou Deux…</h1>
         <div class="auteur">Roy VAN MIL</div>
 
-        <p class="intro-cite">16 microhistoires pour sourire, réfléchir… et se souvenir de l'essentiel.</p>
+        <p class="intro-cite" data-i18n="intro">16 microhistoires pour sourire, réfléchir… et se souvenir de l'essentiel.</p>
 
         <div class="filet"></div>
 
-        <p>Un grand-père qui bondit dans un salon. Une simple poignée de main qui fait du bien. Un château qui se réveille pour un banquet invisible. Des machines qui jugent, des voisins qu'on croyait perdus, des présences qu'on ne devrait plus revoir.</p>
+        <p data-i18n="p1">Un grand-père qui bondit dans un salon. Une simple poignée de main qui fait du bien. Un château qui se réveille pour un banquet invisible. Des machines qui jugent, des voisins qu'on croyait perdus, des présences qu'on ne devrait plus revoir.</p>
 
-        <p>Un petit livre à emporter partout, à lire par fragments, et à laisser vivre dans sa propre imagination.</p>
+        <p data-i18n="p2">Un petit livre à emporter partout, à lire par fragments, et à laisser vivre dans sa propre imagination.</p>
 
         <div class="filet"></div>
 
@@ -186,69 +218,71 @@
         </ol>
 
         <div class="boutons">
-          <a class="btn btn-lire" href="extraits-un-instant.html">✒️ Lire quelques extraits</a>
-          <a class="btn btn-attente" href="https://amzn.eu/d/0fEAc7cG" target="_blank" rel="noopener noreferrer" onclick="compte('clic-amazon')">📖 Disponible sur Amazon</a>
+          <a class="btn btn-lire" href="extraits-un-instant.html" data-i18n="btn-lire">✒️ Lire quelques extraits</a>
+          <a class="btn btn-attente" href="https://amzn.eu/d/0fEAc7cG" target="_blank" rel="noopener noreferrer" onclick="compte('clic-amazon')" data-i18n="btn-amazon">📖 Disponible sur Amazon</a>
         </div>
+
+        <p class="mention-fr" data-i18n="mention-fr"></p>
       </div>
     </div>
 
-    <h2 class="galerie-titre">Quelques illustrations</h2>
-    <p class="galerie-soustitre">Des dessins au crayon, entre douceur et étrangeté. Cliquez pour agrandir.</p>
+    <h2 class="galerie-titre" data-i18n="gal-titre">Quelques illustrations</h2>
+    <p class="galerie-soustitre" data-i18n="gal-sous">Des dessins au crayon, entre douceur et étrangeté. Cliquez pour agrandir.</p>
 
     <div class="galerie">
       <figure style="margin:0">
         <div class="vignette" onclick="ouvrir('img/couv-un-instant.png')">
           <img src="img/couv-un-instant.png" alt="La couverture" loading="lazy"><span class="loupe">⤢</span>
         </div>
-        <figcaption class="vignette-legende">La couverture</figcaption>
+        <figcaption class="vignette-legende" data-i18n="leg-couv">La couverture</figcaption>
       </figure>
       <figure style="margin:0">
         <div class="vignette" onclick="ouvrir('img/liste_un_instant.png')">
           <img src="img/liste_un_instant.png" alt="Les 16 microhistoires" loading="lazy"><span class="loupe">⤢</span>
         </div>
-        <figcaption class="vignette-legende">Les 16 microhistoires</figcaption>
+        <figcaption class="vignette-legende" data-i18n="leg-liste">Les 16 microhistoires</figcaption>
       </figure>
       <figure style="margin:0">
         <div class="vignette" onclick="ouvrir('img/piemiere_page_un_instant.png')">
           <img src="img/piemiere_page_un_instant.png" alt="À propos de ce livre" loading="lazy"><span class="loupe">⤢</span>
         </div>
-        <figcaption class="vignette-legende">À propos de ce livre</figcaption>
+        <figcaption class="vignette-legende" data-i18n="leg-apropos">À propos de ce livre</figcaption>
       </figure>
       <figure style="margin:0">
         <div class="vignette" onclick="ouvrir('img/ui-main.png')">
           <img src="img/ui-main.png" alt="La main qui fait du bien" loading="lazy"><span class="loupe">⤢</span>
         </div>
-        <figcaption class="vignette-legende">La main qui fait du bien</figcaption>
+        <figcaption class="vignette-legende" data-i18n="leg-main">La main qui fait du bien</figcaption>
       </figure>
       <figure style="margin:0">
         <div class="vignette" onclick="ouvrir('img/ui-banquet.png')">
           <img src="img/ui-banquet.png" alt="Le Banquet invisible" loading="lazy"><span class="loupe">⤢</span>
         </div>
-        <figcaption class="vignette-legende">Le Banquet invisible</figcaption>
+        <figcaption class="vignette-legende" data-i18n="leg-banquet">Le Banquet invisible</figcaption>
       </figure>
       <figure style="margin:0">
         <div class="vignette" onclick="ouvrir('img/ui-casque.png')">
           <img src="img/ui-casque.png" alt="Le Casque" loading="lazy"><span class="loupe">⤢</span>
         </div>
-        <figcaption class="vignette-legende">Le Casque</figcaption>
+        <figcaption class="vignette-legende" data-i18n="leg-casque">Le Casque</figcaption>
       </figure>
       <figure style="margin:0">
         <div class="vignette" onclick="ouvrir('img/ui-video.png')">
           <img src="img/ui-video.png" alt="La vidéo savait" loading="lazy"><span class="loupe">⤢</span>
         </div>
-        <figcaption class="vignette-legende">La vidéo savait</figcaption>
+        <figcaption class="vignette-legende" data-i18n="leg-video">La vidéo savait</figcaption>
       </figure>
       <figure style="margin:0">
         <div class="vignette" onclick="ouvrir('img/ui-presences.png')">
           <img src="img/ui-presences.png" alt="Présences passées" loading="lazy"><span class="loupe">⤢</span>
         </div>
-        <figcaption class="vignette-legende">Présences passées</figcaption>
+        <figcaption class="vignette-legende" data-i18n="leg-presences">Présences passées</figcaption>
       </figure>
       <figure style="margin:0">
         <div class="vignette" onclick="ouvrir('img/ui-revolution.png')">
           <img src="img/ui-revolution.png" alt="La Révolution numérique" loading="lazy"><span class="loupe">⤢</span>
         </div>
-        <figcaption class="vignette-legende">La Révolution numérique</figcaption>
+        <figcaption class="vignette-legende" data-i18n="leg-revolution">La Révolution numérique</figcaption>
       </figure>
     </div>
   </div>
@@ -257,6 +291,92 @@
     <button class="lightbox-fermer" onclick="fermer()" aria-label="Fermer">✕</button>
     <img id="lightbox-img" src="" alt="">
   </div>
+
+  <script>
+    /* ---- traductions (les 16 titres restent en français) ---- */
+    var I18N = {
+      fr:{
+        retour:"← Retour à la bibliothèque",
+        intro:"16 microhistoires pour sourire, réfléchir… et se souvenir de l'essentiel.",
+        p1:"Un grand-père qui bondit dans un salon. Une simple poignée de main qui fait du bien. Un château qui se réveille pour un banquet invisible. Des machines qui jugent, des voisins qu'on croyait perdus, des présences qu'on ne devrait plus revoir.",
+        p2:"Un petit livre à emporter partout, à lire par fragments, et à laisser vivre dans sa propre imagination.",
+        "btn-lire":"✒️ Lire quelques extraits",
+        "btn-amazon":"📖 Disponible sur Amazon",
+        "mention-fr":"",
+        "gal-titre":"Quelques illustrations",
+        "gal-sous":"Des dessins au crayon, entre douceur et étrangeté. Cliquez pour agrandir.",
+        "leg-couv":"La couverture",
+        "leg-liste":"Les 16 microhistoires",
+        "leg-apropos":"À propos de ce livre",
+        "leg-main":"La main qui fait du bien",
+        "leg-banquet":"Le Banquet invisible",
+        "leg-casque":"Le Casque",
+        "leg-video":"La vidéo savait",
+        "leg-presences":"Présences passées",
+        "leg-revolution":"La Révolution numérique"
+      },
+      en:{
+        retour:"← Back to the library",
+        intro:"16 short stories to smile, reflect… and remember what matters.",
+        p1:"A grandfather leaping across a living room. A simple handshake that does good. A castle waking up for an invisible banquet. Machines that judge, neighbours thought lost, presences we should no longer see.",
+        p2:"A little book to carry everywhere, to read in fragments, and to let live in your own imagination.",
+        "btn-lire":"✒️ Read a few excerpts",
+        "btn-amazon":"📖 Available on Amazon",
+        "mention-fr":"This book is available in French only.",
+        "gal-titre":"A few illustrations",
+        "gal-sous":"Pencil drawings, between gentleness and strangeness. Click to enlarge.",
+        "leg-couv":"The cover",
+        "leg-liste":"The 16 short stories",
+        "leg-apropos":"About this book",
+        "leg-main":"The hand that does good",
+        "leg-banquet":"The Invisible Banquet",
+        "leg-casque":"The Helmet",
+        "leg-video":"The video knew",
+        "leg-presences":"Past Presences",
+        "leg-revolution":"The Digital Revolution"
+      },
+      nl:{
+        retour:"← Terug naar de bibliotheek",
+        intro:"16 microverhalen om te glimlachen, na te denken… en het wezenlijke te onthouden.",
+        p1:"Een grootvader die door een woonkamer springt. Een simpele handdruk die deugd doet. Een kasteel dat ontwaakt voor een onzichtbaar banket. Machines die oordelen, buren die verloren leken, aanwezigheden die we niet meer zouden mogen zien.",
+        p2:"Een klein boek om overal mee naartoe te nemen, in stukjes te lezen en te laten leven in je eigen verbeelding.",
+        "btn-lire":"✒️ Lees enkele fragmenten",
+        "btn-amazon":"📖 Verkrijgbaar op Amazon",
+        "mention-fr":"Dit boek is alleen in het Frans verkrijgbaar.",
+        "gal-titre":"Enkele illustraties",
+        "gal-sous":"Potloodtekeningen, tussen zachtheid en vreemdheid. Klik om te vergroten.",
+        "leg-couv":"De cover",
+        "leg-liste":"De 16 microverhalen",
+        "leg-apropos":"Over dit boek",
+        "leg-main":"De hand die deugd doet",
+        "leg-banquet":"Het Onzichtbare Banket",
+        "leg-casque":"De Helm",
+        "leg-video":"De video wist het",
+        "leg-presences":"Aanwezigheden uit het verleden",
+        "leg-revolution":"De Digitale Revolutie"
+      }
+    };
+
+    function setLang(lang){
+      var dict = I18N[lang] || I18N.fr;
+      document.querySelectorAll('[data-i18n]').forEach(function(el){
+        var key = el.getAttribute('data-i18n');
+        if(dict[key] !== undefined) el.textContent = dict[key];
+      });
+      document.documentElement.lang = lang;
+      document.querySelectorAll('.langues button').forEach(function(b){
+        b.classList.toggle('actif', b.getAttribute('data-lang') === lang);
+      });
+      var m = document.querySelector('.mention-fr');
+      if(m){ m.style.display = (lang === 'fr') ? 'none' : 'block'; }
+      try{ localStorage.setItem('rvm-lang', lang); }catch(e){}
+    }
+    (function(){
+      var saved = 'fr';
+      try{ saved = localStorage.getItem('rvm-lang') || 'fr'; }catch(e){}
+      setLang(saved);
+    })();
+  </script>
 
   <script>
     function ouvrir(src){
