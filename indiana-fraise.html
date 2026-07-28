@@ -79,13 +79,45 @@
   }
   .btn-info:hover{background:rgba(201,162,94,.12);transform:translateY(-4px)}
 
+  /* ---- bouton vers le site de l'Auteur (fixe, bas gauche) ---- */
+  .lien-auteur{
+    position:fixed;left:1.4rem;bottom:1.4rem;z-index:20;
+    display:inline-flex;align-items:center;gap:.6rem;
+    padding:.8rem 1.25rem;border-radius:10px;
+    background:rgba(18,16,14,.72);
+    border:1px solid var(--laiton);
+    color:var(--laiton-clair);
+    font-family:'Cormorant Garamond',serif;
+    font-weight:600;font-size:1.15rem;letter-spacing:.03em;
+    text-decoration:none;
+    box-shadow:0 8px 22px -8px rgba(0,0,0,.7);
+    backdrop-filter:blur(3px);
+    transition:transform .2s, box-shadow .2s, background .2s;
+  }
+  .lien-auteur:hover{
+    transform:translateY(-3px);
+    background:rgba(201,162,94,.16);
+    box-shadow:0 12px 26px -8px rgba(0,0,0,.8);
+  }
+  .lien-auteur img{
+    width:1.9rem;height:1.9rem;object-fit:contain;
+    /* plume déjà blanche : léger halo pour la détacher du fond */
+    filter:drop-shadow(0 0 3px rgba(230,201,138,.5));
+  }
   @media (max-width:520px){
     .btn{padding:1.1rem 1.2rem}
+    .lien-auteur{left:1rem;bottom:1rem;font-size:1.05rem;padding:.7rem 1rem}
+    .lien-auteur img{width:1.6rem;height:1.6rem}
   }
 </style>
 </head>
 <body>
   <img class="chapeau" src="img/indiana_rond_detoure.png" alt="Indiana Fraise">
+
+  <a class="lien-auteur" href="index.html">
+    <img src="img/plume.png" alt="">
+    <span>Aller sur le site de l'Auteur</span>
+  </a>
 
   <div class="wrap">
     <h1 class="salut">Bonjour Indiana Fraise</h1>
