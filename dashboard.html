@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tableau de bord — Compteurs Roy Van Mil</title>
+<style>
+  :root{
+    --bord:#e0e0e0; --texte:#1a1a1a; --gris:#666;
+    --bleu:#2563eb; --bleu-clair:#dbeafe;
+    --vert:#16a34a; --rouge:#dc2626;
+    --fond-carte:#fafafa;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    background:#fff;color:var(--texte);
+    line-height:1.5;padding:1.5rem;max-width:1100px;margin:0 auto;
+  }
+  h1{font-size:1.8rem;margin-bottom:.3rem}
+  .sous{color:var(--gris);margin-bottom:1.5rem;font-size:.95rem}
+
+  .connexion{
+    background:var(--fond-carte);border:1px solid var(--bord);
+    border-radius:10px;padding:1.2rem;margin-bottom:1.5rem;
+    display:flex;gap:.7rem;align-items:center;flex-wrap:wrap;
+  }
+  .connexion input{
+    padding:.6rem .8rem;border:1px solid var(--bord);border-radius:7px;
+    font-size:1rem;flex:1;min-width:200px;
+  }
+  .connexion button{
+    padding:.6rem 1.3rem;border:none;border-radius:7px;
+    background:var(--bleu);color:#fff;font-size:1rem;font-weight:600;cursor:pointer;
+  }
+  .connexion button:hover{background:#1d4ed8}
+  .msg{font-size:.9rem;color:var(--rouge);width:100%}
+
+  .cache{display:none}
+
+  /* ---- tableau des compteurs ---- */
+  .tableau{
+    width:100%;border-collapse:collapse;margin-bottom:2.5rem;
+    border:1px solid var(--bord);border-radius:10px;overflow:hidden;
+  }
+  .tableau th,.tableau td{
+    padding:.85rem 1rem;text-align:left;border-bottom:1px solid var(--bord);
+  }
+  .tableau thead th{
+    background:#f3f4f6;font-size:.85rem;text-transform:uppercase;
+    letter-spacing:.03em;color:var(--gris);
+  }
+  .tableau tbody tr:last-child td{border-bottom:none}
+  .tableau .page-nom{font-weight:600}
+  .tableau .nombre{font-variant-numeric:tabular-nums;font-size:1.15rem;font-weight:700}
+  .col-total{color:var(--texte)}
+  .col-reset{color:var(--bleu)}
+  .btn-reset{
+    padding:.4rem .9rem;border:1px solid var(--rouge);border-radius:6px;
+    background:#fff;color:var(--rouge);font-size:.85rem;font-weight:600;cursor:pointer;
+    transition:all .15s;
+  }
+  .btn-reset:hover{background:var(--rouge);color:#fff}
+  .btn-reset:disabled{opacity:.4;cursor:default}
+
+  /* ---- courbes ---- */
+  h2{font-size:1.3rem;margin:1rem 0 1.2rem;padding-top:1rem;border-top:2px solid var(--bord)}
+  .courbe-carte{
+    border:1px solid var(--bord);border-radius:10px;
+    padding:1.2rem 1.2rem .8rem;margin-bottom:1.5rem;background:var(--fond-carte);
+  }
+  .courbe-tete{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.8rem}
+  .courbe-titre{font-weight:700;font-size:1.05rem}
+  .courbe-total{color:var(--gris);font-size:.9rem}
+  .courbe-svg{width:100%;height:180px;display:block}
+
+  .maj{text-align:center;color:var(--gris);font-size:.85rem;margin:1rem 0 2rem}
+  .rafraichir{
+    display:block;margin:0 auto 2rem;padding:.6rem 1.4rem;
+    border:1px solid var(--bord);border-radius:7px;background:#fff;
+    font-size:.95rem;cursor:pointer;
+  }
+  .rafraichir:hover{background:#f3f4f6}
+</style>
+</head>
+<body>
+
+  <h1>Tableau de bord</h1>
+  <p class="sous">Compteurs de visite — royvanmil.fr</p>
+
+  <div class="connexion" id="connexion">
+    <input type="password" id="mdp" placeholder="Mot de passe" onkeydown="if(event.key==='Enter')connecter()">
+    <button onclick="connecter()">Entrer</button>
+    <div class="msg" id="msg"></div>
+  </div>
+
+  <div id="contenu" class="cache">
+    <table class="tableau">
+      <thead>
+        <tr>
+          <th>Page</th>
+          <th>Total (depuis toujours)</th>
+          <th>Depuis remise à zéro</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="corps-tableau"></tbody>
+    </table>
+
+    <h2>Visites par jour (30 derniers jours)</h2>
+    <div id="courbes"></div>
+
+    <p class="maj" id="maj"></p>
+    <button class="rafraichir" onclick="charger()">↻ Rafraîchir</button>
+  </div>
+
+<script>
+  var API = "https://compteurs.royvanmil86.workers.dev";
+  var MDP = "";
+
+  // noms lisibles pour chaque clé
+  var NOMS = {
+    "accueil": "Accueil",
+    "livre": "Un instant, ou Deux…",
+    "extraits": "Extraits (Un instant)",
+    "clic-amazon": "Clics Amazon",
+    "livre1-maison": "Cette maison…",
+    "livre3-cloche": "La Cloche des Morts",
+    "indiana": "Indiana Fraise"
+  };
+
+  function connecter(){
+    var val = document.getElementById('mdp').value.trim();
+    if(!val){ document.getElementById('msg').textContent = "Entre le mot de passe."; return; }
+    MDP = val;
+    document.getElementById('connexion').classList.add('cache');
+    document.getElementById('contenu').classList.remove('cache');
+    charger();
+  }
+
+  function charger(){
+    Promise.all([
+      fetch(API + "/stats").then(function(r){return r.json();}),
+      fetch(API + "/historique?jours=30").then(function(r){return r.json();})
+    ]).then(function(res){
+      dessinerTableau(res[0]);
+      dessinerCourbes(res[1]);
+      var d = new Date();
+      document.getElementById('maj').textContent =
+        "Mis à jour le " + d.toLocaleString('fr-FR');
+    }).catch(function(e){
+      document.getElementById('maj').textContent = "Erreur de chargement.";
+    });
+  }
+
+  function dessinerTableau(stats){
+    var corps = document.getElementById('corps-tableau');
+    corps.innerHTML = "";
+    Object.keys(NOMS).forEach(function(cle){
+      var d = stats[cle] || {total:0, depuis_reset:0};
+      var tr = document.createElement('tr');
+      tr.innerHTML =
+        '<td class="page-nom">' + NOMS[cle] + '</td>' +
+        '<td class="nombre col-total">' + d.total + '</td>' +
+        '<td class="nombre col-reset">' + d.depuis_reset + '</td>' +
+        '<td><button class="btn-reset" onclick="remettreZero(\'' + cle + '\')">Remettre à 0</button></td>';
+      corps.appendChild(tr);
+    });
+  }
+
+  function remettreZero(cle){
+    if(!confirm("Remettre à zéro le compteur « " + NOMS[cle] + " » ?\n(Le total depuis toujours n'est pas touché.)")) return;
+    fetch(API + "/reset?c=" + cle + "&code=" + encodeURIComponent(MDP))
+      .then(function(r){
+        if(r.status === 403){ alert("Mot de passe refusé."); return; }
+        if(!r.ok){ alert("Erreur."); return; }
+        charger();
+      })
+      .catch(function(){ alert("Erreur réseau."); });
+  }
+
+  function dessinerCourbes(hist){
+    var zone = document.getElementById('courbes');
+    zone.innerHTML = "";
+    var jours = hist.jours || [];
+    Object.keys(NOMS).forEach(function(cle){
+      var valeurs = (hist.series && hist.series[cle]) || [];
+      var total = valeurs.reduce(function(a,b){return a+b;}, 0);
+
+      var carte = document.createElement('div');
+      carte.className = 'courbe-carte';
+      carte.innerHTML =
+        '<div class="courbe-tete">' +
+          '<span class="courbe-titre">' + NOMS[cle] + '</span>' +
+          '<span class="courbe-total">' + total + ' visites sur la période</span>' +
+        '</div>' +
+        svgCourbe(jours, valeurs);
+      zone.appendChild(carte);
+    });
+  }
+
+  // construit un SVG de courbe avec axes, contraste fort
+  function svgCourbe(jours, valeurs){
+    var L = 780, H = 180, mg = {t:12, r:12, b:26, l:34};
+    var w = L - mg.l - mg.r, h = H - mg.t - mg.b;
+    var n = valeurs.length;
+    var max = Math.max(1, Math.max.apply(null, valeurs));
+
+    function px(i){ return mg.l + (n <= 1 ? w/2 : (i/(n-1))*w); }
+    function py(v){ return mg.t + h - (v/max)*h; }
+
+    // lignes horizontales de repère (0, milieu, max)
+    var grille = "";
+    [0, 0.5, 1].forEach(function(f){
+      var y = mg.t + h - f*h;
+      var val = Math.round(f*max);
+      grille += '<line x1="'+mg.l+'" y1="'+y+'" x2="'+(L-mg.r)+'" y2="'+y+'" stroke="#e5e7eb" stroke-width="1"/>';
+      grille += '<text x="'+(mg.l-6)+'" y="'+(y+4)+'" text-anchor="end" font-size="11" fill="#666">'+val+'</text>';
+    });
+
+    // aire + ligne
+    var ligne = "", aire = "";
+    for(var i=0;i<n;i++){
+      var x = px(i).toFixed(1), y = py(valeurs[i]).toFixed(1);
+      ligne += (i===0?"M":"L") + x + " " + y + " ";
+    }
+    if(n > 0){
+      aire = "M" + px(0).toFixed(1) + " " + (mg.t+h) + " ";
+      for(var j=0;j<n;j++){ aire += "L" + px(j).toFixed(1) + " " + py(valeurs[j]).toFixed(1) + " "; }
+      aire += "L" + px(n-1).toFixed(1) + " " + (mg.t+h) + " Z";
+    }
+
+    // points
+    var pts = "";
+    for(var k=0;k<n;k++){
+      pts += '<circle cx="'+px(k).toFixed(1)+'" cy="'+py(valeurs[k]).toFixed(1)+'" r="2.5" fill="#2563eb"/>';
+    }
+
+    // étiquettes de dates (première, milieu, dernière)
+    var dates = "";
+    if(n > 0){
+      var idx = [0, Math.floor((n-1)/2), n-1];
+      idx.forEach(function(ii){
+        var jj = jours[ii] || "";
+        var court = jj.slice(8) + "/" + jj.slice(5,7); // JJ/MM
+        dates += '<text x="'+px(ii).toFixed(1)+'" y="'+(H-8)+'" text-anchor="middle" font-size="11" fill="#666">'+court+'</text>';
+      });
+    }
+
+    return '<svg class="courbe-svg" viewBox="0 0 '+L+' '+H+'" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">' +
+      grille +
+      '<path d="'+aire+'" fill="#dbeafe" opacity="0.7"/>' +
+      '<path d="'+ligne+'" fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>' +
+      pts + dates +
+    '</svg>';
+  }
+</script>
+</body>
+</html>
