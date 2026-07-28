@@ -80,6 +80,33 @@
     pointer-events:none;z-index:0;
   }
 
+
+  /* ---- sélecteur de langue ---- */
+  .langues{
+    position:absolute;top:1.1rem;right:1.2rem;z-index:6;
+    display:flex;gap:.35rem;
+    font-family:'Cormorant Garamond',serif;
+  }
+  .langues button{
+    background:rgba(22,18,16,.55);
+    color:var(--creme-doux);
+    border:1px solid rgba(201,162,94,.45);
+    border-radius:5px;
+    padding:.32rem .62rem;
+    font-family:inherit;font-size:.92rem;font-weight:600;
+    letter-spacing:.08em;cursor:pointer;
+    transition:all .2s;
+  }
+  .langues button:hover{color:var(--laiton-clair);border-color:var(--laiton)}
+  .langues button.actif{
+    background:linear-gradient(180deg,var(--laiton-clair),var(--laiton));
+    color:#2a1c08;border-color:var(--laiton-clair);
+  }
+  @media (max-width:480px){
+    .langues{top:.7rem;right:.7rem}
+    .langues button{padding:.28rem .5rem;font-size:.82rem}
+  }
+
   header{
     text-align:center;
     padding:3.2rem 1.2rem 1.4rem;
@@ -256,31 +283,37 @@
 </head>
 <body>
 
+  <div class="langues" role="group" aria-label="Choix de la langue">
+    <button data-lang="fr" onclick="setLang('fr')">FR</button>
+    <button data-lang="en" onclick="setLang('en')">EN</button>
+    <button data-lang="nl" onclick="setLang('nl')">NL</button>
+  </div>
+
   <header>
-    <h1><span class="eyebrow">Roy VAN MIL</span><span class="h1-role">Auteur</span></h1>
+    <h1><span class="eyebrow">Roy VAN MIL</span><span class="h1-role" data-i18n="role">Auteur</span></h1>
     <img class="portrait" src="img/roy-auteur.jpg" alt="Roy VAN MIL, auteur et écrivain dans le Gers">
-    <p class="sous-titre">Des histoires à ouvrir, des maisons à comprendre, une cloche qui sonne dans la nuit.</p>
+    <p class="sous-titre" data-i18n="soustitre">Des histoires à ouvrir, des maisons à comprendre, une cloche qui sonne dans la nuit.</p>
   </header>
 
   <main class="armoire-zone">
     <div class="armoire">
-      <div class="fronton">La Bibliothèque</div>
+      <div class="fronton" data-i18n="fronton">La Bibliothèque</div>
       <div class="etagere">
 
         <a class="livre" href="cette-maison.html" aria-label="Cette maison, elle vaut vraiment le prix ?">
           <img src="img/couv-cette-maison.jpg" alt="Cette maison, elle vaut vraiment le prix ?">
-          <span class="cartouche">Le guide</span>
+          <span class="cartouche" data-i18n="cart-guide">Le guide</span>
         </a>
 
         <a class="livre" href="un-instant.html" aria-label="Un instant, ou Deux…">
           <img src="img/couv-un-instant.png" alt="Un instant, ou Deux…">
-          <span class="cartouche">MicroHistoires</span>
+          <span class="cartouche" data-i18n="cart-micro">MicroHistoires</span>
         </a>
 
         <a class="livre" href="la-cloche-des-morts.html" aria-label="La Cloche des Morts">
           <!-- couverture PROVISOIRE — remplacer par la vraie (garder le même nom : couv-cloche.png) -->
           <img src="img/couv-cloche.png" alt="La Cloche des Morts">
-          <span class="cartouche">Roman</span>
+          <span class="cartouche" data-i18n="cart-roman">Roman</span>
         </a>
 
       </div>
@@ -288,9 +321,61 @@
   </main>
 
   <footer>
-    Écrit et édité par Roy VAN MIL — 32190 Vic-Fezensac, France<br>
+    <span data-i18n="footer-edit">Écrit et édité par Roy VAN MIL</span> — 32190 Vic-Fezensac, France<br>
     <a href="https://www.instagram.com/royvanmil.auteur/" target="_blank" rel="noopener">Instagram</a>
   </footer>
+
+  <script>
+    /* ---- traductions ---- */
+    var I18N = {
+      fr:{
+        role:"Auteur",
+        soustitre:"Des histoires à ouvrir, des maisons à comprendre, une cloche qui sonne dans la nuit.",
+        fronton:"La Bibliothèque",
+        "cart-guide":"Le guide",
+        "cart-micro":"MicroHistoires",
+        "cart-roman":"Roman",
+        "footer-edit":"Écrit et édité par Roy VAN MIL"
+      },
+      en:{
+        role:"Author",
+        soustitre:"Stories to open, houses to understand, a bell that rings in the night.",
+        fronton:"The Library",
+        "cart-guide":"The guide",
+        "cart-micro":"Short stories",
+        "cart-roman":"Novel",
+        "footer-edit":"Written and published by Roy VAN MIL"
+      },
+      nl:{
+        role:"Auteur",
+        soustitre:"Verhalen om te openen, huizen om te begrijpen, een klok die klinkt in de nacht.",
+        fronton:"De Bibliotheek",
+        "cart-guide":"De gids",
+        "cart-micro":"Microverhalen",
+        "cart-roman":"Roman",
+        "footer-edit":"Geschreven en uitgegeven door Roy VAN MIL"
+      }
+    };
+
+    function setLang(lang){
+      var dict = I18N[lang] || I18N.fr;
+      document.querySelectorAll('[data-i18n]').forEach(function(el){
+        var key = el.getAttribute('data-i18n');
+        if(dict[key] !== undefined) el.textContent = dict[key];
+      });
+      document.documentElement.lang = lang;
+      document.querySelectorAll('.langues button').forEach(function(b){
+        b.classList.toggle('actif', b.getAttribute('data-lang') === lang);
+      });
+      try{ localStorage.setItem('rvm-lang', lang); }catch(e){}
+    }
+
+    (function(){
+      var saved = 'fr';
+      try{ saved = localStorage.getItem('rvm-lang') || 'fr'; }catch(e){}
+      setLang(saved);
+    })();
+  </script>
 
   <script>
     var API = "https://compteurs.royvanmil86.workers.dev";
