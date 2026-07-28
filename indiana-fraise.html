@@ -104,6 +104,24 @@
     /* plume déjà blanche : léger halo pour la détacher du fond */
     filter:drop-shadow(0 0 3px rgba(230,201,138,.5));
   }
+
+  /* ---- grande plume décorative ---- */
+  .plume-deco{
+    position:fixed;
+    right:2vw;bottom:4vh;
+    width:clamp(280px,34vw,440px);
+    height:auto;z-index:1;
+    pointer-events:none;        /* ne gêne aucun clic */
+    opacity:.55;
+    filter:drop-shadow(0 0 14px rgba(230,201,138,.35));
+    user-select:none;
+  }
+  @media (max-width:820px){
+    .plume-deco{
+      right:-4vw;bottom:auto;top:50%;transform:translateY(-40%);
+      width:clamp(200px,50vw,320px);opacity:.28;
+    }
+  }
   @media (max-width:520px){
     .btn{padding:1.1rem 1.2rem}
     .lien-auteur{left:1rem;bottom:1rem;font-size:1.05rem;padding:.7rem 1rem}
@@ -112,6 +130,7 @@
 </style>
 </head>
 <body>
+  <img class="plume-deco" src="img/plume.png" alt="" aria-hidden="true">
   <img class="chapeau" src="img/indiana_rond_detoure.png" alt="Indiana Fraise">
 
   <a class="lien-auteur" href="index.html">
