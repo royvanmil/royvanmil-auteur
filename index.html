@@ -200,5 +200,18 @@ html,body{background:#0b0806;min-height:100%;overflow-x:hidden;}
     <img src="img/roy-auteur.jpg" alt="Roy Van Mil, auteur">
   </footer>
 </main>
+
+<script>
+  var API = "https://compteurs.royvanmil86.workers.dev";
+  function compte(cle){
+    var url = API + "/compte?c=" + cle;
+    try {
+      if (navigator.sendBeacon && navigator.sendBeacon(url)) return;
+    } catch(e){}
+    try { fetch(url, {mode:"cors", keepalive:true}); } catch(e){}
+  }
+  compte("accueil");
+</script>
+
 </body>
 </html>
