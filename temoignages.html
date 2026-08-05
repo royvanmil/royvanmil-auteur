@@ -269,12 +269,12 @@
         btn.textContent="Envoyé ✓";
         setTimeout(function(){ btn.disabled=false; btn.textContent="Envoyer mon avis"; }, 3000);
       } else {
-        if(res.status === 429){
+        if(res.status === 429 || (res.j && res.j.erreur === "trop_rapide")){
           msg.className='form-msg err';
-          msg.textContent="Doucement ! Attendez une trentaine de secondes avant de renvoyer un avis.";
+          msg.textContent="Doucement ! Patientez une dizaine de secondes avant d'envoyer un autre avis.";
         } else {
           msg.className='form-msg err';
-          msg.textContent="Une erreur est survenue. Réessayez.";
+          msg.textContent="L'envoi n'a pas abouti. Patientez quelques secondes et réessayez.";
         }
         btn.disabled=false; btn.textContent="Envoyer mon avis";
       }
