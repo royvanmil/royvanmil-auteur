@@ -73,10 +73,10 @@
 
   /* ---- note en livres ---- */
   .note-livres{display:flex;gap:.35rem;font-size:1.9rem;line-height:1;user-select:none}
-  .note-livres span{cursor:pointer;filter:grayscale(1) opacity(.35);transition:filter .15s, transform .15s}
+  .note-livres span{cursor:pointer;filter:grayscale(1);opacity:.4;transition:filter .15s, opacity .15s, transform .15s}
   .note-livres span:hover{transform:scale(1.15)}
-  .note-livres span.actif{filter:none}
-  .note-txt{margin-top:.4rem;font-style:italic;color:var(--laiton-clair);font-size:.95rem;min-height:1.2em}
+  .note-livres span.actif{filter:none;opacity:1}
+  .note-txt{margin-top:.5rem;color:var(--laiton-clair);font-size:1.05rem;font-weight:600;min-height:1.3em}
 
   .envoyer{
     display:block;width:100%;margin-top:.5rem;padding:.95rem;border:none;border-radius:8px;
@@ -101,10 +101,10 @@
 
   .mur{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.3rem}
   .postit{
-    background:var(--papier);color:var(--encre);border-radius:3px;
+    background:var(--papier);color:#2a2018;border-radius:3px;
     padding:1.1rem 1.15rem 1.2rem;position:relative;
     box-shadow:0 8px 20px rgba(0,0,0,.4);
-    font-family:'EB Garamond',Georgia,serif;
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   }
   .postit:nth-child(3n){transform:rotate(-1.4deg)}
   .postit:nth-child(3n+1){transform:rotate(1deg)}
@@ -115,10 +115,10 @@
     border:1px solid rgba(120,90,40,.4);border-radius:2px;
     box-shadow:0 2px 4px rgba(0,0,0,.25);
   }
-  .postit-note{font-size:1.15rem;line-height:1;margin-bottom:.5rem;letter-spacing:.05em}
-  .postit-avis{font-size:1.05rem;line-height:1.55;margin-bottom:.8rem;white-space:pre-wrap;word-break:break-word}
-  .postit-nom{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.1rem;color:var(--bois)}
-  .postit-livres{font-size:.85rem;font-style:italic;color:#7a6547;margin-top:.15rem}
+  .postit-note{font-size:1.05rem;line-height:1;margin-bottom:.6rem;color:#b8860b;font-weight:700;letter-spacing:.08em}
+  .postit-avis{font-size:1.05rem;line-height:1.55;margin-bottom:.8rem;white-space:pre-wrap;word-break:break-word;color:#241c14}
+  .postit-nom{font-weight:700;font-size:1.05rem;color:#5a4029}
+  .postit-livres{font-size:.82rem;color:#8a7355;margin-top:.15rem}
 
   .mur-vide{text-align:center;color:var(--creme-doux);font-style:italic;opacity:.7;padding:2rem 0}
 
@@ -136,6 +136,13 @@
       <h1>Votre avis compte</h1>
       <p class="soustitre">Vous avez lu l'un de mes livres ?<br>Dites-moi ce que vous en avez pensé.</p>
     </div>
+
+    <!-- ===== Mur d'avis ===== -->
+    <div class="mur-titre">Ce qu'en disent les lecteurs</div>
+    <div class="mur-moyenne" id="mur-moyenne"></div>
+    <div class="mur" id="mur"></div>
+
+    <div class="filet"></div>
 
     <!-- ===== Formulaire ===== -->
     <div class="form-carte">
@@ -168,13 +175,6 @@
       <button class="envoyer" id="btn-envoyer" onclick="envoyer()">Envoyer mon avis</button>
       <div class="form-msg" id="form-msg"></div>
     </div>
-
-    <div class="filet"></div>
-
-    <!-- ===== Mur d'avis ===== -->
-    <div class="mur-titre">Ce qu'en disent les lecteurs</div>
-    <div class="mur-moyenne" id="mur-moyenne"></div>
-    <div class="mur" id="mur"></div>
   </div>
 
 <script>
@@ -281,7 +281,7 @@
     })
     .catch(function(){
       msg.className='form-msg err';
-      msg.textContent="Erreur réseau. Vérifiez votre connexion.";
+      msg.textContent="Envoi impossible pour le moment. Si tu viens d'envoyer un avis, attends une trentaine de secondes et réessaie.";
       btn.disabled=false; btn.textContent="Envoyer mon avis";
     });
   }
@@ -291,7 +291,7 @@
     return (cles||[]).map(function(c){ return LIVRES[c] || c; }).join(" · ");
   }
   function livresEmoji(n){
-    var s=""; for(var i=0;i<5;i++){ s += (i<n) ? "📖" : "▫️"; } return s;
+    return "📖".repeat(n) + "  " + n + "/5";
   }
   function chargerMur(){
     fetch(API + "/avis-publics")
