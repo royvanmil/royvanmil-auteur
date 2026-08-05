@@ -150,10 +150,7 @@
     function compte(cle){
       try{ fetch(API + "/compte?c=" + cle, {mode:"cors", keepalive:true}); }catch(e){}
     }
-    if(!sessionStorage.getItem("vu-extraits")){
-      sessionStorage.setItem("vu-extraits","1");
-      compte("extraits");
-    }
+    compte("extraits");
   </script>
 </body>
 </html>

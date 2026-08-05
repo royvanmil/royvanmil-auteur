@@ -394,10 +394,7 @@
     function compte(cle){
       try{ fetch(API + "/compte?c=" + cle, {mode:"cors", keepalive:true}); }catch(e){}
     }
-    if(!sessionStorage.getItem("vu-livre")){
-      sessionStorage.setItem("vu-livre","1");
-      compte("livre");
-    }
+    compte("livre");
   </script>
 </body>
 </html>
