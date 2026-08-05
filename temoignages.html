@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="index, follow">
+<title>Vos avis — Roy VAN MIL</title>
+<meta name="description" content="Laissez votre avis sur les livres de Roy Van Mil et découvrez ce que d'autres lecteurs en ont pensé.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --noir:#161210;--bois-fonce:#3a2a1c;--bois:#5a4029;
+    --laiton:#c9a25e;--laiton-clair:#e6c98a;
+    --creme:#e8dcc4;--creme-doux:#c8b895;
+    --papier:#f4ecd8;--encre:#3a2f22;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'EB Garamond',Georgia,serif;
+    background:radial-gradient(ellipse at 50% 0%, #241a12 0%, var(--noir) 70%), var(--noir);
+    color:var(--creme);min-height:100vh;
+  }
+  body::before{content:"";position:fixed;inset:0;
+    background:radial-gradient(circle at 50% 30%, rgba(201,162,94,.08), transparent 55%);
+    pointer-events:none;z-index:0;}
+  .wrap{position:relative;z-index:2;max-width:1000px;margin:0 auto;padding:1.5rem 1.2rem 4rem}
+
+  .retour{display:inline-flex;align-items:center;gap:.4rem;color:var(--laiton-clair);
+    text-decoration:none;font-family:'Cormorant Garamond',serif;letter-spacing:.08em;
+    text-transform:uppercase;font-size:.85rem;margin-bottom:2.5rem;opacity:.85;transition:opacity .2s;}
+  .retour:hover{opacity:1}
+
+  .entete{text-align:center;margin-bottom:2.5rem}
+  .entete h1{font-family:'Cormorant Garamond',serif;font-weight:700;
+    font-size:clamp(2rem,5vw,3rem);line-height:1.1;color:var(--creme);margin-bottom:.7rem;}
+  .entete .soustitre{font-style:italic;color:var(--laiton-clair);font-size:1.1rem;line-height:1.6}
+
+  .filet{height:1px;background:linear-gradient(90deg,transparent,var(--laiton),transparent);margin:2.5rem 0}
+
+  /* ---- formulaire ---- */
+  .form-carte{
+    max-width:620px;margin:0 auto;
+    background:rgba(58,42,28,.28);border:1px solid rgba(201,162,94,.3);
+    border-radius:12px;padding:1.8rem 1.6rem;
+  }
+  .form-titre{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.5rem;
+    color:var(--laiton-clair);text-align:center;margin-bottom:1.6rem}
+
+  .champ{margin-bottom:1.4rem}
+  .champ > label{display:block;font-family:'Cormorant Garamond',serif;font-size:1.05rem;
+    letter-spacing:.05em;color:var(--creme);margin-bottom:.6rem}
+
+  .livres-choix{display:flex;flex-direction:column;gap:.5rem}
+  .livre-case{display:flex;align-items:center;gap:.65rem;cursor:pointer;
+    padding:.55rem .8rem;border:1px solid rgba(201,162,94,.25);border-radius:8px;
+    background:rgba(15,13,11,.35);transition:border-color .2s, background .2s;font-size:1.05rem;color:var(--creme-doux)}
+  .livre-case:hover{border-color:var(--laiton);color:var(--creme)}
+  .livre-case input{accent-color:var(--laiton);width:1.1rem;height:1.1rem;cursor:pointer;flex-shrink:0}
+  .livre-case.coche{border-color:var(--laiton);background:rgba(201,162,94,.12);color:var(--creme)}
+
+  input[type=text], textarea{
+    width:100%;font-family:'EB Garamond',Georgia,serif;font-size:1.05rem;
+    background:rgba(15,13,11,.5);color:var(--creme);
+    border:1px solid rgba(201,162,94,.3);border-radius:8px;padding:.7rem .85rem;
+    transition:border-color .2s;
+  }
+  input[type=text]:focus, textarea:focus{outline:none;border-color:var(--laiton)}
+  textarea{resize:vertical;min-height:110px;line-height:1.6}
+  .compte-car{text-align:right;font-size:.85rem;color:var(--creme-doux);opacity:.7;margin-top:.3rem}
+
+  /* ---- note en livres ---- */
+  .note-livres{display:flex;gap:.35rem;font-size:1.9rem;line-height:1;user-select:none}
+  .note-livres span{cursor:pointer;filter:grayscale(1) opacity(.35);transition:filter .15s, transform .15s}
+  .note-livres span:hover{transform:scale(1.15)}
+  .note-livres span.actif{filter:none}
+  .note-txt{margin-top:.4rem;font-style:italic;color:var(--laiton-clair);font-size:.95rem;min-height:1.2em}
+
+  .envoyer{
+    display:block;width:100%;margin-top:.5rem;padding:.95rem;border:none;border-radius:8px;
+    font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.25rem;letter-spacing:.03em;
+    cursor:pointer;color:#2b1d10;
+    background:linear-gradient(180deg,#f2b544 0%, #dfa02a 100%);
+    border:1px solid #f0c86f;
+    box-shadow:0 10px 26px rgba(242,181,68,.22), inset 0 1px 0 rgba(255,255,255,.28);
+    transition:transform .2s, box-shadow .2s, opacity .2s;
+  }
+  .envoyer:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(242,181,68,.3), inset 0 1px 0 rgba(255,255,255,.32)}
+  .envoyer:disabled{opacity:.5;cursor:default;transform:none}
+
+  .form-msg{text-align:center;margin-top:1rem;font-size:1.05rem;min-height:1.4em}
+  .form-msg.ok{color:var(--laiton-clair)}
+  .form-msg.err{color:#e0a0a0}
+
+  /* ---- mur d'avis ---- */
+  .mur-titre{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.8rem;
+    color:var(--laiton-clair);text-align:center;margin-bottom:.4rem}
+  .mur-moyenne{text-align:center;color:var(--creme-doux);font-style:italic;margin-bottom:2rem}
+
+  .mur{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.3rem}
+  .postit{
+    background:var(--papier);color:var(--encre);border-radius:3px;
+    padding:1.1rem 1.15rem 1.2rem;position:relative;
+    box-shadow:0 8px 20px rgba(0,0,0,.4);
+    font-family:'EB Garamond',Georgia,serif;
+  }
+  .postit:nth-child(3n){transform:rotate(-1.4deg)}
+  .postit:nth-child(3n+1){transform:rotate(1deg)}
+  .postit:nth-child(3n+2){transform:rotate(-.5deg)}
+  .postit::before{
+    content:"";position:absolute;top:-9px;left:50%;transform:translateX(-50%);
+    width:58px;height:18px;background:rgba(201,162,94,.55);
+    border:1px solid rgba(120,90,40,.4);border-radius:2px;
+    box-shadow:0 2px 4px rgba(0,0,0,.25);
+  }
+  .postit-note{font-size:1.15rem;line-height:1;margin-bottom:.5rem;letter-spacing:.05em}
+  .postit-avis{font-size:1.05rem;line-height:1.55;margin-bottom:.8rem;white-space:pre-wrap;word-break:break-word}
+  .postit-nom{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.1rem;color:var(--bois)}
+  .postit-livres{font-size:.85rem;font-style:italic;color:#7a6547;margin-top:.15rem}
+
+  .mur-vide{text-align:center;color:var(--creme-doux);font-style:italic;opacity:.7;padding:2rem 0}
+
+  @media (max-width:600px){
+    .form-carte{padding:1.4rem 1.1rem}
+    .mur{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <a class="retour" href="index.html">← Retour à la bibliothèque</a>
+
+    <div class="entete">
+      <h1>Votre avis compte</h1>
+      <p class="soustitre">Vous avez lu l'un de mes livres ?<br>Dites-moi ce que vous en avez pensé.</p>
+    </div>
+
+    <!-- ===== Formulaire ===== -->
+    <div class="form-carte">
+      <div class="form-titre">Laisser un avis</div>
+
+      <div class="champ">
+        <label>Quel(s) livre(s) souhaitez-vous noter ?</label>
+        <div class="livres-choix" id="livres-choix"></div>
+      </div>
+
+      <div class="champ">
+        <label for="nom">Votre nom (ou prénom)</label>
+        <input type="text" id="nom" maxlength="60" placeholder="Ex. Marie, ou Jean D.">
+      </div>
+
+      <div class="champ">
+        <label for="avis">Votre avis</label>
+        <textarea id="avis" maxlength="1500" placeholder="Ce que vous avez ressenti, aimé, retenu…"></textarea>
+        <div class="compte-car"><span id="car">0</span> / 1500</div>
+      </div>
+
+      <div class="champ">
+        <label>Votre note</label>
+        <div class="note-livres" id="note-livres">
+          <span data-n="1">📖</span><span data-n="2">📖</span><span data-n="3">📖</span><span data-n="4">📖</span><span data-n="5">📖</span>
+        </div>
+        <div class="note-txt" id="note-txt"></div>
+      </div>
+
+      <button class="envoyer" id="btn-envoyer" onclick="envoyer()">Envoyer mon avis</button>
+      <div class="form-msg" id="form-msg"></div>
+    </div>
+
+    <div class="filet"></div>
+
+    <!-- ===== Mur d'avis ===== -->
+    <div class="mur-titre">Ce qu'en disent les lecteurs</div>
+    <div class="mur-moyenne" id="mur-moyenne"></div>
+    <div class="mur" id="mur"></div>
+  </div>
+
+<script>
+  var API = "https://compteurs.royvanmil86.workers.dev";
+
+  var LIVRES = {
+    "cette-maison": "Cette maison, elle vaut vraiment le prix ?",
+    "un-instant": "Un instant, ou Deux…",
+    "la-cloche": "La Cloche des Morts",
+    "un-instant-trois": "Un instant, ou Trois…"
+  };
+  var TEXTE_NOTE = {1:"Bof",2:"Moyen",3:"Bien",4:"Très bien",5:"J'ai adoré !"};
+
+  var noteChoisie = 0;
+
+  // --- construire les cases livres ---
+  (function(){
+    var zone = document.getElementById('livres-choix');
+    Object.keys(LIVRES).forEach(function(cle){
+      var lab = document.createElement('label');
+      lab.className = 'livre-case';
+      lab.innerHTML = '<input type="checkbox" value="'+cle+'"> <span>'+LIVRES[cle]+'</span>';
+      var cb = lab.querySelector('input');
+      cb.addEventListener('change', function(){ lab.classList.toggle('coche', cb.checked); });
+      zone.appendChild(lab);
+    });
+  })();
+
+  // --- compteur de caractères ---
+  document.getElementById('avis').addEventListener('input', function(){
+    document.getElementById('car').textContent = this.value.length;
+  });
+
+  // --- note en livres ---
+  (function(){
+    var etoiles = document.querySelectorAll('#note-livres span');
+    function peindre(n){
+      etoiles.forEach(function(s){
+        s.classList.toggle('actif', parseInt(s.getAttribute('data-n'),10) <= n);
+      });
+    }
+    etoiles.forEach(function(s){
+      var n = parseInt(s.getAttribute('data-n'),10);
+      s.addEventListener('mouseenter', function(){ peindre(n); });
+      s.addEventListener('click', function(){
+        noteChoisie = n;
+        peindre(n);
+        document.getElementById('note-txt').textContent = TEXTE_NOTE[n];
+      });
+    });
+    document.getElementById('note-livres').addEventListener('mouseleave', function(){ peindre(noteChoisie); });
+  })();
+
+  // --- envoi ---
+  function envoyer(){
+    var msg = document.getElementById('form-msg');
+    msg.className = 'form-msg';
+    msg.textContent = '';
+
+    var livres = [];
+    document.querySelectorAll('#livres-choix input:checked').forEach(function(c){ livres.push(c.value); });
+    var nom = document.getElementById('nom').value.trim();
+    var avis = document.getElementById('avis').value.trim();
+
+    if(livres.length === 0){ msg.className='form-msg err'; msg.textContent="Choisissez au moins un livre."; return; }
+    if(nom.length < 2){ msg.className='form-msg err'; msg.textContent="Indiquez votre nom."; return; }
+    if(avis.length < 3){ msg.className='form-msg err'; msg.textContent="Écrivez quelques mots d'avis."; return; }
+    if(noteChoisie < 1){ msg.className='form-msg err'; msg.textContent="Choisissez une note."; return; }
+
+    var btn = document.getElementById('btn-envoyer');
+    btn.disabled = true;
+    btn.textContent = "Envoi…";
+
+    fetch(API + "/avis", {
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({livres:livres, nom:nom, avis:avis, note:noteChoisie})
+    })
+    .then(function(r){ return r.json().then(function(j){ return {status:r.status, j:j}; }); })
+    .then(function(res){
+      if(res.j.ok){
+        msg.className='form-msg ok';
+        msg.textContent="Merci ! Votre avis sera publié après relecture.";
+        // vider le formulaire
+        document.querySelectorAll('#livres-choix input:checked').forEach(function(c){ c.checked=false; c.closest('.livre-case').classList.remove('coche'); });
+        document.getElementById('nom').value='';
+        document.getElementById('avis').value='';
+        document.getElementById('car').textContent='0';
+        noteChoisie=0;
+        document.querySelectorAll('#note-livres span').forEach(function(s){ s.classList.remove('actif'); });
+        document.getElementById('note-txt').textContent='';
+        btn.textContent="Envoyé ✓";
+        setTimeout(function(){ btn.disabled=false; btn.textContent="Envoyer mon avis"; }, 3000);
+      } else {
+        if(res.status === 429){
+          msg.className='form-msg err';
+          msg.textContent="Doucement ! Attendez une trentaine de secondes avant de renvoyer un avis.";
+        } else {
+          msg.className='form-msg err';
+          msg.textContent="Une erreur est survenue. Réessayez.";
+        }
+        btn.disabled=false; btn.textContent="Envoyer mon avis";
+      }
+    })
+    .catch(function(){
+      msg.className='form-msg err';
+      msg.textContent="Erreur réseau. Vérifiez votre connexion.";
+      btn.disabled=false; btn.textContent="Envoyer mon avis";
+    });
+  }
+
+  // --- charger le mur d'avis publiés ---
+  function livresEnTexte(cles){
+    return (cles||[]).map(function(c){ return LIVRES[c] || c; }).join(" · ");
+  }
+  function livresEmoji(n){
+    var s=""; for(var i=0;i<5;i++){ s += (i<n) ? "📖" : "▫️"; } return s;
+  }
+  function chargerMur(){
+    fetch(API + "/avis-publics")
+      .then(function(r){ return r.json(); })
+      .then(function(avis){
+        var mur = document.getElementById('mur');
+        var moy = document.getElementById('mur-moyenne');
+        if(!avis || avis.length === 0){
+          mur.innerHTML = '<div class="mur-vide">Aucun avis publié pour le moment. Soyez le premier !</div>';
+          moy.textContent = '';
+          return;
+        }
+        var somme = avis.reduce(function(a,b){ return a + (b.note||0); }, 0);
+        var moyenne = (somme / avis.length).toFixed(1);
+        moy.textContent = moyenne + " / 5 — " + avis.length + " avis";
+
+        mur.innerHTML = "";
+        avis.forEach(function(e){
+          var c = document.createElement('div');
+          c.className = 'postit';
+          c.innerHTML =
+            '<div class="postit-note">' + livresEmoji(e.note) + '</div>' +
+            '<div class="postit-avis"></div>' +
+            '<div class="postit-nom"></div>' +
+            '<div class="postit-livres"></div>';
+          c.querySelector('.postit-avis').textContent = e.avis;
+          c.querySelector('.postit-nom').textContent = e.nom;
+          c.querySelector('.postit-livres').textContent = livresEnTexte(e.livres);
+          mur.appendChild(c);
+        });
+      })
+      .catch(function(){
+        document.getElementById('mur').innerHTML = '<div class="mur-vide">Impossible de charger les avis pour le moment.</div>';
+      });
+  }
+  chargerMur();
+</script>
+</body>
+</html>
