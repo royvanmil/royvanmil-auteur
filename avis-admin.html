@@ -8,8 +8,9 @@
 <style>
   :root{
     --bord:#e0e0e0; --texte:#1a1a1a; --gris:#666;
-    --bleu:#2563eb; --vert:#16a34a; --rouge:#dc2626;
+    --bleu:#2563eb; --vert:#16a34a; --rouge:#dc2626; --orange:#c2610c;
     --fond-carte:#fafafa; --jaune:#fef9e7; --jaune-bord:#f0d98a;
+    --gris-fond:#f3f4f6;
   }
   *{margin:0;padding:0;box-sizing:border-box}
   body{
@@ -46,18 +47,23 @@
     background:var(--fond-carte);
   }
   .avis.attente{background:var(--jaune);border-color:var(--jaune-bord)}
+  .avis.corbeille{background:var(--gris-fond);opacity:.85}
   .avis-tete{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;margin-bottom:.5rem;flex-wrap:wrap}
   .avis-nom{font-weight:700;font-size:1.1rem}
-  .avis-note{font-size:1.05rem;letter-spacing:.05em}
+  .avis-note{font-size:1rem;color:#b8860b;font-weight:700;letter-spacing:.05em;white-space:nowrap}
   .avis-date{font-size:.82rem;color:var(--gris)}
   .avis-livres{font-size:.88rem;color:var(--gris);font-style:italic;margin-bottom:.5rem}
   .avis-texte{font-size:1.02rem;line-height:1.6;margin-bottom:.9rem;white-space:pre-wrap;word-break:break-word}
-  .avis-actions{display:flex;gap:.6rem;flex-wrap:wrap}
+  .avis-actions{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:.7rem}
   .btn{padding:.45rem 1rem;border-radius:6px;font-size:.9rem;font-weight:600;cursor:pointer;border:1px solid;background:#fff;transition:all .15s}
   .btn-publier{border-color:var(--vert);color:var(--vert)}
   .btn-publier:hover{background:var(--vert);color:#fff}
-  .btn-cacher{border-color:var(--gris);color:var(--gris)}
-  .btn-cacher:hover{background:var(--gris);color:#fff}
+  .btn-retirer{border-color:var(--gris);color:var(--gris)}
+  .btn-retirer:hover{background:var(--gris);color:#fff}
+  .btn-jeter{border-color:var(--orange);color:var(--orange)}
+  .btn-jeter:hover{background:var(--orange);color:#fff}
+  .btn-restaurer{border-color:var(--bleu);color:var(--bleu)}
+  .btn-restaurer:hover{background:var(--bleu);color:#fff}
   .btn-supprimer{border-color:var(--rouge);color:var(--rouge)}
   .btn-supprimer:hover{background:var(--rouge);color:#fff}
 
@@ -73,7 +79,7 @@
 <body>
 
   <h1>Modération des avis</h1>
-  <p class="sous">Validez ou supprimez les témoignages reçus — royvanmil.fr</p>
+  <p class="sous">Validez, retirez ou jetez les témoignages reçus — royvanmil.fr</p>
 
   <div class="connexion" id="connexion">
     <input type="password" id="mdp" placeholder="Mot de passe" onkeydown="if(event.key==='Enter')connecter()">
@@ -82,13 +88,16 @@
   </div>
 
   <div id="contenu" class="cache">
-    <h2>À valider <span class="compte" id="compte-attente"></span></h2>
+    <h2>En attente <span class="compte" id="compte-attente"></span></h2>
     <div id="liste-attente"></div>
 
-    <h2>Publiés <span class="compte" id="compte-publie"></span></h2>
+    <h2>En ligne <span class="compte" id="compte-publie"></span></h2>
     <div id="liste-publie"></div>
 
-    <button class="rafraichir" onclick="charger()">↻ Rafraîchir</button>
+    <h2>Corbeille <span class="compte" id="compte-corbeille"></span></h2>
+    <div id="liste-corbeille"></div>
+
+    <button class="rafraichir" onclick="charger()">&#8635; Rafraichir</button>
   </div>
 
 <script>
@@ -97,9 +106,9 @@
 
   var LIVRES = {
     "cette-maison": "Cette maison, elle vaut vraiment le prix ?",
-    "un-instant": "Un instant, ou Deux…",
+    "un-instant": "Un instant, ou Deux\u2026",
     "la-cloche": "La Cloche des Morts",
-    "un-instant-trois": "Un instant, ou Trois…"
+    "un-instant-trois": "Un instant, ou Trois\u2026"
   };
 
   function connecter(){
@@ -110,10 +119,10 @@
   }
 
   function livresEnTexte(cles){
-    return (cles||[]).map(function(c){ return LIVRES[c] || c; }).join(" · ");
+    return (cles||[]).map(function(c){ return LIVRES[c] || c; }).join(" \u00b7 ");
   }
-  function noteEmoji(n){
-    var s=""; for(var i=0;i<5;i++){ s += (i<n) ? "📖" : "▫️"; } return s;
+  function noteTexte(n){
+    var s=""; for(var i=0;i<n;i++){ s+="\uD83D\uDCD6"; } return s + "  " + n + "/5";
   }
   function dateLisible(iso){
     try{ return new Date(iso).toLocaleString('fr-FR'); }catch(e){ return iso; }
@@ -122,7 +131,7 @@
   function charger(){
     fetch(API + "/avis-liste?code=" + encodeURIComponent(MDP))
       .then(function(r){
-        if(r.status === 403){ document.getElementById('msg').textContent = "Mot de passe refusé."; return null; }
+        if(r.status === 403){ document.getElementById('msg').textContent = "Mot de passe refuse."; return null; }
         return r.json();
       })
       .then(function(avis){
@@ -130,44 +139,56 @@
         document.getElementById('connexion').classList.add('cache');
         document.getElementById('contenu').classList.remove('cache');
 
-        var attente = avis.filter(function(a){ return a.statut === "attente"; });
-        var publie  = avis.filter(function(a){ return a.statut === "publie"; });
+        var attente   = avis.filter(function(a){ return a.statut === "attente"; });
+        var publie    = avis.filter(function(a){ return a.statut === "publie"; });
+        var corbeille = avis.filter(function(a){ return a.statut === "corbeille"; });
 
-        document.getElementById('compte-attente').textContent = attente.length ? "(" + attente.length + ")" : "";
-        document.getElementById('compte-publie').textContent  = publie.length ? "(" + publie.length + ")" : "";
+        document.getElementById('compte-attente').textContent   = attente.length ? "(" + attente.length + ")" : "";
+        document.getElementById('compte-publie').textContent    = publie.length ? "(" + publie.length + ")" : "";
+        document.getElementById('compte-corbeille').textContent = corbeille.length ? "(" + corbeille.length + ")" : "";
 
-        dessiner('liste-attente', attente, true);
-        dessiner('liste-publie', publie, false);
+        dessiner('liste-attente', attente, "attente");
+        dessiner('liste-publie', publie, "publie");
+        dessiner('liste-corbeille', corbeille, "corbeille");
       })
       .catch(function(){ document.getElementById('msg').textContent = "Erreur de chargement."; });
   }
 
-  function dessiner(zoneId, liste, enAttente){
+  function boutons(statut, id){
+    if(statut === "attente"){
+      return '<button class="btn btn-publier" data-id="'+id+'" data-act="publier">\u2713 Publier</button>' +
+             '<button class="btn btn-jeter" data-id="'+id+'" data-act="jeter">\uD83D\uDDD1 Jeter</button>';
+    }
+    if(statut === "publie"){
+      return '<button class="btn btn-retirer" data-id="'+id+'" data-act="cacher">Retirer du site</button>' +
+             '<button class="btn btn-jeter" data-id="'+id+'" data-act="jeter">\uD83D\uDDD1 Jeter</button>';
+    }
+    return '<button class="btn btn-restaurer" data-id="'+id+'" data-act="restaurer">\u21a9 Restaurer</button>' +
+           '<button class="btn btn-supprimer" data-id="'+id+'" data-act="supprimer">\u2715 Supprimer definitivement</button>';
+  }
+
+  function dessiner(zoneId, liste, statut){
     var zone = document.getElementById(zoneId);
     zone.innerHTML = "";
     if(liste.length === 0){
-      zone.innerHTML = '<div class="vide">' + (enAttente ? "Aucun avis en attente." : "Aucun avis publié.") + '</div>';
+      var txt = statut === "attente" ? "Aucun avis en attente."
+              : statut === "publie" ? "Aucun avis en ligne."
+              : "Corbeille vide.";
+      zone.innerHTML = '<div class="vide">' + txt + '</div>';
       return;
     }
     liste.forEach(function(e){
       var div = document.createElement('div');
-      div.className = 'avis' + (enAttente ? ' attente' : '');
-
-      var actions = enAttente
-        ? '<button class="btn btn-publier" data-id="'+e.id+'" data-act="publier">✓ Publier</button>' +
-          '<button class="btn btn-supprimer" data-id="'+e.id+'" data-act="supprimer">✕ Supprimer</button>'
-        : '<button class="btn btn-cacher" data-id="'+e.id+'" data-act="cacher">Retirer</button>' +
-          '<button class="btn btn-supprimer" data-id="'+e.id+'" data-act="supprimer">✕ Supprimer</button>';
-
+      div.className = 'avis ' + statut;
       div.innerHTML =
         '<div class="avis-tete">' +
           '<span class="avis-nom"></span>' +
-          '<span class="avis-note">' + noteEmoji(e.note) + '</span>' +
+          '<span class="avis-note">' + noteTexte(e.note) + '</span>' +
         '</div>' +
         '<div class="avis-livres"></div>' +
         '<div class="avis-texte"></div>' +
         '<div class="avis-date">' + dateLisible(e.date) + '</div>' +
-        '<div class="avis-actions" style="margin-top:.7rem">' + actions + '</div>';
+        '<div class="avis-actions">' + boutons(statut, e.id) + '</div>';
 
       div.querySelector('.avis-nom').textContent = e.nom;
       div.querySelector('.avis-livres').textContent = livresEnTexte(e.livres);
@@ -182,17 +203,17 @@
   }
 
   function action(id, act){
-    if(act === "supprimer" && !confirm("Supprimer définitivement cet avis ?")) return;
+    if(act === "supprimer" && !confirm("Supprimer DEFINITIVEMENT cet avis ?\nIl ne sera plus recuperable.")) return;
     fetch(API + "/avis-action?code=" + encodeURIComponent(MDP) + "&id=" + encodeURIComponent(id) + "&action=" + act)
       .then(function(r){
-        if(r.status === 403){ alert("Mot de passe refusé."); return; }
+        if(r.status === 403){ alert("Mot de passe refuse."); return; }
         return r.json();
       })
       .then(function(res){
         if(res && res.ok){ charger(); }
         else if(res){ alert("Erreur : " + (res.erreur || "inconnue")); }
       })
-      .catch(function(){ alert("Erreur réseau."); });
+      .catch(function(){ alert("Erreur reseau."); });
   }
 </script>
 </body>
