@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Démo — boutons Avis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=EB+Garamond:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --noir:#161210;--laiton:#c9a25e;--laiton-clair:#e6c98a;
+    --creme:#e8dcc4;--creme-doux:#c8b895;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    font-family:'EB Garamond',Georgia,serif;
+    background:radial-gradient(ellipse at 50% 0%, #241a12 0%, var(--noir) 70%), var(--noir);
+    color:var(--creme);min-height:200vh;padding:2rem 1.2rem;
+  }
+  .demo-titre{max-width:700px;margin:0 auto 2rem;text-align:center}
+  .demo-titre h1{font-family:'Cormorant Garamond',serif;font-size:1.8rem;color:var(--laiton-clair);margin-bottom:.5rem}
+  .demo-titre p{color:var(--creme-doux);font-size:1rem;line-height:1.6}
+
+  .bloc{max-width:700px;margin:0 auto 3rem;padding:1.5rem;border:1px dashed rgba(201,162,94,.4);border-radius:10px}
+  .bloc h2{font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--laiton-clair);margin-bottom:.4rem}
+  .bloc .note-explic{color:var(--creme-doux);font-size:.92rem;margin-bottom:1.5rem;line-height:1.5}
+  .faux-texte{color:var(--creme-doux);opacity:.5;font-size:.95rem;line-height:1.7}
+
+  /* ===== Style commun du bouton rond ===== */
+  .avis-rond{
+    display:inline-flex;flex-direction:column;align-items:center;justify-content:center;
+    width:78px;height:78px;border-radius:50%;text-decoration:none;
+    background:linear-gradient(180deg,#f2b544 0%, #dfa02a 100%);
+    color:#2b1d10;border:1px solid #f0c86f;
+    box-shadow:0 8px 20px rgba(242,181,68,.28), inset 0 1px 0 rgba(255,255,255,.3);
+    transition:transform .2s, box-shadow .2s;font-family:'EB Garamond',serif;
+  }
+  .avis-rond:hover{transform:scale(1.06);box-shadow:0 12px 26px rgba(242,181,68,.36), inset 0 1px 0 rgba(255,255,255,.34)}
+  .avis-rond .mot{font-weight:700;font-size:.95rem;letter-spacing:.03em;line-height:1}
+  .avis-rond .note{font-size:.78rem;font-weight:600;margin-top:.2rem;opacity:.9}
+
+  /* Version intégrée : centré dans la page */
+  .integre-zone{display:flex;justify-content:center;padding:1rem 0}
+
+  /* Version flottante : fixe en bas à droite */
+  .avis-flottant{
+    position:fixed;bottom:20px;right:20px;z-index:999;
+  }
+</style>
+</head>
+<body>
+
+  <div class="demo-titre">
+    <h1>Deux styles de bouton « Avis »</h1>
+    <p>Regarde surtout sur ton téléphone. Le rond doré en bas à droite te suit quand tu fais défiler (version flottante). Plus bas, tu vois la version posée dans la page (version intégrée).</p>
+  </div>
+
+  <div class="bloc">
+    <h2>Version intégrée</h2>
+    <p class="note-explic">Un bouton posé dans la page, par exemple à la fin d'une page livre. Il ne bouge pas, ne cache rien.</p>
+    <div class="integre-zone">
+      <a class="avis-rond" href="temoignages.html">
+        <span class="mot">Avis</span>
+        <span class="note">4.8/5</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="bloc">
+    <h2>Version flottante</h2>
+    <p class="note-explic">Le rond doré fixe en bas à droite de l'écran (déjà visible sur cette page). Il suit le défilement, toujours accessible — mais peut cacher un peu de contenu sur mobile.</p>
+    <p class="faux-texte">
+      Fais défiler cette page de haut en bas sur ton téléphone pour voir comment le bouton flottant se comporte.<br><br>
+      Texte de remplissage pour tester le défilement…<br><br>
+      Le grand-père bondit dans le salon. Une poignée de main qui fait du bien. Un château qui se réveille pour un banquet invisible. Des machines qui jugent, des voisins qu'on croyait perdus…<br><br>
+      Continue de défiler. Le bouton flottant reste en bas à droite.<br><br>
+      An 720. Un petit village presque disparu dans le brouillard. Tout y semble paisible, tout y semble normal. Sauf la mort — et la façon dont on la rejoint.<br><br>
+      Encore un peu de texte pour bien voir le comportement du bouton…<br><br>
+      Après Un instant, ou Deux…, l'histoire continue. De nouvelles microhistoires, courtes et indépendantes, à lire en un instant.
+    </p>
+  </div>
+
+  <!-- Le bouton flottant, présent en permanence -->
+  <a class="avis-rond avis-flottant" href="temoignages.html">
+    <span class="mot">Avis</span>
+    <span class="note">4.8/5</span>
+  </a>
+
+</body>
+</html>
