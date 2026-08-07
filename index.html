@@ -113,15 +113,21 @@ html,body{background:#0b0806;min-height:100%;overflow-x:hidden;}
 
 .livres{
   position:absolute;
-  top:36%;
   left:26%;
   right:26%;
-  bottom:26%;
   display:flex;
   align-items:flex-end;
   justify-content:space-between;
   gap:2%;
   z-index:2;
+}
+.livres-haut{
+  top:21%;
+  height:25%;
+}
+.livres-bas{
+  top:55%;
+  height:25%;
 }
 
 .livre{
@@ -214,22 +220,31 @@ html,body{background:#0b0806;min-height:100%;overflow-x:hidden;}
   <div class="scene">
 
     <p class="invite">
-      Chaque livre ouvre une porte différente.
-      <small>Choisissez une couverture pour entrer dans son univers</small>
+      Cliquez sur un livre
+      <small>Pour découvrir son univers</small>
     </p>
 
-    <div class="livres">
+    <div class="livres livres-haut">
       <a class="livre" href="cette-maison.html" aria-label="Cette maison, elle vaut vraiment le prix ?">
         <img src="img/couv-cette-maison.jpg" alt="Couverture — Cette maison, elle vaut vraiment le prix ?">
-        <span class="entrez">Entrez…</span>
       </a>
       <a class="livre" href="un-instant.html" aria-label="Un instant, ou Deux...">
         <img src="img/couv-un-instant.png" alt="Couverture — Un instant, ou Deux...">
-        <span class="entrez">Entrez…</span>
       </a>
       <a class="livre" href="la-cloche-des-morts.html" aria-label="La Cloche des Morts">
         <img src="img/couv-cloche.png" alt="Couverture — La Cloche des Morts">
-        <span class="entrez">Entrez…</span>
+      </a>
+    </div>
+
+    <div class="livres livres-bas">
+      <a class="livre" href="trois-instants.html" aria-label="Trois Instants">
+        <img src="img/couv-trois-instants.png" alt="Couverture — Trois Instants">
+      </a>
+      <a class="livre" href="couv-5.html" aria-label="Prochain récit">
+        <img src="img/couv-5.png" alt="Couverture — à paraître">
+      </a>
+      <a class="livre" href="couv-6.html" aria-label="Nouvel univers">
+        <img src="img/couv-6.png" alt="Couverture — à paraître">
       </a>
     </div>
 
