@@ -248,6 +248,8 @@ html,body{background:#0b0806;min-height:100%;overflow-x:hidden;}
       </a>
     </div>
 
+  </div>
+
 <!-- Gros bouton Avis des lecteurs -->
   <div style="text-align:center;margin:2rem auto 1rem;">
     <a href="temoignages.html" class="gros-avis" aria-label="Lire les avis des lecteurs">
@@ -265,9 +267,6 @@ html,body{background:#0b0806;min-height:100%;overflow-x:hidden;}
   <script>
     fetch("https://compteurs.royvanmil86.workers.dev/avis-publics").then(function(r){return r.json();}).then(function(avis){if(!avis||avis.length===0)return;var moy=(avis.reduce(function(t,e){return t+(e.note||0);},0)/avis.length).toFixed(1);var el=document.getElementById("gros-avis-note");if(el)el.textContent="— "+moy+"/5";}).catch(function(){});
   </script>
-
-
-  </div>
 
   <footer class="portrait">
     <img src="img/roy-auteur.jpg" alt="Roy Van Mil, auteur">
