@@ -207,7 +207,7 @@
         </div>
 
         <div class="reponse" id="reponse"></div>
-        <button type="button" class="envoyer" id="envoyer" onclick="envoyer()">Envoyer</button>
+        <button type="button" class="envoyer" id="btn-envoyer" onclick="envoyerContact()">Envoyer</button>
       </form>
     </div>
 
@@ -235,7 +235,7 @@
       document.getElementById(id).classList.toggle('champ-err', !!err);
     }
 
-    function envoyer(){
+    function envoyerContact(){
       var rep = document.getElementById('reponse');
       rep.className = "reponse";
       rep.textContent = "";
@@ -274,7 +274,7 @@
         return;
       }
 
-      var btn = document.getElementById('envoyer');
+      var btn = document.getElementById('btn-envoyer');
       btn.disabled = true; btn.textContent = "Envoi…";
 
       fetch(API + "/contact", {
