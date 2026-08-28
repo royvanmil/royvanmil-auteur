@@ -266,6 +266,25 @@
           <a class="btn btn-clim" href="https://www.pro2tec.net/livre.html" target="_blank" rel="noopener" data-i18n="btn-clim">🎁 Gagner une clim</a>
         </div>
 
+<!-- Gros bouton Avis des lecteurs -->
+  <div style="text-align:center;margin:2rem auto 1rem;">
+    <a href="temoignages.html" class="gros-avis" aria-label="Lire les avis des lecteurs">
+      ⭐ Les AVIS des Lecteurs
+      <span class="gros-avis-note" id="gros-avis-note"></span>
+    </a>
+  </div>
+  <style>
+    .gros-avis{display:inline-flex;align-items:center;gap:.7rem;padding:1.25rem 2.8rem;border-radius:14px;text-decoration:none;font-family:'Cormorant Garamond','EB Garamond',Georgia,serif;font-weight:700;font-size:1.7rem;letter-spacing:.03em;color:#2b1d10;background:linear-gradient(180deg,#f2b544 0%,#dfa02a 100%);border:1px solid #f0c86f;box-shadow:0 12px 30px rgba(242,181,68,.38),inset 0 1px 0 rgba(255,255,255,.35);transition:transform .2s,box-shadow .2s;}
+    .gros-avis:hover{transform:scale(1.05);box-shadow:0 16px 38px rgba(242,181,68,.48),inset 0 1px 0 rgba(255,255,255,.4);}
+    .gros-avis-note{font-size:1.15rem;font-weight:600;opacity:.85;}
+    .gros-avis-note:empty{display:none;}
+    @media(max-width:600px){.gros-avis{font-size:1.3rem;padding:1rem 1.9rem;}}
+  </style>
+  <script>
+    fetch("https://compteurs.royvanmil86.workers.dev/avis-publics").then(function(r){return r.json();}).then(function(avis){if(!avis||avis.length===0)return;var moy=(avis.reduce(function(t,e){return t+(e.note||0);},0)/avis.length).toFixed(1);var el=document.getElementById("gros-avis-note");if(el)el.textContent="— "+moy+"/5";}).catch(function(){});
+  </script>
+
+
         <p class="mention-fr" data-i18n="mention-fr"></p>
       </div>
     </div>
@@ -434,6 +453,7 @@
     }
     compte("livre1-maison");
   </script>
+
   <script src="avis-bouton.js" defer></script>
 </body>
 </html>
