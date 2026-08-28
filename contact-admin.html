@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Messages reçus — Roy Van Mil</title>
+<style>
+  :root{
+    --bord:#e0e0e0; --texte:#1a1a1a; --gris:#666;
+    --bleu:#2563eb; --vert:#16a34a; --rouge:#dc2626; --orange:#c2610c;
+    --fond-carte:#fafafa; --jaune:#fef9e7; --jaune-bord:#f0d98a;
+    --gris-fond:#f3f4f6; --violet:#7c3aed; --violet-fond:#f5f0ff;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    background:#fff;color:var(--texte);
+    line-height:1.5;padding:1.5rem;max-width:900px;margin:0 auto;
+  }
+  h1{font-size:1.8rem;margin-bottom:.3rem}
+  .sous{color:var(--gris);margin-bottom:1.5rem;font-size:.95rem}
+
+  .connexion{
+    background:var(--fond-carte);border:1px solid var(--bord);
+    border-radius:10px;padding:1.2rem;margin-bottom:1.5rem;
+    display:flex;gap:.7rem;align-items:center;flex-wrap:wrap;
+  }
+  .connexion input{
+    padding:.6rem .8rem;border:1px solid var(--bord);border-radius:7px;
+    font-size:1rem;flex:1;min-width:200px;
+  }
+  .connexion button{
+    padding:.6rem 1.3rem;border:none;border-radius:7px;
+    background:var(--bleu);color:#fff;font-size:1rem;font-weight:600;cursor:pointer;
+  }
+  .connexion button:hover{background:#1d4ed8}
+  .msg{font-size:.9rem;color:var(--rouge);width:100%}
+
+  .cache{display:none}
+
+  h2{font-size:1.3rem;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:2px solid var(--bord)}
+  h2 .compte{font-size:.9rem;color:var(--gris);font-weight:normal;margin-left:.5rem}
+
+  .msgc{
+    border:1px solid var(--bord);border-radius:10px;padding:1.1rem 1.2rem;margin-bottom:1rem;
+    background:var(--fond-carte);
+  }
+  .msgc.nouveau{background:var(--jaune);border-color:var(--jaune-bord)}
+  .msgc.corbeille{background:var(--gris-fond);opacity:.85}
+
+  .msg-tete{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;margin-bottom:.5rem;flex-wrap:wrap}
+  .msg-nom{font-weight:700;font-size:1.15rem}
+  .badge{
+    font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;
+    padding:.2rem .6rem;border-radius:20px;white-space:nowrap;
+  }
+  .badge-message{background:#dbeafe;color:#1e40af}
+  .badge-livre{background:#e9d5ff;color:#6b21a8}
+  .msg-date{font-size:.82rem;color:var(--gris)}
+
+  .msg-contact{display:flex;gap:1rem;flex-wrap:wrap;margin:.4rem 0 .7rem}
+  .msg-contact a{
+    display:inline-flex;align-items:center;gap:.35rem;
+    text-decoration:none;font-size:.95rem;font-weight:600;
+    padding:.35rem .8rem;border-radius:7px;border:1px solid;
+  }
+  .lien-mail{color:var(--bleu);border-color:#bfdbfe;background:#eff6ff}
+  .lien-mail:hover{background:var(--bleu);color:#fff}
+  .lien-tel{color:var(--vert);border-color:#bbf7d0;background:#f0fdf4}
+  .lien-tel:hover{background:var(--vert);color:#fff}
+
+  .msg-texte{
+    font-size:1.02rem;line-height:1.6;margin:.6rem 0;white-space:pre-wrap;word-break:break-word;
+    padding:.7rem .9rem;background:#fff;border:1px solid var(--bord);border-radius:8px;
+  }
+  .msg-adresse{
+    font-size:1rem;line-height:1.5;margin:.6rem 0;padding:.7rem .9rem;
+    background:#fff;border:1px solid var(--bord);border-radius:8px;
+  }
+  .msg-adresse .etiq{font-size:.78rem;text-transform:uppercase;letter-spacing:.05em;color:var(--gris);display:block;margin-bottom:.2rem}
+  .msg-adresse .copier{
+    float:right;font-size:.8rem;padding:.2rem .6rem;border:1px solid var(--bord);
+    border-radius:6px;background:#fff;cursor:pointer;color:var(--gris);
+  }
+  .msg-adresse .copier:hover{background:var(--gris-fond)}
+  .msg-motif{
+    font-size:.98rem;line-height:1.55;margin:.6rem 0;padding:.7rem .9rem;
+    background:var(--violet-fond);border:1px solid #ddd6fe;border-radius:8px;white-space:pre-wrap;word-break:break-word;
+  }
+  .msg-motif .etiq{font-size:.78rem;text-transform:uppercase;letter-spacing:.05em;color:var(--violet);display:block;margin-bottom:.2rem;font-weight:700}
+
+  .msg-actions{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:.8rem}
+  .btn{padding:.45rem 1rem;border-radius:6px;font-size:.9rem;font-weight:600;cursor:pointer;border:1px solid;background:#fff;transition:all .15s}
+  .btn-lu{border-color:var(--vert);color:var(--vert)}
+  .btn-lu:hover{background:var(--vert);color:#fff}
+  .btn-nouveau{border-color:var(--gris);color:var(--gris)}
+  .btn-nouveau:hover{background:var(--gris);color:#fff}
+  .btn-jeter{border-color:var(--orange);color:var(--orange)}
+  .btn-jeter:hover{background:var(--orange);color:#fff}
+  .btn-restaurer{border-color:var(--bleu);color:var(--bleu)}
+  .btn-restaurer:hover{background:var(--bleu);color:#fff}
+  .btn-supprimer{border-color:var(--rouge);color:var(--rouge)}
+  .btn-supprimer:hover{background:var(--rouge);color:#fff}
+
+  .vide{color:var(--gris);font-style:italic;padding:1rem 0}
+  .rafraichir{
+    display:block;margin:2rem auto 0;padding:.6rem 1.4rem;
+    border:1px solid var(--bord);border-radius:7px;background:#fff;
+    font-size:.95rem;cursor:pointer;
+  }
+  .rafraichir:hover{background:#f3f4f6}
+</style>
+</head>
+<body>
+
+  <h1>Messages reçus</h1>
+  <p class="sous">Messages et demandes de livre envoyés depuis le site — royvanmil.fr</p>
+
+  <div class="connexion" id="connexion">
+    <input type="password" id="mdp" placeholder="Mot de passe" onkeydown="if(event.key==='Enter')connecter()">
+    <button onclick="connecter()">Entrer</button>
+    <div class="msg" id="msg"></div>
+  </div>
+
+  <div id="contenu" class="cache">
+    <h2>Nouveaux <span class="compte" id="compte-nouveau"></span></h2>
+    <div id="liste-nouveau"></div>
+
+    <h2>Lus <span class="compte" id="compte-lu"></span></h2>
+    <div id="liste-lu"></div>
+
+    <h2>Corbeille <span class="compte" id="compte-corbeille"></span></h2>
+    <div id="liste-corbeille"></div>
+
+    <button class="rafraichir" onclick="charger()">&#8635; Rafraichir</button>
+  </div>
+
+<script>
+  var API = "https://compteurs.royvanmil86.workers.dev";
+  var MDP = "";
+
+  function connecter(){
+    var val = document.getElementById('mdp').value.trim();
+    if(!val){ document.getElementById('msg').textContent = "Entre le mot de passe."; return; }
+    MDP = val;
+    charger();
+  }
+
+  function dateLisible(iso){
+    try{ return new Date(iso).toLocaleString('fr-FR'); }catch(e){ return iso; }
+  }
+  function esc(t){
+    var d = document.createElement('div'); d.textContent = (t||""); return d.innerHTML;
+  }
+
+  function charger(){
+    fetch(API + "/contact-liste?code=" + encodeURIComponent(MDP))
+      .then(function(r){
+        if(r.status === 403){ document.getElementById('msg').textContent = "Mot de passe refuse."; return null; }
+        return r.json();
+      })
+      .then(function(messages){
+        if(messages === null) return;
+        document.getElementById('connexion').classList.add('cache');
+        document.getElementById('contenu').classList.remove('cache');
+
+        var nouveau   = messages.filter(function(m){ return m.statut === "nouveau"; });
+        var lu        = messages.filter(function(m){ return m.statut === "lu"; });
+        var corbeille = messages.filter(function(m){ return m.statut === "corbeille"; });
+
+        document.getElementById('compte-nouveau').textContent   = nouveau.length ? "(" + nouveau.length + ")" : "";
+        document.getElementById('compte-lu').textContent        = lu.length ? "(" + lu.length + ")" : "";
+        document.getElementById('compte-corbeille').textContent = corbeille.length ? "(" + corbeille.length + ")" : "";
+
+        dessiner('liste-nouveau', nouveau, "nouveau");
+        dessiner('liste-lu', lu, "lu");
+        dessiner('liste-corbeille', corbeille, "corbeille");
+      })
+      .catch(function(){ document.getElementById('msg').textContent = "Erreur de chargement."; });
+  }
+
+  function boutons(statut, id){
+    if(statut === "nouveau"){
+      return '<button class="btn btn-lu" data-id="'+id+'" data-act="lu">\u2713 Marquer lu</button>' +
+             '<button class="btn btn-jeter" data-id="'+id+'" data-act="jeter">\uD83D\uDDD1 Jeter</button>';
+    }
+    if(statut === "lu"){
+      return '<button class="btn btn-nouveau" data-id="'+id+'" data-act="nouveau">Remettre en nouveau</button>' +
+             '<button class="btn btn-jeter" data-id="'+id+'" data-act="jeter">\uD83D\uDDD1 Jeter</button>';
+    }
+    return '<button class="btn btn-restaurer" data-id="'+id+'" data-act="restaurer">\u21a9 Restaurer</button>' +
+           '<button class="btn btn-supprimer" data-id="'+id+'" data-act="supprimer">\u2715 Supprimer definitivement</button>';
+  }
+
+  function contactLiens(e){
+    var h = '<div class="msg-contact">';
+    if(e.email){ h += '<a class="lien-mail" href="mailto:' + encodeURIComponent(e.email) + '">\u2709\uFE0F ' + esc(e.email) + '</a>'; }
+    if(e.mobile){
+      var tel = e.mobile.replace(/[^0-9+]/g,'');
+      h += '<a class="lien-tel" href="tel:' + tel + '">\uD83D\uDCF1 ' + esc(e.mobile) + '</a>';
+    }
+    h += '</div>';
+    return h;
+  }
+
+  function dessiner(zoneId, liste, statut){
+    var zone = document.getElementById(zoneId);
+    zone.innerHTML = "";
+    if(liste.length === 0){
+      var txt = statut === "nouveau" ? "Aucun nouveau message."
+              : statut === "lu" ? "Aucun message lu."
+              : "Corbeille vide.";
+      zone.innerHTML = '<div class="vide">' + txt + '</div>';
+      return;
+    }
+    liste.forEach(function(e){
+      var estLivre = (e.type === "livre");
+      var div = document.createElement('div');
+      div.className = 'msgc ' + statut;
+
+      var nomComplet = estLivre ? (esc(e.prenom) + " " + esc(e.nom)) : esc(e.nom);
+      var badge = estLivre
+        ? '<span class="badge badge-livre">\uD83D\uDCD6 Demande de livre</span>'
+        : '<span class="badge badge-message">\u2709\uFE0F Message</span>';
+
+      var html =
+        '<div class="msg-tete">' +
+          '<span class="msg-nom">' + nomComplet + '</span>' +
+          badge +
+        '</div>' +
+        contactLiens(e);
+
+      if(estLivre){
+        var adresse = esc(e.prenom) + " " + esc(e.nom) + "\n" + esc(e.rue) + "\n" + esc(e.cp) + " " + esc(e.ville);
+        html += '<div class="msg-adresse">' +
+                  '<button class="copier" data-copie="' + e.id + '">Copier</button>' +
+                  '<span class="etiq">Adresse d\'envoi</span>' +
+                  '<span id="adr-' + e.id + '">' + adresse.replace(/\n/g,'<br>') + '</span>' +
+                '</div>';
+        if(e.motif){
+          html += '<div class="msg-motif"><span class="etiq">Pourquoi un exemplaire</span>' + esc(e.motif) + '</div>';
+        }
+      } else {
+        html += '<div class="msg-texte">' + esc(e.message) + '</div>';
+      }
+
+      html += '<div class="msg-date">' + dateLisible(e.date) + '</div>';
+      html += '<div class="msg-actions">' + boutons(statut, e.id) + '</div>';
+
+      div.innerHTML = html;
+
+      // boutons d'action
+      div.querySelectorAll('.btn').forEach(function(b){
+        b.addEventListener('click', function(){ action(b.getAttribute('data-id'), b.getAttribute('data-act')); });
+      });
+      // bouton copier l'adresse
+      var cp = div.querySelector('.copier');
+      if(cp){
+        cp.addEventListener('click', function(){
+          var txt = (e.prenom + " " + e.nom + "\n" + e.rue + "\n" + e.cp + " " + e.ville);
+          navigator.clipboard.writeText(txt).then(function(){
+            cp.textContent = "Copié \u2713";
+            setTimeout(function(){ cp.textContent = "Copier"; }, 1500);
+          });
+        });
+      }
+
+      zone.appendChild(div);
+    });
+  }
+
+  function action(id, act){
+    if(act === "supprimer" && !confirm("Supprimer DEFINITIVEMENT ce message ?\nIl ne sera plus recuperable.")) return;
+    fetch(API + "/contact-action?code=" + encodeURIComponent(MDP) + "&id=" + encodeURIComponent(id) + "&action=" + act)
+      .then(function(r){
+        if(r.status === 403){ alert("Mot de passe refuse."); return; }
+        return r.json();
+      })
+      .then(function(res){
+        if(res && res.ok){ charger(); }
+        else if(res){ alert("Erreur : " + (res.erreur || "inconnue")); }
+      })
+      .catch(function(){ alert("Erreur reseau."); });
+  }
+</script>
+</body>
+</html>
