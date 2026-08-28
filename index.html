@@ -295,6 +295,18 @@ html,body{background:#0b0806;min-height:100%;overflow-x:hidden;}
     fetch("https://compteurs.royvanmil86.workers.dev/avis-publics").then(function(r){return r.json();}).then(function(avis){if(!avis||avis.length===0)return;var moy=(avis.reduce(function(t,e){return t+(e.note||0);},0)/avis.length).toFixed(1);var el=document.getElementById("gros-avis-note");if(el)el.textContent="— "+moy+"/5";}).catch(function(){});
   </script>
 
+<!-- Bouton Me contacter -->
+  <div style="text-align:center;margin:.5rem auto 1rem;">
+    <a href="contact.html" class="btn-contact" aria-label="Me contacter">
+      ✒️ Me contacter
+    </a>
+  </div>
+  <style>
+    .btn-contact{display:inline-flex;align-items:center;gap:.6rem;padding:.95rem 2.4rem;border-radius:14px;text-decoration:none;font-family:'Cormorant Garamond','EB Garamond',Georgia,serif;font-weight:600;font-size:1.5rem;letter-spacing:.04em;color:#e6c98a;background:rgba(201,162,94,.06);border:1.5px solid #c9a25e;box-shadow:inset 0 1px 0 rgba(255,255,255,.05);transition:all .2s;}
+    .btn-contact:hover{background:rgba(201,162,94,.16);color:#f3e2b8;border-color:#e6c98a;transform:scale(1.04);}
+    @media(max-width:600px){.btn-contact{font-size:1.25rem;padding:.8rem 1.7rem;}}
+  </style>
+
   <footer class="portrait">
     <img src="img/roy-auteur.jpg" alt="Roy Van Mil, auteur">
   </footer>
