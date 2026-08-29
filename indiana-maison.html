@@ -17,10 +17,40 @@
   body{
     font-family:'EB Garamond',Georgia,serif;
     background:radial-gradient(ellipse at 50% 15%, #241a12 0%, var(--noir) 70%), var(--noir);
-    color:var(--creme);min-height:100vh;
+    color:var(--creme);min-height:100vh;overflow-x:hidden;
   }
   body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
     background:radial-gradient(circle at 50% 25%, rgba(201,162,94,.08), transparent 55%);}
+
+  /* ---- Fantôme postier flottant ---- */
+  .postier{
+    position:fixed;left:50%;top:48%;
+    width:min(78vw,560px);height:auto;
+    transform:translate(-50%,-50%);
+    z-index:1;pointer-events:none;
+    opacity:.30;
+    filter:drop-shadow(0 0 40px rgba(255,255,255,.15));
+    animation:flotte 9s ease-in-out infinite;
+    will-change:transform;
+  }
+  @keyframes flotte{
+    0%,100%{transform:translate(-50%,-50%) translateY(0) rotate(-1.5deg);}
+    50%    {transform:translate(-50%,-50%) translateY(-28px) rotate(1.5deg);}
+  }
+  .livraison{
+    position:fixed;left:0;right:0;bottom:2.2rem;
+    text-align:center;z-index:1;pointer-events:none;
+    font-family:'Cormorant Garamond',serif;letter-spacing:.14em;
+    text-transform:uppercase;font-size:clamp(.85rem,3vw,1.1rem);
+    color:var(--creme);opacity:.55;
+    text-shadow:0 2px 14px rgba(0,0,0,.8);
+    animation:pulse 3.2s ease-in-out infinite;
+  }
+  @keyframes pulse{0%,100%{opacity:.35}50%{opacity:.7}}
+  @media (prefers-reduced-motion:reduce){
+    .postier,.livraison{animation:none}
+  }
+
   .wrap{position:relative;z-index:2;max-width:640px;margin:0 auto;
     padding:1.5rem 1.4rem 4rem;text-align:center;}
 
@@ -54,6 +84,9 @@
 </style>
 </head>
 <body>
+  <img class="postier" src="postier.png" alt="" aria-hidden="true">
+  <div class="livraison">Colis en cours de livraison…</div>
+
   <div class="wrap">
     <a class="retour" href="indiana-fraise.html">← Retour</a>
 
