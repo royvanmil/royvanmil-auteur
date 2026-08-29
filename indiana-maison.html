@@ -24,29 +24,35 @@
 
   /* ---- Fantôme postier flottant ---- */
   .postier{
-    position:fixed;left:50%;top:48%;
+    position:fixed;left:0;top:0;
     width:min(78vw,560px);height:auto;
-    transform:translate(-50%,-50%);
-    z-index:1;pointer-events:none;
-    opacity:.30;
-    filter:drop-shadow(0 0 40px rgba(255,255,255,.15));
-    animation:flotte 9s ease-in-out infinite;
+    z-index:5;pointer-events:none;
+    opacity:.90;
+    filter:drop-shadow(0 0 40px rgba(255,255,255,.35));
+    animation:zigzag 26s ease-in-out infinite;
     will-change:transform;
   }
-  @keyframes flotte{
-    0%,100%{transform:translate(-50%,-50%) translateY(0) rotate(-1.5deg);}
-    50%    {transform:translate(-50%,-50%) translateY(-28px) rotate(1.5deg);}
+  @keyframes zigzag{
+    0%   {transform:translate(3vw,4vh)   rotate(-3deg);}
+    12%  {transform:translate(58vw,10vh) rotate(4deg);}
+    25%  {transform:translate(20vw,42vh) rotate(-2deg);}
+    38%  {transform:translate(62vw,60vh) rotate(5deg);}
+    50%  {transform:translate(6vw,70vh)  rotate(-4deg);}
+    63%  {transform:translate(50vw,30vh) rotate(3deg);}
+    75%  {transform:translate(10vw,15vh) rotate(-3deg);}
+    88%  {transform:translate(55vw,48vh) rotate(4deg);}
+    100% {transform:translate(3vw,4vh)   rotate(-3deg);}
   }
   .livraison{
     position:fixed;left:0;right:0;bottom:2.2rem;
-    text-align:center;z-index:1;pointer-events:none;
-    font-family:'Cormorant Garamond',serif;letter-spacing:.14em;
-    text-transform:uppercase;font-size:clamp(.85rem,3vw,1.1rem);
-    color:var(--creme);opacity:.55;
-    text-shadow:0 2px 14px rgba(0,0,0,.8);
-    animation:pulse 3.2s ease-in-out infinite;
+    text-align:center;z-index:6;pointer-events:none;
+    font-family:'Cormorant Garamond',serif;letter-spacing:.16em;font-weight:700;
+    text-transform:uppercase;font-size:clamp(1.6rem,5.5vw,3rem);
+    color:#fff;opacity:1;
+    text-shadow:0 0 22px rgba(255,255,255,.5),0 3px 18px rgba(0,0,0,.9);
+    animation:pulse 2.4s ease-in-out infinite;
   }
-  @keyframes pulse{0%,100%{opacity:.35}50%{opacity:.7}}
+  @keyframes pulse{0%,100%{opacity:.7;transform:scale(1)}50%{opacity:1;transform:scale(1.05)}}
   @media (prefers-reduced-motion:reduce){
     .postier,.livraison{animation:none}
   }
