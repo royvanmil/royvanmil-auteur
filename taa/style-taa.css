@@ -98,7 +98,7 @@ a.lien{color:var(--laiton);font-weight:700}
 
 /* Galerie */
 .galerie{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
-.galerie figure{margin:0;border:1px solid var(--bord);border-radius:10px;overflow:hidden;background:#fff}
+.galerie figure{margin:0;border:1px solid var(--bord);border-radius:10px;overflow:hidden;background:#fff;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
 .galerie img{width:100%;height:170px;object-fit:cover;display:block}
 .galerie figcaption{padding:8px 10px;font-size:14px;color:var(--gris)}
 

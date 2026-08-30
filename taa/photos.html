@@ -114,7 +114,32 @@
 
   figures.forEach(function(fig,i){
     fig.style.cursor = 'zoom-in';
-    fig.addEventListener('click', function(){ ouvrir(i); });
+    var xTap = null, yTap = null, moved = false;
+    // Clic classique (ordi)
+    fig.addEventListener('click', function(e){
+      e.preventDefault();
+      ouvrir(i);
+    });
+    // Tap tactile (mobile) — on distingue un vrai tap d'un glissement/zoom
+    fig.addEventListener('touchstart', function(e){
+      if(e.touches.length > 1){ moved = true; return; } // 2 doigts = zoom, on ignore
+      moved = false;
+      xTap = e.touches[0].clientX;
+      yTap = e.touches[0].clientY;
+    }, {passive:true});
+    fig.addEventListener('touchmove', function(e){
+      if(xTap === null) return;
+      var dx = Math.abs(e.touches[0].clientX - xTap);
+      var dy = Math.abs(e.touches[0].clientY - yTap);
+      if(dx > 12 || dy > 12) moved = true;
+    }, {passive:true});
+    fig.addEventListener('touchend', function(e){
+      if(!moved && xTap !== null){
+        e.preventDefault();
+        ouvrir(i);
+      }
+      xTap = null; yTap = null;
+    });
   });
 
   lb.querySelector('.lb-fermer').addEventListener('click', fermer);
