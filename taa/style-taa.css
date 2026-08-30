@@ -138,6 +138,7 @@ footer a{color:#fff}
 
 /* ---------- ASTUCE PHOTOS ---------- */
 .astuce-photos{background:#eef1f5;border-left:5px solid var(--laiton);border-radius:6px;padding:12px 16px;font-size:16px;color:var(--nuit-2);margin-bottom:20px}
+@media(max-width:600px){.astuce-photos{display:none}}
 
 /* ---------- VISIONNEUSE (lightbox) ---------- */
 .lightbox{display:none;position:fixed;inset:0;z-index:1000;background:rgba(15,20,28,.94);

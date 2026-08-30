@@ -86,6 +86,10 @@
 
 <script>
 (function(){
+  // Visionneuse uniquement sur ordinateur (écran large + souris). Sur mobile : galerie simple.
+  var surOrdi = window.matchMedia('(min-width:601px) and (pointer:fine)').matches;
+  if(!surOrdi) return;
+
   var figures = Array.prototype.slice.call(document.querySelectorAll('.galerie figure'));
   var lb = document.getElementById('lightbox');
   var lbImg = lb.querySelector('.lb-image');
