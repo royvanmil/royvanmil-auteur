@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roy Van Mil — Photographe</title>
+<meta name="description" content="Roy Van Mil, photographe : portraits, mariages et regards divers.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600&family=EB+Garamond:wght@0,400;0,500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --laiton:#c9a25e;
+  --creme:#e8dcc4;
+  --fond:#0d0d0f;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{background:var(--fond);min-height:100%;color:var(--creme);}
+
+.piece{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:8vh 6vw;
+  text-align:center;
+}
+
+.entete{
+  opacity:0;
+  animation:fade 1.8s ease .2s forwards;
+  margin-bottom:7vh;
+}
+.entete h1{
+  font-family:'Cormorant Garamond',serif;
+  font-weight:500;
+  font-size:clamp(2.4rem,6vw,4rem);
+  letter-spacing:.02em;
+  color:#f4ecd8;
+}
+.entete .role{
+  margin-top:1rem;
+  font-family:'EB Garamond',serif;
+  font-size:clamp(.75rem,2vw,1rem);
+  letter-spacing:.5em;
+  text-transform:uppercase;
+  color:var(--laiton);
+  padding-left:.5em;
+}
+.filet{
+  width:64px;
+  height:1px;
+  margin:2.4rem auto 0;
+  background:linear-gradient(90deg,transparent,var(--laiton),transparent);
+}
+
+.menu{
+  display:flex;
+  flex-direction:column;
+  gap:1.4rem;
+  width:min(90vw,420px);
+  opacity:0;
+  animation:fade 2s ease .5s forwards;
+}
+.lien-photo{
+  display:block;
+  padding:1.5rem 2rem;
+  font-family:'Cormorant Garamond',serif;
+  font-weight:500;
+  font-size:clamp(1.3rem,3.5vw,1.7rem);
+  letter-spacing:.05em;
+  color:var(--creme);
+  text-decoration:none;
+  border:1px solid rgba(201,162,94,.35);
+  border-radius:2px;
+  background:rgba(201,162,94,.03);
+  transition:all .35s ease;
+}
+.lien-photo:hover{
+  color:#fff;
+  border-color:var(--laiton);
+  background:rgba(201,162,94,.1);
+  letter-spacing:.09em;
+}
+
+.retour-auteur{
+  margin-top:8vh;
+  opacity:0;
+  animation:fade 2.2s ease .9s forwards;
+}
+.retour-auteur a{
+  font-family:'EB Garamond',serif;
+  font-size:.85rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:rgba(232,220,196,.45);
+  text-decoration:none;
+  transition:color .35s ease;
+}
+.retour-auteur a:hover{
+  color:var(--laiton);
+}
+
+@keyframes fade{to{opacity:1;}}
+</style>
+</head>
+<body>
+<main class="piece">
+
+  <header class="entete">
+    <h1>Roy Van Mil</h1>
+    <p class="role">Photographe</p>
+    <div class="filet"></div>
+  </header>
+
+  <nav class="menu">
+    <a class="lien-photo" href="Photos1Portrait.html">L'Art du Portrait</a>
+    <a class="lien-photo" href="Photos2Mariage.html">Le Jour J</a>
+    <a class="lien-photo" href="Photos3Divers.html">Regards divers</a>
+  </nav>
+
+  <div class="retour-auteur">
+    <a href="index.html">Website Auteur Livres</a>
+  </div>
+
+</main>
+</body>
+</html>
