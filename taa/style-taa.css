@@ -73,13 +73,13 @@ a.lien{color:var(--laiton);font-weight:700}
 }
 .btn:hover,.btn:focus{background:var(--rouge-fonce);outline:none;transform:translateY(-2px)}
 
-/* Cases de la page DIVERS (bulles avec bouton dedans) */
+/* Cases de la page DIVERS (blocs entièrement cliquables, comme l'accueil) */
 .divers-cases{display:flex;flex-wrap:wrap;gap:18px;margin-top:24px}
-.divers-cases .case{flex:1 1 300px;background:#fff;border:1px solid var(--bord);border-radius:12px;padding:24px;box-shadow:0 1px 5px rgba(0,0,0,.06);display:flex;flex-direction:column}
-.divers-cases .case .ico{font-size:38px;margin-bottom:8px}
-.divers-cases .case h3{margin:0 0 8px;color:var(--nuit)}
-.divers-cases .case p{flex:1;color:var(--gris);margin-bottom:16px}
-.divers-cases .case .btn{align-self:flex-start;margin:0}
+.divers-cases .case{flex:1 1 280px;max-width:400px;background:#fff;border:1px solid var(--bord);border-radius:12px;padding:24px;box-shadow:0 1px 5px rgba(0,0,0,.06);text-decoration:none;color:var(--texte);display:flex;flex-direction:column;transition:transform .1s,box-shadow .15s}
+.divers-cases .case:hover,.divers-cases .case:focus{transform:translateY(-3px);box-shadow:0 6px 16px rgba(0,0,0,.12);outline:none;border-color:var(--laiton)}
+.divers-cases .case .ico{font-size:38px;margin-bottom:10px}
+.divers-cases .case strong{display:block;font-size:21px;color:var(--nuit);margin-bottom:6px}
+.divers-cases .case .txt{font-size:16px;color:var(--gris);line-height:1.5}
 
 /* Gros boutons de la page DIVERS */
 .divers-liens{display:flex;flex-direction:column;gap:20px;max-width:520px;margin:50px auto 0}
