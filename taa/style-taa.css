@@ -169,6 +169,7 @@ footer a{color:#fff}
   .lightbox .lb-legende{font-size:16px;bottom:16px}
 }
 /* ---------- CONSIGNES DE VENTE (texte petit, case rouge épaisse) ---------- */
+.maj{display:inline-block;background:var(--nuit);color:#fff;font-size:15px;font-weight:600;padding:6px 16px;border-radius:20px;margin-bottom:16px}
 .consignes{background:#fbeaea;border:3px solid var(--rouge);border-radius:12px;padding:18px 20px;margin-bottom:26px;font-size:14px}
 .consignes h3{margin-top:0;color:var(--rouge);font-size:18px}
 .consignes ul{margin-left:20px}
@@ -180,6 +181,7 @@ footer a{color:#fff}
 /* Photos à gauche, en grand */
 .annonce-pile{position:relative;flex:0 0 300px;align-self:flex-start}
 .annonce-pile img{width:100%;border-radius:10px;object-fit:cover;background:#e4e6ea;display:block;position:relative;z-index:3;border:1px solid var(--bord)}
+.annonce-pile .photo-mobile{display:none}
 .annonce-pile[data-photos*=","]::before,
 .annonce-pile[data-photos*=","]::after{content:"";position:absolute;inset:0;border-radius:10px;background:#fff;border:1px solid var(--bord);box-shadow:0 1px 5px rgba(0,0,0,.15)}
 .annonce-pile[data-photos*=","]::before{z-index:1;transform:rotate(-4deg) translate(-5px,5px)}
@@ -215,12 +217,19 @@ footer a{color:#fff}
 .annonce-boutons .btn{font-size:17px;padding:12px 22px;margin:0 8px 0 0}
 
 @media(max-width:600px){
-  .annonce{flex-direction:column;gap:14px;padding:16px}
-  .annonce-pile{flex:none}
-  .annonce-pile img{max-height:280px}
+  .annonce{flex-direction:column;gap:0;padding:0;overflow:hidden}
+  .annonce-pile{flex:none;width:100%;align-self:stretch}
+  .annonce-pile img{width:100%;max-height:300px;border-radius:0;border:none;border-bottom:2px solid #000}
+  .annonce-pile .photo-mobile{display:block}
+  /* pas d'effet pile ni de zoom sur mobile : photo simple et statique */
+  .annonce-pile[data-photos*=","]::before,
+  .annonce-pile[data-photos*=","]::after{display:none}
+  .annonce-corps{padding:18px}
+  .annonce-ref{margin-bottom:12px}
   .annonce-titre h3{font-size:20px}
   .annonce-prixbloc{align-items:flex-start}
-  .annonce-haut{gap:8px}
+  .annonce-haut{gap:10px}
   .annonce-meta{text-align:left}
   .annonce-infos{margin-left:12px}
+  .pile-compteur{display:none}
 }
