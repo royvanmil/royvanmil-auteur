@@ -1,0 +1,126 @@
+:root{
+  --nuit:#1c2b3a;
+  --nuit-2:#2b4258;
+  --laiton:#b98a2e;
+  --laiton-clair:#d4a94a;
+  --fond:#f5f6f8;
+  --carte:#ffffff;
+  --texte:#161b22;
+  --gris:#4a4a4a;
+  --bord:#dcdfe4;
+  --rouge:#c62828;
+  --rouge-fonce:#a01f1f;
+  --alerte:#8a1c1c;
+  --alerte-fond:#fbeaea;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;
+  background:var(--fond);color:var(--texte);
+  font-size:19px;line-height:1.65;
+}
+
+/* ---------- EN-TÊTE + MENU ---------- */
+header{position:sticky;top:0;z-index:100;background:var(--nuit);box-shadow:0 2px 10px rgba(0,0,0,.3)}
+.nav-titre{display:flex;align-items:center;gap:14px;padding:14px 20px;color:#fff;max-width:1000px;margin:0 auto}
+.nav-titre .cible{font-size:32px;line-height:1;color:var(--laiton-clair)}
+.nav-titre .logo{width:56px;height:56px;border-radius:50%;background:#fff;padding:2px;border:2px solid var(--laiton);flex-shrink:0;object-fit:cover}
+.nav-titre h1{font-size:20px;font-weight:700;letter-spacing:.3px}
+.nav-titre h1 a{color:#fff;text-decoration:none}
+.nav-titre span{display:block;font-size:14px;font-weight:400;color:#aeb9c6}
+nav{background:var(--nuit-2);display:flex;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,.12)}
+nav a{flex:1 1 auto;text-align:center;color:#fff;text-decoration:none;padding:14px 10px;font-size:16px;font-weight:600;border-right:1px solid rgba(255,255,255,.1);min-width:120px}
+nav a:hover,nav a:focus{background:var(--laiton);outline:none}
+nav a.actif{background:var(--laiton)}
+
+/* ---------- SECTIONS / CONTENU ---------- */
+main{max-width:900px;margin:0 auto;padding:38px 20px 30px}
+h2{font-size:28px;color:var(--nuit);border-bottom:4px solid var(--laiton);padding-bottom:8px;margin-bottom:22px}
+h3{font-size:22px;color:var(--nuit-2);margin:24px 0 10px}
+p{margin-bottom:14px}
+ul{margin:0 0 16px 24px}
+li{margin-bottom:8px}
+strong{color:#000}
+a.lien{color:var(--laiton);font-weight:700}
+
+/* ---------- CARTES ---------- */
+.carte{background:var(--carte);border:1px solid var(--bord);border-radius:12px;padding:22px;margin-bottom:18px;box-shadow:0 1px 5px rgba(0,0,0,.06)}
+.alerte{background:var(--alerte-fond);border-left:6px solid var(--alerte);border-radius:8px;padding:18px;margin:18px 0}
+.alerte strong{color:var(--alerte)}
+.aprevoir{background:#fff;border:2px solid var(--laiton);border-radius:12px;padding:20px;margin-top:16px}
+.aprevoir ul{list-style:none;margin-left:0}
+.aprevoir li{font-size:20px;font-weight:600;margin-bottom:12px}
+
+/* Catégories d'armes */
+.cat{border-left:8px solid var(--nuit);padding:12px 16px;margin-bottom:12px;background:#fff;border-radius:0 8px 8px 0}
+.cat.a{border-color:var(--alerte)}
+.cat.b{border-color:var(--laiton)}
+.cat.c{border-color:var(--nuit-2)}
+.cat.d{border-color:var(--gris)}
+.cat .lettre{font-size:22px;font-weight:800;margin-right:8px}
+
+/* ---------- BOUTONS ROUGES ARRONDIS ---------- */
+.btn{
+  display:inline-block;background:var(--rouge);color:#fff !important;
+  text-decoration:none;font-weight:800;font-size:19px;
+  padding:15px 28px;border-radius:40px;margin:8px 8px 8px 0;
+  box-shadow:0 3px 8px rgba(198,40,40,.35);
+  border:none;transition:background .15s,transform .1s;
+}
+.btn:hover,.btn:focus{background:var(--rouge-fonce);outline:none;transform:translateY(-2px)}
+
+/* Gros boutons de la page DIVERS */
+.divers-liens{display:flex;flex-direction:column;gap:20px;max-width:520px;margin:50px auto 0}
+.divers-liens a{
+  display:block;text-align:center;background:var(--rouge);color:#fff;
+  text-decoration:none;font-weight:800;font-size:22px;
+  padding:22px 20px;border-radius:50px;
+  box-shadow:0 4px 12px rgba(198,40,40,.35);
+  transition:background .15s,transform .1s;
+}
+.divers-liens a:hover,.divers-liens a:focus{background:var(--rouge-fonce);outline:none;transform:translateY(-2px)}
+
+/* Contact */
+.contact-bloc{font-size:21px;line-height:2}
+.contact-bloc strong{display:inline-block;min-width:110px}
+
+/* Galerie */
+.galerie{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.galerie figure{margin:0;border:1px solid var(--bord);border-radius:10px;overflow:hidden;background:#fff}
+.galerie img{width:100%;height:170px;object-fit:cover;display:block}
+.galerie figcaption{padding:8px 10px;font-size:14px;color:var(--gris)}
+
+/* Accueil : bandeau */
+.hero{background:var(--nuit);color:#fff;text-align:center;padding:46px 20px}
+.hero h2{color:#fff;border:none;font-size:32px;margin-bottom:12px}
+.hero p{font-size:20px;color:#cdd6e0;max-width:640px;margin:0 auto 10px}
+.hero .cibleaccueil{font-size:56px;color:var(--laiton-clair);display:block;margin-bottom:10px}
+.hero .logo-hero{width:120px;height:120px;border-radius:50%;background:#fff;padding:4px;border:3px solid var(--laiton);margin-bottom:16px;object-fit:cover}
+.acces-rapide{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;margin-top:30px}
+.acces-rapide a{flex:1 1 240px;max-width:280px;background:#fff;border:1px solid var(--bord);border-radius:12px;padding:22px;text-decoration:none;color:var(--texte);box-shadow:0 1px 5px rgba(0,0,0,.06);transition:transform .1s,box-shadow .15s}
+.acces-rapide a:hover,.acces-rapide a:focus{transform:translateY(-3px);box-shadow:0 6px 16px rgba(0,0,0,.12);outline:none}
+.acces-rapide .ico{font-size:34px;display:block;margin-bottom:8px}
+.acces-rapide strong{display:block;font-size:20px;color:var(--nuit);margin-bottom:4px}
+.acces-rapide span{font-size:15px;color:var(--gris)}
+
+/* Rectangle démo */
+.demo{background:#fff;border:3px solid var(--rouge);border-radius:12px;padding:24px;max-width:900px;margin:10px auto 40px}
+.demo h3{margin-top:0;color:var(--rouge)}
+.demo table{width:100%;border-collapse:collapse;margin-top:12px}
+.demo td{padding:10px 8px;border-bottom:1px solid var(--bord);vertical-align:top}
+.demo td:last-child{text-align:right;font-weight:700;white-space:nowrap}
+.gratuit{color:#1b7a2f;font-weight:700}
+
+footer{background:var(--nuit);color:#aeb9c6;text-align:center;padding:28px 20px;font-size:15px}
+footer a{color:#fff}
+
+@media(max-width:600px){
+  body{font-size:18px}
+  nav a{flex:1 1 45%;min-width:0;font-size:15px;padding:13px 6px}
+  h2{font-size:24px}
+  .nav-titre h1{font-size:17px}
+  main{padding:28px 16px 20px}
+  .btn{font-size:18px;padding:14px 24px}
+  .divers-liens a{font-size:20px;padding:20px}
+}
