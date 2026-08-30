@@ -81,6 +81,13 @@ a.lien{color:var(--laiton);font-weight:700}
 .divers-cases .case strong{display:block;font-size:21px;color:var(--nuit);margin-bottom:6px}
 .divers-cases .case .txt{font-size:16px;color:var(--gris);line-height:1.5}
 
+/* Case Photos autonome (page Le club) */
+.case-photos{display:flex;flex-direction:column;max-width:400px;background:#fff;border:1px solid var(--bord);border-radius:12px;padding:24px;margin-bottom:22px;box-shadow:0 1px 5px rgba(0,0,0,.06);text-decoration:none;color:var(--texte);transition:transform .1s,box-shadow .15s}
+.case-photos:hover,.case-photos:focus{transform:translateY(-3px);box-shadow:0 6px 16px rgba(0,0,0,.12);outline:none;border-color:var(--laiton)}
+.case-photos .ico{font-size:38px;margin-bottom:10px}
+.case-photos strong{display:block;font-size:21px;color:var(--nuit);margin-bottom:6px}
+.case-photos .txt{font-size:16px;color:var(--gris);line-height:1.5}
+
 /* Gros boutons de la page DIVERS */
 .divers-liens{display:flex;flex-direction:column;gap:20px;max-width:520px;margin:50px auto 0}
 .divers-liens a{
