@@ -200,3 +200,16 @@ footer a{color:#fff}
   .annonce-images img{max-height:240px}
   .annonce-bas .prix{font-size:26px}
 }
+
+/* ---------- RÉFÉRENCE ANNONCE ---------- */
+.annonce-ref{display:inline-block;background:var(--nuit);color:#fff;font-size:14px;font-weight:700;padding:3px 12px;border-radius:20px;margin:0 0 10px;letter-spacing:.5px}
+
+/* ---------- PILE DE PHOTOS ---------- */
+.annonce-pile{position:relative;flex:0 0 220px;align-self:flex-start}
+.annonce-pile img{width:100%;border-radius:10px;object-fit:cover;background:#e4e6ea;display:block;position:relative;z-index:3;border:1px solid var(--bord)}
+/* effet "tirages empilés" derrière la photo de devant */
+.annonce-pile[data-photos*=","]::before,
+.annonce-pile[data-photos*=","]::after{content:"";position:absolute;inset:0;border-radius:10px;background:#fff;border:1px solid var(--bord);box-shadow:0 1px 4px rgba(0,0,0,.12)}
+.annonce-pile[data-photos*=","]::before{z-index:1;transform:rotate(-4deg) translate(-4px,4px)}
+.annonce-pile[data-photos*=","]::after{z-index:2;transform:rotate(3deg) translate(4px,2px)}
+.pile-compteur{position:absolute;bottom:8px;right:8px;z-index:4;background:rgba(15,20,28,.82);color:#fff;font-size:14px;font-weight:700;padding:4px 10px;border-radius:20px}

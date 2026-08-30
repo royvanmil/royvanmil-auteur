@@ -44,16 +44,18 @@
 
   <!-- ===== ANNONCES (la plus récente en haut) ===== -->
 
-  <!-- Modèle d'annonce : à dupliquer pour chaque nouvelle vente -->
+  <!-- Annonce : la pile de photos porte data-photos="fichier1,fichier2,..." -->
   <div class="annonce">
-    <div class="annonce-images">
-      <img src="images/vente-exemple1.avif" alt="Photo de l'arme" loading="lazy">
+    <div class="annonce-pile" data-photos="images/V2608-02_1.avif,images/V2608-02_2.avif,images/V2608-02_3.avif">
+      <img src="images/V2608-02_1.avif" alt="Photo de l'arme" loading="lazy">
+      <span class="pile-compteur">📷 3</span>
     </div>
     <div class="annonce-corps">
       <div class="annonce-haut">
         <h3>Pistolet [Marque Modèle] — Cat. B</h3>
         <span class="statut envente">En vente</span>
       </div>
+      <p class="annonce-ref">Réf. V2608-02</p>
       <p class="annonce-infos">Calibre 22LR. Très bon état, peu servi. Vendu avec mallette et 2 chargeurs. [Description à compléter].</p>
       <p class="annonce-meta">📅 Mise en ligne le 30/08/2026 · Club T.A.A. Eauze</p>
       <div class="annonce-bas">
@@ -71,14 +73,15 @@
   </div>
 
   <div class="annonce">
-    <div class="annonce-images">
-      <img src="images/vente-exemple2.avif" alt="Photo de l'arme" loading="lazy">
+    <div class="annonce-pile" data-photos="images/V2608-01_1.avif">
+      <img src="images/V2608-01_1.avif" alt="Photo de l'arme" loading="lazy">
     </div>
     <div class="annonce-corps">
       <div class="annonce-haut">
         <h3>Carabine [Marque Modèle] — Cat. C</h3>
         <span class="statut vendu">VENDU</span>
       </div>
+      <p class="annonce-ref">Réf. V2608-01</p>
       <p class="annonce-infos">Carabine à verrou, calibre 22LR. Lunette incluse. [Description à compléter].</p>
       <p class="annonce-meta">📅 Mise en ligne le 20/08/2026 · Club T.A.A. Eauze</p>
       <div class="annonce-bas">
@@ -97,9 +100,71 @@
 
 </main>
 
+<!-- ===== VISIONNEUSE (par annonce) ===== -->
+<div id="lightbox" class="lightbox" aria-hidden="true">
+  <button class="lb-fermer" aria-label="Fermer">&times;</button>
+  <button class="lb-prec" aria-label="Photo précédente">&#10094;</button>
+  <img class="lb-image" src="" alt="">
+  <div class="lb-legende"></div>
+  <button class="lb-suiv" aria-label="Photo suivante">&#10095;</button>
+</div>
+
 <footer>
   <p>Tireurs et Arquebusiers de l'Armagnac — Eauze / Bascous (Gers)</p>
   <p style="margin-top:6px;font-size:13px">Site de démonstration • réalisé par Roy VAN MIL</p>
 </footer>
+
+<script>
+(function(){
+  var surOrdi = window.matchMedia('(min-width:601px) and (pointer:fine)').matches;
+  if(!surOrdi) return;
+
+  var lb = document.getElementById('lightbox');
+  var lbImg = lb.querySelector('.lb-image');
+  var lbLeg = lb.querySelector('.lb-legende');
+  var photos = [], index = 0;
+
+  function afficher(){
+    lbImg.src = photos[index];
+    lbLeg.textContent = (index+1) + ' / ' + photos.length;
+  }
+  function ouvrir(liste, i){
+    photos = liste; index = i;
+    afficher();
+    lb.classList.add('actif');
+    lb.setAttribute('aria-hidden','false');
+    document.body.style.overflow = 'hidden';
+    lb.querySelector('.lb-prec').style.display = photos.length > 1 ? '' : 'none';
+    lb.querySelector('.lb-suiv').style.display = photos.length > 1 ? '' : 'none';
+  }
+  function fermer(){
+    lb.classList.remove('actif');
+    lb.setAttribute('aria-hidden','true');
+    document.body.style.overflow = '';
+  }
+  function suivant(){ index = (index+1) % photos.length; afficher(); }
+  function precedent(){ index = (index-1+photos.length) % photos.length; afficher(); }
+
+  document.querySelectorAll('.annonce-pile').forEach(function(pile){
+    pile.style.cursor = 'zoom-in';
+    pile.addEventListener('click', function(){
+      var liste = (pile.getAttribute('data-photos')||'').split(',').filter(Boolean);
+      if(liste.length) ouvrir(liste, 0);
+    });
+  });
+
+  lb.querySelector('.lb-fermer').addEventListener('click', fermer);
+  lb.querySelector('.lb-suiv').addEventListener('click', function(e){ e.stopPropagation(); suivant(); });
+  lb.querySelector('.lb-prec').addEventListener('click', function(e){ e.stopPropagation(); precedent(); });
+  lb.addEventListener('click', function(e){ if(e.target === lb) fermer(); });
+
+  document.addEventListener('keydown', function(e){
+    if(!lb.classList.contains('actif')) return;
+    if(e.key === 'Escape') fermer();
+    else if(e.key === 'ArrowRight') suivant();
+    else if(e.key === 'ArrowLeft') precedent();
+  });
+})();
+</script>
 </body>
 </html>
