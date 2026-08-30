@@ -48,6 +48,9 @@ a.lien{color:var(--laiton);font-weight:700}
 .carte{background:var(--carte);border:1px solid var(--bord);border-radius:12px;padding:22px;margin-bottom:18px;box-shadow:0 1px 5px rgba(0,0,0,.06)}
 .alerte{background:var(--alerte-fond);border-left:6px solid var(--alerte);border-radius:8px;padding:18px;margin:18px 0}
 .alerte strong{color:var(--alerte)}
+.secu{background:var(--rouge);color:#fff;text-align:center;font-weight:800;font-size:24px;padding:20px;border-radius:12px;margin:22px 0;box-shadow:0 3px 10px rgba(198,40,40,.35);letter-spacing:.5px}
+.carte-map{margin:16px 0;line-height:0}
+.carte-map iframe{display:block;width:100%}
 .aprevoir{background:#fff;border:2px solid var(--laiton);border-radius:12px;padding:20px;margin-top:16px}
 .aprevoir ul{list-style:none;margin-left:0}
 .aprevoir li{font-size:20px;font-weight:600;margin-bottom:12px}
@@ -69,6 +72,14 @@ a.lien{color:var(--laiton);font-weight:700}
   border:none;transition:background .15s,transform .1s;
 }
 .btn:hover,.btn:focus{background:var(--rouge-fonce);outline:none;transform:translateY(-2px)}
+
+/* Cases de la page DIVERS (bulles avec bouton dedans) */
+.divers-cases{display:flex;flex-wrap:wrap;gap:18px;margin-top:24px}
+.divers-cases .case{flex:1 1 300px;background:#fff;border:1px solid var(--bord);border-radius:12px;padding:24px;box-shadow:0 1px 5px rgba(0,0,0,.06);display:flex;flex-direction:column}
+.divers-cases .case .ico{font-size:38px;margin-bottom:8px}
+.divers-cases .case h3{margin:0 0 8px;color:var(--nuit)}
+.divers-cases .case p{flex:1;color:var(--gris);margin-bottom:16px}
+.divers-cases .case .btn{align-self:flex-start;margin:0}
 
 /* Gros boutons de la page DIVERS */
 .divers-liens{display:flex;flex-direction:column;gap:20px;max-width:520px;margin:50px auto 0}
@@ -96,7 +107,7 @@ a.lien{color:var(--laiton);font-weight:700}
 .hero h2{color:#fff;border:none;font-size:32px;margin-bottom:12px}
 .hero p{font-size:20px;color:#cdd6e0;max-width:640px;margin:0 auto 10px}
 .hero .cibleaccueil{font-size:56px;color:var(--laiton-clair);display:block;margin-bottom:10px}
-.hero .logo-hero{width:120px;height:120px;border-radius:50%;background:#fff;padding:4px;border:3px solid var(--laiton);margin-bottom:16px;object-fit:cover}
+.hero .logo-hero{width:220px;height:220px;border-radius:50%;background:#fff;padding:6px;border:4px solid var(--laiton);margin-bottom:18px;object-fit:cover;box-shadow:0 4px 16px rgba(0,0,0,.35)}
 .acces-rapide{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;margin-top:30px}
 .acces-rapide a{flex:1 1 240px;max-width:280px;background:#fff;border:1px solid var(--bord);border-radius:12px;padding:22px;text-decoration:none;color:var(--texte);box-shadow:0 1px 5px rgba(0,0,0,.06);transition:transform .1s,box-shadow .15s}
 .acces-rapide a:hover,.acces-rapide a:focus{transform:translateY(-3px);box-shadow:0 6px 16px rgba(0,0,0,.12);outline:none}
