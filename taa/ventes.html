@@ -29,7 +29,7 @@
   <h2>Ventes d'armes &amp; accessoires</h2>
   <p>Petites annonces entre membres du club. Pour publier une annonce, envoyez-la à Catherine (voir la page Contact).</p>
 
-  <!-- CONSIGNES DE VENTE -->
+  <!-- CONSIGNES DE VENTE (texte plus petit, case rouge épaisse) -->
   <div class="consignes">
     <h3>⚠️ Consignes de vente d'armes (à respecter)</h3>
     <ul>
@@ -44,30 +44,31 @@
 
   <!-- ===== ANNONCES (la plus récente en haut) ===== -->
 
-  <!-- Annonce : la pile de photos porte data-photos="fichier1,fichier2,..." -->
   <div class="annonce">
     <div class="annonce-pile" data-photos="images/V2608-02_1.avif,images/V2608-02_2.avif,images/V2608-02_3.avif">
       <img src="images/V2608-02_1.avif" alt="Photo de l'arme" loading="lazy">
       <span class="pile-compteur">📷 3</span>
     </div>
     <div class="annonce-corps">
+      <div class="annonce-ref">Réf. V2608-02</div>
       <div class="annonce-haut">
-        <h3>Pistolet [Marque Modèle] — Cat. B</h3>
-        <span class="statut envente">En vente</span>
+        <div class="annonce-titre">
+          <h3>Pistolet [Marque Modèle]</h3>
+          <span class="annonce-cat">Catégorie B</span>
+        </div>
+        <div class="annonce-prixbloc">
+          <span class="statut envente">EN VENTE</span>
+          <span class="prix">450 €</span>
+        </div>
       </div>
-      <p class="annonce-ref">Réf. V2608-02</p>
       <p class="annonce-infos">Calibre 22LR. Très bon état, peu servi. Vendu avec mallette et 2 chargeurs. [Description à compléter].</p>
       <p class="annonce-meta">📅 Mise en ligne le 30/08/2026 · Club T.A.A. Eauze</p>
       <div class="annonce-bas">
-        <div class="vendeur">
-          <strong>Jean DUPONT</strong><br>
-          📞 06 12 34 56 78
+        <div class="vendeur"><strong>Jean DUPONT</strong> — 📞 06 12 34 56 78</div>
+        <div class="annonce-boutons">
+          <a class="btn" href="tel:0612345678">📞 Appeler</a>
+          <a class="btn" href="sms:0612345678">💬 Message</a>
         </div>
-        <div class="prix">450 €</div>
-      </div>
-      <div class="annonce-boutons">
-        <a class="btn" href="tel:0612345678">📞 Appeler</a>
-        <a class="btn" href="sms:0612345678">💬 Message</a>
       </div>
     </div>
   </div>
@@ -77,23 +78,25 @@
       <img src="images/V2608-01_1.avif" alt="Photo de l'arme" loading="lazy">
     </div>
     <div class="annonce-corps">
+      <div class="annonce-ref">Réf. V2608-01</div>
       <div class="annonce-haut">
-        <h3>Carabine [Marque Modèle] — Cat. C</h3>
-        <span class="statut vendu">VENDU</span>
+        <div class="annonce-titre">
+          <h3>Carabine [Marque Modèle]</h3>
+          <span class="annonce-cat">Catégorie C</span>
+        </div>
+        <div class="annonce-prixbloc">
+          <span class="statut vendu">VENDU</span>
+          <span class="prix">320 €</span>
+        </div>
       </div>
-      <p class="annonce-ref">Réf. V2608-01</p>
       <p class="annonce-infos">Carabine à verrou, calibre 22LR. Lunette incluse. [Description à compléter].</p>
       <p class="annonce-meta">📅 Mise en ligne le 20/08/2026 · Club T.A.A. Eauze</p>
       <div class="annonce-bas">
-        <div class="vendeur">
-          <strong>Marie MARTIN</strong><br>
-          📞 06 98 76 54 32
+        <div class="vendeur"><strong>Marie MARTIN</strong> — 📞 06 98 76 54 32</div>
+        <div class="annonce-boutons">
+          <a class="btn" href="tel:0698765432">📞 Appeler</a>
+          <a class="btn" href="sms:0698765432">💬 Message</a>
         </div>
-        <div class="prix">320 €</div>
-      </div>
-      <div class="annonce-boutons">
-        <a class="btn" href="tel:0698765432">📞 Appeler</a>
-        <a class="btn" href="sms:0698765432">💬 Message</a>
       </div>
     </div>
   </div>
@@ -118,51 +121,37 @@
 (function(){
   var surOrdi = window.matchMedia('(min-width:601px) and (pointer:fine)').matches;
   if(!surOrdi) return;
-
   var lb = document.getElementById('lightbox');
   var lbImg = lb.querySelector('.lb-image');
   var lbLeg = lb.querySelector('.lb-legende');
   var photos = [], index = 0;
-
-  function afficher(){
-    lbImg.src = photos[index];
-    lbLeg.textContent = (index+1) + ' / ' + photos.length;
-  }
-  function ouvrir(liste, i){
-    photos = liste; index = i;
-    afficher();
-    lb.classList.add('actif');
-    lb.setAttribute('aria-hidden','false');
+  function afficher(){ lbImg.src = photos[index]; lbLeg.textContent = (index+1)+' / '+photos.length; }
+  function ouvrir(liste,i){
+    photos = liste; index = i; afficher();
+    lb.classList.add('actif'); lb.setAttribute('aria-hidden','false');
     document.body.style.overflow = 'hidden';
-    lb.querySelector('.lb-prec').style.display = photos.length > 1 ? '' : 'none';
-    lb.querySelector('.lb-suiv').style.display = photos.length > 1 ? '' : 'none';
+    lb.querySelector('.lb-prec').style.display = photos.length>1 ? '' : 'none';
+    lb.querySelector('.lb-suiv').style.display = photos.length>1 ? '' : 'none';
   }
-  function fermer(){
-    lb.classList.remove('actif');
-    lb.setAttribute('aria-hidden','true');
-    document.body.style.overflow = '';
-  }
-  function suivant(){ index = (index+1) % photos.length; afficher(); }
-  function precedent(){ index = (index-1+photos.length) % photos.length; afficher(); }
-
+  function fermer(){ lb.classList.remove('actif'); lb.setAttribute('aria-hidden','true'); document.body.style.overflow=''; }
+  function suivant(){ index=(index+1)%photos.length; afficher(); }
+  function precedent(){ index=(index-1+photos.length)%photos.length; afficher(); }
   document.querySelectorAll('.annonce-pile').forEach(function(pile){
-    pile.style.cursor = 'zoom-in';
+    pile.style.cursor='zoom-in';
     pile.addEventListener('click', function(){
-      var liste = (pile.getAttribute('data-photos')||'').split(',').filter(Boolean);
-      if(liste.length) ouvrir(liste, 0);
+      var liste=(pile.getAttribute('data-photos')||'').split(',').filter(Boolean);
+      if(liste.length) ouvrir(liste,0);
     });
   });
-
   lb.querySelector('.lb-fermer').addEventListener('click', fermer);
   lb.querySelector('.lb-suiv').addEventListener('click', function(e){ e.stopPropagation(); suivant(); });
   lb.querySelector('.lb-prec').addEventListener('click', function(e){ e.stopPropagation(); precedent(); });
-  lb.addEventListener('click', function(e){ if(e.target === lb) fermer(); });
-
+  lb.addEventListener('click', function(e){ if(e.target===lb) fermer(); });
   document.addEventListener('keydown', function(e){
     if(!lb.classList.contains('actif')) return;
-    if(e.key === 'Escape') fermer();
-    else if(e.key === 'ArrowRight') suivant();
-    else if(e.key === 'ArrowLeft') precedent();
+    if(e.key==='Escape') fermer();
+    else if(e.key==='ArrowRight') suivant();
+    else if(e.key==='ArrowLeft') precedent();
   });
 })();
 </script>

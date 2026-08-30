@@ -168,48 +168,59 @@ footer a{color:#fff}
   .lightbox .lb-suiv{right:8px}
   .lightbox .lb-legende{font-size:16px;bottom:16px}
 }
+/* ---------- CONSIGNES DE VENTE (texte petit, case rouge épaisse) ---------- */
+.consignes{background:#fbeaea;border:3px solid var(--rouge);border-radius:12px;padding:18px 20px;margin-bottom:26px;font-size:14px}
+.consignes h3{margin-top:0;color:var(--rouge);font-size:18px}
+.consignes ul{margin-left:20px}
+.consignes li{margin-bottom:7px}
 
-/* ---------- CONSIGNES DE VENTE ---------- */
-.consignes{background:#fbeaea;border:2px solid var(--rouge);border-radius:12px;padding:22px;margin-bottom:26px}
-.consignes h3{margin-top:0;color:var(--rouge)}
-.consignes ul{margin-left:22px}
-.consignes li{margin-bottom:10px}
+/* ---------- ANNONCE (bloc noir épais arrondi) ---------- */
+.annonce{display:flex;gap:22px;background:#fff;border:3px solid #000;border-radius:14px;padding:20px;margin-bottom:22px}
 
-/* ---------- ANNONCES DE VENTE ---------- */
-.annonce{display:flex;gap:20px;background:#fff;border:1px solid var(--bord);border-radius:12px;padding:20px;margin-bottom:20px;box-shadow:0 1px 5px rgba(0,0,0,.06)}
-.annonce-images{flex:0 0 220px}
-.annonce-images img{width:100%;border-radius:10px;object-fit:cover;background:#e4e6ea;display:block}
-.annonce-corps{flex:1;display:flex;flex-direction:column}
-.annonce-haut{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
-.annonce-haut h3{margin:0;color:var(--nuit);font-size:21px}
-.statut{font-weight:800;font-size:16px;padding:6px 14px;border-radius:30px;white-space:nowrap}
-.statut.envente{background:#e4f4e6;color:#1b7a2f;border:2px solid #1b7a2f}
-.statut.vendu{background:#fbeaea;color:var(--rouge);border:2px solid var(--rouge)}
-.annonce-infos{margin:10px 0;color:var(--texte)}
-.annonce-meta{font-size:14px;color:var(--gris);margin:0 0 12px}
-.annonce-bas{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-top:auto;padding-top:10px;border-top:1px solid var(--bord)}
-.annonce-bas .vendeur{font-size:17px;line-height:1.5}
+/* Photos à gauche, en grand */
+.annonce-pile{position:relative;flex:0 0 300px;align-self:flex-start}
+.annonce-pile img{width:100%;border-radius:10px;object-fit:cover;background:#e4e6ea;display:block;position:relative;z-index:3;border:1px solid var(--bord)}
+.annonce-pile[data-photos*=","]::before,
+.annonce-pile[data-photos*=","]::after{content:"";position:absolute;inset:0;border-radius:10px;background:#fff;border:1px solid var(--bord);box-shadow:0 1px 5px rgba(0,0,0,.15)}
+.annonce-pile[data-photos*=","]::before{z-index:1;transform:rotate(-4deg) translate(-5px,5px)}
+.annonce-pile[data-photos*=","]::after{z-index:2;transform:rotate(3deg) translate(5px,3px)}
+.pile-compteur{position:absolute;bottom:8px;right:8px;z-index:4;background:rgba(15,20,28,.82);color:#fff;font-size:14px;font-weight:700;padding:4px 10px;border-radius:20px}
+
+/* Corps de l'annonce */
+.annonce-corps{flex:1;display:flex;flex-direction:column;min-width:0}
+
+/* Réf au milieu en haut, noir gras carré */
+.annonce-ref{align-self:center;background:#000;color:#fff;font-size:15px;font-weight:800;padding:5px 16px;border-radius:4px;letter-spacing:1px;margin-bottom:14px}
+
+/* Ligne titre : arme à gauche, prix+statut à droite */
+.annonce-haut{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
+.annonce-titre h3{margin:0;color:#000;font-size:23px}
+.annonce-cat{font-size:14px;color:var(--gris);font-weight:400}
+.annonce-prixbloc{display:flex;flex-direction:column;align-items:flex-end;gap:4px}
+.statut{font-weight:800;font-size:18px;letter-spacing:.5px}
+.statut.envente{color:#1b7a2f}
+.statut.vendu{color:var(--rouge)}
+.annonce-prixbloc .prix{font-size:30px;font-weight:800;color:var(--nuit-2)}
+
+/* Description décalée à droite, autre écriture */
+.annonce-infos{margin:14px 0 12px 24px;font-family:Georgia,"Times New Roman",serif;font-size:17px;color:var(--texte);font-style:italic;line-height:1.6}
+
+/* Date + club, à droite */
+.annonce-meta{font-size:14px;color:var(--gris);margin:0 0 14px;text-align:right}
+
+/* Bas : vendeur + boutons */
+.annonce-bas{margin-top:auto;padding-top:14px;border-top:1px solid var(--bord)}
+.annonce-bas .vendeur{font-size:18px;margin-bottom:10px}
 .annonce-bas .vendeur strong{color:var(--nuit)}
-.annonce-bas .prix{font-size:30px;font-weight:800;color:#000}
-.annonce-boutons{margin-top:14px}
-.annonce-boutons .btn{font-size:17px;padding:12px 22px;margin:6px 8px 0 0}
+.annonce-boutons .btn{font-size:17px;padding:12px 22px;margin:0 8px 0 0}
 
 @media(max-width:600px){
-  .annonce{flex-direction:column;gap:14px}
-  .annonce-images{flex:none}
-  .annonce-images img{max-height:240px}
-  .annonce-bas .prix{font-size:26px}
+  .annonce{flex-direction:column;gap:14px;padding:16px}
+  .annonce-pile{flex:none}
+  .annonce-pile img{max-height:280px}
+  .annonce-titre h3{font-size:20px}
+  .annonce-prixbloc{align-items:flex-start}
+  .annonce-haut{gap:8px}
+  .annonce-meta{text-align:left}
+  .annonce-infos{margin-left:12px}
 }
-
-/* ---------- RÉFÉRENCE ANNONCE ---------- */
-.annonce-ref{display:inline-block;background:var(--nuit);color:#fff;font-size:14px;font-weight:700;padding:3px 12px;border-radius:20px;margin:0 0 10px;letter-spacing:.5px}
-
-/* ---------- PILE DE PHOTOS ---------- */
-.annonce-pile{position:relative;flex:0 0 220px;align-self:flex-start}
-.annonce-pile img{width:100%;border-radius:10px;object-fit:cover;background:#e4e6ea;display:block;position:relative;z-index:3;border:1px solid var(--bord)}
-/* effet "tirages empilés" derrière la photo de devant */
-.annonce-pile[data-photos*=","]::before,
-.annonce-pile[data-photos*=","]::after{content:"";position:absolute;inset:0;border-radius:10px;background:#fff;border:1px solid var(--bord);box-shadow:0 1px 4px rgba(0,0,0,.12)}
-.annonce-pile[data-photos*=","]::before{z-index:1;transform:rotate(-4deg) translate(-4px,4px)}
-.annonce-pile[data-photos*=","]::after{z-index:2;transform:rotate(3deg) translate(4px,2px)}
-.pile-compteur{position:absolute;bottom:8px;right:8px;z-index:4;background:rgba(15,20,28,.82);color:#fff;font-size:14px;font-weight:700;padding:4px 10px;border-radius:20px}
