@@ -135,3 +135,28 @@ footer a{color:#fff}
   .btn{font-size:18px;padding:14px 24px}
   .divers-liens a{font-size:20px;padding:20px}
 }
+
+/* ---------- ASTUCE PHOTOS ---------- */
+.astuce-photos{background:#eef1f5;border-left:5px solid var(--laiton);border-radius:6px;padding:12px 16px;font-size:16px;color:var(--nuit-2);margin-bottom:20px}
+
+/* ---------- VISIONNEUSE (lightbox) ---------- */
+.lightbox{display:none;position:fixed;inset:0;z-index:1000;background:rgba(15,20,28,.94);
+  align-items:center;justify-content:center}
+.lightbox.actif{display:flex}
+.lightbox .lb-image{max-width:90vw;max-height:80vh;border-radius:8px;box-shadow:0 6px 30px rgba(0,0,0,.6);object-fit:contain}
+.lightbox .lb-legende{position:absolute;bottom:24px;left:0;right:0;text-align:center;color:#fff;font-size:18px;font-weight:600;padding:0 20px;text-shadow:0 1px 4px rgba(0,0,0,.8)}
+.lightbox button{position:absolute;background:rgba(0,0,0,.45);color:#fff;border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;transition:background .15s}
+.lightbox button:hover,.lightbox button:focus{background:var(--rouge);outline:none}
+.lightbox .lb-fermer{top:18px;right:18px;width:52px;height:52px;border-radius:50%;font-size:34px;line-height:1}
+.lightbox .lb-prec,.lightbox .lb-suiv{top:50%;transform:translateY(-50%);width:60px;height:60px;border-radius:50%;font-size:28px}
+.lightbox .lb-prec{left:16px}
+.lightbox .lb-suiv{right:16px}
+
+@media(max-width:600px){
+  .lightbox .lb-image{max-width:96vw;max-height:70vh}
+  .lightbox .lb-prec,.lightbox .lb-suiv{width:50px;height:50px;font-size:24px}
+  .lightbox .lb-prec{left:8px}
+  .lightbox .lb-suiv{right:8px}
+  .lightbox .lb-legende{font-size:16px;bottom:16px}
+}
