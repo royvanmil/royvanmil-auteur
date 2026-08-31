@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Histoires audio gratuites pour aveugles et malvoyants — Roy Van Mil</title>
+<meta name="description" content="Un projet pour rendre les microhistoires de Roy Van Mil accessibles gratuitement en version audio aux personnes aveugles et malvoyantes.">
+<style>
+  :root{
+    --fond:#fbf7ef;
+    --texte:#1a1a1a;
+    --texte-doux:#333;
+    --accent:#b5540a;
+    --accent-fond:#fff2e2;
+    --bordure:#d8cbb2;
+    --lien:#0a4a86;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:Georgia,'Times New Roman',serif;
+    background:var(--fond);
+    color:var(--texte);
+    line-height:1.7;
+    font-size:1.15rem;
+  }
+
+  /* Lien d'évitement : premier élément au clavier, saute au contenu */
+  .skip{
+    position:absolute;
+    left:-9999px;
+    top:0;
+    background:#000;
+    color:#fff;
+    padding:.7rem 1.2rem;
+    z-index:200;
+  }
+  .skip:focus{ left:0; }
+
+  .wrap{
+    max-width:760px;
+    margin:0 auto;
+    padding:2rem 1.4rem 4rem;
+  }
+
+  .retour{
+    display:inline-block;
+    margin-bottom:2rem;
+    color:var(--lien);
+    font-size:1.1rem;
+    text-decoration:underline;
+  }
+  .retour:focus{ outline:3px solid var(--accent); outline-offset:2px; }
+
+  h1{
+    font-size:clamp(1.7rem,5vw,2.4rem);
+    line-height:1.25;
+    color:var(--texte);
+    margin-bottom:1.4rem;
+  }
+  h2{
+    font-size:clamp(1.35rem,4vw,1.7rem);
+    color:var(--accent);
+    margin:2.6rem 0 1rem;
+    padding-bottom:.3rem;
+    border-bottom:2px solid var(--bordure);
+  }
+  p{ margin-bottom:1.1rem; color:var(--texte-doux); }
+  strong{ color:var(--texte); }
+
+  ul{ margin:0 0 1.1rem 1.4rem; }
+  li{ margin-bottom:.6rem; color:var(--texte-doux); }
+
+  .intro{
+    font-size:1.25rem;
+    color:var(--texte);
+    background:var(--accent-fond);
+    border-left:5px solid var(--accent);
+    padding:1.2rem 1.3rem;
+    border-radius:4px;
+    margin-bottom:1.6rem;
+  }
+
+  .encadre{
+    background:#fff;
+    border:2px solid var(--bordure);
+    border-radius:6px;
+    padding:1.3rem 1.4rem;
+    margin:1.4rem 0;
+  }
+
+  .cagnotte{
+    background:var(--accent-fond);
+    border:2px solid var(--accent);
+    border-radius:6px;
+    padding:1.4rem;
+    margin:2rem 0;
+    text-align:center;
+  }
+  .cagnotte h2{ border:none; margin-top:0; }
+  .btn-don{
+    display:inline-block;
+    margin-top:.8rem;
+    background:var(--accent);
+    color:#fff;
+    font-size:1.2rem;
+    padding:.9rem 1.8rem;
+    border-radius:6px;
+    text-decoration:none;
+    border:2px solid #000;
+  }
+  .btn-don:hover,
+  .btn-don:focus{
+    background:#8f4208;
+    outline:3px solid #000;
+    outline-offset:2px;
+  }
+
+  .note-bas{
+    margin-top:3rem;
+    padding-top:1.2rem;
+    border-top:1px solid var(--bordure);
+    font-size:.9rem;
+    color:#666;
+    line-height:1.6;
+  }
+</style>
+</head>
+<body>
+
+<!-- Lien d'évitement pour navigation clavier / lecteurs d'écran -->
+<a href="#contenu" class="skip">Aller directement au contenu</a>
+
+<div class="wrap">
+
+  <a href="index.html" class="retour">← Retour à l'accueil</a>
+
+  <main id="contenu">
+
+    <h1>Mes histoires en audio,<br>gratuites pour les personnes aveugles et malvoyantes</h1>
+
+    <p class="intro">
+      Un livre, ça se lit avec les yeux. Mais une histoire, ça peut aussi
+      s'écouter. Mon idée est simple : offrir mes microhistoires en version
+      audio, gratuitement, à celles et ceux qui ne peuvent pas les lire.
+    </p>
+
+    <h2>Le projet</h2>
+    <p>
+      J'écris de courtes histoires — de quoi surprendre, sourire, ou pleurer.
+      Elles sont réunies dans mes livres, en vente au grand public.
+    </p>
+    <p>
+      Mais je me suis posé une question toute bête : et les personnes qui ne
+      voient pas ? Elles aussi ont droit aux histoires. C'est de là qu'est née
+      l'envie de créer cet espace : une version audio, pensée pour être écoutée,
+      et <strong>totalement gratuite</strong> pour les personnes aveugles et
+      malvoyantes.
+    </p>
+
+    <h2>Une page pensée pour vous</h2>
+    <p>
+      Cette page n'est pas une page ordinaire à laquelle on aurait « ajouté »
+      de l'audio. Elle est <strong>conçue dès le départ</strong> pour les
+      lecteurs d'écran et les outils de navigation des personnes aveugles :
+      structure claire, titres repérables, liens explicites, contrastes forts.
+    </p>
+    <p>
+      Autrement dit : les outils d'accessibilité ne sont pas un rajout de
+      dernière minute, ils font partie de la construction même du site.
+    </p>
+
+    <h2>Où j'en suis</h2>
+    <p>
+      Le projet est en cours. Voici les étapes que je mène en ce moment :
+    </p>
+    <ul>
+      <li>Réflexion sur les moyens de réaliser les versions audio.</li>
+      <li>Recherches sur internet pour comprendre le métier et les solutions.</li>
+      <li>Prise de contact avec des comédiens et des studios de voix.</li>
+      <li>Échanges et écoute d'échantillons de différentes voix, féminines et masculines.</li>
+      <li>Attente des réponses et comparaison, avant de faire un choix.</li>
+    </ul>
+
+    <h2>Ce que ça coûte</h2>
+    <p>
+      Je vais être honnête avec vous. Enregistrer 16 histoires par une vraie
+      voix — avec la narration, le nettoyage du son et un rendu propre —
+      représente un budget situé <strong>entre 900 et 1000 €</strong>.
+    </p>
+    <p>
+      Je ne m'attendais pas à un tel montant. Mais c'est compréhensible : il y
+      a le matériel, le studio, et surtout beaucoup d'heures de travail. Un bon
+      travail se paie, et je le respecte.
+    </p>
+    <div class="encadre">
+      <p style="margin-bottom:0">
+        Mes livres sont en vente, oui. Mais les quelques euros de chaque vente
+        <strong>ne vont pas dans ma poche</strong> : entre les impôts, les frais
+        de la plateforme de vente et le coût d'impression, il ne reste presque
+        rien. Écrire reste pour moi un plaisir, un loisir — pas une source de
+        revenus. Et je suis encore loin d'avoir couvert mes premières dépenses
+        de fabrication et de promotion.
+      </p>
+    </div>
+
+    <div class="cagnotte">
+      <h2>Un coup de main ?</h2>
+      <p>
+        Pour offrir ces histoires gratuitement aux personnes aveugles et
+        malvoyantes, j'envisage d'ouvrir une cagnotte. Chaque participation, même
+        petite, aiderait à financer l'enregistrement des voix.
+      </p>
+      <p style="margin-bottom:0;font-style:italic;">
+        (Le lien de la cagnotte sera ajouté ici prochainement.)
+      </p>
+      <!-- Quand la cagnotte sera prête, remplacer le paragraphe ci-dessus par :
+      <a href="LIEN_CAGNOTTE" class="btn-don">Soutenir le projet</a>
+      -->
+    </div>
+
+    <div class="note-bas">
+      <p>
+        Cette page évoluera. Elle sera entièrement transformée le jour où les
+        microhistoires audio seront disponibles à l'écoute.
+      </p>
+      <p>
+        Elle sera aussi améliorée en tenant compte des retours des personnes
+        aveugles et malvoyantes qui la testeront. Si vous rencontrez la moindre
+        difficulté pour naviguer ou écouter, votre avis me sera précieux.
+      </p>
+    </div>
+
+  </main>
+</div>
+
+</body>
+</html>
