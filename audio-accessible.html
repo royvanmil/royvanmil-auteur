@@ -249,5 +249,13 @@
   </main>
 </div>
 
+<script>
+  var API = "https://compteurs.royvanmil86.workers.dev";
+  function compte(cle){
+    try{ fetch(API + "/compte?c=" + cle, {mode:"cors", keepalive:true}); }catch(e){}
+  }
+  compte("audio-accessible");
+</script>
+
 </body>
 </html>
