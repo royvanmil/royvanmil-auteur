@@ -206,8 +206,10 @@
   }
 
   // SVG en barres, largeur dynamique (défilement horizontal)
-  // chiffre vertical au-dessus des barres > 0, date verticale sous chaque barre
-  function svgCourbe(jours, valeurs){
+  // plus récent à gauche, chiffre vertical au-dessus des barres > 0, date verticale dessous
+  function svgCourbe(joursSrc, valeursSrc){
+    var jours = joursSrc.slice().reverse();
+    var valeurs = valeursSrc.slice().reverse();
     var n = valeurs.length;
     var COL = 34;                       // largeur par jour (px)
     var mg = {t:24, r:14, b:52, l:38};  // b: place pour les dates verticales
