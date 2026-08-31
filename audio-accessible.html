@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Histoires audio gratuites pour aveugles et malvoyants — Roy Van Mil</title>
+<title>Les aveugles et malvoyants ont aussi droit aux histoires — Roy Van Mil</title>
 <meta name="description" content="Un projet pour rendre les microhistoires de Roy Van Mil accessibles gratuitement en version audio aux personnes aveugles et malvoyantes.">
 <style>
   :root{
@@ -52,12 +52,21 @@
   }
   .retour:focus{ outline:3px solid var(--accent); outline-offset:2px; }
 
-  h1{
-    font-size:clamp(1.7rem,5vw,2.4rem);
-    line-height:1.25;
-    color:var(--texte);
-    margin-bottom:1.4rem;
+  /* Titre centré dans une bulle bien contrastée */
+  .titre-bulle{
+    text-align:center;
+    background:#fff;
+    border:2px solid var(--accent);
+    border-radius:10px;
+    padding:1.4rem 1.3rem;
+    margin-bottom:1.6rem;
   }
+  .titre-bulle h1{
+    font-size:clamp(1.6rem,4.8vw,2.3rem);
+    line-height:1.3;
+    color:var(--texte);
+  }
+
   h2{
     font-size:clamp(1.35rem,4vw,1.7rem);
     color:var(--accent);
@@ -65,14 +74,15 @@
     padding-bottom:.3rem;
     border-bottom:2px solid var(--bordure);
   }
-  p{ margin-bottom:1.1rem; color:var(--texte-doux); }
+  /* Le corps reste aligné à gauche : plus lisible pour les malvoyants */
+  p{ margin-bottom:1.1rem; color:var(--texte-doux); text-align:left; }
   strong{ color:var(--texte); }
 
   ul{ margin:0 0 1.1rem 1.4rem; }
   li{ margin-bottom:.6rem; color:var(--texte-doux); }
 
-  .intro{
-    font-size:1.25rem;
+  .sous-titre{
+    font-size:1.22rem;
     color:var(--texte);
     background:var(--accent-fond);
     border-left:5px solid var(--accent);
@@ -98,6 +108,7 @@
     text-align:center;
   }
   .cagnotte h2{ border:none; margin-top:0; }
+  .cagnotte p{ text-align:center; }
   .btn-don{
     display:inline-block;
     margin-top:.8rem;
@@ -137,12 +148,15 @@
 
   <main id="contenu">
 
-    <h1>Mes histoires en audio,<br>gratuites pour les personnes aveugles et malvoyantes</h1>
+    <div class="titre-bulle">
+      <h1>Les aveugles et malvoyants<br>ont AUSSI droit aux histoires&nbsp;!</h1>
+    </div>
 
-    <p class="intro">
-      Un livre, ça se lit avec les yeux. Mais une histoire, ça peut aussi
-      s'écouter. Mon idée est simple : offrir mes microhistoires en version
-      audio, gratuitement, à celles et ceux qui ne peuvent pas les lire.
+    <p class="sous-titre">
+      Une histoire, ça se vit… ça se lit. Avec les yeux. Mais alors, les
+      personnes malvoyantes et aveugles n'auraient pas le droit aux histoires
+      émouvantes&nbsp;? Le droit de ressentir des émotions — émouvantes, tristes,
+      drôles… ?
     </p>
 
     <h2>Le projet</h2>
@@ -195,12 +209,13 @@
     </p>
     <div class="encadre">
       <p style="margin-bottom:0">
-        Mes livres sont en vente, oui. Mais les quelques euros de chaque vente
-        <strong>ne vont pas dans ma poche</strong> : entre les impôts, les frais
-        de la plateforme de vente et le coût d'impression, il ne reste presque
-        rien. Écrire reste pour moi un plaisir, un loisir — pas une source de
-        revenus. Et je suis encore loin d'avoir couvert mes premières dépenses
-        de fabrication et de promotion.
+        Le prix de vente de mon livre sur Amazon, 12,50 €, inclut aussi bien les
+        frais d'Amazon, les frais d'envoi, les taxes sur les livres, les impôts
+        et l'Urssaf. Et aussi la publicité, le site web, etc. Bien sûr, je ne
+        compte pas mes soirées passées sur mon ordinateur. Écrire reste pour moi
+        un plaisir, un loisir — pas une source de revenus. Et je suis encore
+        loin d'avoir couvert mes premières dépenses de fabrication et de
+        promotion.
       </p>
     </div>
 
