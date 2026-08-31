@@ -72,7 +72,7 @@
   .courbe-tete{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.8rem}
   .courbe-titre{font-weight:700;font-size:1.05rem}
   .courbe-total{color:var(--gris);font-size:.9rem}
-  .courbe-svg{width:100%;height:180px;display:block}
+  .courbe-svg{width:100%;height:210px;display:block}
 
   .maj{text-align:center;color:var(--gris);font-size:.85rem;margin:1rem 0 2rem}
   .rafraichir{
@@ -202,15 +202,17 @@
     });
   }
 
-  // construit un SVG de courbe avec axes, contraste fort
+  // construit un SVG en barres, chiffre vertical au-dessus des barres > 0
   function svgCourbe(jours, valeurs){
-    var L = 780, H = 180, mg = {t:12, r:12, b:26, l:34};
+    var L = 780, H = 210, mg = {t:22, r:10, b:26, l:34};
     var w = L - mg.l - mg.r, h = H - mg.t - mg.b;
     var n = valeurs.length;
     var max = Math.max(1, Math.max.apply(null, valeurs));
 
-    function px(i){ return mg.l + (n <= 1 ? w/2 : (i/(n-1))*w); }
-    function py(v){ return mg.t + h - (v/max)*h; }
+    var pas = n > 0 ? w/n : w;          // largeur d'une colonne
+    var bw  = Math.min(pas * 0.7, 22);  // largeur de barre
+    function cx(i){ return mg.l + i*pas + pas/2; }        // centre de colonne
+    function hy(v){ return (v/max)*h; }                    // hauteur de barre
 
     // lignes horizontales de repère (0, milieu, max)
     var grille = "";
@@ -221,22 +223,17 @@
       grille += '<text x="'+(mg.l-6)+'" y="'+(y+4)+'" text-anchor="end" font-size="11" fill="#666">'+val+'</text>';
     });
 
-    // aire + ligne
-    var ligne = "", aire = "";
+    // barres + chiffres (rien si valeur = 0)
+    var barres = "", chiffres = "";
     for(var i=0;i<n;i++){
-      var x = px(i).toFixed(1), y = py(valeurs[i]).toFixed(1);
-      ligne += (i===0?"M":"L") + x + " " + y + " ";
-    }
-    if(n > 0){
-      aire = "M" + px(0).toFixed(1) + " " + (mg.t+h) + " ";
-      for(var j=0;j<n;j++){ aire += "L" + px(j).toFixed(1) + " " + py(valeurs[j]).toFixed(1) + " "; }
-      aire += "L" + px(n-1).toFixed(1) + " " + (mg.t+h) + " Z";
-    }
-
-    // points
-    var pts = "";
-    for(var k=0;k<n;k++){
-      pts += '<circle cx="'+px(k).toFixed(1)+'" cy="'+py(valeurs[k]).toFixed(1)+'" r="2.5" fill="#2563eb"/>';
+      var v = valeurs[i];
+      if(v <= 0) continue;
+      var bh = hy(v);
+      var x = cx(i) - bw/2;
+      var y = mg.t + h - bh;
+      barres += '<rect x="'+x.toFixed(1)+'" y="'+y.toFixed(1)+'" width="'+bw.toFixed(1)+'" height="'+bh.toFixed(1)+'" rx="2" fill="#2563eb"/>';
+      var ty = y - 4;
+      chiffres += '<text x="'+cx(i).toFixed(1)+'" y="'+ty.toFixed(1)+'" text-anchor="start" font-size="11" fill="#1a1a1a" font-weight="600" transform="rotate(-90 '+cx(i).toFixed(1)+' '+ty.toFixed(1)+')">'+v+'</text>';
     }
 
     // étiquettes de dates (première, milieu, dernière)
@@ -246,15 +243,12 @@
       idx.forEach(function(ii){
         var jj = jours[ii] || "";
         var court = jj.slice(8) + "/" + jj.slice(5,7); // JJ/MM
-        dates += '<text x="'+px(ii).toFixed(1)+'" y="'+(H-8)+'" text-anchor="middle" font-size="11" fill="#666">'+court+'</text>';
+        dates += '<text x="'+cx(ii).toFixed(1)+'" y="'+(H-8)+'" text-anchor="middle" font-size="11" fill="#666">'+court+'</text>';
       });
     }
 
-    return '<svg class="courbe-svg" viewBox="0 0 '+L+' '+H+'" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">' +
-      grille +
-      '<path d="'+aire+'" fill="#dbeafe" opacity="0.7"/>' +
-      '<path d="'+ligne+'" fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>' +
-      pts + dates +
+    return '<svg class="courbe-svg" viewBox="0 0 '+L+' '+H+'" xmlns="http://www.w3.org/2000/svg">' +
+      grille + barres + chiffres + dates +
     '</svg>';
   }
 </script>
