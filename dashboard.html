@@ -72,7 +72,9 @@
   .courbe-tete{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.8rem}
   .courbe-titre{font-weight:700;font-size:1.05rem}
   .courbe-total{color:var(--gris);font-size:.9rem}
-  .courbe-svg{width:100%;height:210px;display:block}
+  .courbe-defile{width:100%;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch}
+  .courbe-svg{height:260px;display:block}
+  .courbe-aide{color:var(--gris);font-size:.78rem;margin:.2rem 0 0;font-style:italic}
 
   .maj{text-align:center;color:var(--gris);font-size:.85rem;margin:1rem 0 2rem}
   .rafraichir{
@@ -197,22 +199,27 @@
           '<span class="courbe-titre">' + NOMS[cle] + '</span>' +
           '<span class="courbe-total">' + total + ' visites sur la période</span>' +
         '</div>' +
-        svgCourbe(jours, valeurs);
+        '<div class="courbe-defile">' + svgCourbe(jours, valeurs) + '</div>' +
+        '<p class="courbe-aide">← Glisse pour voir tous les jours →</p>';
       zone.appendChild(carte);
     });
   }
 
-  // construit un SVG en barres, chiffre vertical au-dessus des barres > 0
+  // SVG en barres, largeur dynamique (défilement horizontal)
+  // chiffre vertical au-dessus des barres > 0, date verticale sous chaque barre
   function svgCourbe(jours, valeurs){
-    var L = 780, H = 210, mg = {t:22, r:10, b:26, l:34};
-    var w = L - mg.l - mg.r, h = H - mg.t - mg.b;
     var n = valeurs.length;
+    var COL = 34;                       // largeur par jour (px)
+    var mg = {t:24, r:14, b:52, l:38};  // b: place pour les dates verticales
+    var H = 260;
+    var w = Math.max(1, n) * COL;
+    var L = mg.l + w + mg.r;
+    var h = H - mg.t - mg.b;
     var max = Math.max(1, Math.max.apply(null, valeurs));
 
-    var pas = n > 0 ? w/n : w;          // largeur d'une colonne
-    var bw  = Math.min(pas * 0.7, 22);  // largeur de barre
-    function cx(i){ return mg.l + i*pas + pas/2; }        // centre de colonne
-    function hy(v){ return (v/max)*h; }                    // hauteur de barre
+    var bw = 18;                                    // largeur de barre
+    function cx(i){ return mg.l + i*COL + COL/2; }  // centre de colonne
+    function hy(v){ return (v/max)*h; }             // hauteur de barre
 
     // lignes horizontales de repère (0, milieu, max)
     var grille = "";
@@ -223,31 +230,28 @@
       grille += '<text x="'+(mg.l-6)+'" y="'+(y+4)+'" text-anchor="end" font-size="11" fill="#666">'+val+'</text>';
     });
 
-    // barres + chiffres (rien si valeur = 0)
-    var barres = "", chiffres = "";
+    // barres + chiffres (rien si valeur = 0) + dates
+    var barres = "", chiffres = "", dates = "";
     for(var i=0;i<n;i++){
+      var c = cx(i);
+
+      // date verticale sous l'axe
+      var jj = jours[i] || "";
+      var court = jj.slice(8) + "/" + jj.slice(5,7); // JJ/MM
+      var dy = mg.t + h + 8;
+      dates += '<text x="'+c.toFixed(1)+'" y="'+dy.toFixed(1)+'" text-anchor="end" font-size="10" fill="#666" transform="rotate(-90 '+c.toFixed(1)+' '+dy.toFixed(1)+')">'+court+'</text>';
+
       var v = valeurs[i];
       if(v <= 0) continue;
       var bh = hy(v);
-      var x = cx(i) - bw/2;
+      var x = c - bw/2;
       var y = mg.t + h - bh;
-      barres += '<rect x="'+x.toFixed(1)+'" y="'+y.toFixed(1)+'" width="'+bw.toFixed(1)+'" height="'+bh.toFixed(1)+'" rx="2" fill="#2563eb"/>';
+      barres += '<rect x="'+x.toFixed(1)+'" y="'+y.toFixed(1)+'" width="'+bw+'" height="'+bh.toFixed(1)+'" rx="2" fill="#2563eb"/>';
       var ty = y - 4;
-      chiffres += '<text x="'+cx(i).toFixed(1)+'" y="'+ty.toFixed(1)+'" text-anchor="start" font-size="11" fill="#1a1a1a" font-weight="600" transform="rotate(-90 '+cx(i).toFixed(1)+' '+ty.toFixed(1)+')">'+v+'</text>';
+      chiffres += '<text x="'+c.toFixed(1)+'" y="'+ty.toFixed(1)+'" text-anchor="start" font-size="11" fill="#1a1a1a" font-weight="600" transform="rotate(-90 '+c.toFixed(1)+' '+ty.toFixed(1)+')">'+v+'</text>';
     }
 
-    // étiquettes de dates (première, milieu, dernière)
-    var dates = "";
-    if(n > 0){
-      var idx = [0, Math.floor((n-1)/2), n-1];
-      idx.forEach(function(ii){
-        var jj = jours[ii] || "";
-        var court = jj.slice(8) + "/" + jj.slice(5,7); // JJ/MM
-        dates += '<text x="'+cx(ii).toFixed(1)+'" y="'+(H-8)+'" text-anchor="middle" font-size="11" fill="#666">'+court+'</text>';
-      });
-    }
-
-    return '<svg class="courbe-svg" viewBox="0 0 '+L+' '+H+'" xmlns="http://www.w3.org/2000/svg">' +
+    return '<svg class="courbe-svg" width="'+L+'" height="'+H+'" viewBox="0 0 '+L+' '+H+'" xmlns="http://www.w3.org/2000/svg">' +
       grille + barres + chiffres + dates +
     '</svg>';
   }
