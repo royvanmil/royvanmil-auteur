@@ -99,6 +99,19 @@
     font-weight:bold;
   }
 
+  /* Encadré distinct (série cachée) dans une section */
+  .encadre-cache{
+    margin:.9rem 0;
+    padding:.8rem .9rem 1rem;
+    background:#fbf7ef;
+    border:2px dashed var(--auteur);
+    border-radius:8px;
+  }
+  .encadre-cache .groupe{
+    margin-top:0;
+    color:var(--auteur);
+  }
+
   /* Rectangle pense-bête photos */
   .memo{
     margin-top:2rem;
@@ -151,12 +164,14 @@
       <a href="https://royvanmil.fr/la-cloche-des-morts.html">La Cloche des Morts</a>
       <a href="https://royvanmil.fr/temoignages.html">Témoignages</a>
 
-      <div class="groupe">Série cachée — Indiana Fraise</div>
-      <a href="https://royvanmil.fr/indiana-fraise.html">Indiana Fraise</a>
-      <a href="https://royvanmil.fr/indiana-infos.html">Indiana — Infos</a>
-      <a href="https://royvanmil.fr/indiana-indices.html">Indiana — Indices</a>
-      <a href="https://royvanmil.fr/indiana-maison.html">Indiana — Maison</a>
-      <a href="https://royvanmil.fr/indiana-nuit.html">Indiana — Nuit</a>
+      <div class="encadre-cache">
+        <div class="groupe">🔦 Série cachée — Indiana Fraise</div>
+        <a href="https://royvanmil.fr/indiana-fraise.html">Indiana Fraise</a>
+        <a href="https://royvanmil.fr/indiana-infos.html">Indiana — Infos</a>
+        <a href="https://royvanmil.fr/indiana-indices.html">Indiana — Indices</a>
+        <a href="https://royvanmil.fr/indiana-maison.html">Indiana — Maison</a>
+        <a href="https://royvanmil.fr/indiana-nuit.html">Indiana — Nuit</a>
+      </div>
 
       <div class="groupe">Contact</div>
       <a href="https://royvanmil.fr/contact.html">Contact <small>(public)</small></a>
