@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Un instant, ou Deux… — Histoires audio pour aveugles et malvoyants — Roy Van Mil</title>
+<meta name="description" content="Écoutez gratuitement les microhistoires du livre « Un instant, ou Deux… » de Roy Van Mil, en version audio pensée pour les personnes aveugles et malvoyantes.">
+<style>
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    font-family:Georgia,'Times New Roman',serif;
+    background:#ffffff;
+    color:#000000;
+    line-height:1.7;
+    font-size:1.3rem;
+    font-weight:bold;
+  }
+
+  /* Lien d'évitement : premier au clavier, saute au contenu */
+  .skip{
+    position:absolute;
+    left:-9999px;
+    top:0;
+    background:#000;
+    color:#fff;
+    padding:.8rem 1.4rem;
+    z-index:200;
+    font-size:1.2rem;
+  }
+  .skip:focus{ left:0; }
+
+  .wrap{
+    max-width:820px;
+    margin:0 auto;
+    padding:2.5rem 1.6rem 5rem;
+  }
+
+  .retour{
+    display:inline-block;
+    margin-bottom:2.5rem;
+    color:#0a4a86;
+    font-size:1.2rem;
+    text-decoration:underline;
+  }
+  .retour:focus{ outline:4px solid #000; outline-offset:3px; }
+
+  h1{
+    font-size:clamp(2rem,6vw,2.8rem);
+    line-height:1.25;
+    color:#000;
+    margin-bottom:1.2rem;
+    text-align:center;
+  }
+
+  .intro{
+    font-size:1.35rem;
+    margin-bottom:2.5rem;
+    text-align:center;
+  }
+
+  /* Bouton du mot de bienvenue */
+  .bienvenue{
+    text-align:center;
+    margin:0 0 3.5rem;
+    padding:2rem 1.5rem;
+    border:4px solid #000;
+    border-radius:8px;
+  }
+  .bienvenue p{
+    font-size:1.25rem;
+    margin-bottom:1.2rem;
+  }
+  .bienvenue audio{
+    width:100%;
+    max-width:600px;
+    height:56px;
+  }
+
+  /* Bloc d'une histoire */
+  .histoire{
+    margin:0 0 3.5rem;
+    padding-bottom:3rem;
+    border-bottom:3px solid #000;
+  }
+  .histoire:last-of-type{ border-bottom:none; }
+
+  .histoire h2{
+    font-size:clamp(1.6rem,5vw,2.1rem);
+    color:#000;
+    margin-bottom:1.3rem;
+    line-height:1.3;
+  }
+
+  .histoire audio{
+    width:100%;
+    max-width:640px;
+    height:56px;
+    display:block;
+    margin-bottom:1.2rem;
+  }
+
+  .telecharger{
+    display:inline-block;
+    color:#0a4a86;
+    font-size:1.15rem;
+    text-decoration:underline;
+  }
+  .telecharger:focus{ outline:4px solid #000; outline-offset:3px; }
+
+  /* Mention « à venir » */
+  .a-venir{
+    font-size:1.2rem;
+    padding:1.2rem 1.4rem;
+    border:3px dashed #000;
+    border-radius:6px;
+  }
+  .a-venir a{ color:#0a4a86; text-decoration:underline; }
+  .a-venir a:focus{ outline:4px solid #000; outline-offset:3px; }
+
+  /* Rectangle d'information en bas */
+  .info-bas{
+    margin-top:4rem;
+    padding:2rem 1.6rem;
+    border:4px solid #000;
+    border-radius:8px;
+    font-size:1.25rem;
+    text-align:center;
+  }
+  .info-bas .moche{
+    font-size:1.6rem;
+    font-weight:bold;
+    margin-bottom:1.4rem;
+  }
+</style>
+</head>
+<body>
+
+<a href="#contenu" class="skip">Aller directement aux histoires</a>
+
+<div class="wrap">
+
+  <a href="index.html" class="retour">← Retour à l'accueil</a>
+
+  <main id="contenu">
+
+    <h1>Un instant, ou Deux…</h1>
+    <p class="intro">16 microhistoires à écouter. 4 vous attendent déjà.</p>
+
+    <!-- Mot de bienvenue : déclenché par la personne, jamais automatique -->
+    <div class="bienvenue">
+      <p>Écoutez le mot de bienvenue&nbsp;:</p>
+      <audio controls preload="none">
+        <source src="00-bienvenue.mp3" type="audio/mpeg">
+        Votre navigateur ne peut pas lire l'audio. Vous pouvez télécharger le fichier.
+      </audio>
+    </div>
+
+    <!-- ===== HISTOIRE 1 — disponible ===== -->
+    <div class="histoire">
+      <h2>1. Le bouton rouge</h2>
+      <audio controls preload="none">
+        <source src="01-le-bouton-rouge.mp3" type="audio/mpeg">
+        Votre navigateur ne peut pas lire l'audio.
+      </audio>
+      <a class="telecharger" href="01-le-bouton-rouge.mp3" download>Télécharger l'histoire 1 : Le bouton rouge (MP3)</a>
+    </div>
+
+    <!-- ===== HISTOIRE 2 — disponible ===== -->
+    <div class="histoire">
+      <h2>2. Les Deux</h2>
+      <audio controls preload="none">
+        <source src="02-les-deux.mp3" type="audio/mpeg">
+        Votre navigateur ne peut pas lire l'audio.
+      </audio>
+      <a class="telecharger" href="02-les-deux.mp3" download>Télécharger l'histoire 2 : Les Deux (MP3)</a>
+    </div>
+
+    <!-- ===== HISTOIRE 3 — disponible ===== -->
+    <div class="histoire">
+      <h2>3. La main qui fait du bien</h2>
+      <audio controls preload="none">
+        <source src="03-la-main-qui-fait-du-bien.mp3" type="audio/mpeg">
+        Votre navigateur ne peut pas lire l'audio.
+      </audio>
+      <a class="telecharger" href="03-la-main-qui-fait-du-bien.mp3" download>Télécharger l'histoire 3 : La main qui fait du bien (MP3)</a>
+    </div>
+
+    <!-- ===== HISTOIRE 4 — disponible ===== -->
+    <div class="histoire">
+      <h2>4. Les Dormeurs</h2>
+      <audio controls preload="none">
+        <source src="04-les-dormeurs.mp3" type="audio/mpeg">
+        Votre navigateur ne peut pas lire l'audio.
+      </audio>
+      <a class="telecharger" href="04-les-dormeurs.mp3" download>Télécharger l'histoire 4 : Les Dormeurs (MP3)</a>
+    </div>
+
+    <!-- ===== HISTOIRES 5 à 16 — à venir ===== -->
+    <div class="histoire">
+      <h2>5. Je sais déjà</h2>
+      <p class="a-venir">Audio à venir. Vous pouvez aider à financer l'enregistrement via la <a href="https://www.leetchi.com/fr/c/des-histoires-pour-aveugles-1218180" target="_blank" rel="noopener noreferrer">cagnotte Leetchi</a>.</p>
+    </div>
+
+    <div class="histoire">
+      <h2>6. L'Autre Monde</h2>
+      <p class="a-venir">Audio à venir. Vous pouvez aider à financer l'enregistrement via la <a href="https://www.leetchi.com/fr/c/des-histoires-pour-aveugles-1218180" target="_blank" rel="noopener noreferrer">cagnotte Leetchi</a>.</p>
+    </div>
+
+    <div class="histoire">
+      <h2>7. La Révolution numérique</h2>
+      <p class="a-venir">Audio à venir. Vous pouvez aider à financer l'enregistrement via la <a href="https://www.leetchi.com/fr/c/des-histoires-pour-aveugles-1218180" target="_blank" rel="noopener noreferrer">cagnotte Leetchi</a>.</p>
+    </div>
+
+    <div class="histoire">
+      <h2>8. Présences passées</h2>
+      <p class="a-venir">Audio à venir. Vous pouvez aider à financer l'enregistrement via la <a href="https://www.leetchi.com/fr/c/des-histoires-pour-aveugles-1218180" target="_blank" rel="noopener noreferrer">cagnotte Leetchi</a>.</p>
+    </div>
+
+    <div class="histoire">
+      <h2>9. La Bouteille d'Armagnac</h2>
+      <p class="a-venir">Audio à venir. Vous pouvez aider à financer l'enregistrement via la <a href="https://www.leetchi.com/fr/c/des-histoires-pour-aveugles-1218180" target="_blank" rel="noopener noreferrer">cagnotte Leetchi</a>.</p>
+    </div>
+
+    <div class="histoire">
+      <h2>10. Le Banquet invisible</h2>
+      <p class="a-venir">Audio à venir. Vous pouvez aider à financer l'enregistrement via la <a href="https://www.leetchi.com/fr/c/des-histoires-pour-aveugles-1218180" target="_blank" rel="noopener noreferrer">cagnotte Leetchi</a>.</p>
+    </div>
+
+    <div class="histoire">
+      <h2>11. Le Casque</h2>
+      <p class="a-venir">Audio à venir. Vous pouvez aider à financer l'enregistrement via la <a href="https://www.leetchi.com/fr/c/des-histoires-pour-aveugles-1218180" target="_blank" rel="noopener noreferrer">cagnotte Leetchi</a>.</p>
+    </div>
+
+    <div class="histoire">
+      <h2>12. La Valise</h2>
+      <p class="a-venir">Audio à venir. Vous pouvez aider à financer l'enregistrement via la <a href="https://www.leetchi.com/fr/c/des-histoires-pour-aveugles-1218180" target="_blank" rel="noopener noreferrer">cagnotte Leetchi</a>.</p>
+    </div>
+
+    <div class="histoire">
+      <h2>13. La vidéo savait</h2>
+      <p class="a-venir">Audio à venir. Vous pouvez aider à financer l'enregistrement via la <a href="https://www.leetchi.com/fr/c/des-histoires-pour-aveugles-1218180" target="_blank" rel="noopener noreferrer">cagnotte Leetchi</a>.</p>
+    </div>
+
+    <div class="histoire">
+      <h2>14. Le vieux four</h2>
+      <p class="a-venir">Audio à venir. Vous pouvez aider à financer l'enregistrement via la <a href="https://www.leetchi.com/fr/c/des-histoires-pour-aveugles-1218180" target="_blank" rel="noopener noreferrer">cagnotte Leetchi</a>.</p>
+    </div>
+
+    <div class="histoire">
+      <h2>15. Ma Tante</h2>
+      <p class="a-venir">Audio à venir. Vous pouvez aider à financer l'enregistrement via la <a href="https://www.leetchi.com/fr/c/des-histoires-pour-aveugles-1218180" target="_blank" rel="noopener noreferrer">cagnotte Leetchi</a>.</p>
+    </div>
+
+    <div class="histoire">
+      <h2>16. La Décision finale</h2>
+      <p class="a-venir">Audio à venir. Vous pouvez aider à financer l'enregistrement via la <a href="https://www.leetchi.com/fr/c/des-histoires-pour-aveugles-1218180" target="_blank" rel="noopener noreferrer">cagnotte Leetchi</a>.</p>
+    </div>
+
+    <!-- Rectangle d'information en bas -->
+    <div class="info-bas">
+      <p class="moche">Cette page est moche… mais pratique pour les malvoyants et aveugles.</p>
+      <p>Cette page est faite spécialement pour les personnes malvoyantes et aveugles. Les outils de lecture d'écran de vos appareils sont pleinement pris en charge par ce site.</p>
+    </div>
+
+  </main>
+</div>
+
+<script>
+  var API = "https://compteurs.royvanmil86.workers.dev";
+  function compte(cle){
+    try{ fetch(API + "/compte?c=" + cle, {mode:"cors", keepalive:true}); }catch(e){}
+  }
+  compte("piste-audio");
+</script>
+
+</body>
+</html>
