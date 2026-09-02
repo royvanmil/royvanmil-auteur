@@ -242,14 +242,14 @@ html,body{background:#0b0806;min-height:100%;overflow-x:hidden;}
 <!-- ===== MESSAGE DE BIENVENUE (lu en premier par les lecteurs d'écran) ===== -->
 <p class="sr-only">
   Bienvenue sur le site des Microhistoires de Roy Van Mil.
-  Une page audio vous est spécialement dédiée si vous êtes aveugle ou malvoyant,
-  avec des histoires pour vous surprendre, sourire ou pleurer.
-  Le premier lien ci-dessous vous y conduit.
+  Des histoires audio vous sont spécialement dédiées si vous êtes aveugle ou malvoyant,
+  pour vous surprendre, sourire ou pleurer.
+  Le premier lien ci-dessous vous conduit directement aux histoires à écouter.
 </p>
 
 <!-- ===== BANDEAU AUDIO ACCESSIBLE (tout en haut, bien visible) ===== -->
-<a href="audio-accessible.html" class="bandeau-audio"
-   aria-label="Page audio accessible pour personnes aveugles et malvoyantes, avec lecture d'écran intégrée">
+<a href="Piste-Audio.html" class="bandeau-audio"
+   aria-label="Écouter les histoires audio, page accessible pour personnes aveugles et malvoyantes avec lecture d'écran intégrée">
   <span class="bandeau-audio__icone" aria-hidden="true">🔊</span>
   <span class="bandeau-audio__txt">
     <strong>PAGE AUDIO</strong> — pour aveugles &amp; malvoyants
@@ -369,6 +369,57 @@ html,body{background:#0b0806;min-height:100%;overflow-x:hidden;}
     </div>
 
   </div>
+
+<!-- Bouton explicatif : pourquoi une page pour aveugles (aligné à gauche, plus bas) -->
+  <div class="wrap-pourquoi-aveugles">
+    <a href="audio-accessible.html" class="btn-pourquoi-aveugles"
+       aria-label="Pourquoi une page pour aveugles ? En savoir plus sur la démarche audio accessible">
+      🔊 Pourquoi une page pour aveugles&nbsp;?
+    </a>
+  </div>
+  <style>
+    .wrap-pourquoi-aveugles{
+      max-width:900px;
+      margin:2.5rem auto 0;
+      padding:0 1.2rem;
+      text-align:left;
+    }
+    .btn-pourquoi-aveugles{
+      display:inline-flex;
+      align-items:center;
+      gap:.6rem;
+      padding:.9rem 1.8rem;
+      border-radius:14px;
+      text-decoration:none;
+      font-family:'Cormorant Garamond','EB Garamond',Georgia,serif;
+      font-weight:600;
+      font-size:1.35rem;
+      letter-spacing:.02em;
+      color:#2b1d10;
+      background:linear-gradient(180deg,#ff9d3c 0%,#ff7a00 100%);
+      border:1px solid #ffb968;
+      box-shadow:0 8px 22px rgba(255,122,0,.34),inset 0 1px 0 rgba(255,255,255,.35);
+      transition:transform .2s, box-shadow .2s;
+    }
+    .btn-pourquoi-aveugles:hover,
+    .btn-pourquoi-aveugles:focus{
+      transform:scale(1.04);
+      box-shadow:0 12px 28px rgba(255,122,0,.44),inset 0 1px 0 rgba(255,255,255,.4);
+      outline:3px solid #000;
+      outline-offset:2px;
+    }
+    @media(max-width:600px){
+      .wrap-pourquoi-aveugles{
+        margin-top:2rem;
+        text-align:center;      /* sur mobile : centré pour un rendu propre */
+      }
+      .btn-pourquoi-aveugles{
+        font-size:1.15rem;
+        padding:.8rem 1.4rem;
+        width:auto;
+      }
+    }
+  </style>
 
 <!-- Gros bouton Avis des lecteurs -->
   <div style="text-align:center;margin:2rem auto 1rem;">
