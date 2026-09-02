@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Plan facile — royvanmil.fr</title>
+<style>
+  :root{
+    --auteur:#b5892a;
+    --photos:#2a7bb5;
+    --taa:#c0392b;
+    --audio:#7d3cc0;
+    --admin:#d81b1b;
+  }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  body{
+    font-family:'Segoe UI',Arial,sans-serif;
+    background:#f4f1ea;
+    color:#1a1a1a;
+    line-height:1.5;
+    padding:1.5rem 1rem 4rem;
+  }
+  .wrap{ max-width:1100px; margin:0 auto; }
+
+  h1{
+    text-align:center;
+    font-size:1.9rem;
+    margin-bottom:.3rem;
+  }
+  .sous{
+    text-align:center;
+    color:#666;
+    margin-bottom:2rem;
+    font-size:1rem;
+  }
+
+  /* Grille des sections */
+  .grille{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:1.4rem;
+  }
+
+  .section{
+    background:#fff;
+    border-radius:10px;
+    border-top:7px solid var(--c);
+    padding:1.2rem 1.3rem 1.4rem;
+    box-shadow:0 2px 6px rgba(0,0,0,.08);
+  }
+  .section h2{
+    font-size:1.3rem;
+    margin-bottom:.9rem;
+    color:var(--c);
+    display:flex;
+    align-items:center;
+    gap:.5rem;
+  }
+  .section a{
+    display:block;
+    padding:.5rem .7rem;
+    margin-bottom:.35rem;
+    border-radius:6px;
+    text-decoration:none;
+    color:#1a1a1a;
+    background:#f7f5f0;
+    border-left:4px solid var(--c);
+    font-size:1.02rem;
+  }
+  .section a:hover{ background:#efe9dd; }
+  .section a small{ color:#888; font-weight:normal; }
+
+  /* section auteur */
+  .auteur{ --c:var(--auteur); }
+  .photos{ --c:var(--photos); }
+  .taa{ --c:var(--taa); }
+  .audio{ --c:var(--audio); }
+  .admin{ --c:var(--admin); }
+
+  .admin{ border-top-width:7px; }
+  .admin h2::after{
+    content:"privé";
+    font-size:.7rem;
+    background:var(--admin);
+    color:#fff;
+    padding:.15rem .5rem;
+    border-radius:20px;
+    margin-left:.3rem;
+  }
+
+  /* sous-titre de groupe dans une section */
+  .groupe{
+    font-size:.8rem;
+    text-transform:uppercase;
+    letter-spacing:.5px;
+    color:#999;
+    margin:.9rem 0 .4rem;
+    font-weight:bold;
+  }
+
+  /* Rectangle pense-bête photos */
+  .memo{
+    margin-top:2rem;
+    background:#fff;
+    border:3px dashed var(--photos);
+    border-radius:10px;
+    padding:1.3rem 1.5rem;
+  }
+  .memo h2{
+    color:var(--photos);
+    font-size:1.25rem;
+    margin-bottom:.8rem;
+  }
+  .memo ul{ margin:.5rem 0 .8rem 1.2rem; }
+  .memo li{ margin-bottom:.4rem; }
+  .memo code{
+    background:#eef3f8;
+    padding:.1rem .4rem;
+    border-radius:4px;
+    font-size:.95rem;
+    color:#2a5b85;
+  }
+  .memo .regle{
+    background:#fff8e6;
+    border-left:4px solid #d4a017;
+    padding:.7rem .9rem;
+    border-radius:4px;
+    font-size:.95rem;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>Plan facile</h1>
+  <p class="sous">Tous mes sites et pages, en un clic — royvanmil.fr</p>
+
+  <div class="grille">
+
+    <!-- ===== SITE AUTEUR ===== -->
+    <div class="section auteur">
+      <h2>📖 Site Auteur</h2>
+      <a href="https://royvanmil.fr/index.html">Accueil auteur <small>(l'armoire à livres)</small></a>
+
+      <div class="groupe">Les livres</div>
+      <a href="https://royvanmil.fr/un-instant.html">Un instant, ou Deux…</a>
+      <a href="https://royvanmil.fr/extraits-un-instant.html">↳ Extraits (Un instant)</a>
+      <a href="https://royvanmil.fr/trois-instants.html">Un instant, ou Trois… <small>(en écriture)</small></a>
+      <a href="https://royvanmil.fr/cette-maison.html">Cette maison, elle vaut vraiment le prix ?</a>
+      <a href="https://royvanmil.fr/la-cloche-des-morts.html">La Cloche des Morts</a>
+      <a href="https://royvanmil.fr/temoignages.html">Témoignages</a>
+
+      <div class="groupe">Série cachée — Indiana Fraise</div>
+      <a href="https://royvanmil.fr/indiana-fraise.html">Indiana Fraise</a>
+      <a href="https://royvanmil.fr/indiana-infos.html">Indiana — Infos</a>
+      <a href="https://royvanmil.fr/indiana-indices.html">Indiana — Indices</a>
+      <a href="https://royvanmil.fr/indiana-maison.html">Indiana — Maison</a>
+      <a href="https://royvanmil.fr/indiana-nuit.html">Indiana — Nuit</a>
+
+      <div class="groupe">Contact</div>
+      <a href="https://royvanmil.fr/contact.html">Contact <small>(public)</small></a>
+    </div>
+
+    <!-- ===== AUDIO ACCESSIBLE ===== -->
+    <div class="section audio">
+      <h2>🔊 Audio (aveugles &amp; malvoyants)</h2>
+      <a href="https://royvanmil.fr/audio-accessible.html">Page audio accessible <small>(annonce / cagnotte)</small></a>
+      <a href="https://royvanmil.fr/Piste-Audio.html">Piste-Audio <small>(page d'écoute — 16 histoires)</small></a>
+    </div>
+
+    <!-- ===== SITE PHOTOS ===== -->
+    <div class="section photos">
+      <h2>📷 Site Photos</h2>
+      <a href="https://royvanmil.fr/IndexPhotos.html">Accueil Photos</a>
+      <a href="https://royvanmil.fr/Photos1Portrait.html">Portraits</a>
+      <a href="https://royvanmil.fr/Photos2Mariage.html">Mariages</a>
+      <a href="https://royvanmil.fr/Photos3Divers.html">Divers</a>
+    </div>
+
+    <!-- ===== SITE TAA ===== -->
+    <div class="section taa">
+      <h2>🎯 Site TAA <small>(club de tir)</small></h2>
+      <a href="https://royvanmil.fr/taa/index.html">Accueil TAA</a>
+      <a href="https://royvanmil.fr/taa/informations.html">Informations</a>
+      <a href="https://royvanmil.fr/taa/horaires.html">Horaires &amp; accès</a>
+      <a href="https://royvanmil.fr/taa/le-club.html">Le club</a>
+      <a href="https://royvanmil.fr/taa/photos.html">↳ Photos du club</a>
+      <a href="https://royvanmil.fr/taa/contact.html">Contact</a>
+
+      <div class="groupe">Page « Divers » et ses rubriques</div>
+      <a href="https://royvanmil.fr/taa/divers.html">Divers <small>(carrefour)</small></a>
+      <a href="https://royvanmil.fr/taa/devenir-membre.html">↳ Devenir membre</a>
+      <a href="https://royvanmil.fr/taa/tirs-sportifs.html">↳ Journées &amp; tirs sportifs</a>
+      <a href="https://royvanmil.fr/taa/entretien.html">↳ Entretien du club</a>
+      <a href="https://royvanmil.fr/taa/ventes.html">↳ Ventes armes &amp; accessoires</a>
+      <a href="https://royvanmil.fr/taa/eden-sia.html">↳ EDEN &amp; SIA</a>
+    </div>
+
+    <!-- ===== ADMIN ===== -->
+    <div class="section admin">
+      <h2>🔒 Admin</h2>
+      <a href="https://royvanmil.fr/dashboard.html">Compteurs <small>(dashboard)</small></a>
+      <a href="https://royvanmil.fr/avis-admin.html">Avis lecteurs</a>
+      <a href="https://royvanmil.fr/contact-admin.html">Contact &amp; demandes de livre</a>
+    </div>
+
+  </div>
+
+  <!-- ===== PENSE-BÊTE PHOTOS ===== -->
+  <div class="memo">
+    <h2>📥 Pour déposer des photos</h2>
+    <ul>
+      <li>Photos de <strong>portrait</strong> → dossier <code>img/portrait/</code></li>
+      <li>Photos de <strong>mariage</strong> → dossier <code>img/mariage/</code></li>
+      <li>Photos <strong>diverses</strong> → dossier <code>img/divers/</code></li>
+    </ul>
+    <p class="regle">
+      <strong>Nommer les fichiers simplement</strong> : minuscules, sans accents ni espaces.<br>
+      Exemples : <code>portrait-01.jpg</code> · <code>mariage-05.jpg</code> · <code>divers-03.jpg</code>
+    </p>
+  </div>
+
+</div>
+</body>
+</html>
