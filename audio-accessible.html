@@ -132,7 +132,7 @@
     outline-offset:2px;
   }
 
-  /* ===== Badges plateformes (non cliquables) ===== */
+  /* ===== Badges plateformes (cliquables, effet 3D) ===== */
   .plateformes{
     display:flex;
     flex-wrap:wrap;
@@ -152,6 +152,22 @@
     color:#fff;
     letter-spacing:.01em;
     white-space:nowrap;
+    text-decoration:none;
+    box-shadow:0 4px 0 rgba(0,0,0,.28), 0 6px 10px rgba(0,0,0,.22);
+    transition:transform .08s ease, box-shadow .08s ease;
+    cursor:pointer;
+  }
+  .badge:hover{
+    transform:translateY(-1px);
+    box-shadow:0 5px 0 rgba(0,0,0,.28), 0 8px 13px rgba(0,0,0,.25);
+  }
+  .badge:active{
+    transform:translateY(3px);
+    box-shadow:0 1px 0 rgba(0,0,0,.28), 0 2px 4px rgba(0,0,0,.22);
+  }
+  .badge:focus{
+    outline:3px solid #000;
+    outline-offset:3px;
   }
   .badge .pastille{
     width:1.1rem;height:1.1rem;border-radius:50%;
@@ -163,6 +179,7 @@
   .badge-deezer{ background:#a238ff; }
   .badge-amazon{ background:#00a8e1; }
   .badge-pocket{ background:#f43e37; }
+  .badge-youtube{ background:#ff0000; }
   .badge-legende{
     text-align:center;
     font-size:.9rem;
@@ -276,11 +293,12 @@
       <a href="Piste-Audio.html" class="btn-ecouter">▶ Écouter les histoires</a>
 
       <div class="plateformes" role="list" aria-label="Plateformes où écouter le podcast">
-        <span class="badge badge-spotify" role="listitem"><span class="pastille" aria-hidden="true"></span>Spotify</span>
-        <span class="badge badge-apple" role="listitem"><span class="pastille" aria-hidden="true"></span>Apple Podcasts</span>
-        <span class="badge badge-deezer" role="listitem"><span class="pastille" aria-hidden="true"></span>Deezer</span>
-        <span class="badge badge-amazon" role="listitem"><span class="pastille" aria-hidden="true"></span>Amazon Music</span>
-        <span class="badge badge-pocket" role="listitem"><span class="pastille" aria-hidden="true"></span>Pocket Casts</span>
+        <a href="https://open.spotify.com/show/3MbZ40WgbyKWqREZJcRSTx" class="badge badge-spotify" role="listitem" target="_blank" rel="noopener noreferrer"><span class="pastille" aria-hidden="true"></span>Spotify</a>
+        <a href="https://podcasts.apple.com/fr/podcast/un-instant-ou-deux/id6807992876" class="badge badge-apple" role="listitem" target="_blank" rel="noopener noreferrer"><span class="pastille" aria-hidden="true"></span>Apple Podcasts</a>
+        <a href="https://link.deezer.com/s/34in4yKllFsAgPNA4nrgC" class="badge badge-deezer" role="listitem" target="_blank" rel="noopener noreferrer"><span class="pastille" aria-hidden="true"></span>Deezer</a>
+        <a href="https://pca.st/vu1zs7zq" class="badge badge-pocket" role="listitem" target="_blank" rel="noopener noreferrer"><span class="pastille" aria-hidden="true"></span>Pocket Casts</a>
+        <a href="https://music.amazon.fr" class="badge badge-amazon" role="listitem" target="_blank" rel="noopener noreferrer"><span class="pastille" aria-hidden="true"></span>Amazon Music</a>
+        <a href="https://music.youtube.com" class="badge badge-youtube" role="listitem" target="_blank" rel="noopener noreferrer"><span class="pastille" aria-hidden="true"></span>YouTube Music</a>
       </div>
       <p class="badge-legende">Disponible aussi sur vos plateformes d'écoute habituelles.</p>
     </div>
