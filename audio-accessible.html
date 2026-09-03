@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Les aveugles et malvoyants ont aussi droit aux histoires — Roy Van Mil</title>
-<meta name="description" content="Un projet pour rendre les microhistoires de Roy Van Mil accessibles gratuitement en version audio aux personnes aveugles et malvoyantes.">
+<meta name="description" content="Les microhistoires de Roy Van Mil en version audio, gratuites pour les personnes aveugles et malvoyantes. Voix professionnelle d'Hervé Carrasco. Déjà 4 histoires en ligne.">
 <style>
   :root{
     --fond:#fbf7ef;
@@ -99,6 +99,108 @@
     margin:1.4rem 0;
   }
 
+  /* ===== Bloc « c'est en route » : histoires déjà en ligne ===== */
+  .enligne{
+    background:#eaf6ec;
+    border:2px solid #2e7d32;
+    border-radius:8px;
+    padding:1.5rem 1.4rem;
+    margin:2rem 0;
+    text-align:center;
+  }
+  .enligne h2{
+    color:#1b5e20;
+    border:none;
+    margin:0 0 .8rem;
+  }
+  .enligne p{ text-align:center; }
+  .btn-ecouter{
+    display:inline-block;
+    margin-top:.6rem;
+    background:#2e7d32;
+    color:#fff;
+    font-size:1.2rem;
+    padding:.9rem 1.9rem;
+    border-radius:6px;
+    text-decoration:none;
+    border:2px solid #000;
+  }
+  .btn-ecouter:hover,
+  .btn-ecouter:focus{
+    background:#1b5e20;
+    outline:3px solid #000;
+    outline-offset:2px;
+  }
+
+  /* ===== Badges plateformes (non cliquables) ===== */
+  .plateformes{
+    display:flex;
+    flex-wrap:wrap;
+    gap:.7rem;
+    justify-content:center;
+    margin:1.4rem 0 .3rem;
+  }
+  .badge{
+    display:inline-flex;
+    align-items:center;
+    gap:.45rem;
+    padding:.55rem 1.1rem;
+    border-radius:999px;
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    font-size:1rem;
+    font-weight:600;
+    color:#fff;
+    letter-spacing:.01em;
+    white-space:nowrap;
+  }
+  .badge .pastille{
+    width:1.1rem;height:1.1rem;border-radius:50%;
+    background:rgba(255,255,255,.9);
+    display:inline-block;
+  }
+  .badge-spotify{ background:#1db954; }
+  .badge-apple{ background:#8b3ffb; }
+  .badge-deezer{ background:#a238ff; }
+  .badge-amazon{ background:#00a8e1; }
+  .badge-pocket{ background:#f43e37; }
+  .badge-legende{
+    text-align:center;
+    font-size:.9rem;
+    color:#666;
+    font-style:italic;
+    margin-top:.2rem;
+  }
+
+  /* ===== Section Hervé ===== */
+  .herve-intro{
+    background:var(--accent-fond);
+    border-left:5px solid var(--accent);
+    padding:1.2rem 1.3rem;
+    border-radius:4px;
+    margin-bottom:1.4rem;
+  }
+  .herve-photos{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:.8rem;
+    margin:1.4rem 0;
+  }
+  .herve-photos img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    border-radius:8px;
+    border:2px solid var(--bordure);
+    display:block;
+  }
+  .herve-credit{
+    text-align:center;
+    font-size:1.05rem;
+    color:var(--texte);
+    margin-top:.4rem;
+  }
+  .herve-credit strong{ color:var(--accent); }
+
   .cagnotte{
     background:var(--accent-fond);
     border:2px solid var(--accent);
@@ -135,6 +237,11 @@
     color:#666;
     line-height:1.6;
   }
+
+  @media(max-width:520px){
+    .herve-photos{ grid-template-columns:1fr; }
+    .badge{ font-size:.92rem; padding:.5rem .9rem; }
+  }
 </style>
 </head>
 <body>
@@ -159,6 +266,25 @@
       drôles… ?
     </p>
 
+    <!-- ===== C'EST EN ROUTE : histoires déjà en ligne ===== -->
+    <div class="enligne">
+      <h2>🎧 C'est en route&nbsp;: 4 histoires vous attendent&nbsp;!</h2>
+      <p>
+        Le projet a démarré pour de vrai. <strong>Les 4 premières histoires
+        sont déjà enregistrées et disponibles gratuitement à l'écoute.</strong>
+      </p>
+      <a href="Piste-Audio.html" class="btn-ecouter">▶ Écouter les histoires</a>
+
+      <div class="plateformes" role="list" aria-label="Plateformes où écouter le podcast">
+        <span class="badge badge-spotify" role="listitem"><span class="pastille" aria-hidden="true"></span>Spotify</span>
+        <span class="badge badge-apple" role="listitem"><span class="pastille" aria-hidden="true"></span>Apple Podcasts</span>
+        <span class="badge badge-deezer" role="listitem"><span class="pastille" aria-hidden="true"></span>Deezer</span>
+        <span class="badge badge-amazon" role="listitem"><span class="pastille" aria-hidden="true"></span>Amazon Music</span>
+        <span class="badge badge-pocket" role="listitem"><span class="pastille" aria-hidden="true"></span>Pocket Casts</span>
+      </div>
+      <p class="badge-legende">Disponible aussi sur vos plateformes d'écoute habituelles.</p>
+    </div>
+
     <h2>Le projet</h2>
     <p>
       J'écris de courtes histoires — de quoi surprendre, sourire, ou pleurer.
@@ -179,33 +305,41 @@
       lecteurs d'écran et les outils de navigation des personnes aveugles :
       structure claire, titres repérables, liens explicites, contrastes forts.
     </p>
+
+    <!-- ===== HERVÉ CARRASCO ===== -->
+    <h2>Une vraie voix, professionnelle</h2>
+    <div class="herve-intro">
+      <p style="margin-bottom:0">
+        J'y tenais&nbsp;: pas une voix de synthèse, mais un <strong>vrai
+        comédien</strong>. Ces histoires sont lues par <strong>Hervé
+        Carrasco</strong>, une voix professionnelle qui prête aussi sa voix à
+        des publicités et des documentaires.
+      </p>
+    </div>
     <p>
-      Autrement dit : les outils d'accessibilité ne sont pas un rajout de
-      dernière minute, ils font partie de la construction même du site.
+      Le résultat m'a bouleversé. Même en connaissant mes textes par cœur, je
+      les ai écoutés avec des frissons — et j'ai versé une larme. Une belle voix
+      ne fait pas que lire les mots&nbsp;: <strong>elle donne vie aux
+      histoires, elle les fait vibrer.</strong>
     </p>
 
-    <h2>Où j'en suis</h2>
-    <p>
-      Le projet est en cours. Voici les étapes que je mène en ce moment :
+    <div class="herve-photos">
+      <img src="img/herve-carrasco-1.jpg" alt="Hervé Carrasco en studio d'enregistrement, pouce levé devant son micro">
+      <img src="img/herve-carrasco-4.jpg" alt="Hervé Carrasco souriant en studio, casque sur les oreilles">
+      <img src="img/herve-carrasco-2.jpg" alt="Planche de photos d'Hervé Carrasco en studio d'enregistrement">
+      <img src="img/herve-carrasco-3.jpg" alt="Hervé Carrasco au micro dans son studio">
+    </div>
+    <p class="herve-credit">
+      Voix&nbsp;: <strong>Hervé Carrasco</strong>
     </p>
-    <ul>
-      <li>Réflexion sur les moyens de réaliser les versions audio.</li>
-      <li>Recherches sur internet pour comprendre le métier et les solutions.</li>
-      <li>Prise de contact avec des comédiens et des studios de voix.</li>
-      <li>Échanges et écoute d'échantillons de différentes voix, féminines et masculines.</li>
-      <li>Attente des réponses et comparaison, avant de faire un choix.</li>
-    </ul>
 
     <h2>Ce que ça coûte</h2>
     <p>
-      Je vais être honnête avec vous. Enregistrer 16 histoires par une vraie
-      voix — avec la narration, le nettoyage du son et un rendu propre —
-      représente un budget situé <strong>entre 900 et 1000 €</strong>.
-    </p>
-    <p>
-      Je ne m'attendais pas à un tel montant. Mais c'est compréhensible : il y
-      a le matériel, le studio, et surtout beaucoup d'heures de travail. Un bon
-      travail se paie, et je le respecte.
+      Je vais être honnête avec vous. Faire enregistrer ces histoires par une
+      vraie voix — avec la narration, le nettoyage du son et un rendu propre —
+      représente un vrai budget. C'est compréhensible&nbsp;: il y a le matériel,
+      le studio, et surtout beaucoup d'heures de travail. Un bon travail se
+      paie, et je le respecte.
     </p>
     <div class="encadre">
       <p style="margin-bottom:0">
@@ -220,11 +354,13 @@
     </div>
 
     <div class="cagnotte">
-      <h2>Un coup de main ?</h2>
+      <h2>Un coup de main pour la suite&nbsp;?</h2>
       <p style="margin-bottom:1rem">
-        Pour offrir ces histoires gratuitement aux personnes aveugles et
-        malvoyantes, j'ai ouvert une cagnotte. Chaque participation, même
-        petite, aide à financer l'enregistrement des voix.
+        4 histoires sont en ligne… mais il en reste <strong>12 à
+        enregistrer</strong>&nbsp;! Pour continuer à offrir ces histoires
+        gratuitement aux personnes aveugles et malvoyantes, j'ai ouvert une
+        cagnotte. Chaque participation, même petite, aide à financer
+        l'enregistrement des voix.
       </p>
       <a href="https://www.leetchi.com/fr/c/des-histoires-pour-aveugles-1218180"
          class="btn-don" target="_blank" rel="noopener noreferrer">Soutenir le projet</a>
@@ -232,8 +368,7 @@
 
     <div class="note-bas">
       <p>
-        Cette page évoluera. Elle sera entièrement transformée le jour où les
-        microhistoires audio seront disponibles à l'écoute.
+        Cette page continuera d'évoluer au fil des enregistrements.
       </p>
       <p>
         Elle sera aussi améliorée en tenant compte des retours des personnes
