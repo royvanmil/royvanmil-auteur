@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sommaire — Manuel Maison Nastasia</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:#fff;
+    color:#1a1a1a;
+    font-family:Arial, Helvetica, sans-serif;
+    padding:40px 20px 70px;
+  }
+  .wrap{max-width:760px;margin:0 auto;position:relative}
+  h1{
+    font-size:52px;
+    font-weight:900;
+    letter-spacing:-1px;
+    border-bottom:3px solid #1a1a1a;
+    padding-bottom:14px;
+    margin-bottom:34px;
+  }
+  .rail{
+    position:absolute;
+    top:120px;right:-20px;
+    width:26px;height:520px;
+    background:#c1121f;
+    border-radius:4px;
+  }
+  ul{list-style:none}
+  li{
+    display:flex;
+    align-items:baseline;
+    font-size:20px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:.5px;
+    margin:0 0 16px;
+  }
+  li .titre{white-space:nowrap}
+  li .dots{
+    flex:1;
+    border-bottom:2px dotted #c9c9c9;
+    margin:0 12px;
+    transform:translateY(-4px);
+  }
+  li .num{color:#1a1a1a}
+  a.chap{color:#1a1a1a;text-decoration:none}
+  a.chap:hover .titre{color:#c1121f;text-decoration:underline}
+  li.vide{color:#b5b5b5}
+  li.vide .num{color:#b5b5b5}
+  .home{
+    display:inline-block;
+    margin-bottom:30px;
+    color:#c1121f;
+    font-weight:700;
+    text-decoration:none;
+    font-size:15px;
+  }
+  .home:hover{text-decoration:underline}
+  .foot{
+    margin-top:46px;
+    color:#999;
+    font-size:13px;
+    border-top:1px solid #eee;
+    padding-top:14px;
+  }
+  @media(max-width:640px){
+    h1{font-size:38px}
+    li{font-size:17px}
+    .rail{display:none}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="home" href="index.html">← Retour à la couverture</a>
+  <div class="rail"></div>
+  <h1>Sommaire</h1>
+  <ul>
+    <li class="vide"><span class="titre">À propos</span><span class="dots"></span><span class="num">03</span></li>
+    <li class="vide"><span class="titre">Urgences &amp; réseaux</span><span class="dots"></span><span class="num">04</span></li>
+    <li><a class="chap" href="chauffage.html"><span class="titre">Chauffage</span></a><span class="dots"></span><span class="num">05</span></li>
+    <li><a class="chap" href="climatisation.html"><span class="titre">Climatisation</span></a><span class="dots"></span><span class="num">06</span></li>
+    <li><a class="chap" href="eau-sanitaire.html"><span class="titre">Eau sanitaire</span></a><span class="dots"></span><span class="num">07</span></li>
+    <li><a class="chap" href="eau-pluviale.html"><span class="titre">Eau pluviale</span></a><span class="dots"></span><span class="num">08</span></li>
+    <li><a class="chap" href="vmc.html"><span class="titre">VMC &amp; ventilation</span></a><span class="dots"></span><span class="num">09</span></li>
+    <li><a class="chap" href="electricite.html"><span class="titre">Installation électrique</span></a><span class="dots"></span><span class="num">10</span></li>
+    <li><a class="chap" href="evacuations.html"><span class="titre">Évacuations</span></a><span class="dots"></span><span class="num">11</span></li>
+    <li class="vide"><span class="titre">Alarme</span><span class="dots"></span><span class="num">12</span></li>
+    <li class="vide"><span class="titre">Caméras</span><span class="dots"></span><span class="num">13</span></li>
+    <li class="vide"><span class="titre">Extérieur</span><span class="dots"></span><span class="num">14</span></li>
+    <li class="vide"><span class="titre">Piscine</span><span class="dots"></span><span class="num">15</span></li>
+    <li class="vide"><span class="titre">Volets</span><span class="dots"></span><span class="num">16</span></li>
+  </ul>
+  <div class="foot">RoyVanMil.fr/Nastasia — brouillon, à compléter par Nastasia</div>
+</div>
+</body>
+</html>
