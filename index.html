@@ -329,7 +329,54 @@ html,body{background:#0b0806;min-height:100%;overflow-x:hidden;}
     opacity:.55;
     transform:translateY(-2px);
   }
+
+  /* ===== Coin langue néerlandaise (haut droite) ===== */
+  .coin-nl{
+    position:absolute;
+    top:92px;                  /* juste sous le bandeau audio (~80px) */
+    right:16px;
+    z-index:40;
+    display:inline-flex;
+    align-items:center;
+    gap:.5em;
+    text-decoration:none;
+    padding:.3em .7em .3em .5em;
+    border-radius:24px;
+    background:rgba(11,8,6,.55);
+    border:1px solid rgba(201,162,94,.5);
+    color:var(--creme);
+    font-family:'EB Garamond',Georgia,serif;
+    font-size:.92rem;
+    letter-spacing:.03em;
+    box-shadow:0 4px 14px rgba(0,0,0,.5);
+    opacity:.72;
+    transition:opacity .35s ease, transform .35s ease;
+  }
+  .coin-nl:hover,
+  .coin-nl:focus-visible{
+    opacity:1;
+    transform:translateY(-2px);
+  }
+  .coin-nl svg, .coin-nl img{
+    display:block;
+    width:44px; height:auto;
+    border-radius:3px;
+    box-shadow:0 1px 4px rgba(0,0,0,.5);
+  }
+  .coin-nl__txt{font-size:1rem}
+  @media(max-width:600px){
+    .coin-nl .coin-nl__txt{display:none}  /* sur mobile : drapeau seul */
+    .coin-nl{padding:.35em}
+    .coin-nl svg, .coin-nl img{width:38px}
+  }
 </style>
+
+<!-- Lien vers la version néerlandaise (haut droite) -->
+<a href="NL/indexNL.html" class="coin-nl" aria-label="Nederlandse versie — version néerlandaise" title="Nederlandse versie">
+  <img src="img/drapeaunl.png" alt="Nederlandse vlag">
+  <span class="coin-nl__txt">Nederlandse versie</span>
+</a>
+
 
 <main class="piece">
   <header class="entete">
