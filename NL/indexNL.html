@@ -48,35 +48,36 @@
     min-height:100vh;
     display:flex; flex-direction:column;
     align-items:center; justify-content:flex-start;
-    padding:4vh 0 5vh;
+    padding:1.5vh 0 5vh;
   }
 
   .entete{
     text-align:center; width:100%;
-    padding:0 8vw; margin-bottom:2.4vh;
+    padding:0 8vw; margin-bottom:1.6vh;
     opacity:0; animation:fade 2s ease .2s forwards;
   }
   /* Vlag boven de titel */
   .vlag-wrap{
     width:clamp(96px,15vw,150px);
-    margin:0 auto 1.1vh;
+    margin:0 auto .6vh;
     filter:drop-shadow(0 10px 18px rgba(0,0,0,.6));
   }
-  .vlag-wrap svg{display:block; width:100%; height:auto; border-radius:5px}
+  .vlag-wrap svg, .vlag-wrap img{display:block; width:100%; height:auto; border-radius:5px}
 
   .entete h1{
     font-family:'Cormorant Garamond',serif;
-    font-weight:700; color:var(--creme);
-    font-size:clamp(2rem,6vw,3.4rem);
-    margin:.1em 0 .05em; letter-spacing:.5px;
-    text-shadow:0 2px 20px rgba(0,0,0,.8);
+    font-weight:700; color:#f4ecd8;
+    font-size:clamp(2.8rem,8vw,4.6rem);
+    margin:.05em 0 .02em; letter-spacing:.5px;
+    text-shadow:0 2px 24px rgba(0,0,0,.9), 0 0 2px rgba(0,0,0,.6);
   }
   .role{
-    margin-top:-.1rem;
-    font-family:'EB Garamond',serif;
-    font-size:clamp(.9rem,2vw,1.2rem);
-    letter-spacing:.5em; text-transform:uppercase;
-    color:#fff; padding-left:.5em;
+    margin-top:0;
+    font-family:'EB Garamond',serif; font-weight:700;
+    font-size:clamp(1.2rem,3vw,1.9rem);
+    letter-spacing:.55em; text-transform:uppercase;
+    color:#fff; padding-left:.55em;
+    text-shadow:0 2px 16px rgba(0,0,0,.9);
   }
 
   .scene{
@@ -148,8 +149,33 @@
   .livre.soon img{filter:grayscale(.25) brightness(.82)}
   .livre.soon:hover img{filter:grayscale(0) brightness(.95)}
 
-  @keyframes fade{to{opacity:1}}
+  /* ===== Auteur foto (rond, groot, onderaan) ===== */
+  .auteur-blok{
+    text-align:center;
+    margin:6vh auto 1vh;
+    opacity:0; animation:fade 2s ease .3s forwards;
+  }
+  .auteur-foto{
+    width:clamp(300px,45vw,500px);
+    aspect-ratio:1/1;
+    border-radius:50%;
+    object-fit:cover; object-position:center 22%;
+    border:6px solid #fff;
+    box-shadow:0 18px 44px rgba(0,0,0,.7), 0 0 0 4px var(--laiton);
+  }
+  .auteur-naam{
+    font-family:'Cormorant Garamond',serif; font-weight:700;
+    color:#f4ecd8; font-size:clamp(1.8rem,4.5vw,2.8rem);
+    margin:.5em 0 .05em; letter-spacing:.4px;
+    text-shadow:0 2px 18px rgba(0,0,0,.9);
+  }
+  .auteur-sub{
+    font-family:'EB Garamond',serif; font-style:italic;
+    color:var(--creme); font-size:clamp(1rem,2.4vw,1.35rem);
+    margin:0; opacity:.9;
+  }
 
+  @keyframes fade{to{opacity:1}}
   @media(max-width:600px){
     .role{letter-spacing:.35em}
     .etiket{font-size:.68rem}
@@ -165,32 +191,9 @@
 
   <main class="piece">
     <header class="entete">
-      <!-- Wapperende Nederlandse vlag (SVG) -->
-      <div class="vlag-wrap" aria-hidden="true">
-        <svg viewBox="0 0 150 100" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="sheen" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0"  stop-color="#ffffff" stop-opacity=".28"/>
-              <stop offset=".5" stop-color="#ffffff" stop-opacity="0"/>
-              <stop offset="1"  stop-color="#000000" stop-opacity=".18"/>
-            </linearGradient>
-            <!-- Golvende vervorming -->
-            <filter id="wave">
-              <feTurbulence type="fractalNoise" baseFrequency="0.012 0.02" numOctaves="2" seed="7" result="noise">
-                <animate attributeName="baseFrequency" dur="9s"
-                         values="0.012 0.02; 0.02 0.028; 0.012 0.02" repeatCount="indefinite"/>
-              </feTurbulence>
-              <feDisplacementMap in="SourceGraphic" in2="noise" scale="6"
-                                 xChannelSelector="R" yChannelSelector="G"/>
-            </filter>
-          </defs>
-          <g filter="url(#wave)">
-            <rect x="0" y="0"     width="150" height="33.34" fill="#AE1C28"/>
-            <rect x="0" y="33.34" width="150" height="33.32" fill="#ffffff"/>
-            <rect x="0" y="66.66" width="150" height="33.34" fill="#21468B"/>
-            <rect x="0" y="0" width="150" height="100" fill="url(#sheen)"/>
-          </g>
-        </svg>
+      <!-- Nederlandse vlag -->
+      <div class="vlag-wrap">
+        <img src="img/drapeaunl.png" alt="Nederlandse vlag">
       </div>
 
       <h1>Roy van Mil</h1>
@@ -235,6 +238,14 @@
       </div>
 
     </div>
+
+    <!-- Foto van de auteur -->
+    <section class="auteur-blok">
+      <img class="auteur-foto" src="img/auteur2.png" alt="Roy van Mil">
+      <p class="auteur-naam">Roy van Mil</p>
+      <p class="auteur-sub">Schrijver &amp; verhalenverteller</p>
+    </section>
+
   </main>
 
 </body>
