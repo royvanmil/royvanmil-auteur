@@ -330,58 +330,48 @@ html,body{background:#0b0806;min-height:100%;overflow-x:hidden;}
     transform:translateY(-2px);
   }
 
-  /* ===== Coin langue néerlandaise (haut droite) ===== */
-  .coin-nl{
+  /* ===== Vlag NL (naast 'Auteur') — symmetrisch met indexNL ===== */
+  .entete{position:relative}
+  .taal-nl{
     position:absolute;
-    top:92px;                  /* juste sous le bandeau audio (~80px) */
-    right:16px;
-    z-index:40;
-    display:inline-flex;
-    align-items:center;
-    gap:.5em;
+    bottom:2px;
+    /* ver naar links, ruim weg van de tekst — zoals de FR-vlag op indexNL */
+    right:calc(50% + 24em);
+    display:inline-flex; flex-direction:column; align-items:center; gap:.25em;
     text-decoration:none;
-    padding:.3em .7em .3em .5em;
-    border-radius:24px;
-    background:rgba(11,8,6,.55);
-    border:1px solid rgba(201,162,94,.5);
-    color:var(--creme);
-    font-family:'EB Garamond',Georgia,serif;
-    font-size:.92rem;
-    letter-spacing:.03em;
-    box-shadow:0 4px 14px rgba(0,0,0,.5);
-    opacity:.72;
-    transition:opacity .35s ease, transform .35s ease;
+    opacity:.9; transition:opacity .3s ease, transform .3s ease;
   }
-  .coin-nl:hover,
-  .coin-nl:focus-visible{
-    opacity:1;
-    transform:translateY(-2px);
+  .taal-nl:hover, .taal-nl:focus-visible{opacity:1; transform:translateY(-2px)}
+  .taal-nl svg{
+    width:60px; height:auto; border-radius:4px;
+    box-shadow:0 4px 12px rgba(0,0,0,.6);
   }
-  .coin-nl svg, .coin-nl img{
-    display:block;
-    width:44px; height:auto;
-    border-radius:3px;
-    box-shadow:0 1px 4px rgba(0,0,0,.5);
+  .taal-nl .nl-txt{
+    font-family:'EB Garamond',serif; color:var(--creme);
+    font-size:.85rem; letter-spacing:.03em; white-space:nowrap;
+    text-shadow:0 2px 10px rgba(0,0,0,.9);
   }
-  .coin-nl__txt{font-size:1rem}
-  @media(max-width:600px){
-    .coin-nl .coin-nl__txt{display:none}  /* sur mobile : drapeau seul */
-    .coin-nl{padding:.35em}
-    .coin-nl svg, .coin-nl img{width:38px}
+  @media(max-width:700px){
+    /* op smal scherm: onder de titel, gecentreerd */
+    .taal-nl{position:static; margin:.6em auto 0; right:auto; bottom:auto}
   }
 </style>
-
-<!-- Lien vers la version néerlandaise (haut droite) -->
-<a href="NL/indexNL.html" class="coin-nl" aria-label="Nederlandse versie — version néerlandaise" title="Nederlandse versie">
-  <img src="img/drapeaunl.png" alt="Nederlandse vlag">
-  <span class="coin-nl__txt">Nederlandse versie</span>
-</a>
-
 
 <main class="piece">
   <header class="entete">
     <h1>Roy Van Mil</h1>
     <p class="role">Auteur</p>
+
+    <!-- Vlag NL — vers la version néerlandaise -->
+    <a class="taal-nl" href="NL/indexNL.html" title="Nederlandse versie" aria-label="Nederlandse versie">
+      <svg viewBox="0 0 150 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect x="0" y="0"      width="150" height="33.34" fill="#AE1C28"/>
+        <rect x="0" y="33.34"  width="150" height="33.32" fill="#ffffff"/>
+        <rect x="0" y="66.66"  width="150" height="33.34" fill="#21468B"/>
+        <rect x="0.5" y="0.5" width="149" height="99" fill="none" stroke="rgba(0,0,0,.25)" stroke-width="1"/>
+      </svg>
+      <span class="nl-txt">Nederlandse versie</span>
+    </a>
   </header>
 
   <div class="scene">
