@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roy van Mil — Nederlands</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#2a2620;
+    --soft:#4a4238;
+    --paper:#fbf7ef;
+    --wash1:#eaf2f0;   /* aquarel groenblauw */
+    --wash2:#f3ecf6;   /* aquarel lila */
+    --wash3:#fdf1e7;   /* aquarel perzik */
+    --wash4:#eef4fb;   /* aquarel blauw */
+    --wash5:#fdf6e3;   /* aquarel warm geel */
+    --line-teal:#7fb2ab;
+    --line-rose:#c98fa6;
+    --line-peach:#e0a879;
+    --line-blue:#8fb0d8;
+    --line-gold:#cbb26b;
+    --shadow:0 10px 28px rgba(60,50,40,.16), 0 3px 8px rgba(60,50,40,.10);
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:
+      radial-gradient(1200px 600px at 15% -5%, #f0f6f4 0%, transparent 55%),
+      radial-gradient(1000px 500px at 100% 0%, #fbeee7 0%, transparent 50%),
+      radial-gradient(900px 700px at 50% 120%, #eef3fb 0%, transparent 55%),
+      var(--paper);
+    color:var(--ink);
+    font-family:'EB Garamond', Georgia, serif;
+    font-size:18px; line-height:1.65;
+    padding:0 16px 70px;
+  }
+  .wrap{max-width:920px; margin:0 auto}
+
+  /* ---- Kop / portret ---- */
+  header{text-align:center; padding:46px 0 8px}
+  .portret{
+    width:170px; height:170px; border-radius:50%;
+    object-fit:cover; object-position:center 22%;
+    border:5px solid #fff;
+    box-shadow:var(--shadow), 0 0 0 3px var(--line-teal);
+    margin-bottom:18px;
+  }
+  h1{
+    font-family:'Cormorant Garamond', serif;
+    font-weight:700; font-size:2.7rem; margin:.1em 0 .05em; letter-spacing:.5px;
+  }
+  .kicker{
+    font-family:'EB Garamond', serif; font-style:italic;
+    color:var(--soft); font-size:1.15rem; margin:0;
+  }
+
+  /* ---- Bubbels ---- */
+  .bubble{
+    position:relative;
+    border-radius:20px;
+    padding:26px 30px;
+    margin:26px 0;
+    box-shadow:var(--shadow);
+    border:2px solid var(--line-teal);
+    background:var(--wash1);
+  }
+  .bubble.rose{border-color:var(--line-rose); background:#f7ecf1}
+  .bubble.peach{border-color:var(--line-peach); background:var(--wash3)}
+  .bubble.blue{border-color:var(--line-blue); background:var(--wash4)}
+  .bubble.gold{border-color:var(--line-gold); background:var(--wash5)}
+
+  .bubble h2{
+    font-family:'Cormorant Garamond', serif;
+    font-weight:700; font-size:1.7rem; margin:.1em 0 .5em;
+  }
+  .bubble p{margin:.55em 0}
+  .big-black{font-weight:700; color:#111; font-size:1.18rem}
+
+  /* ---- Downloads ---- */
+  .downloads{
+    display:flex; gap:26px; flex-wrap:wrap; justify-content:center;
+    margin:10px 0 4px;
+  }
+  .dl-card{
+    flex:1 1 300px; max-width:380px; text-align:center;
+  }
+  .dl-card img{
+    width:100%; height:auto; border-radius:12px;
+    border:1px solid #e6ddcc; box-shadow:var(--shadow); background:#fff;
+    display:block; margin:0 auto 14px;
+  }
+  .btn{
+    display:inline-block; text-decoration:none;
+    font-family:'Cormorant Garamond',serif; font-weight:700; font-size:1.15rem;
+    color:#fff; padding:12px 26px; border-radius:30px;
+    box-shadow:var(--shadow); transition:transform .12s ease, filter .12s ease;
+  }
+  .btn:hover{transform:translateY(-2px); filter:brightness(1.06)}
+  .btn.teal{background:linear-gradient(180deg,#8cc0b8,#5f9a92)}
+  .btn.peach{background:linear-gradient(180deg,#e9b487,#d18c56)}
+
+  /* ---- Dankbetuiging ---- */
+  .thanks{ text-align:center }
+  .thanks .top-name{
+    font-family:'Cormorant Garamond',serif; font-weight:700;
+    font-size:1.9rem; color:#8a5a2b; margin:.2em 0 .05em;
+  }
+  .thanks .top-note{font-style:italic; color:var(--soft); margin:0 0 .8em}
+  .thanks .names{
+    font-size:1.05rem; color:var(--soft);
+    line-height:2; margin-top:.4em;
+  }
+  .contact a{color:#0a6; text-decoration:none; font-weight:600}
+  .contact a:hover{text-decoration:underline}
+
+  footer{text-align:center; margin-top:40px}
+  footer a{color:var(--soft); font-style:italic; text-decoration:none}
+  footer a:hover{text-decoration:underline}
+
+  @media(max-width:520px){
+    body{font-size:17px}
+    h1{font-size:2.2rem}
+    .bubble{padding:22px 20px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <img class="portret" src="img/auteur2.png" alt="Roy van Mil">
+    <h1>Hoi, ik ben Roy!</h1>
+    <p class="kicker">Schrijver · Frankrijk</p>
+  </header>
+
+  <!-- Voorstelling -->
+  <section class="bubble teal">
+    <p>Ik woon in Frankrijk sinds ongeveer 25 jaar… (JA! Dat is best lang…)</p>
+    <p>Mijn beroep is elektricien / loodgieter.</p>
+    <p>Maar… ik heb ook meerdere hobby's. Waarvan een: boeken schrijven.</p>
+    <p>Ik heb m'n eerste boek al uit. En die staat in de Franse Amazon te koop.
+       16 microverhalen.</p>
+    <p class="big-black">Je zal lachen, giechelen, verrast zijn… maar ook huilen…</p>
+  </section>
+
+  <!-- Vraag om hulp -->
+  <section class="bubble rose">
+    <h2>Wil je meelezen?</h2>
+    <p>Ik wil deze verhalen ook in het Nederlands vertalen… Ik heb het eerste werk
+       al gedaan (met hulp van AI). Maar… ik zou graag willen dat jij mij helpt,
+       als je zin en tijd hebt.</p>
+    <p>Een, of meerdere verhalen lezen… en mij laten weten of er verbeteringen
+       nodig zijn. Ik wil het verhaal niet anders maken… maar de goede
+       Nederlandse vertaling hebben.</p>
+    <p><strong>Hoe?</strong> Ik denk lekker simpel: je kan het uitprinten, met een
+       rode pen erop schrijven en daarna via foto's (WhatsApp?) naar mij sturen:
+       <span class="contact"><a href="https://wa.me/33601099859">+33 6 01 09 98 59</a></span>.
+       Of via m'n mail:
+       <span class="contact"><a href="mailto:royvanmilperso@gmail.com">royvanmilperso@gmail.com</a></span>.</p>
+    <p>Ook kan ik het uitprinten en naar je toe sturen. (Kost mij een beetje geld,
+       maar dat maakt niet uit! Als je mij kan helpen!)</p>
+  </section>
+
+  <!-- Wat levert het op -->
+  <section class="bubble gold">
+    <h2>Wat levert het op?</h2>
+    <p>Deze vertaling helpt mij om m'n boek met 16 microverhalen netjes in het
+       Nederlands te hebben. Ik wil een Nederlandse versie in Nederland kunnen
+       verkopen. (Nee, ik zal er niet rijk mee worden… maar ik wil dat mensen
+       voor een kleine prijs een leuk boek hebben.)</p>
+    <p><strong>En JIJ zal van mij een exemplaar GRATIS krijgen!</strong></p>
+    <p>En als je wilt, zet ik je naam ook op de 'Dankbetuiging'-lijst.
+       Een kleinigheidje… maar het is wel leuk dat mensen weten dat jij geholpen
+       hebt met dit boek.</p>
+  </section>
+
+  <!-- Downloads -->
+  <section class="bubble blue">
+    <h2>Lees mee — download het boek</h2>
+    <p>Twee versies van dezelfde tekst. Kies wat het prettigst leest:</p>
+    <div class="downloads">
+      <div class="dl-card">
+        <img src="img/enkel_pagina.png" alt="Enkele pagina — voorbeeld">
+        <a class="btn teal" href="img/Een_moment_of_Twee_NL_enkele_pagina.pdf" download>Enkele pagina</a>
+      </div>
+      <div class="dl-card">
+        <img src="img/dubbel_pagina.png" alt="Dubbele pagina — voorbeeld">
+        <a class="btn peach" href="img/Een_moment_of_Twee_NL_dubbele_pagina.pdf" download>Dubbele pagina</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dankbetuiging -->
+  <section class="bubble peach thanks">
+    <h2>Met dank aan</h2>
+    <p class="top-name">Fred VAN HEEL</p>
+    <p class="top-note">Heel erg bedankt, oom!</p>
+    <div class="names">
+      <!-- Hier komen de namen van iedereen die meehelpt -->
+      <em>… en aan iedereen die meeleest en meehelpt. Dank jullie wel!</em>
+    </div>
+  </section>
+
+  <footer>
+    <a href="indexNL.html">← Terug naar de boekenkast</a>
+  </footer>
+
+</div>
+</body>
+</html>
