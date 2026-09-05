@@ -124,9 +124,36 @@
     h1{font-size:2.2rem}
     .bubble{padding:22px 20px}
   }
+  /* Grote terug-pijl linksboven */
+  .terug-top{
+    position:fixed; top:16px; left:16px; z-index:100;
+    display:inline-flex; align-items:center; gap:.5em;
+    text-decoration:none;
+    font-family:'Cormorant Garamond',serif; font-weight:700;
+    font-size:1.25rem; color:#3a2f24;
+    background:rgba(255,255,255,.9);
+    border:2px solid var(--line-teal);
+    padding:.4em .95em .4em .7em; border-radius:30px;
+    box-shadow:var(--shadow);
+    transition:transform .15s ease, background .2s ease;
+  }
+  .terug-top:hover{transform:translateX(-3px); background:#fff}
+  .terug-top .pijl{font-size:1.5rem; line-height:1}
+  @media(max-width:600px){
+    .terug-top{font-size:1rem; padding:.35em .7em}
+    .terug-top .terug-txt{display:none}   /* mobiel: alleen de pijl */
+    .terug-top .pijl{font-size:1.4rem}
+  }
 </style>
 </head>
 <body>
+
+<!-- Grote terug-pijl linksboven -->
+<a class="terug-top" href="indexNL.html" aria-label="Terug naar de boekenkast">
+  <span class="pijl" aria-hidden="true">←</span>
+  <span class="terug-txt">Boekenkast</span>
+</a>
+
 <div class="wrap">
 
   <header>
@@ -182,11 +209,11 @@
     <p>Twee versies van dezelfde tekst. Kies wat het prettigst leest:</p>
     <div class="downloads">
       <div class="dl-card">
-        <img src="img/enkel_pagina.png" alt="Enkele pagina — voorbeeld">
+        <img src="img/enkelpagina.png" alt="Enkele pagina — voorbeeld">
         <a class="btn teal" href="img/Een_moment_of_Twee_NL_enkele_pagina.pdf" download>Enkele pagina</a>
       </div>
       <div class="dl-card">
-        <img src="img/dubbel_pagina.png" alt="Dubbele pagina — voorbeeld">
+        <img src="img/dubbelpagina.png" alt="Dubbele pagina — voorbeeld">
         <a class="btn peach" href="img/Een_moment_of_Twee_NL_dubbele_pagina.pdf" download>Dubbele pagina</a>
       </div>
     </div>
