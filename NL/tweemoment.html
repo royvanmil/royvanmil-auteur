@@ -84,13 +84,23 @@
     margin:10px 0 4px;
   }
   .dl-card{
-    flex:1 1 300px; max-width:380px; text-align:center;
+    flex:1 1 260px; max-width:340px; text-align:center;
   }
   .dl-card img{
     width:100%; height:auto; border-radius:12px;
     border:1px solid #e6ddcc; box-shadow:var(--shadow); background:#fff;
     display:block; margin:0 auto 14px;
   }
+  /* Etiket boven de download-kaart: welk formaat */
+  .format-label{
+    display:inline-block;
+    font-family:'Cormorant Garamond',serif; font-weight:700;
+    font-size:.85rem; letter-spacing:.12em; text-transform:uppercase;
+    padding:.2em .8em; border-radius:20px; margin-bottom:10px;
+    color:#fff;
+  }
+  .format-label.pdf{background:#c0392b}
+  .format-label.word{background:#2b579a}
   .btn{
     display:inline-block; text-decoration:none;
     font-family:'Cormorant Garamond',serif; font-weight:700; font-size:1.15rem;
@@ -100,6 +110,7 @@
   .btn:hover{transform:translateY(-2px); filter:brightness(1.06)}
   .btn.teal{background:linear-gradient(180deg,#8cc0b8,#5f9a92)}
   .btn.peach{background:linear-gradient(180deg,#e9b487,#d18c56)}
+  .btn.word{background:linear-gradient(180deg,#4a78c0,#2b579a)}
 
   /* ---- Dankbetuiging ---- */
   .thanks{ text-align:center }
@@ -206,17 +217,26 @@
   <!-- Downloads -->
   <section class="bubble blue">
     <h2>Lees mee — download het boek</h2>
-    <p>Twee versies van dezelfde tekst. Kies wat het prettigst leest:</p>
+    <p>Kies het formaat dat het prettigst leest of het makkelijkst te bewerken is:</p>
     <div class="downloads">
       <div class="dl-card">
+        <span class="format-label pdf">PDF</span>
         <img src="img/enkelpagina.png" alt="Enkele pagina — voorbeeld">
         <a class="btn teal" href="img/Een_moment_of_Twee_NL_enkele_pagina.pdf" download>Enkele pagina</a>
       </div>
       <div class="dl-card">
+        <span class="format-label pdf">PDF</span>
         <img src="img/dubbelpagina.png" alt="Dubbele pagina — voorbeeld">
         <a class="btn peach" href="img/Een_moment_of_Twee_NL_dubbele_pagina.pdf" download>Dubbele pagina</a>
       </div>
+      <div class="dl-card">
+        <span class="format-label word">WORD</span>
+        <img src="img/wordpagina.png" alt="Word-versie — voorbeeld">
+        <a class="btn word" href="img/Een_moment_of_Twee_NL.docx" download>Word (bewerkbaar)</a>
+      </div>
     </div>
+    <p style="text-align:center; font-style:italic; color:var(--soft); margin-top:18px">
+       De Word-versie kun je direct op je computer aanpassen — handig op Windows én Apple.</p>
   </section>
 
   <!-- Dankbetuiging -->
