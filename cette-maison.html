@@ -156,6 +156,29 @@
     color:#2a1c08;box-shadow:0 8px 20px -6px rgba(224,149,42,.6);
   }
   .btn-amazon:hover{transform:translateY(-3px);box-shadow:0 12px 26px -6px rgba(224,149,42,.75)}
+
+  /* Bouton Acheter : blanc, contour rouge vif, gros et lisible */
+  .btn-acheter{
+    color:#d40000;background:#fff;
+    font-size:1.45rem;font-weight:700;letter-spacing:.05em;
+    padding:1.2rem 2.5rem;border-radius:9px;
+    border:3px solid #d40000;box-sizing:border-box;
+    box-shadow:0 8px 22px -6px rgba(0,0,0,.5);
+  }
+  .btn-acheter:hover{transform:translateY(-3px);box-shadow:0 14px 30px -6px rgba(212,0,0,.5)}
+  /* liseré jaune "snake" : une lueur qui longe le contour en 3s, en continu */
+  .btn-acheter-wrap{position:relative;display:inline-flex}
+  .btn-acheter-wrap::before{
+    content:"";position:absolute;inset:0;z-index:2;pointer-events:none;
+    offset-path:inset(0 round 9px);offset-distance:0%;
+    width:26px;height:26px;margin:-13px;border-radius:50%;
+    background:radial-gradient(circle,#fff2b0 0%,#ffd24d 45%,transparent 72%);
+    animation:snake 3s linear infinite;
+  }
+  @keyframes snake{to{offset-distance:100%}}
+  @media (prefers-reduced-motion:reduce){
+    .btn-acheter-wrap::before{animation:none;opacity:0}
+  }
   .btn-clim{
     background:transparent;color:var(--laiton-clair);
     border:1px solid var(--laiton);
@@ -262,7 +285,7 @@
         <p data-i18n="p4">Checklists visuelles · Points clés · Conseils de base — 15 ans d'expérience sur le terrain à votre service.</p>
 
         <div class="boutons">
-          <a class="btn btn-amazon" href="https://amzn.eu/d/08jvr7MH" target="_blank" rel="noopener" onclick="compte('clic-amazon')" data-i18n="btn-amazon">Disponible sur Amazon</a>
+          <span class="btn-acheter-wrap"><a class="btn btn-acheter" href="https://amzn.eu/d/08jvr7MH" target="_blank" rel="noopener" onclick="compte('clic-amazon')" data-i18n="btn-amazon">ACHETER ce LIVRE</a></span>
           <a class="btn btn-clim" href="https://www.pro2tec.net/livre.html" target="_blank" rel="noopener" data-i18n="btn-clim">🎁 Gagner une clim</a>
         </div>
 
@@ -354,7 +377,7 @@
         li4:"Climatisation & VMC",
         li5:"Humidité, ventilation & signaux d'alarme",
         p4:"Checklists visuelles · Points clés · Conseils de base — 15 ans d'expérience sur le terrain à votre service.",
-        "btn-amazon":"Disponible sur Amazon",
+        "btn-amazon":"ACHETER ce LIVRE",
         "btn-clim":"🎁 Gagner une clim",
         "mention-fr":"",
         "gal-titre":"Un aperçu de l'intérieur",
@@ -376,7 +399,7 @@
         li4:"Air conditioning & ventilation (VMC)",
         li5:"Damp, ventilation & warning signs",
         p4:"Visual checklists · Key points · Basic advice — 15 years of field experience at your service.",
-        "btn-amazon":"Available on Amazon",
+        "btn-amazon":"BUY this BOOK",
         "btn-clim":"🎁 Win an air conditioner",
         "mention-fr":"This book is available in French only.",
         "gal-titre":"A look inside",
@@ -398,7 +421,7 @@
         li4:"Airconditioning & ventilatie (VMC)",
         li5:"Vocht, ventilatie & waarschuwingssignalen",
         p4:"Visuele checklists · Kernpunten · Basisadvies — 15 jaar praktijkervaring tot je dienst.",
-        "btn-amazon":"Verkrijgbaar op Amazon",
+        "btn-amazon":"KOOP dit BOEK",
         "btn-clim":"🎁 Win een airco",
         "mention-fr":"Dit boek is alleen in het Frans verkrijgbaar.",
         "gal-titre":"Een kijkje binnenin",

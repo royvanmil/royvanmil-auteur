@@ -131,6 +131,28 @@
     transform:translateY(-2px);
     box-shadow:0 14px 30px rgba(242,181,68,.30), inset 0 1px 0 rgba(255,255,255,.32);
   }
+  /* Bouton Acheter : blanc, contour rouge vif, gros et lisible */
+  .btn-acheter{
+    color:#d40000;background:#fff;
+    font-size:1.45rem;font-weight:700;letter-spacing:.05em;
+    padding:1.2rem 2.5rem;border-radius:9px;
+    border:3px solid #d40000;box-sizing:border-box;
+    box-shadow:0 8px 22px -6px rgba(0,0,0,.5);
+  }
+  .btn-acheter:hover{transform:translateY(-3px);box-shadow:0 14px 30px -6px rgba(212,0,0,.5)}
+  /* liseré jaune "snake" : une lueur qui longe le contour en 3s, en continu */
+  .btn-acheter-wrap{position:relative;display:inline-flex}
+  .btn-acheter-wrap::before{
+    content:"";position:absolute;inset:0;z-index:2;pointer-events:none;
+    offset-path:inset(0 round 9px);offset-distance:0%;
+    width:26px;height:26px;margin:-13px;border-radius:50%;
+    background:radial-gradient(circle,#fff2b0 0%,#ffd24d 45%,transparent 72%);
+    animation:snake 3s linear infinite;
+  }
+  @keyframes snake{to{offset-distance:100%}}
+  @media (prefers-reduced-motion:reduce){
+    .btn-acheter-wrap::before{animation:none;opacity:0}
+  }
   .btn-lire{
     background:transparent;color:var(--laiton-clair);
     border:1px solid rgba(201,162,94,.55);
@@ -219,7 +241,7 @@
 
         <div class="boutons">
           <a class="btn btn-lire" href="extraits-un-instant.html" data-i18n="btn-lire">✒️ Lire quelques extraits</a>
-          <a class="btn btn-attente" href="https://amzn.eu/d/0fEAc7cG" target="_blank" rel="noopener noreferrer" onclick="compte('clic-amazon')" data-i18n="btn-amazon">📖 Disponible sur Amazon</a>
+          <span class="btn-acheter-wrap"><a class="btn btn-acheter" href="https://amzn.eu/d/0fEAc7cG" target="_blank" rel="noopener noreferrer" onclick="compte('clic-amazon')" data-i18n="btn-amazon">ACHETER ce LIVRE</a></span>
         </div>
 
 <!-- Gros bouton Avis des lecteurs -->
@@ -320,7 +342,7 @@
         p1:"Un grand-père qui bondit dans un salon. Une simple poignée de main qui fait du bien. Un château qui se réveille pour un banquet invisible. Des machines qui jugent, des voisins qu'on croyait perdus, des présences qu'on ne devrait plus revoir.",
         p2:"Un petit livre à emporter partout, à lire par fragments, et à laisser vivre dans sa propre imagination.",
         "btn-lire":"✒️ Lire quelques extraits",
-        "btn-amazon":"📖 Disponible sur Amazon",
+        "btn-amazon":"ACHETER ce LIVRE",
         "mention-fr":"",
         "gal-titre":"Quelques illustrations",
         "gal-sous":"Des dessins au crayon, entre douceur et étrangeté. Cliquez pour agrandir.",
@@ -340,7 +362,7 @@
         p1:"A grandfather leaping across a living room. A simple handshake that does good. A castle waking up for an invisible banquet. Machines that judge, neighbours thought lost, presences we should no longer see.",
         p2:"A little book to carry everywhere, to read in fragments, and to let live in your own imagination.",
         "btn-lire":"✒️ Read a few excerpts",
-        "btn-amazon":"📖 Available on Amazon",
+        "btn-amazon":"BUY this BOOK",
         "mention-fr":"This book is available in French only.",
         "gal-titre":"A few illustrations",
         "gal-sous":"Pencil drawings, between gentleness and strangeness. Click to enlarge.",
@@ -360,7 +382,7 @@
         p1:"Een grootvader die door een woonkamer springt. Een simpele handdruk die deugd doet. Een kasteel dat ontwaakt voor een onzichtbaar banket. Machines die oordelen, buren die verloren leken, aanwezigheden die we niet meer zouden mogen zien.",
         p2:"Een klein boek om overal mee naartoe te nemen, in stukjes te lezen en te laten leven in je eigen verbeelding.",
         "btn-lire":"✒️ Lees enkele fragmenten",
-        "btn-amazon":"📖 Verkrijgbaar op Amazon",
+        "btn-amazon":"KOOP dit BOEK",
         "mention-fr":"Dit boek is alleen in het Frans verkrijgbaar.",
         "gal-titre":"Enkele illustraties",
         "gal-sous":"Potloodtekeningen, tussen zachtheid en vreemdheid. Klik om te vergroten.",
