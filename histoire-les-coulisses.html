@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Les coulisses — Un instant, ou Trois… — Roy Van Mil</title>
+<meta name="description" content="« Les coulisses », le mot de la fin de Roy Van Mil dans le recueil « Un instant, ou Trois… » : comment naissent ses microhistoires.">
+<meta name="author" content="Roy Van Mil">
+<link rel="canonical" href="https://royvanmil.fr/histoire-les-coulisses.html">
+<meta name="robots" content="index, follow">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Les coulisses — Un instant, ou Trois…">
+<meta property="og:description" content="Comment naissent les microhistoires de Roy Van Mil.">
+<meta property="og:url" content="https://royvanmil.fr/histoire-les-coulisses.html">
+<meta property="og:locale" content="fr_FR">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --noir:#161210;--bois-fonce:#3a2a1c;--bois:#5a4029;
+    --laiton:#c9a25e;--laiton-clair:#e6c98a;
+    --creme:#e8dcc4;--creme-doux:#c8b895;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'EB Garamond',Georgia,serif;
+    background:radial-gradient(ellipse at 50% 0%, #241a12 0%, var(--noir) 70%), var(--noir);
+    color:var(--creme);min-height:100vh;
+  }
+  body::before{content:"";position:fixed;inset:0;
+    background:radial-gradient(circle at 50% 30%, rgba(201,162,94,.06), transparent 55%);
+    pointer-events:none;z-index:0;}
+  .wrap{position:relative;z-index:2;max-width:720px;margin:0 auto;padding:1.5rem 1.3rem 4rem}
+
+  .retour{display:inline-flex;align-items:center;gap:.4rem;color:var(--laiton-clair);
+    text-decoration:none;font-family:'Cormorant Garamond',serif;letter-spacing:.08em;
+    text-transform:uppercase;font-size:.85rem;margin-bottom:2.5rem;opacity:.85;transition:opacity .2s;}
+  .retour:hover{opacity:1}
+
+  .titre{font-family:'Cormorant Garamond',serif;font-weight:700;
+    font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;color:var(--creme);
+    text-align:center;margin-bottom:.4rem;}
+  .provenance{text-align:center;font-style:italic;color:var(--laiton-clair);
+    font-size:1.05rem;margin-bottom:.4rem;}
+  .filet{height:1px;width:120px;margin:1.6rem auto 2.6rem;
+    background:linear-gradient(90deg,transparent,var(--laiton),transparent);}
+
+  .texte p{font-size:1.18rem;line-height:1.9;color:var(--creme);margin-bottom:1.35rem;
+    text-align:left;}
+  .texte p:first-of-type::first-letter{
+    font-family:'Cormorant Garamond',serif;font-size:3.4rem;font-weight:700;
+    color:var(--laiton-clair);float:left;line-height:.8;padding:.35rem .6rem 0 0;
+  }
+
+  /* avant-dernière phrase : sous le texte */
+  .final{
+    font-family:'Cormorant Garamond',serif;font-weight:700;
+    font-size:clamp(1.2rem,4vw,2rem);line-height:1.1;
+    color:var(--laiton-clair);text-align:center;
+    margin:3rem 0 1.4rem;
+    text-shadow:0 3px 26px rgba(0,0,0,.7);
+  }
+
+  /* grand espace vide (~5 lignes) */
+  .respire{height:clamp(6rem,16vh,11rem)}
+
+  /* dernière phrase : grand et gros, un poil plus petit */
+  .cloture-grande{
+    font-family:'Cormorant Garamond',serif;font-weight:700;font-style:italic;
+    font-size:clamp(1.9rem,6.4vw,3rem);line-height:1.3;
+    color:var(--creme);text-align:center;margin:0 auto;
+    text-shadow:0 3px 22px rgba(0,0,0,.6);
+  }
+  .cloture-grande .dernier{color:var(--laiton-clair);white-space:nowrap}
+
+  .fin-filet{height:1px;width:180px;margin:3rem auto 2.4rem;
+    background:linear-gradient(90deg,transparent,var(--laiton),transparent);}
+
+  .achat{text-align:center;margin-top:2.4rem}
+  .btn-acheter{
+    color:#d40000;background:#fff;
+    font-size:1.45rem;font-weight:700;letter-spacing:.05em;
+    padding:1.2rem 2.5rem;border-radius:9px;
+    border:3px solid #d40000;box-sizing:border-box;
+    box-shadow:0 8px 22px -6px rgba(0,0,0,.5);
+    font-family:'Cormorant Garamond',serif;text-decoration:none;
+    display:inline-flex;align-items:center;transition:transform .2s, box-shadow .2s;
+  }
+  .btn-acheter:hover{transform:translateY(-3px);box-shadow:0 14px 30px -6px rgba(212,0,0,.5)}
+  .btn-acheter-wrap{position:relative;display:inline-flex}
+  .btn-acheter-wrap::before{
+    content:"";position:absolute;inset:0;z-index:2;pointer-events:none;
+    offset-path:inset(0 round 9px);offset-distance:0%;
+    width:26px;height:26px;margin:-13px;border-radius:50%;
+    background:radial-gradient(circle,#fff2b0 0%,#ffd24d 45%,transparent 72%);
+    animation:snake 3s linear infinite;
+  }
+  @keyframes snake{to{offset-distance:100%}}
+  @media (prefers-reduced-motion:reduce){
+    .btn-acheter-wrap::before{animation:none;opacity:0}
+  }
+  .retour-bas{display:block;text-align:center;margin-top:2rem;color:var(--creme-doux);
+    text-decoration:none;font-style:italic;font-size:1.02rem;transition:color .2s;}
+  .retour-bas:hover{color:var(--laiton-clair)}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <a class="retour" href="trois-instants.html">← Retour au livre</a>
+
+    <h1 class="titre">Les coulisses</h1>
+    <p class="provenance">Extrait de « Un instant, ou Trois… »</p>
+    <div class="filet"></div>
+
+    <div class="texte">
+      <p>Vous voilà arrivé au bout du livre.</p>
+      <p>Vous avez lu toutes ces histoires. Certaines vous ont peut-être fait sourire. D'autres, frissonner. Peut-être même que l'une d'elles vous a serré la gorge. Voire carrément fait pleurer… ce qui est normal, hein !</p>
+      <p>Je sais que c'est bizarre à dire… mais j'espère bien que vous avez ri et pleuré. Ça veut dire que j'ai réussi à bien vous raconter mes histoires. Alors, indirectement, ça me fait plaisir si vous avez pleuré. Voilà, c'est dit. (Oui, je sais… lol.)</p>
+      <p>Et puisqu'on en parle… il y a une histoire qui me tient particulièrement à cœur. Lucie.</p>
+      <p>Ça fait des semaines, voire des mois, que j'en parle autour de moi. J'écris ces lignes avant même que le livre soit sorti, alors je ne connais pas encore votre avis. Mais j'espère vraiment, vraiment, vous avoir mis une belle claque avec celle-là. (Si c'est le cas… je suis désolé. Enfin, non. Pas vraiment. lol.) Mais revenons au début. D'où viennent ces histoires ? Tout commence presque toujours par un moment.</p>
+      <p>Un seul. Un moment fort. Le moment clé. Celui autour duquel toute l'histoire va se construire.</p>
+      <p>Parfois, c'est une image. Parfois, une émotion. Parfois, juste une petite phrase qui me tombe dessus sans prévenir. Et à partir de là, tout s'accroche. Je me mets à penser aux moments que je pourrais ajouter autour. Avant. Après.</p>
+      <p>J'écris souvent sur mon téléphone. En mode texto, à la va-vite. Une idée arrive, je la note. Un détail me vient, je le rajoute. Puis la journée passe.</p>
+      <p>Mais l'histoire, elle, continue de tourner dans ma tête.</p>
+      <p>Pendant des jours. Parfois des semaines. Elle se développe toute seule, dans mon imagination. Au contraire, si le lendemain je l'ai déjà oubliée… c'est que ce n'était pas la bonne. Les vraies restent. Elles s'accrochent et ne me lâchent plus.</p>
+      <p>Je vois chaque scène. Exactement. Comme une caméra qui flotterait dans l'air, et qui se déplacerait autour des personnages.</p>
+      <p>Je ressens les moments. Je ressens les gens. Et leurs émotions. Leurs regards.</p>
+      <p>Ensuite, je prends ma tablette, ou mon ordinateur portable. Je reprends mes petits bouts de texte, et j'y ajoute plein de détails. Je remplis les vides. J'écris les moments qui passent entre chaque scène, ceux qui relient tout ensemble. L'histoire prend forme.</p>
+      <p>Mais avec plein de fautes. Et des gribouillis partout. Je ne suis pas infaillible, loin de là. Je fais énormément de fautes.</p>
+      <p>Quand je sens que je tiens toute l'histoire, du début à la fin, je la mets au propre.</p>
+      <p>Là, je me fais aider. Une intelligence artificielle réécrit mon texte proprement, sans faute, dans un français correct. Elle corrige mes erreurs, vérifie les noms — que je mélange parfois, parce que j'ai souvent plusieurs histoires en tête en même temps.</p>
+      <p>Mais que les choses soient claires : ce sont mes histoires.</p>
+      <p>L'idée, les personnages, les émotions, le moment clé, la chute… tout ça vient de moi. L'IA n'écrit pas à ma place. Elle est mon stylo, mon correcteur, ma secrétaire. Un outil. Rien de plus.</p>
+      <p>Et puis, très honnêtement… vous croyez vraiment qu'une machine aurait imaginé des histoires pareilles ? Il faut être un peu fou pour avoir une imagination comme la mienne ! Haha ! Une fois le texte propre, je le relis. Et c'est là que se passe quelque chose d'étrange.</p>
+      <p>Il m'arrive de connaître mes histoires par cœur. Je pourrais réciter chaque phrase. Et pourtant, il y en a qui me font encore rire. Ou pleurer. Encore. Et encore.</p>
+      <p>C'est affreux, en réalité. Même en écrivant sur ma tablette, j'ai les larmes aux yeux… et à un moment, je ne vois même plus ce que j'écris. Je ressens vraiment les personnages. Leurs joies, leurs peurs, leurs peines. Comme si je regardais un film… dont je serais, moi, le producteur.</p>
+      <p>Vient ensuite la mise en page. Encore une fois avec l'aide de l'IA, pour que tout soit propre et agréable à lire. Et enfin, les images.</p>
+      <p>Alors là, je préviens : je ne sais pas dessiner. Pas du tout. C'est donc l'IA qui les fabrique.</p>
+      <p>Mais je plains sincèrement le pauvre dessinateur qui aurait dû travailler avec moi. Il serait devenu fou. Parce que chaque image, je la modifie en moyenne quinze fois.</p>
+      <p>J'ai l'image exacte dans ma tête. Précise. Nette. Mais avant que l'IA la sorte comme je la veux… il y a du boulot. Beaucoup de boulot. Car je veux qu'elle soit exactement comme dans ma tête ! Et pas autrement ! Et voilà…</p>
+      <p>C'est comme ça qu'une idée qui n'existait que dans ma tête finit par devenir un vrai livre. Un livre qu'une autre personne — vous — peut tenir entre ses mains.</p>
+    </div>
+
+    <p class="final">Merci d'être entré, le temps de quelques instants, dans mon petit cinéma.</p>
+
+    <div class="respire"></div>
+
+    <p class="cloture-grande">Et qui sait…<br>On se retrouvera peut-être pour&nbsp;:<br><span class="dernier">Un instant, ou Quatre…</span></p>
+
+    <div class="fin-filet"></div>
+
+    <div class="achat">
+      <span class="btn-acheter-wrap"><a class="btn-acheter" href="https://www.amazon.fr/dp/B0HJNHL521" target="_blank" rel="noopener noreferrer" onclick="compte('clic-amazon-trois')">ACHETER ce LIVRE</a></span>
+      <a class="retour-bas" href="trois-instants.html">← Revenir au livre</a>
+    </div>
+  </div>
+
+  <script>
+    var API = "https://compteurs.royvanmil86.workers.dev";
+    function compte(cle){
+      var url = API + "/compte?c=" + cle;
+      try { if (navigator.sendBeacon && navigator.sendBeacon(url)) return; } catch(e){}
+      try { fetch(url, {mode:"cors", keepalive:true}); } catch(e){}
+    }
+    compte("histoire-les-coulisses");
+  </script>
+</body>
+</html>
