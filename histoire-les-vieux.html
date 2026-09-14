@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Les vieux — Un instant, ou Trois… — Roy Van Mil</title>
+<meta name="description" content="« Les vieux », une microhistoire de Roy Van Mil, extraite du recueil « Un instant, ou Trois… ».">
+<meta name="author" content="Roy Van Mil">
+<link rel="canonical" href="https://royvanmil.fr/histoire-les-vieux.html">
+<meta name="robots" content="index, follow">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Les vieux — Un instant, ou Trois…">
+<meta property="og:description" content="Une microhistoire de Roy Van Mil.">
+<meta property="og:url" content="https://royvanmil.fr/histoire-les-vieux.html">
+<meta property="og:locale" content="fr_FR">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --noir:#161210;--bois-fonce:#3a2a1c;--bois:#5a4029;
+    --laiton:#c9a25e;--laiton-clair:#e6c98a;
+    --creme:#e8dcc4;--creme-doux:#c8b895;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'EB Garamond',Georgia,serif;
+    background:radial-gradient(ellipse at 50% 0%, #241a12 0%, var(--noir) 70%), var(--noir);
+    color:var(--creme);min-height:100vh;
+  }
+  body::before{content:"";position:fixed;inset:0;
+    background:radial-gradient(circle at 50% 30%, rgba(201,162,94,.06), transparent 55%);
+    pointer-events:none;z-index:0;}
+  .wrap{position:relative;z-index:2;max-width:720px;margin:0 auto;padding:1.5rem 1.3rem 4rem}
+
+  .retour{display:inline-flex;align-items:center;gap:.4rem;color:var(--laiton-clair);
+    text-decoration:none;font-family:'Cormorant Garamond',serif;letter-spacing:.08em;
+    text-transform:uppercase;font-size:.85rem;margin-bottom:2.5rem;opacity:.85;transition:opacity .2s;}
+  .retour:hover{opacity:1}
+
+  .titre{font-family:'Cormorant Garamond',serif;font-weight:700;
+    font-size:clamp(2.4rem,7vw,3.6rem);line-height:1.05;color:var(--creme);
+    text-align:center;margin-bottom:.4rem;}
+  .provenance{text-align:center;font-style:italic;color:var(--laiton-clair);
+    font-size:1.05rem;margin-bottom:.4rem;}
+  .filet{height:1px;width:120px;margin:1.6rem auto 2.6rem;
+    background:linear-gradient(90deg,transparent,var(--laiton),transparent);}
+
+  .texte p{font-size:1.18rem;line-height:1.9;color:var(--creme);margin-bottom:1.35rem;
+    text-align:left;}
+  .texte p:first-of-type::first-letter{
+    font-family:'Cormorant Garamond',serif;font-size:3.4rem;font-weight:700;
+    color:var(--laiton-clair);float:left;line-height:.8;padding:.35rem .6rem 0 0;
+  }
+
+  .final{
+    font-family:'Cormorant Garamond',serif;font-weight:700;
+    font-size:clamp(2.6rem,9vw,4.4rem);line-height:1.05;
+    color:var(--laiton-clair);text-align:center;
+    margin:3rem 0 1.4rem;
+    text-shadow:0 3px 26px rgba(0,0,0,.7);
+  }
+  .cloture{
+    font-family:'Cormorant Garamond',serif;font-weight:600;font-style:italic;
+    font-size:clamp(1.5rem,5vw,2.2rem);line-height:1.3;
+    color:var(--creme);text-align:center;margin:0 auto 1rem;max-width:16ch;
+  }
+
+  .fin-filet{height:1px;width:180px;margin:3rem auto 2.4rem;
+    background:linear-gradient(90deg,transparent,var(--laiton),transparent);}
+
+  .achat{text-align:center;margin-top:2.4rem}
+  .btn-acheter{
+    color:#d40000;background:#fff;
+    font-size:1.45rem;font-weight:700;letter-spacing:.05em;
+    padding:1.2rem 2.5rem;border-radius:9px;
+    border:3px solid #d40000;box-sizing:border-box;
+    box-shadow:0 8px 22px -6px rgba(0,0,0,.5);
+    font-family:'Cormorant Garamond',serif;text-decoration:none;
+    display:inline-flex;align-items:center;transition:transform .2s, box-shadow .2s;
+  }
+  .btn-acheter:hover{transform:translateY(-3px);box-shadow:0 14px 30px -6px rgba(212,0,0,.5)}
+  .btn-acheter-wrap{position:relative;display:inline-flex}
+  .btn-acheter-wrap::before{
+    content:"";position:absolute;inset:0;z-index:2;pointer-events:none;
+    offset-path:inset(0 round 9px);offset-distance:0%;
+    width:26px;height:26px;margin:-13px;border-radius:50%;
+    background:radial-gradient(circle,#fff2b0 0%,#ffd24d 45%,transparent 72%);
+    animation:snake 3s linear infinite;
+  }
+  @keyframes snake{to{offset-distance:100%}}
+  @media (prefers-reduced-motion:reduce){
+    .btn-acheter-wrap::before{animation:none;opacity:0}
+  }
+  .retour-bas{display:block;text-align:center;margin-top:2rem;color:var(--creme-doux);
+    text-decoration:none;font-style:italic;font-size:1.02rem;transition:color .2s;}
+  .retour-bas:hover{color:var(--laiton-clair)}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <a class="retour" href="trois-instants.html">← Retour au livre</a>
+
+    <h1 class="titre">Les vieux</h1>
+    <p class="provenance">Extrait de « Un instant, ou Trois… »</p>
+    <div class="filet"></div>
+
+    <div class="texte">
+      <p>J'observe les gens.</p>
+      <p>Je vois des enfants qui courent, qui s'amusent. Je vois toute une génération de gens présents… mais absents, absorbés par leur téléphone. Et puis, un peu plus loin, je vois une génération encore plus âgée. Les vieux.</p>
+      <p>On les regarde, ces gens qui ont parfois le double de notre âge. Ils avancent lentement. Ils ne conduisent plus très bien. Ils ont du mal à entendre. Et ils ne savent pas se servir d'un simple téléphone portable.</p>
+      <p>Ça peut nous surprendre. Ne pas savoir envoyer un simple WhatsApp ? Comment est-ce possible… ?</p>
+      <p>Ça nous semble tellement basique. On a grandi avec. Mais n'oubliez pas une chose : ces gens d'une autre génération n'ont rien connu de tout cela.</p>
+      <p>Ils ont connu les guerres. Des hommes en uniforme, une arme à feu à la main, qui parlaient allemand. Ils ont connu la faim. Et chaque jour, ils n'étaient pas certains de retrouver toute leur famille autour de la table.</p>
+      <p>Les portables n'existaient pas. Non. Ils écrivaient des lettres, à leurs êtres chers, sans jamais savoir si le courrier était bien arrivé. Aucune notification de réception.</p>
+      <p>Pour se divertir, ils avaient des branches d'arbres. Et, avec un peu de chance, un ballon de foot.</p>
+      <p>Ceux qui allaient à l'école ont connu les classes nombreuses, avec des manuels remplis de calculs et d'exercices qui nous sembleraient aujourd'hui réservés aux études supérieures. Et gare à celui ou celle qui se tenait mal : les règles étaient strictes.</p>
+      <p>Ils se faisaient des amis dans la cour de récréation. Pas sur les réseaux sociaux. Les demandes d'amis étaient des poignées de main. Pas des boutons « ajouter ».</p>
+      <p>Les chevaux et les carrosses circulaient encore dans les rues. Puis sont arrivées les premières voitures. D'abord celles à vapeur, qu'il fallait chauffer au charbon — d'où le mot « chauffeur ». Plus tard, de belles voitures thermiques ont peu à peu remplacé les chevaux. Une seule pouvait contenir la puissance de plusieurs d'entre eux.</p>
+      <p>Ils ont fait la lessive à la main. Ils n'avaient pas toujours l'eau courante. L'installation électrique de la maison, c'était quelques lumières et quelques prises — souvent restées « célibataires », faute d'électroménager à brancher. D'ailleurs, la protection électrique de l'époque nous ferait sursauter aujourd'hui. Le fer à repasser était au charbon. Le chauffage central se résumait à une bouillotte. Et l'hiver, on pouvait aller au lit en claquant des dents.</p>
+      <p>Pour écouter de la musique, il y avait les gramophones à tourne-disque. Puis des radios dont on comptait les stations sur les doigts d'une main. Comme pour la télévision. Imaginez un poste si grand qu'il pouvait littéralement réchauffer le salon — et qui n'affichait qu'en noir et blanc, avec trois chaînes. Trois.</p>
+      <p>Imaginez les enfants, réunis devant une seule télévision en noir et blanc, un verre de jus d'orange à la main. C'était la fête ! Souvent avec du « brouillard » à l'écran et un son médiocre. Mais pour eux, ça ressemblait déjà au futur. Alors le jour où la télévision est passée à la couleur, ils l'ont vécu comme un véritable bond technologique.</p>
+      <p>Le progrès ne s'est plus arrêté. Les radios fonctionnaient désormais à pile : on pouvait les transporter en marchant… et en faire profiter tout le quartier au passage. Heureusement, il y a eu le walkman. Glisser une cassette dans l'appareil, refermer, appuyer sur « play », et partir faire du roller en écoutant les mêmes chansons en boucle. Puis le discman, un lecteur avec un CD à l'intérieur, accroché à la ceinture. On voyait des gens rouler en musique, des écouteurs sur les oreilles. Et des hommes en costume rejoindre le travail en bougeant discrètement au rythme de leur morceau.</p>
+      <p>Les ordinateurs, eux, occupaient une pièce entière. Et ça chauffait. Les insectes aimaient bien s'y glisser — et créaient des courts-circuits. C'était un « bug » : un vrai, avec des pattes.</p>
+      <p>J'ai connu les premiers ordinateurs personnels. Assez grands, avec une grosse tour (qui servait souvent de chauffe-pieds), un écran de vingt kilos, un clavier et une souris. Nettoyer la bille de la souris… peu de gens savent encore ce que ça veut dire.</p>
+      <p>Le monde avançait, avec ce progrès permanent. Des changements majeurs, tout le temps. Et il fallait vite s'adapter, comprendre comment s'en servir, sous peine d'être perdu.</p>
+      <p>Puis les gens ont découvert un nouveau monde. Internet. Le World Wide Web. Le fameux « www. ». Quand quelqu'un voulait s'y connecter, toute la maison était au courant : le modem 56k jouait une véritable symphonie de bruits numériques.</p>
+      <p>Ensuite, le monde est allé de plus en plus vite. Et désormais sans lien… ni fil. Les premières « briques » portables sont arrivées : on pouvait téléphoner en tenant l'appareil dans la main. Environ un kilo. Vingt minutes d'autonomie.</p>
+      <p>Les textos ont remplacé les lettres. Au début, tout s'écrivait en majuscules. On aurait dit que les gens criaient dans leurs messages, qu'ils étaient en colère.</p>
+      <p>De plus en plus d'électroménager remplissait la maison. La musique et les images voyageaient maintenant autour du globe, portées par des ondes.</p>
+      <p>Avec tout ce progrès venait aussi plus de connaissances. Et plus de sécurité. On a retiré le plomb de la peinture et des carburants : le « sans plomb » est devenu la norme. Les disjoncteurs et les tableaux électriques sont apparus. L'eau chaude pour toute la famille. Partir en vacances en voiture — en prévenant la famille de son arrivée par téléphone.</p>
+      <p>Les avions, les trains, les voitures, Internet, la fibre. Tout va tellement vite ! Et il ne faut surtout pas rater une marche, sinon on est perdu.</p>
+      <p>On parle désormais sans personne en face, avec des bouts de plastique dans les oreilles. On ne tient même plus le volant de sa voiture. On a constamment un boîtier dans les mains. Et si on a faim, on peut manger n'importe quoi, n'importe où : il suffit de commander sur Internet.</p>
+      <p>Tout ce progrès, en si peu de temps. En une centaine d'années à peine, tout est allé si vite. Et il fallait vraiment suivre son époque pour ne pas se retrouver perdu.</p>
+      <p>Le chauffage, la climatisation. Une voiture à soi — un engin capable de transporter cinq personnes, et dans lequel on se retrouve le plus souvent tout seul. Un ordinateur, un téléphone, Internet. On peut choisir ce qu'on veut manger : tous les plats du monde, commandés depuis le téléphone au creux de la main.</p>
+      <p>Imagine un instant tout ce progrès, et tous ces changements qu'ils ont dû suivre pour ne pas être largués. Puis, en vieillissant, ils ne peuvent plus. Alors ils préfèrent regarder la nature et les belles choses avec leurs yeux. Pas à travers un écran.</p>
+      <p>Et imagine-toi, plus tard. Des enfants te montrent quelque chose dans l'air, devant toi. Tu crois qu'ils te désignent un oiseau. « Mais non, papi ! Regarde la caméra ! Tu ne la vois pas, ou quoi ? » Et cette caméra sera si petite que tes yeux de vieux ne la distingueront même pas.</p>
+      <p>Puis la tête de quelqu'un apparaîtra juste devant toi. Il te voit, il te parle. Mais toi, tu chercheras d'où sort cette tête surgie de nulle part, et tu feras de grands gestes dans le vide pour trouver le reste du corps. « Mais c'est un appel hologramme, papi ! »</p>
+      <p>Pour tes quatre-vingts ans, toute la famille t'offrira un « appel hologramme de famille ». Tu verras toutes ces têtes flotter dans les airs devant toi. Pour eux, c'est la fête : ils te chantent joyeux anniversaire. Mais toi, ça te fera penser à la guillotine. Pour eux, c'est la nouvelle technologie.</p>
+      <p>Tu deviendras vieux, toi aussi. Tu auras des moments où tu ne comprendras plus. Où les choses deviendront de plus en plus lourdes. Où les ouvertures « faciles » se transformeront en mission impossible. Et tu mangeras un bout de pain sec, parce que tu n'arriveras plus à ouvrir ce fichu pot de pâté.</p>
+    </div>
+
+    <p class="final">Respectez-les,<br>ces vieux.</p>
+
+    <p class="cloture">Le temps passe vite…<br>Alors prends un instant. Ou trois…</p>
+
+    <div class="fin-filet"></div>
+
+    <div class="achat">
+      <span class="btn-acheter-wrap"><a class="btn-acheter" href="https://www.amazon.fr/dp/B0HJNHL521" target="_blank" rel="noopener noreferrer" onclick="compte('clic-amazon-trois')">ACHETER ce LIVRE</a></span>
+      <a class="retour-bas" href="trois-instants.html">← Revenir au livre</a>
+    </div>
+  </div>
+
+  <script>
+    var API = "https://compteurs.royvanmil86.workers.dev";
+    function compte(cle){
+      var url = API + "/compte?c=" + cle;
+      try { if (navigator.sendBeacon && navigator.sendBeacon(url)) return; } catch(e){}
+      try { fetch(url, {mode:"cors", keepalive:true}); } catch(e){}
+    }
+    compte("histoire-les-vieux");
+  </script>
+</body>
+</html>
