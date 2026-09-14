@@ -3,17 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Un instant, ou Trois… — Microhistoires de Roy Van Mil (en écriture)</title>
-<meta name="description" content="Un instant, ou Trois… — le nouveau livre de microhistoires de Roy Van Mil, actuellement en écriture. Plusieurs histoires courtes, entre sourire et frisson.">
+<title>Un instant, ou Trois… — Microhistoires de Roy Van Mil</title>
+<meta name="description" content="Un instant, ou Trois… — 13 microhistoires de Roy Van Mil, entre rires, larmes et surprises. Second livre de microhistoires, disponible sur Amazon.">
 <meta name="keywords" content="Un instant ou Trois, microhistoires, Roy Van Mil, Roy VAN MIL, royvanmil, Roy auteur, Roy écrivain, écrivain Gers">
 <meta name="author" content="Roy Van Mil">
 <link rel="canonical" href="https://royvanmil.fr/trois-instants.html">
 
-<!-- Open Graph -->
+<!-- Open Graph (partage Facebook / Instagram) -->
 <meta property="og:type" content="book">
 <meta property="og:title" content="Un instant, ou Trois… — Microhistoires de Roy Van Mil">
-<meta property="og:description" content="Le nouveau livre de microhistoires de Roy Van Mil, actuellement en écriture. Plusieurs histoires courtes, entre sourire et frisson.">
-<meta property="og:image" content="https://royvanmil.fr/img/couv-trois-instants.png">
+<meta property="og:description" content="13 microhistoires entre rires, larmes et surprises. Le second livre de Roy Van Mil.">
+<meta property="og:image" content="https://royvanmil.fr/img/00_1_premier_couverture.png">
 <meta property="og:url" content="https://royvanmil.fr/trois-instants.html">
 <meta property="og:locale" content="fr_FR">
 <meta name="twitter:card" content="summary_large_image">
@@ -27,7 +27,7 @@
   "genre": "Recueil de microhistoires",
   "inLanguage": "fr",
   "url": "https://royvanmil.fr/trois-instants.html",
-  "image": "https://royvanmil.fr/img/couv-trois-instants.png",
+  "image": "https://royvanmil.fr/img/00_1_premier_couverture.png",
   "author": {
     "@type": "Person",
     "name": "Roy Van Mil",
@@ -38,84 +38,225 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,500&family=EB+Garamond:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --noir:#0e0c0b;--bois-fonce:#2a2019;
+    --noir:#161210;--bois-fonce:#3a2a1c;--bois:#5a4029;
     --laiton:#c9a25e;--laiton-clair:#e6c98a;
-    --creme:#e2d7c2;--creme-doux:#b8ab93;
+    --creme:#e8dcc4;--creme-doux:#c8b895;
   }
   *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
   body{
     font-family:'EB Garamond',Georgia,serif;
-    background:radial-gradient(ellipse at 50% 15%, #1a1512 0%, var(--noir) 78%), var(--noir);
-    color:var(--creme);min-height:100vh;overflow-x:hidden;
+    background:radial-gradient(ellipse at 50% 0%, #241a12 0%, var(--noir) 70%), var(--noir);
+    color:var(--creme);min-height:100vh;
   }
-  body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
-    background:radial-gradient(circle at 50% 25%, rgba(201,162,94,.07), transparent 55%);}
-
-  .wrap{position:relative;z-index:2;max-width:820px;margin:0 auto;
-    padding:1.5rem 1.2rem 5rem;text-align:center}
+  body::before{content:"";position:fixed;inset:0;
+    background:radial-gradient(circle at 50% 30%, rgba(201,162,94,.08), transparent 55%);
+    pointer-events:none;z-index:0;}
+  .wrap{position:relative;z-index:2;max-width:1000px;margin:0 auto;padding:1.5rem 1.2rem 4rem}
 
   .retour{display:inline-flex;align-items:center;gap:.4rem;color:var(--laiton-clair);
     text-decoration:none;font-family:'Cormorant Garamond',serif;letter-spacing:.08em;
-    text-transform:uppercase;font-size:.85rem;opacity:.75;transition:opacity .2s;
-    position:absolute;left:1.2rem;top:1.5rem;}
+    text-transform:uppercase;font-size:.85rem;margin-bottom:2rem;opacity:.85;transition:opacity .2s;}
   .retour:hover{opacity:1}
 
-  .couverture{
-    width:min(280px,68vw);margin:5.5rem auto 2.4rem;border-radius:4px;
-    box-shadow:0 30px 70px -15px rgba(0,0,0,.95), 0 0 0 1px rgba(201,162,94,.22);
-    display:block;
+  /* ---- sélecteur de langue ---- */
+  .langues{
+    position:absolute;top:1.1rem;right:1.2rem;z-index:6;
+    display:flex;gap:.35rem;font-family:'Cormorant Garamond',serif;
+  }
+  .langues button{
+    background:rgba(22,18,16,.55);color:var(--creme-doux);
+    border:1px solid rgba(201,162,94,.45);border-radius:5px;
+    padding:.32rem .62rem;font-family:inherit;font-size:.92rem;font-weight:600;
+    letter-spacing:.08em;cursor:pointer;transition:all .2s;
+  }
+  .langues button:hover{color:var(--laiton-clair);border-color:var(--laiton)}
+  .langues button.actif{
+    background:linear-gradient(180deg,var(--laiton-clair),var(--laiton));
+    color:#2a1c08;border-color:var(--laiton-clair);
+  }
+  .mention-fr{
+    display:none;margin-top:1.2rem;padding:.6rem .9rem;
+    border:1px solid rgba(201,162,94,.4);border-radius:6px;
+    background:rgba(201,162,94,.08);
+    font-style:italic;color:var(--laiton-clair);font-size:1rem;
+  }
+  @media (max-width:480px){
+    .langues{top:.7rem;right:.7rem}
+    .langues button{padding:.28rem .5rem;font-size:.82rem}
   }
 
-  h1{
-    font-family:'Cormorant Garamond',serif;font-weight:700;
-    font-size:clamp(2.1rem,6vw,3.4rem);line-height:1.05;
-    color:var(--creme);letter-spacing:.02em;
-    text-shadow:0 3px 22px rgba(0,0,0,.8);margin-bottom:.5rem;
+  .livre-page{display:grid;grid-template-columns:minmax(220px,320px) 1fr;
+    gap:clamp(1.5rem,5vw,3.5rem);align-items:start;}
+  .couverture{width:100%;border-radius:4px;
+    box-shadow:0 20px 50px -12px rgba(0,0,0,.8), 0 0 0 1px rgba(201,162,94,.2);}
+
+  /* mention "Second livre" en blanc gras */
+  .rang{
+    display:inline-block;font-family:'Cormorant Garamond',serif;font-weight:700;
+    color:#ffffff;font-size:1rem;letter-spacing:.14em;text-transform:uppercase;
+    margin-bottom:.7rem;
   }
-  .auteur{font-style:italic;color:var(--laiton-clair);font-size:1.15rem;margin-bottom:2.6rem}
+  .infos h1{font-family:'Cormorant Garamond',serif;font-weight:700;
+    font-size:clamp(2rem,5vw,3rem);line-height:1.05;color:var(--creme);margin-bottom:.4rem;}
+  .auteur{font-style:italic;color:var(--laiton-clair);font-size:1.15rem;margin-bottom:1.6rem;}
+  .filet{height:1px;background:linear-gradient(90deg,var(--laiton),transparent);margin:1.4rem 0}
+  .infos p{font-size:1.08rem;line-height:1.7;color:var(--creme-doux);margin-bottom:1rem}
+  .intro-cite{font-style:italic;color:var(--creme);font-size:1.12rem;line-height:1.7;}
 
-  .teaser{
-    max-width:600px;margin:0 auto;
-    font-size:1.28rem;line-height:1.9;color:var(--creme);
+  /* liste des histoires */
+  .histoires{
+    columns:2;column-gap:2rem;list-style:none;
+    margin:1.4rem 0;counter-reset:h;
   }
-  .teaser p{margin-bottom:1.2rem}
-  .teaser p:last-child{margin-bottom:0}
-  .teaser .accent{color:var(--laiton-clair);font-style:italic}
-
-  .plume{font-size:1.9rem;margin:2.8rem 0 .9rem;color:var(--laiton-clair);
-    animation:flotter 4.5s ease-in-out infinite;display:inline-block}
-  @keyframes flotter{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-8px) rotate(4deg)}}
-
-  .etat{
-    font-family:'Cormorant Garamond',serif;letter-spacing:.32em;
-    text-transform:uppercase;font-size:1.05rem;color:var(--creme);padding-left:.32em;
+  .histoires li{
+    break-inside:avoid;padding:.35rem 0 .35rem 2rem;position:relative;
+    font-size:1.02rem;color:var(--creme);counter-increment:h;
   }
-  .sous-etat{font-size:.95rem;color:var(--creme-doux);margin-top:.6rem;font-style:italic}
+  .histoires li::before{
+    content:counter(h,decimal-leading-zero);
+    position:absolute;left:0;top:.35rem;
+    font-family:'Cormorant Garamond',serif;color:var(--laiton);
+    font-size:.95rem;font-weight:600;
+  }
+  .histoires li.bonus{counter-increment:none;font-style:italic;color:var(--creme-doux);}
+  .histoires li.bonus::before{content:"◆";font-size:.7rem;top:.5rem;}
 
-  @media (prefers-reduced-motion:reduce){ .plume{animation:none} }
+  /* bloc extraits */
+  .extraits{margin-top:2rem}
+  .extraits-titre{font-family:'Cormorant Garamond',serif;color:var(--laiton-clair);
+    font-size:1.2rem;font-style:italic;margin-bottom:.9rem;}
+
+  .boutons{display:flex;flex-wrap:wrap;gap:1rem;margin-top:1rem}
+  .btn{display:inline-flex;align-items:center;gap:.6rem;padding:.9rem 1.6rem;border-radius:6px;
+    font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.15rem;letter-spacing:.03em;
+    text-decoration:none;cursor:pointer;border:none;transition:transform .2s, box-shadow .2s;}
+  .btn-lire{
+    background:transparent;color:var(--laiton-clair);
+    border:1px solid rgba(201,162,94,.55);
+  }
+  .btn-lire:hover{
+    transform:translateY(-2px);
+    border-color:var(--laiton);
+    background:rgba(201,162,94,.08);
+  }
+
+  .boutons-achat{display:flex;flex-wrap:wrap;gap:1rem;margin-top:2rem;align-items:center}
+  /* Bouton Acheter : blanc, contour rouge vif, gros et lisible */
+  .btn-acheter{
+    color:#d40000;background:#fff;
+    font-size:1.45rem;font-weight:700;letter-spacing:.05em;
+    padding:1.2rem 2.5rem;border-radius:9px;
+    border:3px solid #d40000;box-sizing:border-box;
+    box-shadow:0 8px 22px -6px rgba(0,0,0,.5);
+    font-family:'Cormorant Garamond',serif;text-decoration:none;
+    display:inline-flex;align-items:center;transition:transform .2s, box-shadow .2s;
+  }
+  .btn-acheter:hover{transform:translateY(-3px);box-shadow:0 14px 30px -6px rgba(212,0,0,.5)}
+  /* liseré jaune "snake" */
+  .btn-acheter-wrap{position:relative;display:inline-flex}
+  .btn-acheter-wrap::before{
+    content:"";position:absolute;inset:0;z-index:2;pointer-events:none;
+    offset-path:inset(0 round 9px);offset-distance:0%;
+    width:26px;height:26px;margin:-13px;border-radius:50%;
+    background:radial-gradient(circle,#fff2b0 0%,#ffd24d 45%,transparent 72%);
+    animation:snake 3s linear infinite;
+  }
+  @keyframes snake{to{offset-distance:100%}}
+  @media (prefers-reduced-motion:reduce){
+    .btn-acheter-wrap::before{animation:none;opacity:0}
+  }
+
+  .galerie-titre{font-family:'Cormorant Garamond',serif;font-weight:600;
+    font-size:clamp(1.6rem,4vw,2.2rem);color:var(--laiton-clair);text-align:center;margin:4rem 0 .5rem;}
+  .galerie-soustitre{text-align:center;font-style:italic;color:var(--creme-doux);margin-bottom:2rem;}
+
+  .galerie{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.4rem;}
+  .vignette{position:relative;cursor:pointer;border-radius:6px;overflow:hidden;
+    box-shadow:0 12px 30px -10px rgba(0,0,0,.7), 0 0 0 1px rgba(201,162,94,.18);
+    background:#efe7d6;transition:transform .25s, box-shadow .25s;}
+  .vignette img{display:block;width:100%;height:auto}
+  .vignette:hover{transform:translateY(-5px);box-shadow:0 18px 38px -10px rgba(0,0,0,.8)}
+  .vignette .loupe{position:absolute;bottom:.7rem;right:.7rem;background:rgba(22,18,16,.82);
+    color:var(--laiton-clair);width:2.2rem;height:2.2rem;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;font-size:1.05rem;opacity:0;transition:opacity .25s;}
+  .vignette:hover .loupe{opacity:1}
+  .vignette-legende{text-align:center;font-size:.9rem;color:var(--creme-doux);margin-top:.5rem;font-style:italic;}
+
+  .lightbox{position:fixed;inset:0;z-index:100;background:rgba(10,8,6,.94);
+    display:none;align-items:center;justify-content:center;padding:2rem;cursor:zoom-out;}
+  .lightbox.actif{display:flex}
+  .lightbox img{max-width:96vw;max-height:92vh;border-radius:4px;box-shadow:0 0 60px rgba(0,0,0,.9);}
+  .lightbox-fermer{position:absolute;top:1.2rem;right:1.6rem;color:var(--creme);font-size:2.4rem;
+    line-height:1;background:none;border:none;cursor:pointer;font-family:'Cormorant Garamond',serif;}
+
+  @media (max-width:640px){
+    .livre-page{grid-template-columns:1fr;justify-items:center;text-align:center}
+    .couverture{max-width:260px}
+    .histoires{columns:1;text-align:left;display:inline-block}
+    .boutons,.boutons-achat{justify-content:center}
+    .filet{width:60%;margin-left:auto;margin-right:auto}
+  }
 </style>
 </head>
 <body>
   <div class="wrap">
-    <a class="retour" href="index.html">← Retour à la bibliothèque</a>
-
-    <img class="couverture" src="img/couv-trois-instants.png" alt="Couverture — Un instant, ou Trois…" onerror="this.style.display='none'">
-
-    <h1>Un instant, ou Trois…</h1>
-    <div class="auteur">Roy VAN MIL</div>
-
-    <div class="teaser">
-      <p>Après <span class="accent">Un instant, ou Deux…</span>, l'histoire continue.</p>
-      <p>De nouvelles microhistoires, courtes et indépendantes, à lire en <span class="accent">un instant</span> — mais qui restent parfois bien plus longtemps.</p>
-      <p>Du sourire au frisson, du quotidien à l'inattendu : un second livre est en train de naître.</p>
+    <div class="langues" role="group" aria-label="Choix de la langue">
+      <button data-lang="fr" onclick="setLang('fr')">FR</button>
+      <button data-lang="en" onclick="setLang('en')">EN</button>
+      <button data-lang="nl" onclick="setLang('nl')">NL</button>
     </div>
+    <a class="retour" href="index.html" data-i18n="retour">← Retour à la bibliothèque</a>
 
-    <div class="plume">🖋️</div>
-    <div class="etat">En écriture</div>
-    <div class="sous-etat">Le livre se compose, une histoire après l'autre.</div>
+    <div class="livre-page">
+      <img class="couverture" src="img/00_1_premier_couverture.png" alt="Un instant, ou Trois…">
+
+      <div class="infos">
+        <span class="rang" data-i18n="rang">Second livre de Microhistoires…</span>
+        <h1>Un instant, ou Trois…</h1>
+        <div class="auteur">Roy VAN MIL</div>
+
+        <p class="intro-cite" data-i18n="intro">13 microhistoires entre rires, larmes et surprises.</p>
+
+        <div class="filet"></div>
+
+        <p data-i18n="p1">Vous allez rire, être surpris… mais aussi être touché, attristé… voire pleurer.</p>
+
+        <p data-i18n="p2">Vous y croiserez un serial killer, un homme handicapé et des 2CV, des fantômes, des robots, des chiens, des enfants timides et des vieux… Des souvenirs, des émotions, des instants étranges ou bouleversants. Des instants que vous n'oublierez pas de sitôt.</p>
+
+        <div class="filet"></div>
+
+        <ol class="histoires">
+          <li>Les vieux</li>
+          <li>La dernière suggestion</li>
+          <li>La mise à jour</li>
+          <li>Gaspar et les signes</li>
+          <li>Portée par le bonheur</li>
+          <li>Tu m'écoutes, Pascal ?</li>
+          <li>Connecté</li>
+          <li>Le Royaume enchanté des chiens</li>
+          <li>Tristan et Micha</li>
+          <li>Trixty l'hypnothérapeute</li>
+          <li>Lucie</li>
+          <li>Mon enfant trop timide</li>
+          <li>La réussite handicapé</li>
+          <li class="bonus" data-i18n="coulisses">Les coulisses</li>
+        </ol>
+
+        <div class="extraits">
+          <p class="extraits-titre" data-i18n="extraits-titre">Voici deux extraits à lire dès maintenant :</p>
+          <div class="boutons">
+            <a class="btn btn-lire" href="histoire-les-vieux.html">✒️ Les Vieux</a>
+            <a class="btn btn-lire" href="histoire-les-coulisses.html">✒️ Les coulisses</a>
+          </div>
+        </div>
+
+        <div class="boutons-achat">
+          <span class="btn-acheter-wrap"><a class="btn-acheter" href="https://www.amazon.fr/dp/B0HJNHL521" target="_blank" rel="noopener noreferrer" onclick="compte('clic-amazon-trois')" data-i18n="btn-amazon">ACHETER ce LIVRE</a></span>
+        </div>
 
 <!-- Gros bouton Avis des lecteurs -->
   <div style="text-align:center;margin:2rem auto 1rem;">
@@ -135,9 +276,180 @@
     fetch("https://compteurs.royvanmil86.workers.dev/avis-publics").then(function(r){return r.json();}).then(function(avis){if(!avis||avis.length===0)return;var moy=(avis.reduce(function(t,e){return t+(e.note||0);},0)/avis.length).toFixed(1);var el=document.getElementById("gros-avis-note");if(el)el.textContent="— "+moy+"/5";}).catch(function(){});
   </script>
 
+        <p class="mention-fr" data-i18n="mention-fr"></p>
+      </div>
+    </div>
+
+    <h2 class="galerie-titre" data-i18n="gal-titre">Quelques illustrations</h2>
+    <p class="galerie-soustitre" data-i18n="gal-sous">Des dessins au crayon, entre douceur et étrangeté. Cliquez pour agrandir.</p>
+
+    <div class="galerie">
+      <figure style="margin:0">
+        <div class="vignette" onclick="ouvrir('img/00_1_premier_couverture.png')">
+          <img src="img/00_1_premier_couverture.png" alt="La couverture" loading="lazy"><span class="loupe">⤢</span>
+        </div>
+        <figcaption class="vignette-legende" data-i18n="leg-couv">La couverture</figcaption>
+      </figure>
+      <figure style="margin:0">
+        <div class="vignette" onclick="ouvrir('img/99_1_quartieme_couverture.png')">
+          <img src="img/99_1_quartieme_couverture.png" alt="Quatrième de couverture" loading="lazy"><span class="loupe">⤢</span>
+        </div>
+        <figcaption class="vignette-legende" data-i18n="leg-quatre">Quatrième de couverture</figcaption>
+      </figure>
+      <figure style="margin:0">
+        <div class="vignette" onclick="ouvrir('img/02.png')">
+          <img src="img/02.png" alt="La dernière suggestion" loading="lazy"><span class="loupe">⤢</span>
+        </div>
+        <figcaption class="vignette-legende">La dernière suggestion</figcaption>
+      </figure>
+      <figure style="margin:0">
+        <div class="vignette" onclick="ouvrir('img/03.png')">
+          <img src="img/03.png" alt="La mise à jour" loading="lazy"><span class="loupe">⤢</span>
+        </div>
+        <figcaption class="vignette-legende">La mise à jour</figcaption>
+      </figure>
+      <figure style="margin:0">
+        <div class="vignette" onclick="ouvrir('img/04.png')">
+          <img src="img/04.png" alt="Gaspar et les signes" loading="lazy"><span class="loupe">⤢</span>
+        </div>
+        <figcaption class="vignette-legende">Gaspar et les signes</figcaption>
+      </figure>
+      <figure style="margin:0">
+        <div class="vignette" onclick="ouvrir('img/05.png')">
+          <img src="img/05.png" alt="Portée par le bonheur" loading="lazy"><span class="loupe">⤢</span>
+        </div>
+        <figcaption class="vignette-legende">Portée par le bonheur</figcaption>
+      </figure>
+      <figure style="margin:0">
+        <div class="vignette" onclick="ouvrir('img/06.png')">
+          <img src="img/06.png" alt="Tu m'écoutes, Pascal ?" loading="lazy"><span class="loupe">⤢</span>
+        </div>
+        <figcaption class="vignette-legende">Tu m'écoutes, Pascal ?</figcaption>
+      </figure>
+      <figure style="margin:0">
+        <div class="vignette" onclick="ouvrir('img/07.png')">
+          <img src="img/07.png" alt="Connecté" loading="lazy"><span class="loupe">⤢</span>
+        </div>
+        <figcaption class="vignette-legende">Connecté</figcaption>
+      </figure>
+      <figure style="margin:0">
+        <div class="vignette" onclick="ouvrir('img/08.png')">
+          <img src="img/08.png" alt="Le Royaume enchanté des chiens" loading="lazy"><span class="loupe">⤢</span>
+        </div>
+        <figcaption class="vignette-legende">Le Royaume enchanté des chiens</figcaption>
+      </figure>
+      <figure style="margin:0">
+        <div class="vignette" onclick="ouvrir('img/09.png')">
+          <img src="img/09.png" alt="Tristan et Micha" loading="lazy"><span class="loupe">⤢</span>
+        </div>
+        <figcaption class="vignette-legende">Tristan et Micha</figcaption>
+      </figure>
+      <figure style="margin:0">
+        <div class="vignette" onclick="ouvrir('img/13.png')">
+          <img src="img/13.png" alt="La réussite handicapé" loading="lazy"><span class="loupe">⤢</span>
+        </div>
+        <figcaption class="vignette-legende">La réussite handicapé</figcaption>
+      </figure>
+      <figure style="margin:0">
+        <div class="vignette" onclick="ouvrir('img/14_3.png')">
+          <img src="img/14_3.png" alt="Les coulisses" loading="lazy"><span class="loupe">⤢</span>
+        </div>
+        <figcaption class="vignette-legende" data-i18n="leg-coulisses">Les coulisses</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <div class="lightbox" id="lightbox" onclick="fermer()">
+    <button class="lightbox-fermer" onclick="fermer()" aria-label="Fermer">✕</button>
+    <img id="lightbox-img" src="" alt="">
   </div>
 
   <script>
+    /* ---- traductions (les titres des histoires restent en français) ---- */
+    var I18N = {
+      fr:{
+        retour:"← Retour à la bibliothèque",
+        rang:"Second livre de Microhistoires…",
+        intro:"13 microhistoires entre rires, larmes et surprises.",
+        p1:"Vous allez rire, être surpris… mais aussi être touché, attristé… voire pleurer.",
+        p2:"Vous y croiserez un serial killer, un homme handicapé et des 2CV, des fantômes, des robots, des chiens, des enfants timides et des vieux… Des souvenirs, des émotions, des instants étranges ou bouleversants. Des instants que vous n'oublierez pas de sitôt.",
+        coulisses:"Les coulisses",
+        "extraits-titre":"Voici deux extraits à lire dès maintenant :",
+        "btn-amazon":"ACHETER ce LIVRE",
+        "mention-fr":"",
+        "gal-titre":"Quelques illustrations",
+        "gal-sous":"Des dessins au crayon, entre douceur et étrangeté. Cliquez pour agrandir.",
+        "leg-couv":"La couverture",
+        "leg-quatre":"Quatrième de couverture",
+        "leg-coulisses":"Les coulisses"
+      },
+      en:{
+        retour:"← Back to the library",
+        rang:"Second book of Microstories…",
+        intro:"13 short stories between laughter, tears and surprises.",
+        p1:"You will laugh, be surprised… but also be moved, saddened… even cry.",
+        p2:"You'll meet a serial killer, a disabled man and old 2CVs, ghosts, robots, dogs, shy children and old folks… Memories, emotions, strange or overwhelming moments. Moments you won't forget any time soon.",
+        coulisses:"Behind the scenes",
+        "extraits-titre":"Here are two excerpts to read right now:",
+        "btn-amazon":"BUY this BOOK",
+        "mention-fr":"This book is available in French only.",
+        "gal-titre":"A few illustrations",
+        "gal-sous":"Pencil drawings, between gentleness and strangeness. Click to enlarge.",
+        "leg-couv":"The cover",
+        "leg-quatre":"Back cover",
+        "leg-coulisses":"Behind the scenes"
+      },
+      nl:{
+        retour:"← Terug naar de bibliotheek",
+        rang:"Tweede boek met microverhalen…",
+        intro:"13 microverhalen tussen lachen, tranen en verrassingen.",
+        p1:"U zult lachen, verrast zijn… maar ook geraakt worden, bedroefd… en zelfs huilen.",
+        p2:"U ontmoet een seriemoordenaar, een man met een handicap en oude 2CV's, geesten, robots, honden, verlegen kinderen en ouderen… Herinneringen, emoties, vreemde of aangrijpende momenten. Momenten die u niet snel zult vergeten.",
+        coulisses:"Achter de schermen",
+        "extraits-titre":"Hier zijn twee fragmenten om nu meteen te lezen:",
+        "btn-amazon":"KOOP dit BOEK",
+        "mention-fr":"Dit boek is alleen in het Frans verkrijgbaar.",
+        "gal-titre":"Enkele illustraties",
+        "gal-sous":"Potloodtekeningen, tussen zachtheid en vreemdheid. Klik om te vergroten.",
+        "leg-couv":"De cover",
+        "leg-quatre":"Achterkant",
+        "leg-coulisses":"Achter de schermen"
+      }
+    };
+
+    function setLang(lang){
+      var dict = I18N[lang] || I18N.fr;
+      document.querySelectorAll('[data-i18n]').forEach(function(el){
+        var key = el.getAttribute('data-i18n');
+        if(dict[key] !== undefined) el.textContent = dict[key];
+      });
+      document.documentElement.lang = lang;
+      document.querySelectorAll('.langues button').forEach(function(b){
+        b.classList.toggle('actif', b.getAttribute('data-lang') === lang);
+      });
+      var m = document.querySelector('.mention-fr');
+      if(m){ m.style.display = (lang === 'fr') ? 'none' : 'block'; }
+      try{ localStorage.setItem('rvm-lang', lang); }catch(e){}
+    }
+    (function(){
+      var saved = 'fr';
+      try{ saved = localStorage.getItem('rvm-lang') || 'fr'; }catch(e){}
+      setLang(saved);
+    })();
+  </script>
+
+  <script>
+    function ouvrir(src){
+      var lb=document.getElementById('lightbox');
+      document.getElementById('lightbox-img').src=src;
+      lb.classList.add('actif');document.body.style.overflow='hidden';
+    }
+    function fermer(){
+      document.getElementById('lightbox').classList.remove('actif');
+      document.body.style.overflow='';
+    }
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')fermer();});
+
     var API = "https://compteurs.royvanmil86.workers.dev";
     function compte(cle){
       var url = API + "/compte?c=" + cle;
