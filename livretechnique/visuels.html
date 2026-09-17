@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Visuels — double-page</title>
+<style>
+  :root{
+    --bg:#f4f7fa;
+    --ink:#24313f;
+    --muted:#5b6b7a;
+    --line:#e2e9f0;
+    --fr:#2a6cb8;
+    /* Ratio A4 portrait = 1 : 1.4142 */
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Segoe UI",system-ui,-apple-system,sans-serif;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+  }
+
+  /* Barre du haut : uniquement le retour */
+  .top{
+    padding:14px 18px;
+  }
+  .top a{
+    color:var(--fr);
+    text-decoration:none;
+    font-weight:500;
+    font-size:15px;
+  }
+  .top a:hover{text-decoration:underline;}
+
+  /* Zone lecteur */
+  .reader{
+    flex:1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:22px;
+    padding:0 16px 24px;
+  }
+
+  .arrow{
+    flex:0 0 auto;
+    width:54px;height:54px;
+    border:1px solid var(--line);
+    background:#fff;
+    border-radius:50%;
+    font-size:22px;
+    color:var(--ink);
+    cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    transition:background .12s;
+  }
+  .arrow:hover{background:#eef3f8;}
+  .arrow:disabled{opacity:.3;cursor:default;}
+
+  .spread{
+    display:flex;
+    gap:14px;
+    /* hauteur = 88% de la fenêtre, largeur calée sur le ratio A4 */
+    height:88vh;
+  }
+  .pageframe{
+    height:100%;
+    aspect-ratio:1 / 1.4142;   /* A4 portrait */
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:6px;
+    box-shadow:0 4px 14px rgba(0,0,0,.08);
+    overflow:hidden;
+  }
+  .pageframe iframe{
+    width:100%;height:100%;
+    border:0;display:block;
+  }
+</style>
+</head>
+<body>
+
+  <!-- Barre du haut : SEULEMENT le retour -->
+  <div class="top">
+    <a href="index.html">← retour index</a>
+  </div>
+
+  <!-- Lecteur -->
+  <div class="reader">
+    <button class="arrow" id="prev" aria-label="Paire précédente">◀</button>
+
+    <div class="spread">
+      <div class="pageframe"><iframe id="pageG" src="" title="Page gauche"></iframe></div>
+      <div class="pageframe"><iframe id="pageD" src="" title="Page droite"></iframe></div>
+    </div>
+
+    <button class="arrow" id="next" aria-label="Paire suivante">▶</button>
+  </div>
+
+<script>
+  /* ========================================================
+     LISTE DES DOUBLES-PAGES  (une ligne = une paire G + D)
+     Pour ajouter une double-page : ajoute une ligne ci-dessous
+     ET crée les fichiers correspondants. Rien d'autre à toucher.
+     ======================================================== */
+  const PAIRES = [
+    { g:"C1S1P1G.html", d:"C1S1P2D.html" },
+    { g:"C1S1P3G.html", d:"C1S1P4D.html" }
+    // { g:"C2S1P1G.html", d:"C2S1P2D.html" },
+  ];
+
+  let i = 0;
+  const pageG = document.getElementById("pageG");
+  const pageD = document.getElementById("pageD");
+  const prev  = document.getElementById("prev");
+  const next  = document.getElementById("next");
+
+  function afficher(){
+    pageG.src = PAIRES[i].g;
+    pageD.src = PAIRES[i].d;
+    prev.disabled = (i === 0);
+    next.disabled = (i === PAIRES.length - 1);
+  }
+
+  prev.addEventListener("click", () => { if(i>0){ i--; afficher(); } });
+  next.addEventListener("click", () => { if(i<PAIRES.length-1){ i++; afficher(); } });
+
+  // Flèches clavier gauche/droite
+  document.addEventListener("keydown", e => {
+    if(e.key==="ArrowLeft")  prev.click();
+    if(e.key==="ArrowRight") next.click();
+  });
+
+  afficher();
+</script>
+
+</body>
+</html>
