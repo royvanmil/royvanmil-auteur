@@ -3,70 +3,32 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
 <title>Arbre du livre — Livre technique trilingue</title>
 <style>
-  :root{
-    --bg:#f4f7fa;
-    --surface:#ffffff;
-    --ink:#24313f;
-    --muted:#5b6b7a;
-    --line:#e2e9f0;
-    --fr:#2a6cb8;
-    --en:#2e9e5b;
-    --nl:#e08a2a;
-    --g:#2a6cb8;      /* gauche  */
-    --d:#7a5230;      /* droite  */
-    --g-soft:#eaf1fa;
-    --d-soft:#f3ede6;
-  }
-  *{box-sizing:border-box;}
-  body{
-    margin:0;background:var(--bg);color:var(--ink);
-    font-family:"Segoe UI",system-ui,-apple-system,sans-serif;
-    line-height:1.55;padding:40px 20px;
-  }
-  .wrap{max-width:820px;margin:0 auto;}
-  header{margin-bottom:26px;}
+  :root{ --bg:#f4f7fa; --ink:#24313f; --muted:#5b6b7a; --line:#e2e9f0; --fr:#2a6cb8; }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--ink);font-family:"Segoe UI",system-ui,-apple-system,sans-serif;line-height:1.5;padding:40px 20px;}
+  .wrap{max-width:860px;margin:0 auto;}
+  header{margin-bottom:22px;}
   h1{font-size:28px;font-weight:600;margin:0 0 4px;letter-spacing:-.3px;}
   .sub{color:var(--muted);margin:0;font-size:15px;}
   a.back{display:inline-block;margin-top:14px;color:var(--fr);text-decoration:none;font-weight:500;font-size:14px;}
   a.back:hover{text-decoration:underline;}
-
-  .legend{
-    background:var(--surface);border:1px solid var(--line);border-radius:14px;
-    padding:16px 20px;margin-bottom:22px;font-size:14px;color:var(--muted);
-  }
-  .legend b{color:var(--ink);}
+  .legend{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 18px;margin-bottom:20px;font-size:14px;color:var(--muted);}
   .legend code{background:#eef2f6;border-radius:6px;padding:1px 7px;font-family:"Consolas",monospace;color:#33475b;}
-
-  .chapter{
-    background:var(--surface);border:1px solid var(--line);border-radius:14px;
-    padding:20px 22px;margin-bottom:18px;
-  }
-  .chapter > h2{font-size:19px;font-weight:600;margin:0 0 4px;}
-  .chapter > .ch-code{font-size:13px;color:var(--muted);margin:0 0 16px;font-family:"Consolas",monospace;}
-
-  .page{
-    display:block;text-decoration:none;color:inherit;
-    border:1px solid var(--line);border-radius:12px;
-    padding:12px 14px;margin-top:10px;transition:background .12s;
-  }
-  .page:hover{background:#f7fafd;}
-  .page-top{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
-  .badge{
-    font-size:12px;font-weight:600;font-family:"Consolas",monospace;
-    border-radius:8px;padding:2px 9px;
-  }
-  .badge.g{background:var(--g-soft);color:var(--g);}
-  .badge.d{background:var(--d-soft);color:var(--d);}
-  .page-title{font-weight:600;font-size:15px;}
-  .side{font-size:12px;color:var(--muted);}
-  .info{font-size:13px;color:var(--muted);margin:7px 0 0;}
-
-  .todo{
-    text-align:center;color:var(--muted);font-size:14px;
-    border:1px dashed var(--line);border-radius:12px;padding:18px;margin-top:10px;
-  }
+  .chapter{background:#fff;border:1px solid var(--line);border-left:6px solid var(--ch);border-radius:14px;padding:16px 18px 18px;margin-bottom:16px;}
+  .ch-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px;}
+  .ch-n{font-family:"Consolas",monospace;font-weight:700;font-size:13px;color:#fff;background:var(--ch);border-radius:8px;padding:2px 9px;}
+  .ch-head h2{font-size:18px;font-weight:700;margin:0;color:var(--ch);}
+  .statut{font-size:11px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:2px 9px;}
+  .count{margin-left:auto;font-size:12px;color:var(--muted);}
+  a.sec{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit;border:1px solid var(--line);border-radius:10px;padding:8px 12px;margin-top:8px;transition:background .12s;}
+  a.sec:hover{background:#f7fafd;}
+  .badge{font-family:"Consolas",monospace;font-size:12px;font-weight:700;color:var(--ch);background:#f2f5f8;border-radius:7px;padding:2px 8px;flex:0 0 auto;}
+  .t{font-size:14.5px;font-weight:500;}
+  .info{font-size:12.5px;color:var(--muted);margin:3px 0 0 12px;padding-left:10px;border-left:2px solid var(--line);}
+  footer{color:var(--muted);font-size:13px;text-align:center;margin-top:26px;}
 </style>
 </head>
 <body>
@@ -74,70 +36,24 @@
 
   <header>
     <h1>Arbre du livre</h1>
-    <p class="sub">Sommaire cliquable — code, titre et info de chaque page</p>
+    <p class="sub">Sommaire cliquable — 48 sections sur 8 chapitres</p>
     <a class="back" href="admin.html">← Fiche technique (admin)</a>
   </header>
 
   <div class="legend">
-    Codage : <code>C{chapitre}S{section}P{page}</code> + <b>G</b> (gauche) ou <b>D</b> (droite).
-    <code>C0S0P0</code> = index et pages avant le chapitre 1. Chaque ligne renvoie vers son fichier HTML.
+    Codage : <code>C{chapitre}S{section}P{page}</code> + <b>G</b> / <b>D</b>.
+    Chaque section renvoie vers sa première page. <code>C0</code> = index & intro.
+    Les pages n'existent pas encore → liens vides tant qu'on ne les crée pas.
   </div>
 
-  <!-- ================= C0 — AVANT LE CHAPITRE 1 ================= -->
-  <div class="chapter">
-    <h2>Index &amp; pages d'introduction</h2>
-    <p class="ch-code">C0 · avant le chapitre 1</p>
-    <div class="todo">Pages d'ouverture à définir (titre, sous-titres, sommaire, intro…).</div>
+  <div class="chapter" style="--ch:#5b6b7a">
+    <div class="ch-head"><span class="ch-n">C0</span><h2>Index &amp; intro</h2><span class="statut">à définir</span></div>
+    <div class="info" style="margin-left:0;border:none;padding-left:0;">Titre, sous-titres 3 langues, sommaire, page mentions (IA)…</div>
   </div>
 
-  <!-- ================= C1 — ÉLECTRICITÉ (DÉMO) ================= -->
-  <div class="chapter">
-    <h2>Électricité</h2>
-    <p class="ch-code">C1S1 · exemple de démonstration</p>
+  <div class="chapter" style="--ch:#c8682a"><div class="ch-head"><span class="ch-n">C1</span><h2>Électricité</h2><span class="statut">défini</span><span class="count">9 sections</span></div><a class="sec" href="C1S1P1G.html"><span class="badge">C1S1</span><span class="t">EDF : fusibles, compteur &amp; disjoncteur différentiel 500 mA général</span></a><div class="info">Point de départ de l'installation de l'électricien</div><a class="sec" href="C1S2P1G.html"><span class="badge">C1S2</span><span class="t">Monophasé / triphasé</span></a><a class="sec" href="C1S3P1G.html"><span class="badge">C1S3</span><span class="t">Le tableau électrique</span></a><a class="sec" href="C1S4P1G.html"><span class="badge">C1S4</span><span class="t">Rôle des différentiels 30 mA &amp; des disjoncteurs</span></a><a class="sec" href="C1S5P1G.html"><span class="badge">C1S5</span><span class="t">Les circuits électriques (dont 6 mm² / 32 A plaque)</span></a><a class="sec" href="C1S6P1G.html"><span class="badge">C1S6</span><span class="t">Mise à la terre</span></a><a class="sec" href="C1S7P1G.html"><span class="badge">C1S7</span><span class="t">Câbles à prévoir (futur) : portail, interphone</span></a><a class="sec" href="C1S8P1G.html"><span class="badge">C1S8</span><span class="t">Voiture électrique : gros câble, disjoncteur + différentiel dédiés, prise renforcée</span></a><a class="sec" href="C1S9P1G.html"><span class="badge">C1S9</span><span class="t">Parafoudre</span></a></div><div class="chapter" style="--ch:#2a6cb8"><div class="ch-head"><span class="ch-n">C2</span><h2>Plomberie</h2><span class="statut">défini</span><span class="count">10 sections</span></div><a class="sec" href="C2S1P1G.html"><span class="badge">C2S1</span><span class="t">Arrivée d'eau : compteur, vanne générale, clapet anti-pollution</span></a><div class="info">Fuite ? Regardez la petite roue du compteur</div><a class="sec" href="C2S2P1G.html"><span class="badge">C2S2</span><span class="t">Vanne de coupure générale + réducteur de pression</span></a><a class="sec" href="C2S3P1G.html"><span class="badge">C2S3</span><span class="t">Les tuyaux : PER, multicouche, cuivre, PE</span></a><a class="sec" href="C2S4P1G.html"><span class="badge">C2S4</span><span class="t">Vanne ouverte ou fermée ? (+ penser à la vanne générale)</span></a><a class="sec" href="C2S5P1G.html"><span class="badge">C2S5</span><span class="t">Filtres</span></a><a class="sec" href="C2S6P1G.html"><span class="badge">C2S6</span><span class="t">Adoucisseurs &amp; fonctionnement</span></a><a class="sec" href="C2S7P1G.html"><span class="badge">C2S7</span><span class="t">Eau chaude sanitaire : électrique, thermodynamique, gaz…</span></a><a class="sec" href="C2S8P1G.html"><span class="badge">C2S8</span><span class="t">Légionelles</span></a><a class="sec" href="C2S9P1G.html"><span class="badge">C2S9</span><span class="t">Dimensions des tuyaux (petit = faible débit / gros = trop d'eau froide)</span></a><a class="sec" href="C2S10P1G.html"><span class="badge">C2S10</span><span class="t">Boucle d'eau chaude</span></a></div><div class="chapter" style="--ch:#7a5230"><div class="ch-head"><span class="ch-n">C3</span><h2>Évacuations</h2><span class="statut">base livre 1 · à étoffer</span><span class="count">5 sections</span></div><a class="sec" href="C3S1P1G.html"><span class="badge">C3S1</span><span class="t">Fosse septique / toutes eaux</span></a><a class="sec" href="C3S2P1G.html"><span class="badge">C3S2</span><span class="t">PVC extérieurs</span></a><a class="sec" href="C3S3P1G.html"><span class="badge">C3S3</span><span class="t">Ventilations &amp; équilibre des pressions</span></a><a class="sec" href="C3S4P1G.html"><span class="badge">C3S4</span><span class="t">Évacuations intérieures &amp; dimensions</span></a><a class="sec" href="C3S5P1G.html"><span class="badge">C3S5</span><span class="t">Siphons &amp; bondes</span></a></div><div class="chapter" style="--ch:#2a9db8"><div class="ch-head"><span class="ch-n">C4</span><h2>Ventilation</h2><span class="statut">base livre 1 · à étoffer</span><span class="count">5 sections</span></div><a class="sec" href="C4S1P1G.html"><span class="badge">C4S1</span><span class="t">Hygrométrie</span></a><a class="sec" href="C4S2P1G.html"><span class="badge">C4S2</span><span class="t">VMC simple flux</span></a><a class="sec" href="C4S3P1G.html"><span class="badge">C4S3</span><span class="t">VMC double flux</span></a><a class="sec" href="C4S4P1G.html"><span class="badge">C4S4</span><span class="t">Entrées d'air extérieur</span></a><a class="sec" href="C4S5P1G.html"><span class="badge">C4S5</span><span class="t">Aérer ou ventiler ?</span></a></div><div class="chapter" style="--ch:#b83a2a"><div class="ch-head"><span class="ch-n">C5</span><h2>Chauffage</h2><span class="statut">base livre 1 · à étoffer</span><span class="count">6 sections</span></div><a class="sec" href="C5S1P1G.html"><span class="badge">C5S1</span><span class="t">Radiateurs électriques</span></a><a class="sec" href="C5S2P1G.html"><span class="badge">C5S2</span><span class="t">Chauffage hydraulique</span></a><a class="sec" href="C5S3P1G.html"><span class="badge">C5S3</span><span class="t">Sources de chaleur hydrauliques</span></a><a class="sec" href="C5S4P1G.html"><span class="badge">C5S4</span><span class="t">Chaudières à condensation (PCI / PCS)</span></a><a class="sec" href="C5S5P1G.html"><span class="badge">C5S5</span><span class="t">Matériaux énergétiques &amp; valeurs kWh</span></a><a class="sec" href="C5S6P1G.html"><span class="badge">C5S6</span><span class="t">Poêle à bois &amp; triangle du feu</span></a></div><div class="chapter" style="--ch:#2a8a5a"><div class="ch-head"><span class="ch-n">C6</span><h2>Climatisation</h2><span class="statut">base livre 1 · à étoffer</span><span class="count">4 sections</span></div><a class="sec" href="C6S1P1G.html"><span class="badge">C6S1</span><span class="t">Réversible air/air (split mural / console)</span></a><a class="sec" href="C6S2P1G.html"><span class="badge">C6S2</span><span class="t">Clim gainable split</span></a><a class="sec" href="C6S3P1G.html"><span class="badge">C6S3</span><span class="t">Entretien annuel</span></a><a class="sec" href="C6S4P1G.html"><span class="badge">C6S4</span><span class="t">Fluides frigorigènes</span></a></div><div class="chapter" style="--ch:#6a3ab8"><div class="ch-head"><span class="ch-n">C7</span><h2>Internet &amp; Réseau</h2><span class="statut">base livre 1 · à étoffer</span><span class="count">6 sections</span></div><a class="sec" href="C7S1P1G.html"><span class="badge">C7S1</span><span class="t">Fini l'ADSL, la Fibre</span></a><a class="sec" href="C7S2P1G.html"><span class="badge">C7S2</span><span class="t">De la rue à la box</span></a><a class="sec" href="C7S3P1G.html"><span class="badge">C7S3</span><span class="t">Le WiFi</span></a><a class="sec" href="C7S4P1G.html"><span class="badge">C7S4</span><span class="t">Câbles réseau (Cat5 / 6 / 6a)</span></a><a class="sec" href="C7S5P1G.html"><span class="badge">C7S5</span><span class="t">Mesh ou POE</span></a><a class="sec" href="C7S6P1G.html"><span class="badge">C7S6</span><span class="t">Starlink</span></a></div><div class="chapter" style="--ch:#b8922a"><div class="ch-head"><span class="ch-n">C8</span><h2>Bon sens &amp; Confort</h2><span class="statut">base livre 1 · à étoffer</span><span class="count">3 sections</span></div><a class="sec" href="C8S1P1G.html"><span class="badge">C8S1</span><span class="t">Orientation (soleil / fenêtres)</span></a><a class="sec" href="C8S2P1G.html"><span class="badge">C8S2</span><span class="t">Toiture &amp; façade</span></a><a class="sec" href="C8S3P1G.html"><span class="badge">C8S3</span><span class="t">Humidité &amp; moisissures</span></a></div>
 
-    <a class="page" href="C1S1P1G.html">
-      <div class="page-top">
-        <span class="badge g">C1S1P1G</span>
-        <span class="page-title">Électricité</span>
-        <span class="side">page gauche</span>
-      </div>
-      <p class="info">Concerne toutes les infos sur l'électricité.</p>
-    </a>
-
-    <a class="page" href="C1S1P2D.html">
-      <div class="page-top">
-        <span class="badge d">C1S1P2D</span>
-        <span class="page-title">Explications générales</span>
-        <span class="side">page droite</span>
-      </div>
-      <p class="info">Explications en gros (FR / EN / NL).</p>
-    </a>
-
-    <a class="page" href="C1S1P3G.html">
-      <div class="page-top">
-        <span class="badge g">C1S1P3G</span>
-        <span class="page-title">Images</span>
-        <span class="side">page gauche</span>
-      </div>
-      <p class="info">Tableau, gaines, prises, luminaires, appareils…</p>
-    </a>
-
-    <a class="page" href="C1S1P4D.html">
-      <div class="page-top">
-        <span class="badge d">C1S1P4D</span>
-        <span class="page-title">Acheminement électrique</span>
-        <span class="side">page droite</span>
-      </div>
-      <p class="info">Texte explicatif : acheminement total depuis les fusibles EDF.</p>
-    </a>
-  </div>
-
-  <!-- ================= SUITE ================= -->
-  <div class="chapter">
-    <h2>Chapitres suivants</h2>
-    <p class="ch-code">C2, C3, C4…</p>
-    <div class="todo">À compléter dès réception du PDF du livre 1 (mêmes chapitres).</div>
-  </div>
+  <footer>Arbre interne — livre technique trilingue · Roy van Mil</footer>
 
 </div>
 </body>
