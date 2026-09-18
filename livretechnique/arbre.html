@@ -3,179 +3,66 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
 <title>Arbre du livre — Livre technique trilingue</title>
 <style>
-  :root{
-    --bg:#f4f7fa;
-    --surface:#ffffff;
-    --ink:#24313f;
-    --muted:#5b6b7a;
-    --line:#e2e9f0;
-    --fr:#2a6cb8;
-    --en:#2e9e5b;
-    --nl:#e08a2a;
-    --g:#2a6cb8;      /* gauche  */
-    --d:#7a5230;      /* droite  */
-    --g-soft:#eaf1fa;
-    --d-soft:#f3ede6;
-  }
-  *{box-sizing:border-box;}
-  body{
-    margin:0;background:var(--bg);color:var(--ink);
-    font-family:"Segoe UI",system-ui,-apple-system,sans-serif;
-    line-height:1.55;padding:40px 20px;
-  }
-  .wrap{max-width:820px;margin:0 auto;}
-  header{margin-bottom:26px;}
+  :root{ --bg:#f4f7fa; --ink:#24313f; --muted:#5b6b7a; --line:#e2e9f0; --fr:#2a6cb8; }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--ink);font-family:"Segoe UI",system-ui,-apple-system,sans-serif;line-height:1.5;padding:40px 20px;}
+  .wrap{max-width:880px;margin:0 auto;}
+  header{margin-bottom:22px;}
   h1{font-size:28px;font-weight:600;margin:0 0 4px;letter-spacing:-.3px;}
   .sub{color:var(--muted);margin:0;font-size:15px;}
   a.back{display:inline-block;margin-top:14px;color:var(--fr);text-decoration:none;font-weight:500;font-size:14px;}
   a.back:hover{text-decoration:underline;}
-
-  .legend{
-    background:var(--surface);border:1px solid var(--line);border-radius:14px;
-    padding:16px 20px;margin-bottom:22px;font-size:14px;color:var(--muted);
-  }
-  .legend b{color:var(--ink);}
+  .legend{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 18px;margin-bottom:20px;font-size:14px;color:var(--muted);}
   .legend code{background:#eef2f6;border-radius:6px;padding:1px 7px;font-family:"Consolas",monospace;color:#33475b;}
-
-  .chapter{
-    background:var(--surface);border:1px solid var(--line);border-radius:14px;
-    padding:20px 22px;margin-bottom:18px;
-  }
-  .chapter > h2{font-size:19px;font-weight:600;margin:0 0 4px;}
-  .chapter > .ch-code{font-size:13px;color:var(--muted);margin:0 0 16px;font-family:"Consolas",monospace;}
-
-  .page{
-    display:block;text-decoration:none;color:inherit;
-    border:1px solid var(--line);border-radius:12px;
-    padding:12px 14px;margin-top:10px;transition:background .12s;
-  }
-  .page:hover{background:#f7fafd;}
-  .page-top{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
-  .badge{
-    font-size:12px;font-weight:600;font-family:"Consolas",monospace;
-    border-radius:8px;padding:2px 9px;
-  }
-  .badge.g{background:var(--g-soft);color:var(--g);}
-  .badge.d{background:var(--d-soft);color:var(--d);}
-  .page-title{font-weight:600;font-size:15px;}
-  .side{font-size:12px;color:var(--muted);}
-  .info{font-size:13px;color:var(--muted);margin:7px 0 0;}
-
-  .todo{
-    text-align:center;color:var(--muted);font-size:14px;
-    border:1px dashed var(--line);border-radius:12px;padding:18px;margin-top:10px;
-  }
+  .chapter{background:#fff;border:1px solid var(--line);border-left:6px solid var(--ch);border-radius:14px;padding:16px 18px 18px;margin-bottom:16px;}
+  .ch-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px;}
+  .ch-n{font-family:"Consolas",monospace;font-weight:700;font-size:13px;color:#fff;background:var(--ch);border-radius:8px;padding:2px 9px;}
+  .ch-head h2{font-size:18px;font-weight:700;margin:0;color:var(--ch);}
+  .statut{font-size:11px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:2px 9px;}
+  .count{margin-left:auto;font-size:12px;color:var(--muted);}
+  .pair{margin-top:14px;padding-left:6px;border-left:2px dashed #e2e9f0;}
+  a.sec{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit;border:1px solid var(--line);border-radius:10px;padding:8px 12px;margin-top:6px;transition:background .12s;}
+  a.sec:hover{background:#f7fafd;}
+  a.sec.d{margin-left:34px;background:#fbfcfd;}
+  a.sec.d .badge{color:#e08a2a;}
+  .badge{font-family:"Consolas",monospace;font-size:12px;font-weight:700;color:var(--ch);background:#f2f5f8;border-radius:7px;padding:2px 8px;flex:0 0 auto;}
+  .t{font-size:14px;font-weight:500;}
+  .info{font-size:12.5px;color:var(--muted);margin:4px 0 0 12px;padding-left:10px;border-left:2px solid var(--line);}
+  footer{color:var(--muted);font-size:13px;text-align:center;margin-top:26px;}
 </style>
 </head>
 <body>
 <div class="wrap">
-
   <header>
     <h1>Arbre du livre</h1>
-    <p class="sub">Sommaire cliquable — code, titre et info de chaque page</p>
+    <p class="sub">Sommaire cliquable — 83 sections · chaque double-page : <b>G</b> (image) + <b>D</b> (texte)</p>
     <a class="back" href="admin.html">← Fiche technique (admin)</a>
   </header>
-
   <div class="legend">
-    Codage : <code>C{chapitre}S{section}P{page}</code> + <b>G</b> (gauche) ou <b>D</b> (droite).
-    <code>C0S0P0</code> = index et pages avant le chapitre 1. Chaque ligne renvoie vers son fichier HTML.
+    Codage : <code>C{chapitre}S{section}P{page}</code> + <b>G</b> (gauche/image) / <b>D</b> (droite/texte).
+    Le <b>G</b> et le <b>D</b> décalé juste dessous forment <b>une double-page</b>. <code>C0</code> = index &amp; intro.
+    Les pages n'existent pas encore → liens vides tant qu'on ne les crée pas.
   </div>
-
-  <!-- ================= C0 — AVANT LE CHAPITRE 1 ================= -->
-  <div class="chapter">
-    <h2>Index &amp; pages d'introduction</h2>
-    <p class="ch-code">C0 · avant le chapitre 1</p>
-
-    <a class="page" href="C0S0P1G.html">
-      <div class="page-top">
-        <span class="badge g">C0S0P1G</span>
-        <span class="page-title">Mentions</span>
-        <span class="side">page gauche</span>
-      </div>
-      <p class="info">Copyright, ISBN, dépôt légal, mention IA + responsabilité (FR / EN / NL).</p>
-    </a>
-
-    <a class="page" href="C0S0P1D.html">
-      <div class="page-top">
-        <span class="badge d">C0S0P1D</span>
-        <span class="page-title">Page de titre</span>
-        <span class="side">page droite</span>
-      </div>
-      <p class="info">Titre « Explique-moi, Roy… » + auteur + sites web.</p>
-    </a>
-
-    <a class="page" href="C0S0P2G.html">
-      <div class="page-top">
-        <span class="badge g">C0S0P2G</span>
-        <span class="page-title">Image — le grand jour</span>
-        <span class="side">page gauche</span>
-      </div>
-      <p class="info">Couple coupant le ruban « VENDU » devant la maison.</p>
-    </a>
-
-    <a class="page" href="C0S0P2D.html">
-      <div class="page-top">
-        <span class="badge d">C0S0P2D</span>
-        <span class="page-title">Pourquoi ce livre ?</span>
-        <span class="side">page droite</span>
-      </div>
-      <p class="info">Ce que le livre apporte, sans jargon (FR / EN / NL).</p>
-    </a>
-
-    <div class="todo">C0S0P3 à venir — dessins de pannes + accroche « Que faut-il vérifier ? ».</div>
+  <div class="chapter" style="--ch:#5b6b7a">
+    <div class="ch-head"><span class="ch-n">C0</span><h2>Index &amp; intro</h2><span class="statut">en cours</span></div>
+    <div class="pair">
+      <a class="sec g" href="C0S0P1G.html"><span class="badge">C0S0P1G</span><span class="t"><b>Mentions</b> — © / ISBN / dépôt légal / IA + responsabilité (FR·EN·NL)</span></a>
+      <a class="sec d" href="C0S0P1D.html"><span class="badge">C0S0P1D</span><span class="t"><b>Page de titre</b> — « Explique-moi, Roy… » + auteur + sites</span></a>
+    </div>
+    <div class="pair">
+      <a class="sec g" href="C0S0P2G.html"><span class="badge">C0S0P2G</span><span class="t"><b>Image</b> — couple &amp; ruban « VENDU » devant la maison</span></a>
+      <a class="sec d" href="C0S0P2D.html"><span class="badge">C0S0P2D</span><span class="t"><b>Pourquoi ce livre ?</b> (FR·EN·NL)</span></a>
+    </div>
+    <div class="pair">
+      <a class="sec g" href="C0S0P3G.html"><span class="badge">C0S0P3G</span><span class="t"><b>Image</b> — dessins de pannes (à venir)</span></a>
+      <a class="sec d" href="C0S0P3D.html"><span class="badge">C0S0P3D</span><span class="t"><b>Accroche</b> — « Que faut-il vérifier ? » (à venir)</span></a>
+    </div>
   </div>
-
-  <!-- ================= C1 — ÉLECTRICITÉ (DÉMO) ================= -->
-  <div class="chapter">
-    <h2>Électricité</h2>
-    <p class="ch-code">C1S1 · exemple de démonstration</p>
-
-    <a class="page" href="C1S1P1G.html">
-      <div class="page-top">
-        <span class="badge g">C1S1P1G</span>
-        <span class="page-title">Électricité</span>
-        <span class="side">page gauche</span>
-      </div>
-      <p class="info">Concerne toutes les infos sur l'électricité.</p>
-    </a>
-
-    <a class="page" href="C1S1P2D.html">
-      <div class="page-top">
-        <span class="badge d">C1S1P2D</span>
-        <span class="page-title">Explications générales</span>
-        <span class="side">page droite</span>
-      </div>
-      <p class="info">Explications en gros (FR / EN / NL).</p>
-    </a>
-
-    <a class="page" href="C1S1P3G.html">
-      <div class="page-top">
-        <span class="badge g">C1S1P3G</span>
-        <span class="page-title">Images</span>
-        <span class="side">page gauche</span>
-      </div>
-      <p class="info">Tableau, gaines, prises, luminaires, appareils…</p>
-    </a>
-
-    <a class="page" href="C1S1P4D.html">
-      <div class="page-top">
-        <span class="badge d">C1S1P4D</span>
-        <span class="page-title">Acheminement électrique</span>
-        <span class="side">page droite</span>
-      </div>
-      <p class="info">Texte explicatif : acheminement total depuis les fusibles EDF.</p>
-    </a>
-  </div>
-
-  <!-- ================= SUITE ================= -->
-  <div class="chapter">
-    <h2>Chapitres suivants</h2>
-    <p class="ch-code">C2, C3, C4…</p>
-    <div class="todo">À compléter dès réception du PDF du livre 1 (mêmes chapitres).</div>
-  </div>
-
+  <div class="chapter" style="--ch:#c8682a"><div class="ch-head"><span class="ch-n">C1</span><h2>Électricité</h2><span class="statut">défini</span><span class="count">9 sections</span></div><div class="pair"><a class="sec g" href="C1S1P1G.html"><span class="badge">C1S1P1G</span><span class="t"><b>Image</b> — EDF : fusibles, compteur &amp; différentiel 500 mA</span></a><div class="info">Point de départ de l'installation de l'électricien</div><a class="sec d" href="C1S1P1D.html"><span class="badge">C1S1P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C1S2P1G.html"><span class="badge">C1S2P1G</span><span class="t"><b>Image</b> — Monophasé / triphasé</span></a><a class="sec d" href="C1S2P1D.html"><span class="badge">C1S2P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C1S3P1G.html"><span class="badge">C1S3P1G</span><span class="t"><b>Image</b> — Le tableau électrique</span></a><a class="sec d" href="C1S3P1D.html"><span class="badge">C1S3P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C1S4P1G.html"><span class="badge">C1S4P1G</span><span class="t"><b>Image</b> — Rôle des différentiels 30 mA &amp; des disjoncteurs</span></a><a class="sec d" href="C1S4P1D.html"><span class="badge">C1S4P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C1S5P1G.html"><span class="badge">C1S5P1G</span><span class="t"><b>Image</b> — Les circuits électriques (dont 6 mm² / 32 A plaque)</span></a><a class="sec d" href="C1S5P1D.html"><span class="badge">C1S5P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C1S6P1G.html"><span class="badge">C1S6P1G</span><span class="t"><b>Image</b> — Mise à la terre</span></a><a class="sec d" href="C1S6P1D.html"><span class="badge">C1S6P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C1S7P1G.html"><span class="badge">C1S7P1G</span><span class="t"><b>Image</b> — Câbles à prévoir (futur) : portail, interphone</span></a><a class="sec d" href="C1S7P1D.html"><span class="badge">C1S7P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C1S8P1G.html"><span class="badge">C1S8P1G</span><span class="t"><b>Image</b> — Voiture électrique : gros câble, disjoncteur + différentiel dédiés, prise renforcée</span></a><a class="sec d" href="C1S8P1D.html"><span class="badge">C1S8P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C1S9P1G.html"><span class="badge">C1S9P1G</span><span class="t"><b>Image</b> — Parafoudre</span></a><a class="sec d" href="C1S9P1D.html"><span class="badge">C1S9P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div></div><div class="chapter" style="--ch:#2a6cb8"><div class="ch-head"><span class="ch-n">C2</span><h2>Plomberie</h2><span class="statut">défini</span><span class="count">10 sections</span></div><div class="pair"><a class="sec g" href="C2S1P1G.html"><span class="badge">C2S1P1G</span><span class="t"><b>Image</b> — Arrivée d'eau : compteur, vanne générale, clapet anti-pollution</span></a><div class="info">Fuite ? Regardez la petite roue du compteur</div><a class="sec d" href="C2S1P1D.html"><span class="badge">C2S1P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C2S2P1G.html"><span class="badge">C2S2P1G</span><span class="t"><b>Image</b> — Vanne de coupure générale + réducteur de pression</span></a><a class="sec d" href="C2S2P1D.html"><span class="badge">C2S2P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C2S3P1G.html"><span class="badge">C2S3P1G</span><span class="t"><b>Image</b> — Les tuyaux : PER, multicouche, cuivre, PE</span></a><a class="sec d" href="C2S3P1D.html"><span class="badge">C2S3P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C2S4P1G.html"><span class="badge">C2S4P1G</span><span class="t"><b>Image</b> — Vanne ouverte ou fermée ? (+ penser à la vanne générale)</span></a><a class="sec d" href="C2S4P1D.html"><span class="badge">C2S4P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C2S5P1G.html"><span class="badge">C2S5P1G</span><span class="t"><b>Image</b> — Filtres</span></a><a class="sec d" href="C2S5P1D.html"><span class="badge">C2S5P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C2S6P1G.html"><span class="badge">C2S6P1G</span><span class="t"><b>Image</b> — Adoucisseurs &amp; fonctionnement</span></a><a class="sec d" href="C2S6P1D.html"><span class="badge">C2S6P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C2S7P1G.html"><span class="badge">C2S7P1G</span><span class="t"><b>Image</b> — Eau chaude sanitaire : électrique, thermodynamique, gaz…</span></a><a class="sec d" href="C2S7P1D.html"><span class="badge">C2S7P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C2S8P1G.html"><span class="badge">C2S8P1G</span><span class="t"><b>Image</b> — Légionelles</span></a><a class="sec d" href="C2S8P1D.html"><span class="badge">C2S8P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C2S9P1G.html"><span class="badge">C2S9P1G</span><span class="t"><b>Image</b> — Dimensions des tuyaux (petit = faible débit / gros = trop d'eau froide)</span></a><a class="sec d" href="C2S9P1D.html"><span class="badge">C2S9P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C2S10P1G.html"><span class="badge">C2S10P1G</span><span class="t"><b>Image</b> — Boucle d'eau chaude</span></a><a class="sec d" href="C2S10P1D.html"><span class="badge">C2S10P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div></div><div class="chapter" style="--ch:#7a5230"><div class="ch-head"><span class="ch-n">C3</span><h2>Évacuations</h2><span class="statut">défini</span><span class="count">8 sections</span></div><div class="pair"><a class="sec g" href="C3S1P1G.html"><span class="badge">C3S1P1G</span><span class="t"><b>Image</b> — Tout-à-l'égout (simple)</span></a><a class="sec d" href="C3S1P1D.html"><span class="badge">C3S1P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C3S2P1G.html"><span class="badge">C3S2P1G</span><span class="t"><b>Image</b> — ANC : fosse septique (ancienne, bac à graisses) ou toutes eaux</span></a><div class="info">Eau de pluie interdite</div><a class="sec d" href="C3S2P1D.html"><span class="badge">C3S2P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C3S3P1G.html"><span class="badge">C3S3P1G</span><span class="t"><b>Image</b> — PVC extérieurs</span></a><a class="sec d" href="C3S3P1D.html"><span class="badge">C3S3P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C3S4P1G.html"><span class="badge">C3S4P1G</span><span class="t"><b>Image</b> — Évacuations intérieures</span></a><a class="sec d" href="C3S4P1D.html"><span class="badge">C3S4P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C3S5P1G.html"><span class="badge">C3S5P1G</span><span class="t"><b>Image</b> — Siphons</span></a><a class="sec d" href="C3S5P1D.html"><span class="badge">C3S5P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C3S6P1G.html"><span class="badge">C3S6P1G</span><span class="t"><b>Image</b> — Aération &amp; pressions</span></a><a class="sec d" href="C3S6P1D.html"><span class="badge">C3S6P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C3S7P1G.html"><span class="badge">C3S7P1G</span><span class="t"><b>Image</b> — Rincer ! Pas assez d'eau = stagnation, début des bouchons</span></a><div class="info">Remplir l'évier et vider d'un coup</div><a class="sec d" href="C3S7P1D.html"><span class="badge">C3S7P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C3S8P1G.html"><span class="badge">C3S8P1G</span><span class="t"><b>Image</b> — Bactéries ! Elles aident — pas de chlore, des bactéries</span></a><a class="sec d" href="C3S8P1D.html"><span class="badge">C3S8P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div></div><div class="chapter" style="--ch:#2a9db8"><div class="ch-head"><span class="ch-n">C4</span><h2>Ventilation</h2><span class="statut">défini</span><span class="count">7 sections</span></div><div class="pair"><a class="sec g" href="C4S1P1G.html"><span class="badge">C4S1P1G</span><span class="t"><b>Image</b> — Hygrométrie : humidité absolue / relative — pourquoi chauffer ET ventiler</span></a><a class="sec d" href="C4S1P1D.html"><span class="badge">C4S1P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C4S2P1G.html"><span class="badge">C4S2P1G</span><span class="t"><b>Image</b> — VMC simple flux</span></a><a class="sec d" href="C4S2P1D.html"><span class="badge">C4S2P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C4S3P1G.html"><span class="badge">C4S3P1G</span><span class="t"><b>Image</b> — VMC double flux</span></a><a class="sec d" href="C4S3P1D.html"><span class="badge">C4S3P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C4S4P1G.html"><span class="badge">C4S4P1G</span><span class="t"><b>Image</b> — Les entrées d'air</span></a><a class="sec d" href="C4S4P1D.html"><span class="badge">C4S4P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C4S5P1G.html"><span class="badge">C4S5P1G</span><span class="t"><b>Image</b> — Ventiler ou aérer : la différence</span></a><a class="sec d" href="C4S5P1D.html"><span class="badge">C4S5P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C4S6P1G.html"><span class="badge">C4S6P1G</span><span class="t"><b>Image</b> — Le corps humain rejette eau &amp; CO₂</span></a><a class="sec d" href="C4S6P1D.html"><span class="badge">C4S6P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C4S7P1G.html"><span class="badge">C4S7P1G</span><span class="t"><b>Image</b> — Nettoyage des bouches de VMC (test feuille PQ) + nettoyage du bloc VMC</span></a><a class="sec d" href="C4S7P1D.html"><span class="badge">C4S7P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div></div><div class="chapter" style="--ch:#b83a2a"><div class="ch-head"><span class="ch-n">C5</span><h2>Chauffage</h2><span class="statut">défini</span><span class="count">19 sections</span></div><div class="pair"><a class="sec g" href="C5S1P1G.html"><span class="badge">C5S1P1G</span><span class="t"><b>Image</b> — Chauffer : convection, rayonnement… (explications)</span></a><a class="sec d" href="C5S1P1D.html"><span class="badge">C5S1P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C5S2P1G.html"><span class="badge">C5S2P1G</span><span class="t"><b>Image</b> — Chauffage électrique : tableau, câble, sortie de câble, radiateurs</span></a><div class="info">Interdit sur prise — la durée fait chauffer</div><a class="sec d" href="C5S2P1D.html"><span class="badge">C5S2P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C5S3P1G.html"><span class="badge">C5S3P1G</span><span class="t"><b>Image</b> — Radiateurs élec : grille-pain, rayonnant, chaleur douce</span></a><a class="sec d" href="C5S3P1D.html"><span class="badge">C5S3P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C5S4P1G.html"><span class="badge">C5S4P1G</span><span class="t"><b>Image</b> — Sèche-serviettes électriques (option soufflant)</span></a><a class="sec d" href="C5S4P1D.html"><span class="badge">C5S4P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C5S5P1G.html"><span class="badge">C5S5P1G</span><span class="t"><b>Image</b> — Chauffage par air chaud : soufflant ou clim réversible</span></a><a class="sec d" href="C5S5P1D.html"><span class="badge">C5S5P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C5S6P1G.html"><span class="badge">C5S6P1G</span><span class="t"><b>Image</b> — Chauffage par eau : radiateurs ou PCBT</span></a><a class="sec d" href="C5S6P1D.html"><span class="badge">C5S6P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C5S7P1G.html"><span class="badge">C5S7P1G</span><span class="t"><b>Image</b> — Quel appareil pour chauffer l'eau ? fioul, gaz, PAC…</span></a><a class="sec d" href="C5S7P1D.html"><span class="badge">C5S7P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C5S8P1G.html"><span class="badge">C5S8P1G</span><span class="t"><b>Image</b> — Chaudière fioul : normal ou condensation</span></a><a class="sec d" href="C5S8P1D.html"><span class="badge">C5S8P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C5S9P1G.html"><span class="badge">C5S9P1G</span><span class="t"><b>Image</b> — Biofioul &amp; règles ; ancienne chaudière fioul (remplacement interdit)</span></a><a class="sec d" href="C5S9P1D.html"><span class="badge">C5S9P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C5S10P1G.html"><span class="badge">C5S10P1G</span><span class="t"><b>Image</b> — Chaudière gaz : gaz ou condensation</span></a><a class="sec d" href="C5S10P1D.html"><span class="badge">C5S10P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C5S11P1G.html"><span class="badge">C5S11P1G</span><span class="t"><b>Image</b> — Chaudière ou poêle à granulés (conduits étanches)</span></a><a class="sec d" href="C5S11P1D.html"><span class="badge">C5S11P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C5S12P1G.html"><span class="badge">C5S12P1G</span><span class="t"><b>Image</b> — Poêle ou chaudière à bois : arrivée d'air frais</span></a><a class="sec d" href="C5S12P1D.html"><span class="badge">C5S12P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C5S13P1G.html"><span class="badge">C5S13P1G</span><span class="t"><b>Image</b> — Le triangle du feu (combustible + comburant + chaleur)</span></a><a class="sec d" href="C5S13P1D.html"><span class="badge">C5S13P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C5S14P1G.html"><span class="badge">C5S14P1G</span><span class="t"><b>Image</b> — PAC air/eau (aérothermie) — unité extérieure, ECS incluse</span></a><a class="sec d" href="C5S14P1D.html"><span class="badge">C5S14P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C5S15P1G.html"><span class="badge">C5S15P1G</span><span class="t"><b>Image</b> — PAC eau/eau (géothermie) — forage, ECS incluse</span></a><a class="sec d" href="C5S15P1D.html"><span class="badge">C5S15P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C5S16P1G.html"><span class="badge">C5S16P1G</span><span class="t"><b>Image</b> — Chauffage par eau : filtres, aimants, boues, algues</span></a><a class="sec d" href="C5S16P1D.html"><span class="badge">C5S16P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C5S17P1G.html"><span class="badge">C5S17P1G</span><span class="t"><b>Image</b> — Circuit hydraulique : purgeurs, pompes (gommage), remplissage, disconnecteur</span></a><a class="sec d" href="C5S17P1D.html"><span class="badge">C5S17P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C5S18P1G.html"><span class="badge">C5S18P1G</span><span class="t"><b>Image</b> — Thermostats : filaire, sans fil, têtes thermostatiques</span></a><a class="sec d" href="C5S18P1D.html"><span class="badge">C5S18P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C5S19P1G.html"><span class="badge">C5S19P1G</span><span class="t"><b>Image</b> — Inhibiteurs &amp; désembouage</span></a><a class="sec d" href="C5S19P1D.html"><span class="badge">C5S19P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div></div><div class="chapter" style="--ch:#2a8a5a"><div class="ch-head"><span class="ch-n">C6</span><h2>Climatisation</h2><span class="statut">défini</span><span class="count">5 sections</span></div><div class="pair"><a class="sec g" href="C6S1P1G.html"><span class="badge">C6S1P1G</span><span class="t"><b>Image</b> — Réversible air/air — mural / console</span></a><a class="sec d" href="C6S1P1D.html"><span class="badge">C6S1P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C6S2P1G.html"><span class="badge">C6S2P1G</span><span class="t"><b>Image</b> — Gainable</span></a><a class="sec d" href="C6S2P1D.html"><span class="badge">C6S2P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C6S3P1G.html"><span class="badge">C6S3P1G</span><span class="t"><b>Image</b> — Entretien à faire soi-même : filtres, condensats, échangeur extérieur</span></a><a class="sec d" href="C6S3P1D.html"><span class="badge">C6S3P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C6S4P1G.html"><span class="badge">C6S4P1G</span><span class="t"><b>Image</b> — Entretien par un pro : démontage, nettoyage, contrôle pressions &amp; surchauffe</span></a><a class="sec d" href="C6S4P1D.html"><span class="badge">C6S4P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C6S5P1G.html"><span class="badge">C6S5P1G</span><span class="t"><b>Image</b> — Fluides frigorigènes : futur R290 &amp; autres</span></a><div class="info">Circuit fermé, GWP de plus en plus faible</div><a class="sec d" href="C6S5P1D.html"><span class="badge">C6S5P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div></div><div class="chapter" style="--ch:#3a7a86"><div class="ch-head"><span class="ch-n">C7</span><h2>Isolation &amp; Inertie</h2><span class="statut">défini</span><span class="count">6 sections</span></div><div class="pair"><a class="sec g" href="C7S1P1G.html"><span class="badge">C7S1P1G</span><span class="t"><b>Image</b> — Murs en pierre : lourds, beaucoup d'inertie, déphasage</span></a><a class="sec d" href="C7S1P1D.html"><span class="badge">C7S1P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C7S2P1G.html"><span class="badge">C7S2P1G</span><span class="t"><b>Image</b> — Murs en bois : légers, sans inertie</span></a><a class="sec d" href="C7S2P1D.html"><span class="badge">C7S2P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C7S3P1G.html"><span class="badge">C7S3P1G</span><span class="t"><b>Image</b> — L'isolant : son rôle</span></a><a class="sec d" href="C7S3P1D.html"><span class="badge">C7S3P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C7S4P1G.html"><span class="badge">C7S4P1G</span><span class="t"><b>Image</b> — Retarder : la chaleur qui s'échappe / le froid qui rentre</span></a><a class="sec d" href="C7S4P1D.html"><span class="badge">C7S4P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C7S5P1G.html"><span class="badge">C7S5P1G</span><span class="t"><b>Image</b> — Fibre de verre, laine de roche, laine de bois</span></a><a class="sec d" href="C7S5P1D.html"><span class="badge">C7S5P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C7S6P1G.html"><span class="badge">C7S6P1G</span><span class="t"><b>Image</b> — Attention à l'humidité ! Elle annule l'isolant</span></a><a class="sec d" href="C7S6P1D.html"><span class="badge">C7S6P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div></div><div class="chapter" style="--ch:#5a7d3f"><div class="ch-head"><span class="ch-n">C8</span><h2>Portes &amp; Fenêtres</h2><span class="statut">défini</span><span class="count">4 sections</span></div><div class="pair"><a class="sec g" href="C8S1P1G.html"><span class="badge">C8S1P1G</span><span class="t"><b>Image</b> — Double ou triple vitrage</span></a><a class="sec d" href="C8S1P1D.html"><span class="badge">C8S1P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C8S2P1G.html"><span class="badge">C8S2P1G</span><span class="t"><b>Image</b> — Matériaux : bois, PVC, alu…</span></a><a class="sec d" href="C8S2P1D.html"><span class="badge">C8S2P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C8S3P1G.html"><span class="badge">C8S3P1G</span><span class="t"><b>Image</b> — Les ponts thermiques autour des menuiseries</span></a><a class="sec d" href="C8S3P1D.html"><span class="badge">C8S3P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C8S4P1G.html"><span class="badge">C8S4P1G</span><span class="t"><b>Image</b> — La trappe du grenier : isolée ?</span></a><div class="info">Sinon le froid descend</div><a class="sec d" href="C8S4P1D.html"><span class="badge">C8S4P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div></div><div class="chapter" style="--ch:#6a3ab8"><div class="ch-head"><span class="ch-n">C9</span><h2>Internet &amp; Réseau</h2><span class="statut">défini</span><span class="count">6 sections</span></div><div class="pair"><a class="sec g" href="C9S1P1G.html"><span class="badge">C9S1P1G</span><span class="t"><b>Image</b> — Fini l'ADSL, la Fibre</span></a><a class="sec d" href="C9S1P1D.html"><span class="badge">C9S1P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C9S2P1G.html"><span class="badge">C9S2P1G</span><span class="t"><b>Image</b> — De la rue à la box</span></a><a class="sec d" href="C9S2P1D.html"><span class="badge">C9S2P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C9S3P1G.html"><span class="badge">C9S3P1G</span><span class="t"><b>Image</b> — Le WiFi</span></a><a class="sec d" href="C9S3P1D.html"><span class="badge">C9S3P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C9S4P1G.html"><span class="badge">C9S4P1G</span><span class="t"><b>Image</b> — Câbles réseau (Cat5 / 6 / 6a)</span></a><a class="sec d" href="C9S4P1D.html"><span class="badge">C9S4P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C9S5P1G.html"><span class="badge">C9S5P1G</span><span class="t"><b>Image</b> — Mesh ou POE</span></a><a class="sec d" href="C9S5P1D.html"><span class="badge">C9S5P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C9S6P1G.html"><span class="badge">C9S6P1G</span><span class="t"><b>Image</b> — Starlink</span></a><a class="sec d" href="C9S6P1D.html"><span class="badge">C9S6P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div></div><div class="chapter" style="--ch:#c62828"><div class="ch-head"><span class="ch-n">C10</span><h2>Détecteurs &amp; Sécurité</h2><span class="statut">défini</span><span class="count">6 sections</span></div><div class="pair"><a class="sec g" href="C10S1P1G.html"><span class="badge">C10S1P1G</span><span class="t"><b>Image</b> — Détecteurs de fumée : optique (l'ionique est interdit)</span></a><a class="sec d" href="C10S1P1D.html"><span class="badge">C10S1P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C10S2P1G.html"><span class="badge">C10S2P1G</span><span class="t"><b>Image</b> — Détecteur de monoxyde (CO)</span></a><a class="sec d" href="C10S2P1D.html"><span class="badge">C10S2P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C10S3P1G.html"><span class="badge">C10S3P1G</span><span class="t"><b>Image</b> — Détecteur d'eau (fuite)</span></a><a class="sec d" href="C10S3P1D.html"><span class="badge">C10S3P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C10S4P1G.html"><span class="badge">C10S4P1G</span><span class="t"><b>Image</b> — Extincteur ABC 6 kg — près de la porte de sortie !</span></a><a class="sec d" href="C10S4P1D.html"><span class="badge">C10S4P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C10S5P1G.html"><span class="badge">C10S5P1G</span><span class="t"><b>Image</b> — Coffret de premiers secours + fiche numéros d'urgence</span></a><a class="sec d" href="C10S5P1D.html"><span class="badge">C10S5P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C10S6P1G.html"><span class="badge">C10S6P1G</span><span class="t"><b>Image</b> — Bougies &amp; lampe torche (coupure de courant)</span></a><a class="sec d" href="C10S6P1D.html"><span class="badge">C10S6P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div></div><div class="chapter" style="--ch:#b8922a"><div class="ch-head"><span class="ch-n">C11</span><h2>Bon sens &amp; Confort</h2><span class="statut">base livre 1 · à étoffer</span><span class="count">3 sections</span></div><div class="pair"><a class="sec g" href="C11S1P1G.html"><span class="badge">C11S1P1G</span><span class="t"><b>Image</b> — Orientation (soleil / fenêtres)</span></a><a class="sec d" href="C11S1P1D.html"><span class="badge">C11S1P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C11S2P1G.html"><span class="badge">C11S2P1G</span><span class="t"><b>Image</b> — Toiture &amp; façade</span></a><a class="sec d" href="C11S2P1D.html"><span class="badge">C11S2P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div><div class="pair"><a class="sec g" href="C11S3P1G.html"><span class="badge">C11S3P1G</span><span class="t"><b>Image</b> — Humidité &amp; moisissures</span></a><a class="sec d" href="C11S3P1D.html"><span class="badge">C11S3P1D</span><span class="t">Texte (FR / EN / NL)</span></a></div></div>
+  <footer>Arbre interne — livre technique trilingue · Roy van Mil</footer>
 </div>
 </body>
 </html>
