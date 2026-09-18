@@ -39,7 +39,10 @@
   .bubble.fr{background:var(--fr-soft);} .bubble.fr .lbl{color:var(--fr);}
   .bubble.en{background:var(--en-soft);} .bubble.en .lbl{color:var(--en);}
   .bubble.nl{background:var(--nl-soft);} .bubble.nl .lbl{color:var(--nl);}
-  a.arbre{display:inline-block;color:var(--fr);text-decoration:none;font-weight:500;border:1px solid var(--fr);border-radius:10px;padding:8px 16px;margin-top:4px;}
+  .chapters{display:grid;gap:6px;margin-top:4px;}
+  .chapline{font-size:14px;}
+  .chapline b{font-family:"Consolas",monospace;color:#33475b;}
+  a.arbre{display:inline-block;color:var(--fr);text-decoration:none;font-weight:500;border:1px solid var(--fr);border-radius:10px;padding:8px 16px;margin-top:10px;}
   a.arbre:hover{background:var(--fr-soft);}
   footer{color:var(--muted);font-size:13px;text-align:center;margin-top:28px;}
 </style>
@@ -48,8 +51,8 @@
 <div class="wrap">
 
   <header>
-    <h1>Explique-moi, Roy…<span class="tag">titre provisoire</span></h1>
-    <p class="sub">Fiche technique &amp; mémoire du projet — livre technique trilingue</p>
+    <h1>Livre technique trilingue<span class="tag">titre à finaliser</span></h1>
+    <p class="sub">Fiche technique &amp; mémoire du projet</p>
     <div class="langs">
       <span class="chip"><span class="dot fr"></span>Français — bleu</span>
       <span class="chip"><span class="dot en"></span>English — vert</span>
@@ -66,17 +69,18 @@
     <p style="margin:16px 0 6px;font-weight:600;">Principes fixes</p>
     <ul>
       <li><strong>1 fichier HTML = 1 page = 1 page PDF</strong> A4 portrait. Le HTML est la source unique.</li>
-      <li><strong>Nommage strict :</strong> code en <strong>MAJUSCULES</strong> + <code>.html</code> en minuscules. Ex. <code>C1S2P2D.html</code> (le web est sensible à la casse).</li>
-      <li><strong>Codage :</strong> <code>C{chapitre}S{section}P{page}</code> + <code>G</code> (gauche) ou <code>D</code> (droite). Début à <code>C0S0P0</code> (pages avant le chapitre 1).</li>
-      <li><strong>Page gauche (G)</strong> = images · <strong>Page droite (D)</strong> = les 3 bulles langues.</li>
+      <li><strong>Nommage strict :</strong> code en <strong>MAJUSCULES</strong> + <code>.html</code> minuscule (le web est sensible à la casse).</li>
+      <li><strong>Codage :</strong> <code>C{chapitre}S{section}P{page}</code> + <code>G</code> (gauche/image) ou <code>D</code> (droite/texte). Début à <code>C0</code> (index &amp; intro).</li>
+      <li><strong>Une double-page = <code>PnG</code> + <code>PnD</code></strong> (même numéro P). Ex. <code>C1S1P1G</code> (image) + <code>C1S1P1D</code> (texte). Tout est en <strong>P1</strong> pour l'instant ; <code>P2</code>, <code>P3</code>… seulement si un même sujet a besoin de pages en plus.</li>
       <li><strong>Livraison :</strong> Claude fournit toujours des <strong>fichiers complets</strong> (jamais de diff), et <strong>discute avant de coder</strong>, une étape à la fois.</li>
     </ul>
 
-    <p style="margin:16px 0 6px;font-weight:600;">Gabarit PAGE DROITE — validé ✅</p>
+    <p style="margin:16px 0 6px;font-weight:600;">Gabarit PAGE DROITE (texte) — validé ✅</p>
     <ul>
       <li>En-tête : <strong>titre en noir à gauche</strong> + <strong>code page à droite</strong>, fine ligne de séparation.</li>
       <li>Dessous : <strong>3 rectangles à bords arrondis</strong> qui remplissent toute la page, marges mini.</li>
       <li>Texte <strong>100 % HTML éditable</strong> (pas d'image), FR bleu / EN vert / NL orange, fond léger.</li>
+      <li><strong>Aperçu écran</strong> : la feuille se centre sur fond gris quand la page est ouverte seule (désactivé dans le lecteur visuels et à l'impression).</li>
     </ul>
 
     <p style="margin:16px 0 6px;font-weight:600;">Du HTML au PDF</p>
@@ -95,9 +99,8 @@
       <dt>Reliure</dt><dd>Relié, couverture dure (+ broché possible)</dd>
       <dt>Prix cible</dt><dd>~ 35 €</dd>
       <dt>Langues</dt><dd>Français, English, Nederlands (les 3 ensemble)</dd>
-      <dt>Inspiration</dt><dd>Livre 1 — « Cette maison, elle vaut vraiment le prix ? »</dd>
-      <dt>Chapitres</dt><dd>Les mêmes que le livre 1</dd>
-      <dt>Images</dt><dd>Les mêmes que le livre 1 (droits OK, auteur propriétaire)</dd>
+      <dt>Inspiration</dt><dd>Livre 1 — « Cette maison, elle vaut vraiment le prix ? » (étoffé)</dd>
+      <dt>Images</dt><dd>Réutilisation des images du livre 1 (droits OK, auteur propriétaire)</dd>
       <dt>ISBN</dt><dd>À attribuer</dd>
     </dl>
   </section>
@@ -105,82 +108,85 @@
   <section>
     <h2><span class="n">2</span>Titre &amp; sous-titres</h2>
     <dl>
-      <dt>Titre</dt><dd>« Explique-moi, Roy… » <em>(provisoire)</em></dd>
+      <dt>Titre (provisoire)</dt><dd>Forme question — page titre <code>C0S1</code></dd>
     </dl>
-    <p style="margin:14px 0 0;font-size:14px;color:var(--muted);">Sous-titre dans les 3 langues :</p>
     <div class="bubbles">
-      <div class="bubble fr"><span class="lbl">Français</span>J'ai acheté une maison. Et maintenant, je dois regarder quoi ?</div>
-      <div class="bubble en"><span class="lbl">English</span>I bought a house. Now, what do I need to check?</div>
-      <div class="bubble nl"><span class="lbl">Nederlands</span>Ik heb een huis gekocht. En nu, waar moet ik op letten?</div>
+      <div class="bubble fr"><span class="lbl">Français</span>Peux-tu m'expliquer, Roy ?</div>
+      <div class="bubble en"><span class="lbl">English</span>Can you explain it to me, Roy?</div>
+      <div class="bubble nl"><span class="lbl">Nederlands</span>Kun je het me uitleggen, Roy?</div>
     </div>
-    <p class="note">EN / NL à ajuster par Roy (néerlandophone) si besoin.</p>
+    <p style="margin:14px 0 4px;font-size:14px;color:var(--muted);">Accroche (page <code>C0S2</code>) :</p>
+    <div class="bubbles">
+      <div class="bubble fr"><span class="lbl">Français</span>Acheter une maison… sans surprises. Voici un livre plein d'infos, en 3 langues !</div>
+      <div class="bubble en"><span class="lbl">English</span>Buying a house… without surprises. Here's a book full of info, in 3 languages!</div>
+      <div class="bubble nl"><span class="lbl">Nederlands</span>Een huis kopen… zonder verrassingen. Een boek vol informatie, in 3 talen!</div>
+    </div>
+    <p class="note">L'accroche de l'index (page d'accueil visiteur) : « J'ai acheté une maison. Et maintenant, je dois regarder quoi ? » — à harmoniser. NL / EN à valider en natif.</p>
   </section>
 
   <section>
-    <h2><span class="n">3</span>Codage des pages</h2>
-    <dl>
-      <dt>Format du code</dt><dd><code>C{chapitre}S{section}P{page}</code> + <code>G</code> ou <code>D</code></dd>
-      <dt>Casse</dt><dd>Code en MAJUSCULES, <code>.html</code> en minuscules</dd>
-      <dt>Début</dt><dd><code>C0S0P0</code> = index + pages <em>avant</em> le chapitre 1</dd>
-      <dt>Exemple</dt><dd><code>C1S1P1G.html</code>, <code>C1S2P2D.html</code>…</dd>
-      <dt>Suffixe</dt><dd><code>G</code> = gauche (images) · <code>D</code> = droite (3 bulles)</dd>
-    </dl>
-  </section>
-
-  <section>
-    <h2><span class="n">4</span>Fichiers &amp; dossiers</h2>
+    <h2><span class="n">3</span>Fichiers &amp; dossiers</h2>
     <dl>
       <dt>Dossier</dt><dd><code>royvanmil.fr/livretechnique/</code> + sous-dossier <code>img/</code></dd>
-      <dt>Règle</dt><dd>1 HTML = 1 page = 1 PDF A4 portrait</dd>
+      <dt>Pages du livre</dt><dd><code>C1S1P1G.html</code>, <code>C1S1P1D.html</code>…</dd>
     </dl>
-    <p style="margin-top:14px;">Pages fixes du dossier (navigation — jamais imprimées) :</p>
+    <p style="margin-top:14px;">Pages fixes (navigation — jamais imprimées) :</p>
     <ul>
-      <li><code>index.html</code> — accueil (couvertures 1+4, bulle, boutons Feuilleter / Arbre)</li>
-      <li><code>arbre.html</code> — sommaire cliquable de tout le livre</li>
+      <li><code>index.html</code> — accueil visiteur (couvertures 1+4, bulle, boutons Feuilleter / Arbre)</li>
+      <li><code>arbre.html</code> — squelette / sommaire cliquable du livre</li>
       <li><code>visuels.html</code> — lecteur double-page (iframe G+D, flèches par paire, retour index)</li>
-      <li><code>admin.html</code> — cette fiche (mémoire du projet)</li>
+      <li><code>admin.html</code> — cette fiche (mise en page &amp; mémoire)</li>
     </ul>
+  </section>
+
+  <section>
+    <h2><span class="n">4</span>Structure du livre</h2>
+    <p style="font-size:14px;color:var(--muted);margin-bottom:8px;">11 chapitres · 83 sections (détail complet dans l'arbre) :</p>
+    <div class="chapters">
+      <div class="chapline"><b>C0</b> Index &amp; intro <em>(en cours)</em></div>
+      <div class="chapline"><b>C1</b> Électricité — 9</div>
+      <div class="chapline"><b>C2</b> Plomberie — 10</div>
+      <div class="chapline"><b>C3</b> Évacuations — 8</div>
+      <div class="chapline"><b>C4</b> Ventilation — 7</div>
+      <div class="chapline"><b>C5</b> Chauffage — 19</div>
+      <div class="chapline"><b>C6</b> Climatisation — 5</div>
+      <div class="chapline"><b>C7</b> Isolation &amp; Inertie — 6</div>
+      <div class="chapline"><b>C8</b> Portes &amp; Fenêtres — 4</div>
+      <div class="chapline"><b>C9</b> Internet &amp; Réseau — 6</div>
+      <div class="chapline"><b>C10</b> Détecteurs &amp; Sécurité — 6</div>
+      <div class="chapline"><b>C11</b> Bon sens &amp; Confort — 3 <em>(à étoffer)</em></div>
+    </div>
+    <a class="arbre" href="arbre.html">Ouvrir l'arbre →</a>
   </section>
 
   <section>
     <h2><span class="n">5</span>Couvertures &amp; mentions</h2>
     <dl>
-      <dt>1re de couverture</dt><dd>En couleur, jolie image + titre + les 3 sous-titres <em>(à faire)</em></dd>
+      <dt>1re de couverture</dt><dd>En couleur, image + titre + 3 sous-titres <em>(à faire)</em></dd>
       <dt>4e de couverture</dt><dd>En couleur, même esprit <em>(à faire)</em></dd>
-      <dt>Page mentions</dt><dd>Toutes les infos (auteur, ISBN, copyright…), bien lisible</dd>
-      <dt>Mention IA</dt><dd>Affichée lisiblement sur la page mentions — ex. <strong>« IA : Yes »</strong></dd>
+      <dt>Page mentions</dt><dd>Auteur, ISBN, copyright…, bien lisible</dd>
+      <dt>Mention IA</dt><dd>Affichée lisiblement — ex. <strong>« IA : Yes »</strong></dd>
     </dl>
   </section>
 
   <section>
     <h2><span class="n">6</span>Design du livre final</h2>
     <ul>
-      <li>Fond <strong>blanc</strong>, aéré</li>
-      <li>Couleurs <strong>claires et froides</strong></li>
-      <li>Bulles / rectangles à <strong>bords arrondis</strong>, fond couleur léger</li>
+      <li>Fond <strong>blanc</strong>, aéré · couleurs <strong>claires et froides</strong></li>
+      <li>Rectangles / bulles à <strong>bords arrondis</strong>, fond couleur léger</li>
       <li>Texte clair et lisible</li>
     </ul>
-    <div class="bubbles">
-      <div class="bubble fr"><span class="lbl">Français</span>Texte explicatif en français.</div>
-      <div class="bubble en"><span class="lbl">English</span>Explanatory text in English.</div>
-      <div class="bubble nl"><span class="lbl">Nederlands</span>Uitleg in het Nederlands.</div>
-    </div>
   </section>
 
   <section>
-    <h2><span class="n">7</span>Arbre du livre</h2>
-    <p>Sommaire cliquable de toutes les pages (code + titre + bulle info). Outil de navigation.</p>
-    <a class="arbre" href="arbre.html">Ouvrir l'arbre →</a>
-  </section>
-
-  <section>
-    <h2><span class="n">8</span>Journal d'avancement</h2>
+    <h2><span class="n">7</span>Journal d'avancement</h2>
     <ul>
-      <li>Concept, codage, couleurs et design validés.</li>
-      <li>Nommage strict fixé : CODE en MAJUSCULES + <code>.html</code>.</li>
-      <li>Pages fixes créées : index, arbre, visuels, admin.</li>
-      <li><strong>Gabarit page droite validé</strong> (en-tête + 3 rectangles arrondis pleine page) + chaîne HTML→PDF testée.</li>
-      <li>Prochaine étape : PDF du livre 1 → remplir l'arbre + créer les vraies pages.</li>
+      <li>Concept, codage, couleurs, design validés · nommage strict fixé.</li>
+      <li>Pages fixes en ligne : index, arbre, visuels, admin.</li>
+      <li>Gabarit page droite validé + chaîne HTML→PDF testée + aperçu centré.</li>
+      <li><strong>Arbre complet : 11 chapitres, 83 sections</strong> (C11 encore à étoffer).</li>
+      <li>1re page réelle faite : <code>C1S1P1D</code> (« L'arrivée EDF »).</li>
+      <li>Prochaine étape : images (via GPT/Gemini) + contenu section par section.</li>
     </ul>
   </section>
 
