@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>C0S0P4D</title>
+<style>
+  @page { size: A4 portrait; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background:#fff; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  body { font-family:"Trebuchet MS","Segoe UI",Arial,sans-serif; color:#1f2830; }
+
+  .page { width:210mm; height:297mm; background:#fff; padding:8mm; display:flex; flex-direction:column; }
+  .entete { display:flex; align-items:baseline; justify-content:space-between;
+    border-bottom:1.5px solid #d7dee5; padding-bottom:3mm; margin-bottom:4mm; }
+  .titre { font-size:16pt; font-weight:700; color:#000; }
+  .code  { font-size:11pt; font-weight:600; color:#5b6b7a; letter-spacing:.5px; }
+
+  /* Intro 3 langues (compacte) */
+  .intro { display:flex; flex-direction:column; gap:1.5mm; margin-bottom:5mm; }
+  .intro div { font-size:11pt; line-height:1.35; padding-left:4mm; border-left:2.5px solid; }
+  .intro .fr { color:#26506f; border-color:#2a6cb8; }
+  .intro .en { color:#286b45; border-color:#2e9e5b; }
+  .intro .nl { color:#8a5a1c; border-color:#e08a2a; }
+
+  /* Légende */
+  .legend { display:flex; gap:10mm; font-size:9.5pt; color:#5b6b7a; margin-bottom:3mm; }
+  .legend span { display:flex; align-items:center; gap:2mm; }
+  .chip { width:9px; height:9px; border-radius:2px; display:inline-block; }
+  .chip.inst { background:#2a6cb8; } .chip.fact { background:#c0281f; }
+
+  /* Comparatif */
+  .chart { flex:1; display:flex; flex-direction:column; justify-content:center; gap:4mm; }
+  .sol { border:1px solid #e2e9f0; border-radius:14px; padding:4mm 5mm; }
+  .sol .name { font-size:12.5pt; font-weight:700; }
+  .sol .name small { font-weight:600; font-size:9.5pt; }
+  .sol .name .en { color:#2e9e5b; } .sol .name .nl { color:#e08a2a; }
+  .track { display:flex; align-items:center; gap:3mm; margin-top:2.5mm; }
+  .tname { width:30mm; font-size:9.5pt; color:#5b6b7a; }
+  .bg { flex:1; height:6mm; background:#eef2f6; border-radius:20px; overflow:hidden; }
+  .bar { height:100%; border-radius:20px; display:flex; align-items:center;
+    justify-content:flex-end; padding-right:3mm; color:#fff; font-size:8.5pt; font-weight:700; }
+  .bar.inst { background:#2a6cb8; } .bar.fact { background:#c0281f; }
+
+  /* Note bas de page 3 langues */
+  .note { margin-top:5mm; font-size:9.5pt; line-height:1.4; color:#7a8794; }
+  .note div { margin-top:1mm; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="entete">
+    <div class="titre">Le vrai coût, sur 15 ans</div>
+    <div class="code">C0S0P4D</div>
+  </div>
+
+  <div class="intro">
+    <div class="fr">Ne regardez pas que le prix d'installation : comparez chaque solution sur 15 ans (usage + entretien).</div>
+    <div class="en">Don't look only at the installation price: compare each solution over 15 years (use + maintenance).</div>
+    <div class="nl">Kijk niet alleen naar de installatieprijs: vergelijk elke oplossing over 15 jaar (gebruik + onderhoud).</div>
+  </div>
+
+  <div class="legend">
+    <span><span class="chip inst"></span> Installation</span>
+    <span><span class="chip fact"></span> Facture chaque année · Yearly bill · Jaarlijkse factuur</span>
+  </div>
+
+  <div class="chart">
+    <div class="sol">
+      <div class="name">Pompe à chaleur <small class="en">/ Heat pump</small> <small class="nl">/ Warmtepomp</small></div>
+      <div class="track"><span class="tname">Installation</span><div class="bg"><div class="bar inst" style="width:90%">élevé</div></div></div>
+      <div class="track"><span class="tname">Facture / an</span><div class="bg"><div class="bar fact" style="width:20%"></div></div></div>
+    </div>
+
+    <div class="sol">
+      <div class="name">Chaudière fioul <small class="en">/ Oil boiler</small> <small class="nl">/ Olieketel</small></div>
+      <div class="track"><span class="tname">Installation</span><div class="bg"><div class="bar inst" style="width:55%">moyen</div></div></div>
+      <div class="track"><span class="tname">Facture / an</span><div class="bg"><div class="bar fact" style="width:55%">moyenne</div></div></div>
+    </div>
+
+    <div class="sol">
+      <div class="name">Chauffage électrique <small class="en">/ Electric heating</small> <small class="nl">/ Elektrische verwarming</small></div>
+      <div class="track"><span class="tname">Installation</span><div class="bg"><div class="bar inst" style="width:22%"></div></div></div>
+      <div class="track"><span class="tname">Facture / an</span><div class="bg"><div class="bar fact" style="width:96%">ÉNORME</div></div></div>
+    </div>
+  </div>
+
+  <div class="note">
+    <div class="fr"><b>FR</b> — Montants indicatifs, variables selon le prix de la matière première (énergie).</div>
+    <div class="en"><b>EN</b> — Indicative figures, varying with the price of the raw material (energy).</div>
+    <div class="nl"><b>NL</b> — Indicatieve bedragen, variëren met de prijs van de brandstof (energie).</div>
+  </div>
+</div>
+<script>
+  if (window.self === window.top) document.documentElement.classList.add('apercu');
+</script>
+</body>
+</html>
