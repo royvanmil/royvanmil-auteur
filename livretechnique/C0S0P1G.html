@@ -8,42 +8,80 @@
   @page { size: A4 portrait; margin: 0; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { background:#fff; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
-  body { font-family:"Trebuchet MS","Segoe UI",Arial,sans-serif; color:#1f2830; }
+  body { font-family:"Times New Roman", Georgia, serif; color:#1f2830; }
 
-  .page { width:210mm; height:297mm; background:#fff; padding:8mm;
-    display:flex; flex-direction:column; justify-content:flex-end; position:relative; }
+  .page { width:210mm; height:297mm; background:#fff; padding:14mm 16mm;
+    display:flex; flex-direction:column; justify-content:flex-start; position:relative; }
 
   .code { position:absolute; top:8mm; left:9mm; font-family:"Segoe UI",Arial,sans-serif;
     font-size:10pt; font-weight:600; color:#9aa7b3; letter-spacing:.5px; }
 
-  .mentions { font-size:11pt; line-height:1.75; color:#5b6b7a; }
-  .mentions .t { font-size:15pt; font-weight:700; color:#1f2830; margin-bottom:6mm; }
-  .mentions .copy { margin-top:4mm; }
-  .mentions .ia { display:inline-block; margin-top:6mm; font-weight:700; color:#2a6cb8;
-    border:1.5px solid #2a6cb8; border-radius:8px; padding:3px 14px; }
+  /* Titre en 3 langues */
+  .heads { text-align:center; margin-top:6mm; }
+  .heads .fr { font-size:24pt; font-weight:700; color:#2a6cb8; }
+  .heads .en { font-size:16pt; font-style:italic; color:#2e9e5b; margin-top:2mm; }
+  .heads .nl { font-size:16pt; font-style:italic; color:#e08a2a; margin-top:1mm; }
 
-  @media screen {
-    html.apercu { background:#e9edf1; }
-    html.apercu body { display:flex; justify-content:center; align-items:flex-start; padding:22px 0; }
-    html.apercu .page { box-shadow:0 6px 26px rgba(0,0,0,.16); }
-  }
-  @media print { html.apercu body{display:block;padding:0;} html.apercu .page{box-shadow:none;} }
+  .sep { height:1px; background:#d7dee5; margin:8mm 0; }
+
+  /* Bloc legal */
+  .legal { font-size:12pt; line-height:1.75; }
+  .legal .c { font-weight:700; }
+
+  /* 3 langues empilees, sans contours, bien reparties */
+  .langs { flex:1; display:flex; flex-direction:column; justify-content:space-around;
+    margin-top:6mm; }
+  .lang .mention { font-size:11.5pt; line-height:1.45; font-style:italic; margin-bottom:3mm; }
+  .lang .body { font-size:12pt; line-height:1.55; text-align:justify; color:#1a1f24; }
+  .lang .body .end { display:block; margin-top:3mm; font-style:italic; color:#4a5560; }
+  .lang.fr .mention { color:#2a6cb8; }
+  .lang.en .mention { color:#2e9e5b; }
+  .lang.nl .mention { color:#e08a2a; }
 </style>
 </head>
 <body>
 <div class="page">
   <div class="code">C0S0P1G</div>
-  <div class="mentions">
-    <div class="t">Explique-moi, Roy…</div>
-    <div class="copy">© 2026 Roy van Mil</div>
-    <div>Tous droits réservés · All rights reserved · Alle rechten voorbehouden</div>
-    <div>ISBN : à attribuer</div>
-    <div>Dépôt légal : à venir</div>
-    <span class="ia">IA : Yes</span>
+
+  <div class="heads">
+    <div class="fr">Explique-moi,&nbsp;Roy&hellip;</div>
+    <div class="en">Explain it to me, Roy&hellip;</div>
+    <div class="nl">Leg het me uit, Roy&hellip;</div>
+  </div>
+
+  <div class="sep"></div>
+
+  <div class="legal">
+    <span class="c">&copy; 2026 Roy van Mil</span><br>
+    Tous droits r&eacute;serv&eacute;s &middot; All rights reserved &middot; Alle rechten voorbehouden<br>
+    ISBN : &agrave; attribuer<br>
+    D&eacute;p&ocirc;t l&eacute;gal : &agrave; venir
+  </div>
+
+  <div class="langs">
+
+    <div class="lang fr">
+      <div class="mention">Ce livre a &eacute;t&eacute; r&eacute;alis&eacute; avec l'aide de l'intelligence artificielle : les images, la mise en page et les corrections.</div>
+      <div class="body">Ce livre a &eacute;t&eacute; &eacute;crit avec le plus grand soin, pour partager avec vous l'ensemble de mes connaissances techniques. Je reste toutefois humain, et il peut m'arriver de me tromper. Si une erreur s'est gliss&eacute;e dans ces pages, je vous prie de m'en excuser par avance. Ma responsabilit&eacute; ne saurait &ecirc;tre engag&eacute;e quant &agrave; l'usage fait de ces informations.
+        <span class="end">Apr&egrave;s quinze ans de m&eacute;tier d'artisan, voici tout ce que j'ai appris &mdash; je vous le transmets avec plaisir.</span>
+      </div>
+    </div>
+
+    <div class="lang en">
+      <div class="mention">This book was created with the help of artificial intelligence: the images, the layout and the proofreading.</div>
+      <div class="body">This book has been written with the greatest care, to share with you all of my technical knowledge. I remain human, however, and I may sometimes be mistaken. Should an error have slipped into these pages, I apologise for it in advance. I cannot be held liable in any way for the use made of this information.
+        <span class="end">After fifteen years as a craftsman, here is everything I have learned &mdash; I pass it on to you with pleasure.</span>
+      </div>
+    </div>
+
+    <div class="lang nl">
+      <div class="mention">Dit boek is gemaakt met behulp van kunstmatige intelligentie: de afbeeldingen, de opmaak en de correcties.</div>
+      <div class="body">Dit boek is met de grootste zorg geschreven, om al mijn technische kennis met u te delen. Toch blijf ik een mens, en het kan gebeuren dat ik me vergis. Mocht er een fout in deze bladzijden zijn geslopen, dan bied ik u bij voorbaat mijn excuses aan. Ik kan op geen enkele wijze aansprakelijk worden gesteld voor het gebruik van deze informatie.
+        <span class="end">Na vijftien jaar als vakman is dit alles wat ik heb geleerd &mdash; ik geef het u met plezier door.</span>
+      </div>
+    </div>
+
   </div>
 </div>
-<script>
-  if (window.self === window.top) document.documentElement.classList.add('apercu');
-</script>
 </body>
 </html>

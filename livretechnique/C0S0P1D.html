@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>C0S0P1D</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Great+Vibes&display=swap" rel="stylesheet">
 <style>
   @page { size: A4 portrait; margin: 0; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -11,17 +14,25 @@
   body { font-family:"Trebuchet MS","Segoe UI",Arial,sans-serif; color:#1f2830; }
 
   .page { width:210mm; height:297mm; background:#fff; padding:8mm;
-    display:flex; flex-direction:column; align-items:center; justify-content:center;
-    text-align:center; position:relative; }
+    display:flex; flex-direction:column; justify-content:flex-start; align-items:center;
+    position:relative; }
 
   .code { position:absolute; top:8mm; right:9mm; font-family:"Segoe UI",Arial,sans-serif;
     font-size:10pt; font-weight:600; color:#9aa7b3; letter-spacing:.5px; }
 
-  .booktitle { font-size:44pt; font-weight:700; letter-spacing:-.5px; color:#1f2830; }
-  .rule { width:52mm; height:3px; background:#2a6cb8; border-radius:2px; margin:9mm 0; }
-  .author { position:absolute; bottom:18mm; font-size:16pt; font-weight:600; color:#2a6cb8; }
+  .titlewrap { width:160mm; text-align:center; margin-top:44mm; }
+  .booktitle { font-family:"Playfair Display", Georgia, serif; font-weight:900;
+    font-size:66pt; line-height:1.05; letter-spacing:-.5px; color:#1f2830; }
+  .booktitle em { font-style:italic; font-weight:700; }
+  .author { font-family:"Great Vibes", "Segoe Script", cursive; color:#c0281f;
+    font-size:32pt; line-height:1; text-align:right; margin-top:26mm; padding-right:8mm; }
 
-  /* Centrage APERÇU — écran seulement, et uniquement si la page est ouverte seule */
+  .contacts { position:absolute; left:10mm; bottom:14mm;
+    font-family:"Times New Roman", Georgia, serif; font-size:12.5pt;
+    line-height:1.7; color:#1f2830; }
+  .contacts b { color:#000; }
+
+  /* Centrage APERCU - ecran seulement, page ouverte seule */
   @media screen {
     html.apercu { background:#e9edf1; }
     html.apercu body { display:flex; justify-content:center; align-items:flex-start; padding:22px 0; }
@@ -33,9 +44,16 @@
 <body>
 <div class="page">
   <div class="code">C0S0P1D</div>
-  <div class="booktitle">Explique-moi,&nbsp;Roy…</div>
-  <div class="rule"></div>
-  <div class="author">Roy van Mil</div>
+
+  <div class="titlewrap">
+    <div class="booktitle">Explique-moi,<br><em>Roy&hellip;</em></div>
+    <div class="author">Roy van Mil</div>
+  </div>
+
+  <div class="contacts">
+    Site web : <b>RoyVanMil.fr</b> &mdash; pour voir tous les livres<br>
+    Travaux de l'artisan : <b>Pro2Tec.fr</b>
+  </div>
 </div>
 <script>
   if (window.self === window.top) document.documentElement.classList.add('apercu');
