@@ -18,7 +18,7 @@
   .top a:hover{text-decoration:underline;}
 
   .reader{ flex:1; display:flex; align-items:center; justify-content:center;
-    gap:16px; padding:0 10px; min-height:0; }
+    gap:16px; padding:0 10px; min-height:0; overflow:hidden; }
 
   .arrow{ flex:0 0 auto; width:48px;height:48px; border:1px solid var(--line);
     background:#fff; border-radius:50%; font-size:20px; color:var(--ink); cursor:pointer;
@@ -26,15 +26,13 @@
   .arrow:hover{background:#eef3f8;}
   .arrow:disabled{opacity:.3;cursor:default;}
 
-  /* .stage = taille réelle réduite du duo ; .spread mis à l'échelle dedans */
-  .stage{ position:relative; flex:0 0 auto; }
-  .spread{ display:flex; gap:14px; transform-origin:top left; }
+  .spread{ display:flex; gap:12px; flex:0 0 auto; }
 
-  /* A4 exact en pixels (96 dpi) : 210mm=794 · 297mm=1123 */
-  .pageframe{ width:794px; height:1123px; background:#fff;
-    border:1px solid var(--line); border-radius:6px;
-    box-shadow:0 4px 14px rgba(0,0,0,.08); overflow:hidden; }
-  .pageframe iframe{ width:794px; height:1123px; border:0; display:block; }
+  /* Chaque cadre est un rectangle A4 réduit ; l'iframe (taille A4 réelle) est mise à l'échelle DEDANS */
+  .pageframe{ position:relative; overflow:hidden; background:#fff;
+    border:1px solid var(--line); border-radius:6px; box-shadow:0 4px 14px rgba(0,0,0,.08); }
+  .pageframe iframe{ position:absolute; top:0; left:0; width:794px; height:1123px;
+    border:0; transform-origin:top left; }
 
   .pos{ text-align:center; color:var(--muted); font-size:13px; padding:6px 0 10px; flex:0 0 auto; }
 </style>
@@ -43,13 +41,11 @@
 
   <div class="top"><a href="index.html">← retour index</a></div>
 
-  <div class="reader">
+  <div class="reader" id="reader">
     <button class="arrow" id="prev" aria-label="Paire précédente">◀</button>
-    <div class="stage" id="stage">
-      <div class="spread" id="spread">
-        <div class="pageframe"><iframe id="pageG" src="" title="Page gauche"></iframe></div>
-        <div class="pageframe"><iframe id="pageD" src="" title="Page droite"></iframe></div>
-      </div>
+    <div class="spread" id="spread">
+      <div class="pageframe" id="frameG"><iframe id="pageG" src="" title="Page gauche"></iframe></div>
+      <div class="pageframe" id="frameD"><iframe id="pageD" src="" title="Page droite"></iframe></div>
     </div>
     <button class="arrow" id="next" aria-label="Paire suivante">▶</button>
   </div>
@@ -60,27 +56,30 @@
   /* ====== LISTE DES DOUBLES-PAGES (une ligne = une paire G + D) ====== */
   const PAIRES = [
     { g:"C0S0P1G.html", d:"C0S0P1D.html" },
-    { g:"C0S0P2G.html", d:"C0S0P2D.html" }
-    // { g:"C0S0P3G.html", d:"C0S0P3D.html" },
+    { g:"C0S0P2G.html", d:"C0S0P2D.html" },
+    { g:"C0S0P3G.html", d:"C0S0P3D.html" }
   ];
 
-  const A4W = 794, A4H = 1123, GAP = 14;
-  const NAT_W = A4W*2 + GAP, NAT_H = A4H;
+  const A4W = 794, A4H = 1123, GAP = 12;   // GAP doit = .spread gap
+  const NAT_W = A4W*2 + GAP;
 
   let i = 0;
   const $ = id => document.getElementById(id);
-  const pageG=$("pageG"), pageD=$("pageD"), prev=$("prev"), next=$("next"),
-        pos=$("pos"), stage=$("stage"), spread=$("spread");
+  const reader=$("reader"), spread=$("spread"),
+        frameG=$("frameG"), frameD=$("frameD"),
+        pageG=$("pageG"), pageD=$("pageD"),
+        prev=$("prev"), next=$("next"), pos=$("pos");
 
   function fit(){
-    const availW = window.innerWidth  - 170;   // flèches + gaps + marges
-    const availH = window.innerHeight - 100;    // barre haut + compteur + marges
-    let k = Math.min(availW / NAT_W, availH / NAT_H);
-    if (k > 1.6) k = 1.6;                        // pas de sur-zoom
-    if (k < 0.05) k = 0.05;
-    spread.style.transform = "scale(" + k + ")";
-    stage.style.width  = (NAT_W * k) + "px";
-    stage.style.height = (NAT_H * k) + "px";
+    // zone réellement dispo DANS le lecteur (mesurée, pas devinée)
+    const availW = reader.clientWidth  - 48*2 - 16*2 - 6;  // 2 flèches + 2 gaps + marge
+    const availH = reader.clientHeight - 6;
+    if (availW <= 0 || availH <= 0) return;
+    let k = Math.min(availW / NAT_W, availH / A4H);
+    if (k > 1.5) k = 1.5;
+    const w = Math.floor(A4W*k), h = Math.floor(A4H*k);
+    [frameG, frameD].forEach(f => { f.style.width = w+"px"; f.style.height = h+"px"; });
+    [pageG, pageD].forEach(p => { p.style.transform = "scale("+k+")"; });
   }
 
   function afficher(){
@@ -97,15 +96,14 @@
     if(e.key==="ArrowLeft")  prev.click();
     if(e.key==="ArrowRight") next.click();
   });
+
+  if (window.ResizeObserver) new ResizeObserver(fit).observe(reader);
   window.addEventListener("resize", fit);
   window.addEventListener("orientationchange", fit);
   window.addEventListener("load", fit);
-  pageG.addEventListener("load", fit);
-  pageD.addEventListener("load", fit);
 
   afficher();
   fit();
-  requestAnimationFrame(fit);
 </script>
 
 </body>
