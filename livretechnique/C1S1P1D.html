@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>C1S1P2D</title>
+<title>C1S1P1D</title>
 <style>
   @page { size: A4 portrait; margin: 0; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { width: 210mm; height: 297mm; background: #fff;
-    -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  html, body { background: #fff; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   body { font-family: "Trebuchet MS", "Segoe UI", Arial, sans-serif; color: #1f2830; }
-  .page { width: 210mm; height: 297mm; padding: 8mm; display: flex; flex-direction: column; }
+
+  .page { width: 210mm; height: 297mm; background:#fff; padding: 8mm; display: flex; flex-direction: column; }
   .entete { display: flex; align-items: baseline; justify-content: space-between;
     border-bottom: 1.5px solid #d7dee5; padding-bottom: 3mm; margin-bottom: 4mm; }
   .titre { font-size: 16pt; font-weight: 700; color: #000; }
@@ -24,13 +24,21 @@
   .fr { --c:#2a6cb8; --bg:#eef4fb; }
   .en { --c:#2e9e5b; --bg:#ecf7f0; }
   .nl { --c:#e08a2a; --bg:#fdf3e6; }
+
+  /* Centrage APERÇU — écran seulement, et uniquement si la page est ouverte seule (pas dans le lecteur visuels) */
+  @media screen {
+    html.apercu { background:#e9edf1; }
+    html.apercu body { display:flex; justify-content:center; align-items:flex-start; padding:22px 0; }
+    html.apercu .page { box-shadow:0 6px 26px rgba(0,0,0,.16); }
+  }
+  @media print { html.apercu body{display:block;padding:0;} html.apercu .page{box-shadow:none;} }
 </style>
 </head>
 <body>
 <div class="page">
   <div class="entete">
     <div class="titre">L'arrivée EDF</div>
-    <div class="code">C1S1P2D</div>
+    <div class="code">C1S1P1D</div>
   </div>
   <div class="cadres">
     <div class="cadre fr">
@@ -47,5 +55,9 @@
     </div>
   </div>
 </div>
+<script>
+  /* Centre la feuille seulement si la page est ouverte seule (pas dans une iframe comme visuels.html) */
+  if (window.self === window.top) document.documentElement.classList.add('apercu');
+</script>
 </body>
 </html>
