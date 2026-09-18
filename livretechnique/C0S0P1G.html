@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>C0S0P1G</title>
+<style>
+  @page { size: A4 portrait; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background:#fff; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  body { font-family:"Trebuchet MS","Segoe UI",Arial,sans-serif; color:#1f2830; }
+
+  .page { width:210mm; height:297mm; background:#fff; padding:8mm;
+    display:flex; flex-direction:column; justify-content:flex-end; position:relative; }
+
+  .code { position:absolute; top:8mm; left:9mm; font-family:"Segoe UI",Arial,sans-serif;
+    font-size:10pt; font-weight:600; color:#9aa7b3; letter-spacing:.5px; }
+
+  .mentions { font-size:11pt; line-height:1.75; color:#5b6b7a; }
+  .mentions .t { font-size:15pt; font-weight:700; color:#1f2830; margin-bottom:6mm; }
+  .mentions .copy { margin-top:4mm; }
+  .mentions .ia { display:inline-block; margin-top:6mm; font-weight:700; color:#2a6cb8;
+    border:1.5px solid #2a6cb8; border-radius:8px; padding:3px 14px; }
+
+  @media screen {
+    html.apercu { background:#e9edf1; }
+    html.apercu body { display:flex; justify-content:center; align-items:flex-start; padding:22px 0; }
+    html.apercu .page { box-shadow:0 6px 26px rgba(0,0,0,.16); }
+  }
+  @media print { html.apercu body{display:block;padding:0;} html.apercu .page{box-shadow:none;} }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="code">C0S0P1G</div>
+  <div class="mentions">
+    <div class="t">Explique-moi, Roy…</div>
+    <div class="copy">© 2026 Roy van Mil</div>
+    <div>Tous droits réservés · All rights reserved · Alle rechten voorbehouden</div>
+    <div>ISBN : à attribuer</div>
+    <div>Dépôt légal : à venir</div>
+    <span class="ia">IA : Yes</span>
+  </div>
+</div>
+<script>
+  if (window.self === window.top) document.documentElement.classList.add('apercu');
+</script>
+</body>
+</html>
