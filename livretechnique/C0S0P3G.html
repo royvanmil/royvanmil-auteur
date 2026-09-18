@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>C0S0P3G</title>
+<style>
+  @page { size: A4 portrait; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background:#fff; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  body { font-family:"Trebuchet MS","Segoe UI",Arial,sans-serif; color:#1f2830; }
+
+  .page { width:210mm; height:297mm; background:#fff; position:relative; overflow:hidden; }
+  .img-full { width:100%; height:100%; object-fit:cover; display:block; }
+
+  .placeholder { width:100%; height:100%; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; text-align:center; background:#f4f7fa; padding:22mm; }
+  .placeholder .pic { font-size:60pt; margin-bottom:7mm; opacity:.5; }
+  .placeholder .desc { font-size:13.5pt; line-height:1.55; color:#5b6b7a; max-width:140mm; }
+  .placeholder .desc b { color:#2a6cb8; }
+  .placeholder .list { margin-top:5mm; font-size:12pt; color:#7a8794; }
+  .placeholder .tag { margin-top:9mm; font-size:11pt; color:#9aa7b3;
+    border:1px dashed #c9d6e2; border-radius:10px; padding:6px 14px; }
+
+  .code { position:absolute; top:8mm; right:9mm; font-family:"Segoe UI",Arial,sans-serif;
+    font-size:10pt; font-weight:600; color:#9aa7b3; letter-spacing:.5px;
+    background:rgba(255,255,255,.75); border-radius:6px; padding:1px 7px; }
+
+  @media screen {
+    html.apercu { background:#e9edf1; }
+    html.apercu body { display:flex; justify-content:center; align-items:flex-start; padding:22px 0; }
+    html.apercu .page { box-shadow:0 6px 26px rgba(0,0,0,.16); }
+  }
+  @media print { html.apercu body{display:block;padding:0;} html.apercu .page{box-shadow:none;} }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="code">C0S0P3G</div>
+
+  <!-- <img class="img-full" src="img/C0S0P3.jpg" alt="Maison en coupe avec les installations"> -->
+  <div class="placeholder">
+    <div class="pic">&#127968;</div>
+    <div class="desc">
+      <b>Image à insérer</b><br>
+      Une grande <b>maison en vue transversale (coupe)</b>, avec des « bouts »
+      d'installation visibles à l'intérieur.
+      <div class="list">Tableau électrique · chaudière · pompe à chaleur · climatisation ·
+      plancher chauffant · radiateurs · VMC…</div>
+    </div>
+    <div class="tag">img/C0S0P3.jpg</div>
+  </div>
+</div>
+<script>
+  if (window.self === window.top) document.documentElement.classList.add('apercu');
+</script>
+</body>
+</html>
