@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>C0S0P2D</title>
+<style>
+  @page { size: A4 portrait; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background:#fff; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  body { font-family:"Trebuchet MS","Segoe UI",Arial,sans-serif; color:#1f2830; }
+
+  .page { width:210mm; height:297mm; background:#fff; padding:8mm; display:flex; flex-direction:column; }
+  .entete { display:flex; align-items:baseline; justify-content:space-between;
+    border-bottom:1.5px solid #d7dee5; padding-bottom:3mm; margin-bottom:4mm; }
+  .titre { font-size:16pt; font-weight:700; color:#000; }
+  .code  { font-size:11pt; font-weight:600; color:#5b6b7a; letter-spacing:.5px; }
+  .cadres { flex:1; display:flex; flex-direction:column; gap:3mm; min-height:0; }
+  .cadre { flex:1; min-height:0; border:2.4px solid var(--c); border-radius:16px;
+    background:var(--bg); padding:6mm 7mm; overflow:hidden; display:flex; flex-direction:column; }
+  .lang { font-family:"Segoe UI",Arial,sans-serif; font-size:11pt; font-weight:700;
+    color:var(--c); margin-bottom:3mm; }
+  .txt { font-size:13pt; line-height:1.4; color:#202931; text-wrap:pretty; }
+  .fr { --c:#2a6cb8; --bg:#eef4fb; }
+  .en { --c:#2e9e5b; --bg:#ecf7f0; }
+  .nl { --c:#e08a2a; --bg:#fdf3e6; }
+
+  @media screen {
+    html.apercu { background:#e9edf1; }
+    html.apercu body { display:flex; justify-content:center; align-items:flex-start; padding:22px 0; }
+    html.apercu .page { box-shadow:0 6px 26px rgba(0,0,0,.16); }
+  }
+  @media print { html.apercu body{display:block;padding:0;} html.apercu .page{box-shadow:none;} }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="entete">
+    <div class="titre">Pourquoi ce livre&nbsp;?</div>
+    <div class="code">C0S0P2D</div>
+  </div>
+  <div class="cadres">
+    <div class="cadre fr">
+      <div class="lang">Fran&ccedil;ais</div>
+      <div class="txt">Vous venez d'acheter une maison &mdash; ou vous en r&ecirc;vez&nbsp;? F&eacute;licitations&nbsp;! Mais une maison, ce n'est pas seulement un joli salon. Derri&egrave;re les murs se cachent l'&eacute;lectricit&eacute;, l'eau, le chauffage, la ventilation&hellip; autant de choses qu'on ne voit pas, mais qui comptent vraiment. Ce livre vous explique, simplement et en images, ce qu'il faut regarder, v&eacute;rifier et comprendre &mdash; sans jargon compliqu&eacute;, pour acheter et vivre sereinement, sans mauvaises surprises.</div>
+    </div>
+    <div class="cadre en">
+      <div class="lang">English</div>
+      <div class="txt">You've just bought a house &mdash; or you're dreaming of one? Congratulations! But a house isn't only a pretty living room. Behind the walls hide the electricity, the water, the heating, the ventilation&hellip; all the things you don't see, yet that truly matter. This book explains, simply and with pictures, what to look at, check and understand &mdash; without complicated jargon, so you can buy and live with peace of mind, and no nasty surprises.</div>
+    </div>
+    <div class="cadre nl">
+      <div class="lang">Nederlands</div>
+      <div class="txt">U heeft net een huis gekocht &mdash; of u droomt ervan? Gefeliciteerd! Maar een huis is niet alleen een mooie woonkamer. Achter de muren schuilen de elektriciteit, het water, de verwarming, de ventilatie&hellip; allemaal dingen die u niet ziet, maar die er wel degelijk toe doen. Dit boek legt eenvoudig en met beelden uit wat u moet bekijken, controleren en begrijpen &mdash; zonder ingewikkeld jargon, zodat u met een gerust hart koopt en woont, zonder nare verrassingen.</div>
+    </div>
+  </div>
+</div>
+<script>
+  if (window.self === window.top) document.documentElement.classList.add('apercu');
+</script>
+</body>
+</html>
