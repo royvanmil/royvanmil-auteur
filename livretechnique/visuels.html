@@ -80,6 +80,11 @@
     width:100%;height:100%;
     border:0;display:block;
   }
+
+  /* Petit indicateur de paire */
+  .pos{
+    text-align:center;color:var(--muted);font-size:13px;padding:0 0 10px;
+  }
 </style>
 </head>
 <body>
@@ -101,6 +106,8 @@
     <button class="arrow" id="next" aria-label="Paire suivante">▶</button>
   </div>
 
+  <div class="pos" id="pos"></div>
+
 <script>
   /* ========================================================
      LISTE DES DOUBLES-PAGES  (une ligne = une paire G + D)
@@ -108,9 +115,10 @@
      ET crée les fichiers correspondants. Rien d'autre à toucher.
      ======================================================== */
   const PAIRES = [
-    { g:"C1S1P1G.html", d:"C1S1P2D.html" },
-    { g:"C1S1P3G.html", d:"C1S1P4D.html" }
-    // { g:"C2S1P1G.html", d:"C2S1P2D.html" },
+    { g:"C0S0P1G.html", d:"C0S0P1D.html" },
+    { g:"C0S0P2G.html", d:"C0S0P2D.html" }
+    // { g:"C0S0P3G.html", d:"C0S0P3D.html" },
+    // { g:"C1S1P1G.html", d:"C1S1P2D.html" },
   ];
 
   let i = 0;
@@ -118,12 +126,14 @@
   const pageD = document.getElementById("pageD");
   const prev  = document.getElementById("prev");
   const next  = document.getElementById("next");
+  const pos   = document.getElementById("pos");
 
   function afficher(){
     pageG.src = PAIRES[i].g;
     pageD.src = PAIRES[i].d;
     prev.disabled = (i === 0);
     next.disabled = (i === PAIRES.length - 1);
+    pos.textContent = "Double-page " + (i+1) + " / " + PAIRES.length;
   }
 
   prev.addEventListener("click", () => { if(i>0){ i--; afficher(); } });
