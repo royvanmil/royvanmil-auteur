@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plan du site — T.A.A. Eauze</title>
+<link rel="stylesheet" href="style-taa.css">
+<style>
+/* ---------- PLAN DU SITE (ARBRE) ---------- */
+.legende{background:#eef1f5;border-left:5px solid var(--laiton);border-radius:6px;padding:12px 16px;margin-bottom:22px;font-size:16px}
+.legende .pt-page{color:var(--nuit);font-weight:700}
+.legende .pt-role{color:var(--laiton);font-weight:700;font-style:italic}
+
+.arbre{margin-top:6px}
+.noeud{
+  background:#fff;border:1px solid var(--bord);border-left:5px solid var(--laiton);
+  border-radius:10px;padding:14px 20px;margin-bottom:14px;box-shadow:0 1px 5px rgba(0,0,0,.06)
+}
+.noeud .titre-page{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.noeud .titre-page .emo{font-size:20px}
+.noeud .titre-page strong{font-size:20px;color:var(--nuit)}
+.noeud .fichier{font-size:13px;color:var(--gris);font-family:"Consolas",monospace}
+.noeud .role{margin:6px 0 0;color:var(--laiton);font-weight:600;font-style:italic}
+
+.sous{margin:14px 0 0 26px;padding-left:20px;border-left:2px dashed var(--bord);display:flex;flex-direction:column;gap:12px}
+.sous .noeud{margin-bottom:0;border-left-width:4px;border-left-color:var(--nuit-2)}
+.sous .noeud .titre-page strong{font-size:17px}
+.sous .noeud .titre-page .emo{font-size:17px}
+
+.note-inline{font-size:13px;color:var(--gris);font-style:normal;font-weight:600}
+.tech .noeud{border-left-color:var(--gris)}
+@media(max-width:600px){
+  .sous{margin-left:14px;padding-left:14px}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="nav-titre">
+    <img src="images/logo-taa.gif" alt="Logo T.A.A." class="logo">
+    <div>
+      <h1><a href="index.html">Tireurs et Arquebusiers de l'Armagnac</a></h1>
+      <span>Club de tir sportif — Eauze / Bascous (Gers)</span>
+    </div>
+  </div>
+  <nav>
+    <a href="index.html">Accueil</a>
+    <a href="nouvelles.html">Nouvelles</a>
+    <a href="informations.html">Informations</a>
+    <a href="horaires.html">Horaires &amp; accès</a>
+    <a href="le-club.html">Le club</a>
+    <a href="divers.html">Divers</a>
+    <a href="ventes.html">Ventes</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
+
+<main>
+  <h2>Plan du site</h2>
+  <p>Toutes les pages du site et leur organisation. La liste du haut correspond au menu ; les rubriques en retrait sont accessibles depuis « Le club » et « Divers ».</p>
+
+  <p class="legende"><span class="pt-page">En bleu : le nom de la page.</span> &nbsp;·&nbsp; <span class="pt-role">En doré : à quoi elle sert.</span></p>
+
+  <div class="arbre">
+
+    <div class="noeud">
+      <div class="titre-page"><span class="emo">🏠</span><strong>Accueil</strong><span class="fichier">index.html</span></div>
+      <p class="role">Page d'accueil : présentation rapide du club et accès direct aux grandes rubriques.</p>
+    </div>
+
+    <div class="noeud">
+      <div class="titre-page"><span class="emo">📰</span><strong>Nouvelles</strong><span class="fichier">nouvelles.html</span></div>
+      <p class="role">Fil d'actualités du club : communiqués et informations, la plus récente en haut.</p>
+    </div>
+
+    <div class="noeud">
+      <div class="titre-page"><span class="emo">ℹ️</span><strong>Informations</strong><span class="fichier">informations.html</span></div>
+      <p class="role">Informations générales, sécurité et catégories d'armes en France.</p>
+    </div>
+
+    <div class="noeud">
+      <div class="titre-page"><span class="emo">🕒</span><strong>Horaires &amp; accès</strong><span class="fichier">horaires.html</span></div>
+      <p class="role">Où et quand tirer : les deux stands, horaires et plans d'accès.</p>
+    </div>
+
+    <div class="noeud">
+      <div class="titre-page"><span class="emo">🎯</span><strong>Le club</strong><span class="fichier">le-club.html</span></div>
+      <p class="role">Présentation des stands, des installations et de l'école de tir.</p>
+      <div class="sous">
+        <div class="noeud">
+          <div class="titre-page"><span class="emo">📷</span><strong>Photos</strong><span class="fichier">photos.html</span></div>
+          <p class="role">Galerie photos des stands, du ball-trap et de l'école de tir.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="noeud">
+      <div class="titre-page"><span class="emo">📋</span><strong>Divers</strong><span class="fichier">divers.html</span></div>
+      <p class="role">Sommaire qui regroupe les rubriques secondaires du club.</p>
+      <div class="sous">
+        <div class="noeud">
+          <div class="titre-page"><span class="emo">📝</span><strong>Devenir membre</strong><span class="fichier">devenir-membre.html</span></div>
+          <p class="role">Démarches, tarif et ce qu'il faut prévoir pour rejoindre le club.</p>
+        </div>
+        <div class="noeud">
+          <div class="titre-page"><span class="emo">🏆</span><strong>Journées &amp; tirs sportifs</strong><span class="fichier">tirs-sportifs.html</span></div>
+          <p class="role">Compétitions, challenges et journées de tir de contrôle.</p>
+        </div>
+        <div class="noeud">
+          <div class="titre-page"><span class="emo">🧹</span><strong>Entretien du club</strong><span class="fichier">entretien.html</span></div>
+          <p class="role">Journées d'entretien et de débroussaillage entre membres.</p>
+        </div>
+        <div class="noeud">
+          <div class="titre-page"><span class="emo">🏷️</span><strong>Ventes armes &amp; accessoires</strong><span class="fichier">ventes.html</span> <span class="note-inline">↳ aussi dans le menu principal</span></div>
+          <p class="role">Petites annonces entre membres : armes et matériel à vendre.</p>
+        </div>
+        <div class="noeud">
+          <div class="titre-page"><span class="emo">💻</span><strong>EDEN &amp; SIA</strong><span class="fichier">eden-sia.html</span></div>
+          <p class="role">Démarches en ligne : licence FFTir (EDEN) et râtelier numérique des armes (SIA).</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="noeud">
+      <div class="titre-page"><span class="emo">🏷️</span><strong>Ventes</strong><span class="fichier">ventes.html</span> <span class="note-inline">↳ même page que la rubrique de Divers</span></div>
+      <p class="role">Raccourci direct vers les petites annonces depuis le menu.</p>
+    </div>
+
+    <div class="noeud">
+      <div class="titre-page"><span class="emo">✉️</span><strong>Contact</strong><span class="fichier">contact.html</span></div>
+      <p class="role">Coordonnées du secrétariat et du président, appel et mail direct.</p>
+    </div>
+
+  </div>
+
+  <h3 style="margin-top:34px">Fichiers à part</h3>
+  <div class="arbre tech">
+    <div class="noeud">
+      <div class="titre-page"><span class="emo">🎨</span><strong>Feuille de style</strong><span class="fichier">style-taa.css</span></div>
+      <p class="role">Couleurs et mise en page communes à tout le site — ce n'est pas une page visible.</p>
+    </div>
+    <div class="noeud">
+      <div class="titre-page"><span class="emo">❓</span><strong>Ancienne page ?</strong><span class="fichier">infos.html</span></div>
+      <p class="role">Présente dans le dossier (966 o) — rôle à confirmer, peut-être une ancienne version d'« Informations ».</p>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <p>Tireurs et Arquebusiers de l'Armagnac — Eauze / Bascous (Gers)</p>
+  <p style="margin-top:6px;font-size:13px">Site de démonstration • réalisé par Roy VAN MIL</p>
+</footer>
+</body>
+</html>
