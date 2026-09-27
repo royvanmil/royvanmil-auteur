@@ -41,26 +41,27 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,500&family=EB+Garamond:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --noir:#161210;
-    --bois-fonce:#3a2a1c;
-    --bois:#5a4029;
-    --laiton:#c9a25e;
-    --laiton-clair:#e6c98a;
-    --creme:#e8dcc4;
-    --creme-doux:#c8b895;
+    /* Palette claire (même que l'index) : noms gardés pour ne rien casser */
+    --noir:#f3f7f9;          /* fond de page */
+    --bois-fonce:#e3edf1;
+    --bois:#d9e4ea;
+    --laiton:#2e6e73;        /* accent pétrole */
+    --laiton-clair:#235a5e;  /* accent pétrole foncé (textes) */
+    --creme:#22364a;         /* texte principal */
+    --creme-doux:#4d5e6f;    /* texte secondaire */
     --amazon:#e0952a;
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
   body{
     font-family:'EB Garamond',Georgia,serif;
-    background:radial-gradient(ellipse at 50% 0%, #241a12 0%, var(--noir) 70%), var(--noir);
+    background:radial-gradient(ellipse at 15% 0%, rgba(120,170,205,.14) 0%, transparent 45%), radial-gradient(ellipse at 90% 10%, rgba(110,170,160,.10) 0%, transparent 40%), var(--noir);
     color:var(--creme);
     min-height:100vh;
   }
   body::before{
     content:"";position:fixed;inset:0;
-    background:radial-gradient(circle at 50% 30%, rgba(201,162,94,.08), transparent 55%);
+    background:none;
     pointer-events:none;z-index:0;
   }
   .wrap{position:relative;z-index:2;max-width:1000px;margin:0 auto;padding:1.5rem 1.2rem 4rem}
@@ -82,10 +83,10 @@
     font-family:'Cormorant Garamond',serif;
   }
   .langues button{
-    background:rgba(22,18,16,.55);
+    background:#fff;
     color:var(--creme-doux);
-    border:1px solid rgba(201,162,94,.45);
-    border-radius:5px;
+    border:1px solid var(--bois);
+    border-radius:999px;
     padding:.32rem .62rem;
     font-family:inherit;font-size:.92rem;font-weight:600;
     letter-spacing:.08em;cursor:pointer;
@@ -93,13 +94,13 @@
   }
   .langues button:hover{color:var(--laiton-clair);border-color:var(--laiton)}
   .langues button.actif{
-    background:linear-gradient(180deg,var(--laiton-clair),var(--laiton));
-    color:#2a1c08;border-color:var(--laiton-clair);
+    background:var(--laiton);
+    color:#fff;border-color:var(--laiton);
   }
   .mention-fr{
     display:none;margin-top:1.2rem;padding:.6rem .9rem;
-    border:1px solid rgba(201,162,94,.4);border-radius:6px;
-    background:rgba(201,162,94,.08);
+    border:1px solid var(--bois);border-radius:10px;
+    background:#fff;
     font-style:italic;color:var(--laiton-clair);font-size:1rem;
   }
   @media (max-width:480px){
@@ -115,7 +116,7 @@
   }
   .couverture{
     width:100%;border-radius:4px;
-    box-shadow:0 20px 50px -12px rgba(0,0,0,.8), 0 0 0 1px rgba(201,162,94,.2);
+    box-shadow:0 24px 50px -14px rgba(25,45,65,.35), 0 0 0 1px rgba(25,45,65,.06);
   }
 
   .infos h1{
@@ -163,7 +164,7 @@
     font-size:1.45rem;font-weight:700;letter-spacing:.05em;
     padding:1.2rem 2.5rem;border-radius:9px;
     border:3px solid #d40000;box-sizing:border-box;
-    box-shadow:0 8px 22px -6px rgba(0,0,0,.5);
+    box-shadow:0 8px 22px -6px rgba(25,45,65,.25);
   }
   .btn-acheter:hover{transform:translateY(-3px);box-shadow:0 14px 30px -6px rgba(212,0,0,.5)}
   /* liseré jaune "snake" : une lueur qui longe le contour en 3s, en continu */
@@ -179,11 +180,6 @@
   @media (prefers-reduced-motion:reduce){
     .btn-acheter-wrap::before{animation:none;opacity:0}
   }
-  .btn-clim{
-    background:transparent;color:var(--laiton-clair);
-    border:1px solid var(--laiton);
-  }
-  .btn-clim:hover{background:rgba(201,162,94,.12);transform:translateY(-3px)}
 
   @media (max-width:640px){
     .livre-page{grid-template-columns:1fr;justify-items:center;text-align:center}
@@ -211,15 +207,15 @@
   }
   .vignette{
     position:relative;cursor:pointer;border-radius:6px;overflow:hidden;
-    box-shadow:0 12px 30px -10px rgba(0,0,0,.7), 0 0 0 1px rgba(201,162,94,.18);
+    box-shadow:0 12px 30px -12px rgba(25,45,65,.28), 0 0 0 1px rgba(25,45,65,.06);
     background:#fff;
     transition:transform .25s, box-shadow .25s;
   }
   .vignette img{display:block;width:100%;height:auto}
-  .vignette:hover{transform:translateY(-5px);box-shadow:0 18px 38px -10px rgba(0,0,0,.8)}
+  .vignette:hover{transform:translateY(-5px);box-shadow:0 18px 38px -12px rgba(25,45,65,.38)}
   .vignette .loupe{
     position:absolute;bottom:.7rem;right:.7rem;
-    background:rgba(22,18,16,.82);color:var(--laiton-clair);
+    background:rgba(34,54,74,.85);color:#fff;
     width:2.2rem;height:2.2rem;border-radius:50%;
     display:flex;align-items:center;justify-content:center;
     font-size:1.05rem;opacity:0;transition:opacity .25s;
@@ -233,21 +229,53 @@
   /* ---- lightbox plein écran ---- */
   .lightbox{
     position:fixed;inset:0;z-index:100;
-    background:rgba(10,8,6,.94);
+    background:rgba(20,34,48,.94);
     display:none;align-items:center;justify-content:center;
     padding:2rem;cursor:zoom-out;
   }
   .lightbox.actif{display:flex}
   .lightbox img{
     max-width:96vw;max-height:92vh;
-    border-radius:4px;box-shadow:0 0 60px rgba(0,0,0,.9);
+    border-radius:4px;box-shadow:0 0 60px rgba(0,0,0,.5);
   }
   .lightbox-fermer{
     position:absolute;top:1.2rem;right:1.6rem;
-    color:var(--creme);font-size:2.4rem;line-height:1;
+    color:#fff;font-size:2.4rem;line-height:1;
     background:none;border:none;cursor:pointer;
     font-family:'Cormorant Garamond',serif;
   }
+
+  /* ---- popup "Acheter ce livre" (après 5 s) ---- */
+  .pop-fond{
+    position:fixed;inset:0;z-index:90;
+    background:rgba(34,54,74,.35);
+    display:flex;align-items:center;justify-content:center;padding:1.2rem;
+    opacity:0;pointer-events:none;transition:opacity .35s;
+  }
+  .pop-fond.visible{opacity:1;pointer-events:auto}
+  .pop{
+    position:relative;background:#fff;border-radius:22px;
+    width:min(420px,100%);padding:2rem 1.8rem 1.8rem;text-align:center;
+    box-shadow:0 30px 70px -20px rgba(25,45,65,.45);
+    transform:translateY(14px);transition:transform .35s;
+  }
+  .pop-fond.visible .pop{transform:none}
+  .pop img{width:120px;margin:0 auto 1.1rem;border-radius:3px;box-shadow:0 14px 30px -10px rgba(25,45,65,.4)}
+  .pop h2{font-family:'Cormorant Garamond',serif;font-size:1.7rem;line-height:1.1;color:var(--creme);margin-bottom:.5rem}
+  .pop p{color:var(--creme-doux);font-size:1.05rem;line-height:1.5;margin-bottom:1.3rem}
+  .pop .btn-acheter{font-size:1.25rem;padding:1rem 2rem}
+  .pop-fermer{
+    position:absolute;top:.7rem;right:.9rem;
+    background:none;border:0;cursor:pointer;
+    font-size:1.7rem;line-height:1;color:var(--creme-doux);
+  }
+  .pop-fermer:hover{color:var(--creme)}
+  .pop-plus-tard{
+    display:block;margin:1rem auto 0;background:none;border:0;cursor:pointer;
+    font-family:inherit;font-size:.98rem;font-style:italic;color:var(--creme-doux);
+    text-decoration:underline;text-underline-offset:3px;
+  }
+  @media (prefers-reduced-motion:reduce){.pop-fond,.pop{transition:none}}
 </style>
 </head>
 <body>
@@ -286,7 +314,6 @@
 
         <div class="boutons">
           <span class="btn-acheter-wrap"><a class="btn btn-acheter" href="https://amzn.eu/d/08jvr7MH" target="_blank" rel="noopener" onclick="compte('clic-amazon')" data-i18n="btn-amazon">ACHETER ce LIVRE</a></span>
-          <a class="btn btn-clim" href="https://www.pro2tec.net/livre.html" target="_blank" rel="noopener" data-i18n="btn-clim">🎁 Gagner une clim</a>
         </div>
 
 <!-- Gros bouton Avis des lecteurs -->
@@ -358,6 +385,18 @@
     </div>
   </div>
 
+  <!-- Popup "Acheter ce livre" : s'ouvre après 5 s, une fois par visite -->
+  <div class="pop-fond" id="pop-achat" role="dialog" aria-modal="true" aria-labelledby="pop-titre" aria-hidden="true">
+    <div class="pop">
+      <button class="pop-fermer" type="button" onclick="fermerPop()" aria-label="Fermer">×</button>
+      <img src="img/couv-cette-maison.jpg" alt="">
+      <h2 id="pop-titre" data-i18n="pop-titre">Vous visitez une maison bientôt ?</h2>
+      <p data-i18n="pop-texte">Emportez un œil d'expert avec vous : tout ce qu'il faut vérifier avant de signer.</p>
+      <a class="btn btn-acheter" href="https://amzn.eu/d/08jvr7MH" target="_blank" rel="noopener" onclick="compte('clic-amazon');fermerPop()" data-i18n="btn-amazon">ACHETER ce LIVRE</a>
+      <button class="pop-plus-tard" type="button" onclick="fermerPop()" data-i18n="pop-tard">Plus tard</button>
+    </div>
+  </div>
+
   <div class="lightbox" id="lightbox" onclick="fermer()">
     <button class="lightbox-fermer" onclick="fermer()" aria-label="Fermer">✕</button>
     <img id="lightbox-img" src="" alt="">
@@ -378,8 +417,10 @@
         li5:"Humidité, ventilation & signaux d'alarme",
         p4:"Checklists visuelles · Points clés · Conseils de base — 15 ans d'expérience sur le terrain à votre service.",
         "btn-amazon":"ACHETER ce LIVRE",
-        "btn-clim":"🎁 Gagner une clim",
         "mention-fr":"",
+        "pop-titre":"Vous visitez une maison bientôt ?",
+        "pop-texte":"Emportez un œil d'expert avec vous : tout ce qu'il faut vérifier avant de signer.",
+        "pop-tard":"Plus tard",
         "gal-titre":"Un aperçu de l'intérieur",
         "gal-sous":"Des fiches illustrées, claires et pratiques. Cliquez pour agrandir.",
         "leg-couv":"La couverture",
@@ -400,8 +441,10 @@
         li5:"Damp, ventilation & warning signs",
         p4:"Visual checklists · Key points · Basic advice — 15 years of field experience at your service.",
         "btn-amazon":"BUY this BOOK",
-        "btn-clim":"🎁 Win an air conditioner",
         "mention-fr":"This book is available in French only.",
+        "pop-titre":"Visiting a house soon?",
+        "pop-texte":"Take an expert's eye with you: everything to check before you sign. (Book in French)",
+        "pop-tard":"Maybe later",
         "gal-titre":"A look inside",
         "gal-sous":"Illustrated, clear and practical fact sheets. Click to enlarge.",
         "leg-couv":"The cover",
@@ -422,8 +465,10 @@
         li5:"Vocht, ventilatie & waarschuwingssignalen",
         p4:"Visuele checklists · Kernpunten · Basisadvies — 15 jaar praktijkervaring tot je dienst.",
         "btn-amazon":"KOOP dit BOEK",
-        "btn-clim":"🎁 Win een airco",
         "mention-fr":"Dit boek is alleen in het Frans verkrijgbaar.",
+        "pop-titre":"Binnenkort een huis bezichtigen?",
+        "pop-texte":"Neem een deskundige blik mee: alles wat je moet controleren voordat je tekent. (Boek in het Frans)",
+        "pop-tard":"Later",
         "gal-titre":"Een kijkje binnenin",
         "gal-sous":"Geïllustreerde, heldere en praktische fiches. Klik om te vergroten.",
         "leg-couv":"De cover",
@@ -447,12 +492,12 @@
       // afficher la mention seulement en EN et NL
       var m = document.querySelector('.mention-fr');
       if(m){ m.style.display = (lang === 'fr') ? 'none' : 'block'; }
-      try{ localStorage.setItem('rvm-lang', lang); }catch(e){}
+      try{ localStorage.setItem('rvm-lang', lang); localStorage.setItem('royvanmil-lang', lang); }catch(e){}
     }
 
     (function(){
       var saved = 'fr';
-      try{ saved = localStorage.getItem('rvm-lang') || 'fr'; }catch(e){}
+      try{ saved = localStorage.getItem('royvanmil-lang') || localStorage.getItem('rvm-lang') || 'fr'; }catch(e){}
       setLang(saved);
     })();
   </script>
@@ -468,7 +513,27 @@
       document.getElementById('lightbox').classList.remove('actif');
       document.body.style.overflow='';
     }
-    document.addEventListener('keydown',function(e){if(e.key==='Escape')fermer();});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape'){fermer();fermerPop();}});
+
+    /* ---- popup "Acheter ce livre" ---- */
+    var pop = document.getElementById('pop-achat');
+    function ouvrirPop(){
+      // pas par-dessus la lightbox
+      if(document.getElementById('lightbox').classList.contains('actif')) return;
+      pop.classList.add('visible');pop.setAttribute('aria-hidden','false');
+      pop.querySelector('.btn-acheter').focus();
+    }
+    function fermerPop(){pop.classList.remove('visible');pop.setAttribute('aria-hidden','true');}
+    pop.addEventListener('click',function(e){if(e.target===pop)fermerPop();});
+    (function(){
+      var deja=false;
+      try{ deja = sessionStorage.getItem('pop-maison')==='1'; }catch(e){}
+      if(deja) return;
+      setTimeout(function(){
+        ouvrirPop();
+        try{ sessionStorage.setItem('pop-maison','1'); }catch(e){}
+      },5000);
+    })();
 
     var API = "https://compteurs.royvanmil86.workers.dev";
     function compte(cle){
