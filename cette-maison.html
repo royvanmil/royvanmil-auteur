@@ -385,7 +385,7 @@
     </div>
   </div>
 
-  <!-- Popup "Acheter ce livre" : s'ouvre après 5 s, une fois par visite -->
+  <!-- Popup "Acheter ce livre" : s'ouvre 5 s après chaque chargement -->
   <div class="pop-fond" id="pop-achat" role="dialog" aria-modal="true" aria-labelledby="pop-titre" aria-hidden="true">
     <div class="pop">
       <button class="pop-fermer" type="button" onclick="fermerPop()" aria-label="Fermer">×</button>
@@ -525,15 +525,8 @@
     }
     function fermerPop(){pop.classList.remove('visible');pop.setAttribute('aria-hidden','true');}
     pop.addEventListener('click',function(e){if(e.target===pop)fermerPop();});
-    (function(){
-      var deja=false;
-      try{ deja = sessionStorage.getItem('pop-maison')==='1'; }catch(e){}
-      if(deja) return;
-      setTimeout(function(){
-        ouvrirPop();
-        try{ sessionStorage.setItem('pop-maison','1'); }catch(e){}
-      },5000);
-    })();
+    // s'ouvre 5 s après chaque chargement (F5 compris), dans la langue de la page
+    setTimeout(ouvrirPop,5000);
 
     var API = "https://compteurs.royvanmil86.workers.dev";
     function compte(cle){
