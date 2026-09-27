@@ -9,19 +9,20 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
 <style>
   :root{
-    --noir:#161210;--bois-fonce:#3a2a1c;--bois:#5a4029;
-    --laiton:#c9a25e;--laiton-clair:#e6c98a;
-    --creme:#e8dcc4;--creme-doux:#c8b895;
+    /* Palette claire (même que l'index) : noms gardés pour ne rien casser */
+    --noir:#f3f7f9;--bois-fonce:#e3edf1;--bois:#d9e4ea;
+    --laiton:#2e6e73;--laiton-clair:#235a5e;
+    --creme:#22364a;--creme-doux:#4d5e6f;
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
   body{
     font-family:'EB Garamond',Georgia,serif;
-    background:radial-gradient(ellipse at 50% 0%, #241a12 0%, var(--noir) 70%), var(--noir);
+    background:radial-gradient(ellipse at 15% 0%, rgba(120,170,205,.14) 0%, transparent 45%), radial-gradient(ellipse at 90% 10%, rgba(110,170,160,.10) 0%, transparent 40%), var(--noir);
     color:var(--creme);min-height:100vh;
   }
   body::before{content:"";position:fixed;inset:0;
-    background:radial-gradient(circle at 50% 30%, rgba(201,162,94,.08), transparent 55%);
+    background:none;
     pointer-events:none;z-index:0;}
   .wrap{position:relative;z-index:2;max-width:760px;margin:0 auto;padding:1.5rem 1.2rem 4rem}
 
@@ -61,7 +62,7 @@
   .btn-attente{
     background:linear-gradient(180deg,#f2b544 0%, #dfa02a 100%);
     color:#2b1d10;border:1px solid #f0c86f;
-    box-shadow:0 10px 26px rgba(242,181,68,.24), inset 0 1px 0 rgba(255,255,255,.28);
+    box-shadow:0 10px 24px rgba(223,160,42,.30), inset 0 1px 0 rgba(255,255,255,.28);
   }
   .btn-attente:hover{
     transform:translateY(-2px);

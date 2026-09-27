@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Les coulisses — Un instant, ou Trois… — Roy Van Mil</title>
-<meta name="description" content="« Les coulisses », le mot de la fin de Roy Van Mil dans le recueil « Un instant, ou Trois… » : comment naissent ses microhistoires.">
+<title>Les coulisses — Un instant, ou Trois — Roy Van Mil</title>
+<meta name="description" content="« Les coulisses », le mot de la fin de Roy Van Mil dans le recueil « Un instant, ou Trois » : comment naissent ses microhistoires.">
 <meta name="author" content="Roy Van Mil">
 <link rel="canonical" href="https://royvanmil.fr/histoire-les-coulisses.html">
 <meta name="robots" content="index, follow">
 
 <meta property="og:type" content="article">
-<meta property="og:title" content="Les coulisses — Un instant, ou Trois…">
+<meta property="og:title" content="Les coulisses — Un instant, ou Trois">
 <meta property="og:description" content="Comment naissent les microhistoires de Roy Van Mil.">
 <meta property="og:url" content="https://royvanmil.fr/histoire-les-coulisses.html">
 <meta property="og:locale" content="fr_FR">
@@ -20,19 +20,20 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
 <style>
   :root{
-    --noir:#161210;--bois-fonce:#3a2a1c;--bois:#5a4029;
-    --laiton:#c9a25e;--laiton-clair:#e6c98a;
-    --creme:#e8dcc4;--creme-doux:#c8b895;
+    /* Palette claire (même que l'index) : noms gardés pour ne rien casser */
+    --noir:#f3f7f9;--bois-fonce:#e3edf1;--bois:#d9e4ea;
+    --laiton:#2e6e73;--laiton-clair:#235a5e;
+    --creme:#22364a;--creme-doux:#4d5e6f;
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
   body{
     font-family:'EB Garamond',Georgia,serif;
-    background:radial-gradient(ellipse at 50% 0%, #241a12 0%, var(--noir) 70%), var(--noir);
+    background:radial-gradient(ellipse at 15% 0%, rgba(120,170,205,.14) 0%, transparent 45%), radial-gradient(ellipse at 90% 10%, rgba(110,170,160,.10) 0%, transparent 40%), var(--noir);
     color:var(--creme);min-height:100vh;
   }
   body::before{content:"";position:fixed;inset:0;
-    background:radial-gradient(circle at 50% 30%, rgba(201,162,94,.06), transparent 55%);
+    background:none;
     pointer-events:none;z-index:0;}
   .wrap{position:relative;z-index:2;max-width:720px;margin:0 auto;padding:1.5rem 1.3rem 4rem}
 
@@ -62,7 +63,6 @@
     font-size:clamp(1.2rem,4vw,2rem);line-height:1.1;
     color:var(--laiton-clair);text-align:center;
     margin:3rem 0 1.4rem;
-    text-shadow:0 3px 26px rgba(0,0,0,.7);
   }
 
   /* grand espace vide (~5 lignes) */
@@ -73,7 +73,6 @@
     font-family:'Cormorant Garamond',serif;font-weight:700;font-style:italic;
     font-size:clamp(1.9rem,6.4vw,3rem);line-height:1.3;
     color:var(--creme);text-align:center;margin:0 auto;
-    text-shadow:0 3px 22px rgba(0,0,0,.6);
   }
   .cloture-grande .dernier{color:var(--laiton-clair);white-space:nowrap}
 
@@ -86,7 +85,7 @@
     font-size:1.45rem;font-weight:700;letter-spacing:.05em;
     padding:1.2rem 2.5rem;border-radius:9px;
     border:3px solid #d40000;box-sizing:border-box;
-    box-shadow:0 8px 22px -6px rgba(0,0,0,.5);
+    box-shadow:0 8px 22px -6px rgba(25,45,65,.25);
     font-family:'Cormorant Garamond',serif;text-decoration:none;
     display:inline-flex;align-items:center;transition:transform .2s, box-shadow .2s;
   }
@@ -113,7 +112,7 @@
     <a class="retour" href="trois-instants.html">← Retour au livre</a>
 
     <h1 class="titre">Les coulisses</h1>
-    <p class="provenance">Extrait de « Un instant, ou Trois… »</p>
+    <p class="provenance">Extrait de « Un instant, ou Trois »</p>
     <div class="filet"></div>
 
     <div class="texte">
@@ -168,5 +167,6 @@
     }
     compte("histoire-les-coulisses");
   </script>
+  <script src="avis-bouton.js" defer></script>
 </body>
 </html>
