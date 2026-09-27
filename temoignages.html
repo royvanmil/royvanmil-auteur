@@ -11,20 +11,21 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
 <style>
   :root{
-    --noir:#161210;--bois-fonce:#3a2a1c;--bois:#5a4029;
-    --laiton:#c9a25e;--laiton-clair:#e6c98a;
-    --creme:#e8dcc4;--creme-doux:#c8b895;
-    --papier:#f4ecd8;--encre:#3a2f22;
+    /* Palette claire (même que l'index) : noms gardés pour ne rien casser */
+    --noir:#f3f7f9;--bois-fonce:#e3edf1;--bois:#d9e4ea;
+    --laiton:#2e6e73;--laiton-clair:#1c4f53;
+    --creme:#14212e;--creme-doux:#2b3c4d;
+    --papier:#fff8e1;--encre:#3a2f22;
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
   body{
     font-family:'EB Garamond',Georgia,serif;
-    background:radial-gradient(ellipse at 50% 0%, #241a12 0%, var(--noir) 70%), var(--noir);
+    background:radial-gradient(ellipse at 15% 0%, rgba(120,170,205,.14) 0%, transparent 45%), radial-gradient(ellipse at 90% 10%, rgba(110,170,160,.10) 0%, transparent 40%), var(--noir);
     color:var(--creme);min-height:100vh;
   }
   body::before{content:"";position:fixed;inset:0;
-    background:radial-gradient(circle at 50% 30%, rgba(201,162,94,.08), transparent 55%);
+    background:none;
     pointer-events:none;z-index:0;}
   .wrap{position:relative;z-index:2;max-width:1000px;margin:0 auto;padding:1.5rem 1.2rem 4rem}
 
@@ -43,8 +44,9 @@
   /* ---- formulaire ---- */
   .form-carte{
     max-width:620px;margin:0 auto;
-    background:rgba(58,42,28,.28);border:1px solid rgba(201,162,94,.3);
-    border-radius:12px;padding:1.8rem 1.6rem;
+    background:#fff;border:1px solid var(--bois);
+    border-radius:20px;padding:1.9rem 1.6rem;
+    box-shadow:0 20px 44px -24px rgba(25,45,65,.35);
   }
   .form-titre{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.5rem;
     color:var(--laiton-clair);text-align:center;margin-bottom:1.6rem}
@@ -55,21 +57,21 @@
 
   .livres-choix{display:flex;flex-direction:column;gap:.5rem}
   .livre-case{display:flex;align-items:center;gap:.65rem;cursor:pointer;
-    padding:.55rem .8rem;border:1px solid rgba(201,162,94,.25);border-radius:8px;
-    background:rgba(15,13,11,.35);transition:border-color .2s, background .2s;font-size:1.05rem;color:var(--creme-doux)}
+    padding:.6rem .9rem;border:1px solid var(--bois);border-radius:12px;
+    background:#f8fbfc;transition:border-color .2s, background .2s;font-size:1.05rem;color:var(--creme-doux)}
   .livre-case:hover{border-color:var(--laiton);color:var(--creme)}
   .livre-case input{accent-color:var(--laiton);width:1.1rem;height:1.1rem;cursor:pointer;flex-shrink:0}
-  .livre-case.coche{border-color:var(--laiton);background:rgba(201,162,94,.12);color:var(--creme)}
+  .livre-case.coche{border-color:var(--laiton);background:rgba(46,110,115,.08);color:var(--creme)}
 
   input[type=text], textarea{
     width:100%;font-family:'EB Garamond',Georgia,serif;font-size:1.05rem;
-    background:rgba(15,13,11,.5);color:var(--creme);
-    border:1px solid rgba(201,162,94,.3);border-radius:8px;padding:.7rem .85rem;
+    background:#f8fbfc;color:var(--creme);
+    border:1px solid var(--bois);border-radius:10px;padding:.7rem .85rem;
     transition:border-color .2s;
   }
-  input[type=text]:focus, textarea:focus{outline:none;border-color:var(--laiton)}
+  input[type=text]:focus, textarea:focus{outline:none;border-color:var(--laiton);background:#fff;box-shadow:0 0 0 3px rgba(46,110,115,.15)}
   textarea{resize:vertical;min-height:110px;line-height:1.6}
-  .compte-car{text-align:right;font-size:.85rem;color:var(--creme-doux);opacity:.7;margin-top:.3rem}
+  .compte-car{text-align:right;font-size:.85rem;color:var(--creme-doux);margin-top:.3rem}
 
   /* ---- note en livres ---- */
   .note-livres{display:flex;gap:.35rem;font-size:1.9rem;line-height:1;user-select:none}
@@ -79,7 +81,7 @@
   .note-txt{margin-top:.5rem;color:var(--laiton-clair);font-size:1.05rem;font-weight:600;min-height:1.3em}
 
   .envoyer{
-    display:block;width:100%;margin-top:.5rem;padding:.95rem;border:none;border-radius:8px;
+    display:block;width:100%;margin-top:.5rem;padding:.95rem;border:none;border-radius:999px;
     font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.25rem;letter-spacing:.03em;
     cursor:pointer;color:#2b1d10;
     background:linear-gradient(180deg,#f2b544 0%, #dfa02a 100%);
@@ -92,7 +94,7 @@
 
   .form-msg{text-align:center;margin-top:1rem;font-size:1.05rem;min-height:1.4em}
   .form-msg.ok{color:var(--laiton-clair)}
-  .form-msg.err{color:#e0a0a0}
+  .form-msg.err{color:#b3261e}
 
   /* ---- mur d'avis ---- */
   .mur-titre{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.8rem;
@@ -103,7 +105,7 @@
   .postit{
     background:var(--papier);color:#2a2018;border-radius:3px;
     padding:1.1rem 1.15rem 1.2rem;position:relative;
-    box-shadow:0 8px 20px rgba(0,0,0,.4);
+    box-shadow:0 14px 28px -12px rgba(25,45,65,.35);
     font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   }
   .postit:nth-child(3n){transform:rotate(-1.4deg)}
@@ -120,7 +122,7 @@
   .postit-nom{font-weight:700;font-size:1.05rem;color:#5a4029}
   .postit-livres{font-size:.82rem;color:#8a7355;margin-top:.15rem}
 
-  .mur-vide{text-align:center;color:var(--creme-doux);font-style:italic;opacity:.7;padding:2rem 0}
+  .mur-vide{text-align:center;color:var(--creme-doux);font-style:italic;padding:2rem 0}
 
   @media (max-width:600px){
     .form-carte{padding:1.4rem 1.1rem}
