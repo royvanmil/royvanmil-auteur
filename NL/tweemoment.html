@@ -9,27 +9,21 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
 <style>
   :root{
-    --ink:#2a2620;
-    --soft:#4a4238;
-    --paper:#fbf7ef;
-    --wash1:#eaf2f0;   /* aquarel groenblauw */
-    --wash2:#f3ecf6;   /* aquarel lila */
-    --wash3:#fdf1e7;   /* aquarel perzik */
-    --wash4:#eef4fb;   /* aquarel blauw */
-    --wash5:#fdf6e3;   /* aquarel warm geel */
-    --line-teal:#7fb2ab;
-    --line-rose:#c98fa6;
-    --line-peach:#e0a879;
-    --line-blue:#8fb0d8;
-    --line-gold:#cbb26b;
-    --shadow:0 10px 28px rgba(60,50,40,.16), 0 3px 8px rgba(60,50,40,.10);
+    /* Palette claire du site (blancs bleutés, accent pétrole) */
+    --ink:#14212e;
+    --soft:#2b3c4d;
+    --paper:#f3f7f9;
+    --petrole:#2e6e73;
+    --petrole-f:#1c4f53;
+    --ligne:#d9e4ea;
+    --line-teal:#2e6e73;
+    --shadow:0 20px 44px -24px rgba(25,45,65,.38);
   }
   *{box-sizing:border-box}
   body{
     margin:0; background:
-      radial-gradient(1200px 600px at 15% -5%, #f0f6f4 0%, transparent 55%),
-      radial-gradient(1000px 500px at 100% 0%, #fbeee7 0%, transparent 50%),
-      radial-gradient(900px 700px at 50% 120%, #eef3fb 0%, transparent 55%),
+      radial-gradient(ellipse at 15% 0%, rgba(120,170,205,.14) 0%, transparent 45%),
+      radial-gradient(ellipse at 90% 10%, rgba(110,170,160,.10) 0%, transparent 40%),
       var(--paper);
     color:var(--ink);
     font-family:'EB Garamond', Georgia, serif;
@@ -44,7 +38,7 @@
     width:170px; height:170px; border-radius:50%;
     object-fit:cover; object-position:center 22%;
     border:5px solid #fff;
-    box-shadow:var(--shadow), 0 0 0 3px var(--line-teal);
+    box-shadow:var(--shadow), 0 0 0 1px rgba(25,45,65,.08);
     margin-bottom:18px;
   }
   h1{
@@ -63,20 +57,18 @@
     padding:26px 30px;
     margin:26px 0;
     box-shadow:var(--shadow);
-    border:2px solid var(--line-teal);
-    background:var(--wash1);
+    border:1px solid var(--ligne);
+    background:#fff;
   }
-  .bubble.rose{border-color:var(--line-rose); background:#f7ecf1}
-  .bubble.peach{border-color:var(--line-peach); background:var(--wash3)}
-  .bubble.blue{border-color:var(--line-blue); background:var(--wash4)}
-  .bubble.gold{border-color:var(--line-gold); background:var(--wash5)}
+  /* la première bulle (présentation) légèrement teintée */
+  .bubble.teal{background:#e9f2f3;border-color:#cfe2e3}
 
   .bubble h2{
     font-family:'Cormorant Garamond', serif;
-    font-weight:700; font-size:1.7rem; margin:.1em 0 .5em;
+    font-weight:700; font-size:1.7rem; margin:.1em 0 .5em; color:var(--petrole-f);
   }
-  .bubble p{margin:.55em 0}
-  .big-black{font-weight:700; color:#111; font-size:1.18rem}
+  .bubble p{margin:.55em 0; font-weight:500}
+  .big-black{font-weight:700; color:var(--ink); font-size:1.2rem}
 
   /* ---- Downloads ---- */
   .downloads{
@@ -88,7 +80,7 @@
   }
   .dl-card img{
     width:100%; height:auto; border-radius:12px;
-    border:1px solid #e6ddcc; box-shadow:var(--shadow); background:#fff;
+    border:1px solid var(--ligne); box-shadow:var(--shadow); background:#fff;
     display:block; margin:0 auto 14px;
   }
   /* Etiket boven de download-kaart: welk formaat */
@@ -108,22 +100,23 @@
     box-shadow:var(--shadow); transition:transform .12s ease, filter .12s ease;
   }
   .btn:hover{transform:translateY(-2px); filter:brightness(1.06)}
-  .btn.teal{background:linear-gradient(180deg,#8cc0b8,#5f9a92)}
-  .btn.peach{background:linear-gradient(180deg,#e9b487,#d18c56)}
-  .btn.word{background:linear-gradient(180deg,#4a78c0,#2b579a)}
+  .btn.teal{background:var(--petrole)}
+  .btn.peach{background:var(--petrole)}
+  .btn.word{background:#2b579a}
+  .btn.teal:hover,.btn.peach:hover{background:var(--petrole-f);filter:none}
 
   /* ---- Dankbetuiging ---- */
   .thanks{ text-align:center }
   .thanks .top-name{
     font-family:'Cormorant Garamond',serif; font-weight:700;
-    font-size:1.9rem; color:#8a5a2b; margin:.2em 0 .05em;
+    font-size:1.9rem; color:var(--petrole-f); margin:.2em 0 .05em;
   }
   .thanks .top-note{font-style:italic; color:var(--soft); margin:0 0 .8em}
   .thanks .names{
     font-size:1.05rem; color:var(--soft);
     line-height:2; margin-top:.4em;
   }
-  .contact a{color:#0a6; text-decoration:none; font-weight:600}
+  .contact a{color:var(--petrole-f); text-decoration:underline; text-underline-offset:3px; font-weight:700}
   .contact a:hover{text-decoration:underline}
 
   footer{text-align:center; margin-top:40px}
@@ -141,9 +134,9 @@
     display:inline-flex; align-items:center; gap:.5em;
     text-decoration:none;
     font-family:'Cormorant Garamond',serif; font-weight:700;
-    font-size:1.25rem; color:#3a2f24;
-    background:rgba(255,255,255,.9);
-    border:2px solid var(--line-teal);
+    font-size:1.25rem; color:var(--petrole-f);
+    background:rgba(255,255,255,.95);
+    border:1.5px solid var(--petrole);
     padding:.4em .95em .4em .7em; border-radius:30px;
     box-shadow:var(--shadow);
     transition:transform .15s ease, background .2s ease;
