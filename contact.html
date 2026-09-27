@@ -52,6 +52,14 @@
     font-size:clamp(2rem,6vw,3rem);line-height:1.05;text-align:center;
     color:var(--creme);margin:2.5rem 0 1rem;
   }
+  /* photo de l'auteur, ronde, au-dessus du titre */
+  .portrait{
+    display:block;width:150px;height:150px;margin:2.2rem auto 0;
+    border-radius:50%;object-fit:cover;object-position:center 30%;
+    border:5px solid #fff;
+    box-shadow:0 18px 38px -16px rgba(25,45,65,.45), 0 0 0 1px rgba(25,45,65,.08);
+  }
+  .portrait + h1{margin-top:1.2rem;}
   .intro{
     max-width:520px;margin:0 auto 2.5rem;text-align:center;
     font-size:1.18rem;line-height:1.8;color:var(--creme-doux);font-style:italic;
@@ -140,6 +148,7 @@
   <div class="wrap">
     <a class="retour" href="index.html">← Retour à la bibliothèque</a>
 
+    <img class="portrait" src="img/roy-auteur.jpg" alt="Roy Van Mil, auteur" width="150" height="150">
     <h1>Écrivez-moi</h1>
     <p class="intro">N'hésitez pas à m'envoyer un message… si vous voulez un exemplaire de mon livre… si une histoire vous a touché… si vous voulez me dire quelque chose…</p>
 
