@@ -41,22 +41,23 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,500&family=EB+Garamond:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --noir:#0f0d0b;--bois-fonce:#2a1f16;
-    --laiton:#b8935080;--laiton-clair:#d9bd88;
-    --creme:#d8ccb8;--creme-doux:#a89a82;
+    /* Palette claire "brume" (même famille que l'index) */
+    --noir:#e9eef1;--bois-fonce:#dde5ea;
+    --laiton:#2e6e7380;--laiton-clair:#2a5f64;
+    --creme:#22364a;--creme-doux:#4d5e6f;
   }
   *{margin:0;padding:0;box-sizing:border-box}
   body{
     font-family:'EB Garamond',Georgia,serif;
-    background:radial-gradient(ellipse at 50% 20%, #1c1712 0%, var(--noir) 75%), var(--noir);
+    background:radial-gradient(ellipse at 50% 15%, #fbfdfe 0%, var(--noir) 70%), var(--noir);
     color:var(--creme);min-height:100vh;overflow-x:hidden;
   }
   /* brume lente en fond */
   body::before{
     content:"";position:fixed;inset:-20%;z-index:0;pointer-events:none;
     background:
-      radial-gradient(ellipse 60% 40% at 30% 30%, rgba(120,110,95,.06), transparent 60%),
-      radial-gradient(ellipse 50% 35% at 70% 60%, rgba(140,130,110,.05), transparent 60%);
+      radial-gradient(ellipse 60% 40% at 30% 30%, rgba(150,166,180,.22), transparent 60%),
+      radial-gradient(ellipse 50% 35% at 70% 60%, rgba(160,176,188,.20), transparent 60%);
     animation:brume 26s ease-in-out infinite alternate;
   }
   @keyframes brume{
@@ -78,20 +79,20 @@
     display:flex;gap:.35rem;font-family:'Cormorant Garamond',serif;
   }
   .langues button{
-    background:rgba(15,13,11,.6);color:var(--creme-doux);
-    border:1px solid rgba(184,147,80,.5);border-radius:5px;
+    background:#fff;color:var(--creme-doux);
+    border:1px solid #d3dde3;border-radius:999px;
     padding:.32rem .62rem;font-family:inherit;font-size:.92rem;font-weight:600;
     letter-spacing:.08em;cursor:pointer;transition:all .2s;
   }
   .langues button:hover{color:var(--laiton-clair);border-color:var(--laiton-clair)}
   .langues button.actif{
-    background:linear-gradient(180deg,var(--laiton-clair),#b89350);
-    color:#2a1c08;border-color:var(--laiton-clair);
+    background:var(--laiton-clair);
+    color:#fff;border-color:var(--laiton-clair);
   }
   .mention-fr{
     display:none;margin:1.6rem auto 0;max-width:520px;padding:.6rem .9rem;
-    border:1px solid rgba(184,147,80,.4);border-radius:6px;
-    background:rgba(184,147,80,.08);
+    border:1px solid #d3dde3;border-radius:10px;
+    background:#fff;
     font-style:italic;color:var(--laiton-clair);font-size:1rem;
   }
   @media (max-width:480px){
@@ -101,14 +102,14 @@
 
   .couverture{
     width:min(300px,72vw);margin:3.5rem auto 2.2rem;border-radius:4px;
-    box-shadow:0 30px 70px -15px rgba(0,0,0,.9), 0 0 0 1px rgba(184,147,80,.25);
+    box-shadow:0 30px 60px -18px rgba(25,45,65,.45), 0 0 0 1px rgba(25,45,65,.06);
     filter:saturate(.92);
   }
   h1{
     font-family:'Cormorant Garamond',serif;font-weight:700;
     font-size:clamp(2.4rem,7vw,4rem);line-height:1;
     color:var(--creme);letter-spacing:.02em;
-    text-shadow:0 3px 24px rgba(0,0,0,.8);margin-bottom:.5rem;
+    text-shadow:0 2px 18px rgba(255,255,255,.7);margin-bottom:.5rem;
   }
   .auteur{font-style:italic;color:var(--laiton-clair);font-size:1.2rem;margin-bottom:2.4rem;}
 
@@ -270,11 +271,11 @@
       });
       var m = document.querySelector('.mention-fr');
       if(m){ m.style.display = (lang === 'fr') ? 'none' : 'block'; }
-      try{ localStorage.setItem('rvm-lang', lang); }catch(e){}
+      try{ localStorage.setItem('rvm-lang', lang); localStorage.setItem('royvanmil-lang', lang); }catch(e){}
     }
     (function(){
       var saved = 'fr';
-      try{ saved = localStorage.getItem('rvm-lang') || 'fr'; }catch(e){}
+      try{ saved = localStorage.getItem('royvanmil-lang') || localStorage.getItem('rvm-lang') || 'fr'; }catch(e){}
       setLang(saved);
     })();
   </script>
