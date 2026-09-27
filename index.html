@@ -230,6 +230,15 @@ h1 em{color:var(--wine);font-weight:500}
 .btn-main:hover{background:var(--wine-dark)}
 .btn-light{background:#fff;border-color:var(--line);box-shadow:var(--shadow-soft)}
 .btn-orange{background:var(--orange);color:#1d1208}
+/* bouton vers le site néerlandais (texte toujours en néerlandais) */
+.btn-nl{
+  display:inline-flex;align-items:center;gap:.6rem;margin-top:22px;
+  padding:.55rem 1.2rem .55rem .7rem;border-radius:999px;
+  background:#fff;border:1px solid var(--line);box-shadow:var(--shadow-soft);
+  font-weight:700;font-size:.95rem;color:var(--ink);transition:.2s ease;
+}
+.btn-nl:hover{transform:translateY(-2px);border-color:var(--wine)}
+.nl-vlag{width:30px;height:20px;border-radius:3px;box-shadow:0 0 0 1px rgba(0,0,0,.12);flex-shrink:0}
 
 /* ===== 3 univers ===== */
 section{padding:74px 0}
@@ -546,6 +555,7 @@ Bienvenue sur le site des Microhistoires de Roy Van Mil. Des histoires audio vou
         <a href="#univers" class="btn btn-main" data-i18n="discoverUnivers">Découvrir les univers ↓</a>
         <a href="Piste-Audio.html" class="btn btn-light" data-i18n="listenStories">🎧 Écouter les histoires</a>
       </div>
+      <a href="NL/indexNL.html" class="btn-nl" lang="nl" hreflang="nl"><svg class="nl-vlag" viewBox="0 0 3 2" aria-hidden="true"><rect width="3" height="2" fill="#21468B"/><rect width="3" height="1.333" fill="#fff"/><rect width="3" height=".667" fill="#AE1C28"/></svg><span>Nederlandse website</span></a>
     </div>
   </section>
 
@@ -717,6 +727,7 @@ Bienvenue sur le site des Microhistoires de Roy Van Mil. Des histoires audio vou
       <a href="un-instant.html">Un instant, ou Deux…</a>
       <a href="trois-instants.html">Un instant, ou Trois…</a>
       <a href="la-cloche-des-morts.html">La Cloche des Morts</a>
+      <a href="NL/indexNL.html" lang="nl">🇳🇱 Nederlandse website</a>
       <a href="IndexPhotos.html" class="lien-photo" aria-label="Photographe" title="Photographe">📷</a>
     </div>
   </div>
