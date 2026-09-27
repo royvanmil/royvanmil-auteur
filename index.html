@@ -722,7 +722,7 @@ Bienvenue sur le site des Microhistoires de Roy Van Mil. Des histoires audio vou
   </div>
 </footer>
 
-<!-- POPUP CAGNOTTE : affiché de temps en temps, pas à chaque clic -->
+<!-- POPUP CAGNOTTE : affiché à chaque chargement de la page -->
 <div class="popup-backdrop" id="supportPopup" role="dialog" aria-modal="true" aria-labelledby="supportPopupTitle">
   <div class="popup">
     <button class="popup-close" id="popupClose" aria-label="Fermer">×</button>
@@ -873,19 +873,8 @@ setLanguage(initial);
 (function(){
   const pop=document.getElementById("supportPopup");
   const close=document.getElementById("popupClose");
-  const KEY="royvanmil-support-popup";
-  const WEEK=7*24*60*60*1000;
-  let show=true;
-  try{
-    const last=Number(localStorage.getItem(KEY)||0);
-    if(Date.now()-last<WEEK) show=false;
-  }catch(e){}
-  if(show){
-    setTimeout(()=>{
-      pop.classList.add("show");
-      try{localStorage.setItem(KEY,String(Date.now()))}catch(e){}
-    },1800);
-  }
+  // s'affiche à chaque chargement (F5 compris), dans la langue de la page
+  setTimeout(()=>{pop.classList.add("show")},1800);
   function fermer(){pop.classList.remove("show")}
   close.addEventListener("click",fermer);
   pop.addEventListener("click",e=>{if(e.target===pop) fermer()});
