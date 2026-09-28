@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Liste dons – Livres envoyés</title>
+<style>
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #e8e6df; }
+  body { font-family: Georgia, "Times New Roman", serif; color: #1e2320; }
+  .barre { max-width: 210mm; margin: 12px auto; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; padding: 0 8px; }
+  .barre a, .barre button { font-family: inherit; font-size: 15px; text-decoration: none; color: #1e2320; background: #fff; border: 1px solid #9ea596; padding: 7px 14px; border-radius: 7px; cursor: pointer; }
+  .barre a.actif { background: #1e2320; color: #fff; }
+  .barre button.imp { background: #3d8b3d; border-color: #3d8b3d; color: #fff; font-weight: bold; margin-left: auto; }
+  .barre input { font-family: inherit; font-size: 15px; padding: 7px 10px; border: 1px solid #9ea596; border-radius: 7px; }
+  #msg { max-width: 210mm; margin: 0 auto 8px; padding: 0 8px; color: #b3261e; }
+  .page {
+    width: 210mm; min-height: 297mm; margin: 0 auto 20px; background: #fbfaf5;
+    padding: 8mm 11mm 6mm; display: flex; flex-direction: column; box-shadow: 0 2px 10px rgba(0,0,0,.15);
+  }
+  header { text-align: center; margin-bottom: 3mm; }
+  .orn { display: flex; align-items: center; gap: 5mm; justify-content: center; color: #7d8c6e; }
+  .orn .line { flex: 1; height: 1px; background: #b9c0ae; }
+  h1 { font-size: 23pt; font-weight: bold; margin-top: 1.5mm; letter-spacing: -0.3px; }
+  .sub { font-style: italic; font-size: 14pt; color: #3a4238; margin-top: 0.5mm; }
+  table { width: 100%; border-collapse: separate; border-spacing: 0; border: 1px solid #9ea596; border-radius: 3mm; overflow: hidden; }
+  th { background: #e4e6dc; font-size: 11pt; padding: 2mm; border-bottom: 1px solid #9ea596; }
+  th + th, td + td { border-left: 1px solid #9ea596; }
+  td { border-bottom: 1px solid #c9cdc0; vertical-align: middle; }
+  tr { page-break-inside: avoid; }
+  tr:last-child td { border-bottom: none; }
+  .who { display: flex; align-items: center; gap: 3mm; padding: 1mm 3mm; }
+  .num { flex: 0 0 6.5mm; height: 6.5mm; border-radius: 50%; background: #e4e6dc; display: flex; align-items: center; justify-content: center; font-size: 9pt; }
+  .name { font-weight: bold; font-size: 9.6pt; }
+  .addr { font-size: 8.4pt; line-height: 1.2; color: #2e3530; }
+  .date { font-size: 7.8pt; color: #6f7a66; font-style: italic; }
+  .col-name { width: 52%; }
+  .col-book { width: 16%; font-size: 9.5pt; line-height: 1.15; }
+  .vide { text-align: center; padding: 8mm; color: #6f7a66; font-style: italic; }
+  .marks { display: flex; justify-content: center; align-items: center; gap: 2mm; }
+  .mk { position: relative; width: 7mm; height: 7mm; }
+  .book svg { width: 7mm; height: 7mm; fill: none; stroke: #b9c0ae; stroke-width: 1.6; stroke-linejoin: round; }
+  .book.on svg { stroke: #2c3a33; }
+  .euro { border-radius: 50%; border: 1.4px solid #c9cdc0; display: flex; align-items: center; justify-content: center; }
+  .euro .eur { font-weight: bold; font-size: 12pt; color: #c9cdc0; }
+  .euro.on { border-color: #2c3a33; }
+  .euro.on .eur { color: #2c3a33; }
+  .mk .v { display: none; }
+  .mk.on .v { display: block; position: absolute; right: -1.6mm; bottom: -0.6mm; width: 4.4mm; height: 4.4mm; border-radius: 50%; background: #3d8b3d; border: 1px solid #fbfaf5; }
+  .mk.on .v::after { content: ""; position: absolute; left: 1.45mm; top: 0.55mm; width: 1mm; height: 2mm; border: solid #fff; border-width: 0 0.6mm 0.6mm 0; transform: rotate(45deg); }
+  .post { border: 1.4px solid #c9cdc0; border-radius: 1.5mm; display: flex; align-items: center; justify-content: center; }
+  .post span { font-family: Arial, Helvetica, sans-serif; font-weight: bold; font-size: 11pt; color: #c9cdc0; }
+  .post.on { background: #ffd200; border-color: #e0b800; }
+  .post.on span { color: #1f3b73; }
+  .legend { display: flex; justify-content: center; gap: 8mm; font-size: 9pt; color: #4d5649; margin-top: 3mm; align-items: center; flex-wrap: wrap; }
+  .legend .it { display: flex; align-items: center; gap: 2mm; }
+  .legend .mk { transform: scale(.75); }
+  footer { text-align: center; margin-top: auto; padding-top: 3mm; font-style: italic; color: #4d5649; font-size: 11pt; }
+  footer .orn { margin-bottom: 1mm; }
+  #connexion { display: none; }
+  @media print {
+    html, body { background: #fbfaf5; }
+    .barre, #msg, #connexion { display: none !important; }
+    .page { margin: 0; box-shadow: none; }
+  }
+</style>
+</head>
+<body>
+<div class="barre">
+  <a href="livres-renseignements.html">Renseignements</a>
+  <a href="livres-dons.html" class="actif">Liste dons</a>
+  <a href="livres-achats.html" class="">Liste achats</a>
+  <span id="connexion"><input type="password" id="mdp" placeholder="Mot de passe"> <button id="btnEntrer">Entrer</button></span>
+  <button class="imp" onclick="window.print()">Imprimer</button>
+</div>
+<div id="msg"></div>
+
+<div class="page">
+  <header>
+    <div class="orn"><span class="line"></span>
+      <svg width="34" height="24" viewBox="0 0 34 24" fill="none" stroke="#2c3a33" stroke-width="2"><path d="M17 5C13 2 7 2 2 3v17c5-1 11-1 15 2 4-3 10-3 15-2V3c-5-1-11-1-15 2zM17 5v17"/></svg>
+    <span class="line"></span></div>
+    <h1>Envois gratuits – Livres envoyés</h1>
+    <div class="sub">Pour ceux qui le méritent</div>
+  </header>
+
+  <table>
+    <thead>
+      <tr><th class="col-name">Nom &amp; adresse</th><th class="col-book">Cette maison, elle vaut vraiment le prix&nbsp;?</th><th class="col-book">Un instant ou deux</th><th class="col-book">Un instant ou trois</th></tr>
+    </thead>
+    <tbody id="corps"><tr><td colspan="4" class="vide">Chargement…</td></tr></tbody>
+  </table>
+
+  <div class="legend">
+    <div class="it"><div class="mk book on"><svg viewBox="0 0 24 24"><path d="M12 6C9.5 4.3 6 4 3 4.6V19c3-.6 6.5-.3 9 1.4 2.5-1.7 6-2 9-1.4V4.6C18 4 14.5 4.3 12 6zM12 6v14.4"/></svg><span class="v"></span></div> Livre reçu</div>
+    <div class="it"><div class="mk post on"><span>L</span></div>Envoyé par La Poste</div>
+    <div class="it">Livre sans L : remis en main propre</div>
+  </div>
+
+  <footer>
+    <div class="orn"><span class="line"></span><span>❦</span><span class="line"></span></div>
+    Roy Van Mil
+  </footer>
+</div>
+
+<script>
+  var API = "https://compteurs.royvanmil86.workers.dev";
+  var TYPE = "don"; // "don" ou "achat"
+  var BOOK = '<svg viewBox="0 0 24 24"><path d="M12 6C9.5 4.3 6 4 3 4.6V19c3-.6 6.5-.3 9 1.4 2.5-1.7 6-2 9-1.4V4.6C18 4 14.5 4.3 12 6zM12 6v14.4"/></svg>';
+  var code = sessionStorage.getItem("livresCode") || "";
+
+  function $(id) { return document.getElementById(id); }
+  function esc(t) { return String(t || "").replace(/[&<>"']/g, function (c) { return { "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]; }); }
+
+  function icone(on) {
+    if (TYPE === "achat") return '<div class="mk euro' + (on ? " on" : "") + '"><span class="eur">€</span><span class="v"></span></div>';
+    return '<div class="mk book' + (on ? " on" : "") + '">' + BOOK + '<span class="v"></span></div>';
+  }
+
+  function cellule(l) {
+    var on = l && l.etat === TYPE;
+    var post = on && l.envoi;
+    return '<td><div class="marks">' + icone(on) + '<div class="mk post' + (post ? " on" : "") + '"><span>L</span></div></div></td>';
+  }
+
+  function afficher(personnes) {
+    var liste = personnes.filter(function (p) {
+      return ["1","2","3"].some(function (n) { return p.livres[n] && p.livres[n].etat === TYPE; });
+    });
+    if (!liste.length) { $("corps").innerHTML = '<tr><td colspan="4" class="vide">Personne pour l\'instant.</td></tr>'; return; }
+    $("corps").innerHTML = liste.map(function (p, i) {
+      var nom = (p.prenom ? p.prenom + " " : "") + p.nom;
+      var adr = [p.adresse, p.cpville].filter(Boolean).join(", ");
+      return '<tr><td><div class="who"><div class="num">' + (i + 1) + '</div><div><div class="name">' + esc(nom) + '</div>' +
+        (adr ? '<div class="addr">' + esc(adr) + '</div>' : '') +
+        (p.note ? '<div class="date">' + esc(p.note) + '</div>' : '') +
+        '</div></div></td>' + cellule(p.livres["1"]) + cellule(p.livres["2"]) + cellule(p.livres["3"]) + '</tr>';
+    }).join("");
+  }
+
+  function charger() {
+    fetch(API + "/livres-liste?code=" + encodeURIComponent(code))
+      .then(function (r) { if (r.status === 403) throw new Error("mdp"); return r.json(); })
+      .then(function (data) {
+        sessionStorage.setItem("livresCode", code);
+        $("connexion").style.display = "none"; $("msg").textContent = "";
+        afficher(data);
+      })
+      .catch(function (e) {
+        sessionStorage.removeItem("livresCode");
+        $("connexion").style.display = "inline";
+        $("msg").textContent = e.message === "mdp" ? (code ? "Mot de passe refusé." : "Entre le mot de passe.") : "Erreur réseau, réessaie.";
+        $("corps").innerHTML = '<tr><td colspan="4" class="vide">Liste protégée.</td></tr>';
+      });
+  }
+
+  $("btnEntrer").addEventListener("click", function () { code = $("mdp").value; charger(); });
+  $("mdp").addEventListener("keydown", function (e) { if (e.key === "Enter") { code = this.value; charger(); } });
+  charger();
+</script>
+</body>
+</html>
