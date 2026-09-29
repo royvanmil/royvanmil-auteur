@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Blind Letter — Mon écritoire</title>
+<style>
+:root{--bg:#e9dfcf;--paper:#fffdf7;--ink:#2c2924;--wine:#8a333d;--wood:#b98e5f;--wood2:#8e6947;--cork:#c7a879;--line:#d4c4af}
+*{box-sizing:border-box}body{margin:0;color:var(--ink);font-family:Inter,system-ui,sans-serif;background:linear-gradient(#f3ede3,#e5d8c5)}
+.top{background:#f8f3ea;border-bottom:1px solid #d9cdbd;position:sticky;top:0;z-index:20}.topin{max-width:1200px;margin:auto;padding:12px 18px;display:flex;justify-content:space-between;align-items:center;gap:12px}.brand{font-family:Georgia,serif;font-size:1.45rem;font-weight:800}.nav{display:flex;gap:9px;flex-wrap:wrap}.nav a{text-decoration:none;color:var(--ink);background:#fff;border:1px solid #ddd1c1;border-radius:999px;padding:8px 12px;font-size:.9rem}
+.wrap{max-width:1200px;margin:auto;padding:28px 18px 70px}.intro{display:flex;justify-content:space-between;align-items:end;gap:18px;flex-wrap:wrap;margin-bottom:20px}h1,h2{font-family:Georgia,serif}.intro h1{font-size:clamp(2.3rem,5vw,4rem);margin:0}.id{color:#6b6258}
+.scene{display:grid;grid-template-columns:260px 1fr 260px;gap:20px;align-items:start}
+.side,.deskboard{background:#c5a474;border:8px solid var(--wood2);box-shadow:0 15px 30px rgba(76,51,29,.16),inset 0 0 0 2px #d9bf98;border-radius:12px;padding:18px;min-height:510px;position:relative}
+.side h3,.deskboard h3{margin:0 0 14px;font-family:Georgia,serif}.paper{background:var(--paper);border:1px solid #d8cbbb;border-radius:7px;padding:15px;box-shadow:0 7px 12px #0002;transform:rotate(-1deg);margin:12px 0;position:relative}.paper:nth-of-type(even){transform:rotate(.7deg)}
+.pin{width:10px;height:10px;background:var(--wine);border-radius:50%;position:absolute;top:8px;left:50%}.seal{width:54px;height:54px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#bd4c55,#7a1f29);color:#f8e8d2;display:flex;align-items:center;justify-content:center;font-family:Georgia,serif;font-weight:800;box-shadow:0 3px 7px #0004;position:absolute;right:12px;top:12px;transform:rotate(-9deg)}
+.new{padding-right:72px}.small{font-size:.82rem;color:#6d655b}.txt{font-family:Georgia,serif;line-height:1.45}.done{opacity:.62;filter:saturate(.7)}
+.shelf{grid-column:1/-1;background:linear-gradient(#9e744e,#795638);border-radius:8px;height:118px;margin-top:-4px;box-shadow:0 13px 24px #0002;display:flex;align-items:flex-end;justify-content:center;gap:28px;padding:18px 24px;position:relative}.shelf:after{content:"";position:absolute;left:0;right:0;bottom:-12px;height:12px;background:#65462f;border-radius:0 0 6px 6px}
+.object{text-align:center;color:#fff8ed;text-shadow:0 1px 2px #0008}.pens{font-size:2rem;letter-spacing:.2em}.jar{display:inline-flex;width:58px;height:58px;border-radius:10px 10px 16px 16px;background:linear-gradient(#63819a 30%,#2f4f68 31%);border:4px solid #d7e0e4;box-shadow:inset 0 7px 0 rgba(255,255,255,.2);align-items:center;justify-content:center;font-size:1.45rem}.emptyjar{opacity:.28}
+.status{margin-top:30px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card{background:#fffaf2;border:1px solid #d8cabb;border-radius:18px;padding:18px}.btns{display:flex;gap:8px;flex-wrap:wrap}.btn{padding:9px 12px;border-radius:999px;border:1px solid #d0c1b0;background:#fff;font-weight:700}.danger{color:#8a333d}.factor{margin-top:18px;background:#34352f;color:#fbf7f0;border-radius:18px;padding:18px 20px}.factor strong{font-family:Georgia,serif;font-size:1.25rem}.muted{color:#756c61}
+@media(max-width:950px){.scene{grid-template-columns:1fr}.side,.deskboard{min-height:auto}.shelf{grid-column:auto}.status{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="top"><div class="topin"><div class="brand">Blind Letter — Mon écritoire</div><div class="nav"><a href="index.html">Tableaux publics</a><a href="brainstorm.html">Brainstorm</a></div></div></div>
+<main class="wrap">
+<div class="intro"><div><div class="id">#583291 — Le promeneur des jours gris</div><h1>Mon tableau privé</h1></div><div class="id">Démo visuelle</div></div>
+
+<section class="scene">
+<aside class="side">
+<h3>Ma lettre publique</h3>
+<div class="paper"><span class="pin"></span><div class="small">J'ai besoin de parler…</div><p class="txt">Aujourd'hui j'ai mangé seul dans ma voiture après le travail. Ce n'était pas triste. J'avais juste besoin de silence.</p></div>
+<p class="small">Cette lettre est actuellement affichée sur un tableau public. Elle disparaîtra automatiquement après 5 réponses.</p>
+</aside>
+
+<section class="deskboard">
+<h3>Mes lettres & correspondances</h3>
+<div class="paper new"><span class="pin"></span><div class="seal">NEUF</div><div class="small">La fenêtre du dimanche</div><p class="txt"><strong>Une lettre t'attend…</strong><br>Le sceau rouge indique une lettre encore fermée.</p></div>
+<div class="paper"><span class="pin"></span><div class="small">Correspondance — Deux cafés froids</div><p class="txt">« Je comprends ce que tu voulais dire par le besoin de silence. Chez moi aussi, parfois, le calme ressemble à une pièce où je peux enfin respirer. »</p><div class="btns"><button class="btn">Répondre</button><button class="btn danger">Bloquer</button><button class="btn danger">Supprimer</button></div></div>
+<div class="paper"><span class="pin"></span><div class="small">Correspondance — Le gardien des vieux livres</div><p class="txt">Dernière carte reçue. Aucun “vu”, aucune heure de connexion, aucune pression pour répondre immédiatement.</p></div>
+</section>
+
+<aside class="side">
+<h3>Lettres épuisées</h3>
+<div class="paper done"><span class="pin"></span><div class="small">Je suis fier de…</div><p class="txt">Une ancienne lettre qui a reçu ses 5 réponses et a quitté le tableau public.</p></div>
+<div class="paper done"><span class="pin"></span><div class="small">Retirée par moi</div><p class="txt">Une lettre peut aussi être retirée volontairement avant d'être épuisée.</p></div>
+</aside>
+
+<div class="shelf">
+<div class="object"><div class="pens">✒️ ✒️ ✒️</div><small>3 stylos</small></div>
+<div class="object"><div class="jar">🫙</div><br><small>1 pot du jour<br>500 caractères</small></div>
+<div class="object"><div class="jar emptyjar">🫙</div><br><small>pot utilisé</small></div>
+</div>
+</section>
+
+<section class="status">
+<div class="card"><strong>Correspondances : 2 gratuites</strong><p class="muted">Tu peux acheter un stylo pour en ouvrir davantage, mais jamais dépasser 6 actives.</p></div>
+<div class="card"><strong>Dépôt public verrouillé</strong><p class="muted">Avec 2 correspondances actives, tu peux lire les tableaux mais pas déposer une nouvelle lettre publique.</p></div>
+<div class="card"><strong>Besoin d'écrire davantage ?</strong><p class="muted">Un pot d'encre supplémentaire peut être acheté. Chaque pot reste limité à 500 caractères.</p></div>
+</section>
+
+<div class="factor"><strong>📮 Passage du facteur</strong><br>Les nouvelles cartes ne tombent pas instantanément. Elles arrivent lors du passage quotidien du facteur. Blind Letter veut rester lent, calme et sans urgence.</div>
+</main>
+</body></html>
