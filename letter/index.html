@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Blind Letter — Tableaux publics</title>
+<style>
+:root{--bg:#efe9dc;--paper:#fffdf8;--ink:#2d2925;--wine:#8b3f46;--wood:#c8a878;--line:#d7c8b2;--green:#68745f}
+*{box-sizing:border-box} body{margin:0;background:linear-gradient(#f5f0e7,#e9dfcf);color:var(--ink);font-family:Inter,system-ui,sans-serif}
+.top{position:sticky;top:0;z-index:20;background:rgba(247,243,235,.92);backdrop-filter:blur(12px);border-bottom:1px solid #ded3c4}
+.topin{max-width:1180px;margin:auto;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;gap:14px}
+.brand{font-family:Georgia,serif;font-size:1.45rem;font-weight:700}.brand span{color:var(--wine)}
+.nav{display:flex;gap:10px;flex-wrap:wrap}.nav a{color:var(--ink);text-decoration:none;padding:8px 12px;border-radius:999px;background:#fff;border:1px solid #ddd2c3;font-size:.9rem}
+.wrap{max-width:1180px;margin:auto;padding:34px 18px 70px}
+.hero{background:rgba(255,253,248,.9);border:1px solid #d8cdbd;border-radius:26px;padding:30px;box-shadow:0 16px 40px rgba(74,54,35,.09)}
+h1{font-family:Georgia,serif;font-size:clamp(2.4rem,6vw,4.6rem);margin:.1em 0}.muted{color:#6d665d}
+.notice{margin-top:16px;padding:14px 16px;border-left:4px solid var(--wine);background:#fbf6ef;border-radius:10px}
+.categories{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:28px 0}
+.cat{background:#dfcfb6;border:1px solid #cbb89c;padding:16px;border-radius:15px;min-height:105px;box-shadow:inset 0 0 0 5px rgba(255,255,255,.22);position:relative}
+.cat:before{content:"";position:absolute;top:10px;left:50%;width:9px;height:9px;border-radius:50%;background:var(--wine)}
+.cat strong{display:block;font-family:Georgia,serif;margin-top:12px}.cat small{color:#675e52}
+.board-title{display:flex;align-items:end;justify-content:space-between;gap:16px;margin:40px 0 14px}h2{font-family:Georgia,serif;font-size:2rem;margin:0}
+.wall{background:#cdb18a;border:1px solid #b5966e;border-radius:22px;padding:22px;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;box-shadow:inset 0 0 0 7px rgba(255,255,255,.18)}
+.letter{background:var(--paper);border:1px solid #ddd0c0;border-radius:10px;padding:15px;box-shadow:0 8px 15px rgba(63,44,27,.12);transform:rotate(-.6deg);position:relative}
+.letter:nth-child(2n){transform:rotate(.7deg)}.pin{position:absolute;top:8px;left:50%;width:10px;height:10px;border-radius:50%;background:var(--wine)}
+.art{height:145px;border-radius:8px;margin:10px 0 12px;background:linear-gradient(135deg,#8799a8,#d6c3a2);display:flex;align-items:end;padding:12px;color:white;font-family:Georgia,serif;text-shadow:0 1px 4px #0005}
+.art.two{background:linear-gradient(145deg,#6f8064,#cbb68c)}.art.three{background:linear-gradient(145deg,#76585f,#d4bca5)}.art.four{background:linear-gradient(145deg,#64737f,#d4d1c1)}.art.five{background:linear-gradient(145deg,#8b765f,#c9b58f)}.art.six{background:linear-gradient(145deg,#755e87,#cbbcd5)}
+.who{font-size:.78rem;color:#756d63}.txt{font-family:Georgia,serif;line-height:1.48}
+.actions{display:flex;gap:8px;margin-top:12px}.btn{border:0;border-radius:999px;padding:9px 13px;font-weight:700;cursor:pointer}.reply{background:var(--wine);color:white}.pass{background:#eee8df;color:#504a43}
+.bottom{margin-top:26px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.panel{flex:1;min-width:260px;background:#fffaf2;border:1px solid #d8ccbc;border-radius:18px;padding:18px}
+.biglink{display:inline-block;text-decoration:none;color:white;background:#34352f;padding:12px 16px;border-radius:12px;font-weight:800}
+@media(max-width:900px){.categories{grid-template-columns:1fr 1fr}.wall{grid-template-columns:1fr 1fr}}
+@media(max-width:580px){.categories,.wall{grid-template-columns:1fr}.topin{align-items:flex-start;flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="top"><div class="topin"><div class="brand">Blind <span>Letter</span> ✉️</div><div class="nav"><a href="brainstorm.html">Brainstorm</a><a href="prive.html">Mon écritoire</a></div></div></div>
+<main class="wrap">
+<section class="hero">
+<div class="muted">DÉMO — ESPACE PUBLIC</div>
+<h1>Les tableaux</h1>
+<p>Des lettres courtes, déposées par des inconnus. Aucun profil à parcourir. Tu choisis seulement les mots qui te parlent.</p>
+<div class="notice"><strong>3 stylos disponibles ✒️ ✒️ ✒️</strong><br><span class="muted">Un stylo te permet de répondre à une lettre publique et, si la personne poursuit l'échange, d'ouvrir une correspondance.</span></div>
+</section>
+
+<div class="categories">
+<div class="cat"><strong>J'ai besoin de parler…</strong><small>Déposer quelque chose, sans forcément attendre une solution.</small></div>
+<div class="cat"><strong>Je dois vous avouer…</strong><small>Les choses qu'on ne dit pas facilement ailleurs.</small></div>
+<div class="cat"><strong>Je suis fier de…</strong><small>Parce qu'une petite victoire mérite parfois d'être entendue.</small></div>
+<div class="cat"><strong>J'aurais besoin d'un avis…</strong><small>Un doute, une situation, une décision.</small></div>
+</div>
+
+<div class="board-title"><div><div class="muted">TABLEAU PUBLIC</div><h2>J'ai besoin de parler…</h2></div><div class="muted">Aucun compteur. Aucun classement.</div></div>
+<section class="wall">
+<article class="letter"><span class="pin"></span><div class="art">Une voiture sous la pluie, seule sur un parking</div><div class="who">#583291 — Le promeneur des jours gris</div><p class="txt">Aujourd'hui j'ai mangé seul dans ma voiture après le travail. Ce n'était pas triste. J'avais juste besoin que personne ne me demande quoi que ce soit.</p><div class="actions"><button class="btn reply">✒️ Répondre</button><button class="btn pass">Passer</button></div></article>
+<article class="letter"><span class="pin"></span><div class="art two">Une fenêtre allumée dans une maison calme</div><div class="who">#104822 — La fenêtre du dimanche</div><p class="txt">Je fais rire tout le monde au travail. Ce soir pourtant, j'aurais aimé que quelqu'un me demande simplement si moi, ça allait.</p><div class="actions"><button class="btn reply">✒️ Répondre</button><button class="btn pass">Passer</button></div></article>
+<article class="letter"><span class="pin"></span><div class="art three">Un banc vide avec deux cafés</div><div class="who">#761044 — Deux cafés froids</div><p class="txt">J'ai appelé quelqu'un juste pour entendre sa voix. Je n'ai rien dit d'important. Je crois que c'était justement ça dont j'avais besoin.</p><div class="actions"><button class="btn reply">✒️ Répondre</button><button class="btn pass">Passer</button></div></article>
+<article class="letter"><span class="pin"></span><div class="art four">Un train tôt le matin dans la brume</div><div class="who">#339512 — Celui qui regarde les trains</div><p class="txt">Demain je recommence quelque chose après avoir échoué une première fois. Je dis que ça va, mais j'ai peur de me planter encore.</p><div class="actions"><button class="btn reply">✒️ Répondre</button><button class="btn pass">Passer</button></div></article>
+<article class="letter"><span class="pin"></span><div class="art five">Une cuisine éclairée tard le soir</div><div class="who">#481203 — Le dernier lampadaire</div><p class="txt">Il y a des soirs où je cuisine beaucoup trop, juste pour remplir la maison d'odeurs et de bruit. Ça semble idiot, mais ça m'aide.</p><div class="actions"><button class="btn reply">✒️ Répondre</button><button class="btn pass">Passer</button></div></article>
+<article class="letter"><span class="pin"></span><div class="art six">Un vieux livre ouvert sous une lampe</div><div class="who">#906177 — Le gardien des vieux livres</div><p class="txt">Je viens de retrouver une phrase écrite par quelqu'un qui n'est plus là. Je ne sais pas si ça me rend triste ou heureux. Sans doute les deux.</p><div class="actions"><button class="btn reply">✒️ Répondre</button><button class="btn pass">Passer</button></div></article>
+</section>
+
+<div class="bottom">
+<div class="panel"><strong>Une seule lettre publique active</strong><p class="muted">Quand tu déposes une lettre, elle vit ici jusqu'à 5 réponses. Le nombre n'est jamais affiché.</p></div>
+<div class="panel"><strong>Deux correspondances actives ?</strong><p class="muted">Tu peux encore lire les tableaux, mais tu ne peux plus déposer une nouvelle lettre publique.</p></div>
+<div class="panel"><a class="biglink" href="prive.html">Voir l'espace privé →</a><p class="muted">Découvrir le tableau personnel, les pots d'encre, les stylos et le passage du facteur.</p></div>
+</div>
+</main>
+</body></html>
