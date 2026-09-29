@@ -1,0 +1,487 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blind Letter — Brainstorm</title>
+  <meta name="description" content="Brainstorm du concept Blind Letter — correspondance anonyme, bienveillante et humaine.">
+  <style>
+    :root{
+      --bg:#f5f1e8;
+      --paper:#fffdf7;
+      --ink:#2a2926;
+      --muted:#6f6b63;
+      --line:#ddd4c5;
+      --accent:#8f3f3f;
+      --accent2:#6c7b69;
+      --soft:#efe6d8;
+      --shadow:0 12px 32px rgba(57,45,32,.10);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(143,63,63,.06), transparent 28%),
+        linear-gradient(180deg,#f8f4ec 0%,#f2eee6 100%);
+      color:var(--ink);
+      line-height:1.65;
+    }
+    .wrap{width:min(1120px,calc(100% - 32px));margin:auto}
+    header{padding:72px 0 40px}
+    .hero{
+      background:var(--paper);
+      border:1px solid var(--line);
+      box-shadow:var(--shadow);
+      border-radius:28px;
+      padding:48px;
+      position:relative;
+      overflow:hidden;
+    }
+    .hero:after{
+      content:"✉";
+      position:absolute;
+      right:28px;
+      top:6px;
+      font-size:150px;
+      opacity:.05;
+      transform:rotate(-8deg);
+    }
+    .eyebrow{
+      text-transform:uppercase;
+      letter-spacing:.16em;
+      font-size:.78rem;
+      color:var(--accent);
+      font-weight:800;
+    }
+    h1{font-family:Georgia,serif;font-size:clamp(3rem,7vw,6rem);line-height:.95;margin:.2em 0 .25em}
+    h2{font-family:Georgia,serif;font-size:2rem;margin:0 0 16px}
+    h3{font-size:1.05rem;margin:0 0 8px}
+    .lead{font-size:1.25rem;max-width:820px;color:#47433d}
+    .quote{
+      margin-top:28px;
+      padding:18px 22px;
+      border-left:4px solid var(--accent);
+      background:#faf6ef;
+      font-family:Georgia,serif;
+      font-size:1.1rem;
+    }
+    nav{
+      position:sticky;top:0;z-index:20;
+      backdrop-filter:blur(12px);
+      background:rgba(245,241,232,.88);
+      border-bottom:1px solid rgba(221,212,197,.8);
+    }
+    nav .wrap{display:flex;gap:18px;overflow:auto;padding:12px 0}
+    nav a{white-space:nowrap;color:var(--ink);text-decoration:none;font-weight:700;font-size:.92rem}
+    section{padding:56px 0}
+    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:20px}
+    .card{
+      grid-column:span 6;
+      background:var(--paper);
+      border:1px solid var(--line);
+      border-radius:22px;
+      padding:26px;
+      box-shadow:0 8px 20px rgba(57,45,32,.06);
+    }
+    .wide{grid-column:1/-1}
+    .third{grid-column:span 4}
+    .tag{
+      display:inline-block;padding:6px 10px;border-radius:999px;
+      background:var(--soft);color:#514b43;font-size:.78rem;font-weight:800;margin:4px 5px 4px 0
+    }
+    ul{padding-left:20px}
+    .boards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+    .board{
+      min-height:160px;background:#e6d6bd;border:1px solid #cfbfa7;border-radius:16px;padding:18px;
+      box-shadow:inset 0 0 0 5px rgba(255,255,255,.25);
+      position:relative;
+    }
+    .board:before{content:"";width:10px;height:10px;border-radius:50%;background:var(--accent);position:absolute;top:12px;left:50%}
+    .postcard{
+      background:#fffdf8;border:1px solid #ded7cb;border-radius:8px;padding:14px;transform:rotate(-1.5deg);
+      box-shadow:0 5px 12px rgba(0,0,0,.08);font-family:Georgia,serif;
+    }
+    .identity{
+      display:flex;align-items:center;gap:16px;padding:18px;border-radius:16px;background:#f8f3ea;border:1px dashed #cfc2b2;
+    }
+    .hash{font-size:1.5rem;font-weight:900;color:var(--accent)}
+    .flow{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+    .step{background:#faf7f1;border:1px solid var(--line);border-radius:14px;padding:16px;text-align:center;font-weight:700}
+    .charter{
+      background:#2f302d;color:#f8f4ec;border-radius:26px;padding:34px;border:1px solid #41423d;
+    }
+    .charter h2,.charter h3{color:#fff}
+    .charter .rule{font-family:Georgia,serif;font-size:1.45rem;color:#f2d9c8;margin:18px 0}
+    .charter li{margin:7px 0}
+    .warning{
+      background:#fbf2ef;border:1px solid #e3c7bf;border-left:5px solid var(--accent);
+      padding:18px;border-radius:14px;
+    }
+    footer{padding:40px 0 70px;color:var(--muted);font-size:.9rem}
+    .small{font-size:.9rem;color:var(--muted)}
+    @media(max-width:850px){
+      .hero{padding:30px}
+      .card,.third{grid-column:1/-1}
+      .boards{grid-template-columns:1fr 1fr}
+      .flow{grid-template-columns:1fr 1fr}
+    }
+    @media(max-width:520px){
+      .boards,.flow{grid-template-columns:1fr}
+      header{padding-top:34px}
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="hero">
+      <div class="eyebrow">Projet / Brainstorm</div>
+      <h1>Blind Letter</h1>
+      <p class="lead">
+        Une application de petites lettres anonymes entre inconnus. Pas de profils à séduire,
+        pas de course aux likes, pas de romans. Seulement quelques phrases, une carte postale,
+        et quelqu'un de l'autre côté qui peut choisir de répondre.
+      </p>
+      <div class="quote">
+        « Je ne sais pas qui tu es. Tu ne sais pas qui je suis. Mais pendant quelques lignes, je t’écoute. »
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav>
+  <div class="wrap">
+    <a href="#idee">L'idée</a>
+    <a href="#identite">Identité</a>
+    <a href="#tableaux">Tableaux</a>
+    <a href="#cartes">Cartes</a>
+    <a href="#regles">Règles</a>
+    <a href="#charte">Bienveillance</a>
+    <a href="#fonctionnement">Fonctionnement</a>
+    <a href="#tech">Prototype</a>
+  </div>
+</nav>
+
+<main>
+<section id="idee">
+  <div class="wrap">
+    <div class="grid">
+      <div class="card wide">
+        <h2>1. L'idée centrale</h2>
+        <p>
+          Blind Letter permet de correspondre avec des inconnus au travers de <strong>petites lettres courtes</strong>.
+          On ne choisit pas quelqu'un selon son visage, son âge, son métier, son lieu de vie ou son statut.
+          On découvre simplement ses mots.
+        </p>
+        <p>
+          L'application peut devenir un endroit où l'on dépose quelque chose que l'on porte :
+          une inquiétude, une fierté, un secret, un doute, une pensée, un moment drôle ou une chose que l'on n'ose dire ailleurs.
+        </p>
+        <span class="tag">Anonyme</span><span class="tag">Humain</span><span class="tag">Court</span>
+        <span class="tag">Sans jugement</span><span class="tag">Sans séduction</span>
+      </div>
+
+      <div class="card">
+        <h3>Ce que Blind Letter n'est pas</h3>
+        <ul>
+          <li>Pas un réseau social classique.</li>
+          <li>Pas un site de rencontre.</li>
+          <li>Pas une application de profils.</li>
+          <li>Pas une compétition à la popularité.</li>
+          <li>Pas un endroit où l'on collectionne les followers.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Ce que Blind Letter peut apporter</h3>
+        <ul>
+          <li>Déposer un poids.</li>
+          <li>Se sentir entendu.</li>
+          <li>Répondre avec empathie.</li>
+          <li>Partager une petite victoire.</li>
+          <li>Créer une relation uniquement par les mots.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="identite">
+  <div class="wrap">
+    <div class="card wide">
+      <h2>2. Une identité sans profil</h2>
+      <p>
+        Chaque utilisateur possède uniquement un <strong>hashtag-numéro</strong> et un <strong>nom anonyme choisi parmi cinq propositions de l'IA</strong>.
+        Ces noms sont générés à partir d'une courte description ou d'une ambiance fournie par la personne, sans divulguer d'informations personnelles.
+      </p>
+
+      <div class="identity">
+        <div class="hash">#583291</div>
+        <div>
+          <strong>Le promeneur des jours gris</strong><br>
+          <span class="small">Nom choisi parmi 5 propositions générées par l'IA.</span>
+        </div>
+      </div>
+
+      <p>Exemples possibles :</p>
+      <span class="tag">La fenêtre du dimanche</span>
+      <span class="tag">Le renard sous la pluie</span>
+      <span class="tag">Celui qui regarde les trains</span>
+      <span class="tag">Le gardien des vieux livres</span>
+      <span class="tag">Le dernier lampadaire</span>
+
+      <p><strong>Idée forte :</strong> il ne devrait pas être possible de rechercher un pseudo comme on recherche un profil.
+      On retrouve uniquement les correspondances déjà commencées.</p>
+    </div>
+  </div>
+</section>
+
+<section id="tableaux">
+  <div class="wrap">
+    <h2>3. Les tableaux de l'accueil</h2>
+    <p>On entre dans l'application par ce que l'on veut dire, jamais par qui l'on est.</p>
+
+    <div class="boards">
+      <div class="board"><div class="postcard"><strong>J'ai besoin de parler…</strong><br><small>Déposer quelque chose sans forcément demander une solution.</small></div></div>
+      <div class="board"><div class="postcard"><strong>Je dois vous avouer…</strong><br><small>Confessions, secrets, choses difficiles à dire.</small></div></div>
+      <div class="board"><div class="postcard"><strong>Je suis fier de…</strong><br><small>Petites et grandes victoires.</small></div></div>
+      <div class="board"><div class="postcard"><strong>J'aurais besoin d'un avis…</strong><br><small>Une situation, un doute, une décision.</small></div></div>
+      <div class="board"><div class="postcard"><strong>Aujourd'hui, j'ai pensé à…</strong><br><small>Pensées simples, souvenirs, réflexions.</small></div></div>
+      <div class="board"><div class="postcard"><strong>Je voudrais dire merci…</strong><br><small>Même si la personne concernée ne le lira jamais.</small></div></div>
+      <div class="board"><div class="postcard"><strong>Ça me fait peur…</strong><br><small>Inquiétudes, changements, avenir.</small></div></div>
+      <div class="board"><div class="postcard"><strong>À toi qui tomberas sur cette carte…</strong><br><small>Une vraie carte postale jetée dans le monde.</small></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="cartes">
+  <div class="wrap">
+    <div class="grid">
+      <div class="card">
+        <h2>4. La carte postale</h2>
+        <p>Chaque publication contient uniquement :</p>
+        <ul>
+          <li>une image générée par IA ;</li>
+          <li>une petite lettre de quelques phrases ;</li>
+          <li>éventuellement un titre très court ;</li>
+          <li>l'identité anonyme de l'auteur.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Comment l'image est créée</h3>
+        <p>
+          L'auteur décrit l'ambiance ou la scène qu'il imagine.
+          L'IA crée alors l'illustration de la carte postale.
+          On ne publie donc pas de vraie photo personnelle.
+        </p>
+      </div>
+
+      <div class="card wide">
+        <h3>Exemple</h3>
+        <div class="quote">
+          « Aujourd'hui j'ai mangé seul dans ma voiture après le travail.
+          Ce n'était pas triste, bizarrement. J'avais juste besoin que personne ne me demande quoi que ce soit. »
+        </div>
+        <p>Une réponse pourrait être simplement :</p>
+        <div class="quote">
+          « Je comprends. Il y a des moments où être seul ressemble plus à du silence qu'à de la solitude. »
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="regles">
+  <div class="wrap">
+    <div class="grid">
+      <div class="card wide">
+        <h2>5. Les règles du concept</h2>
+        <p>Blind Letter protège volontairement le mystère de l'autre.</p>
+      </div>
+
+      <div class="card third">
+        <h3>Pas d'identité</h3>
+        <p>Pas de nom réel, adresse, ville précise, téléphone, e-mail ou réseau social.</p>
+      </div>
+
+      <div class="card third">
+        <h3>Pas de présentation classique</h3>
+        <p>Pas de fiche « âge / sexe / métier / célibataire / apparence ».</p>
+      </div>
+
+      <div class="card third">
+        <h3>Pas de rencontre</h3>
+        <p>L'application n'est pas conçue pour organiser des rendez-vous réels.</p>
+      </div>
+
+      <div class="card third">
+        <h3>Pas de sexualisation</h3>
+        <p>Pas de contenu sexuel ni de tentative de transformer l'échange en discussion sexuelle.</p>
+      </div>
+
+      <div class="card third">
+        <h3>Pas de likes</h3>
+        <p>Pas de ❤️, 🔥, étoiles, classement ou popularité publique.</p>
+      </div>
+
+      <div class="card third">
+        <h3>Deux choix simples</h3>
+        <p><strong>Répondre</strong> ou <strong>Passer</strong>. Les mots comptent plus que la personne.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="charte">
+  <div class="wrap">
+    <div class="charter">
+      <div class="eyebrow" style="color:#e7bfae">Charte de bienveillance</div>
+      <h2>Ici, la bienveillance est la règle.</h2>
+      <p>
+        Vous ne savez pas qui se trouve derrière une lettre.
+        Peut-être quelqu'un qui passe une merveilleuse journée.
+        Peut-être quelqu'un qui doute, qui a besoin de rire, de parler, d'avouer quelque chose,
+        ou simplement d'être entendu.
+      </p>
+
+      <div class="rule">Alors prenez soin de vos mots.</div>
+
+      <h3>Ici, vous pouvez…</h3>
+      <ul>
+        <li>parler sans être jugé ;</li>
+        <li>écouter sans chercher à tout résoudre ;</li>
+        <li>encourager ;</li>
+        <li>partager une expérience ;</li>
+        <li>confier ce que vous n'osez dire ailleurs ;</li>
+        <li>partager une fierté ou un petit bonheur ;</li>
+        <li>répondre simplement : « Je t'ai lu. »</li>
+      </ul>
+
+      <h3>Ici, certaines choses n'ont pas leur place.</h3>
+      <ul>
+        <li>insultes ;</li>
+        <li>harcèlement ;</li>
+        <li>menaces ;</li>
+        <li>manipulation ;</li>
+        <li>contenu sexuel ;</li>
+        <li>recherche de rencontre ;</li>
+        <li>coordonnées personnelles ;</li>
+        <li>tentative de découvrir l'identité ou l'adresse d'un correspondant.</li>
+      </ul>
+
+      <div class="rule">L'anonymat protège. Il n'autorise pas tout.</div>
+
+      <p>
+        Les comportements graves ou malveillants peuvent être détectés, signalés et conservés
+        dans le cadre de la sécurité du service. Un utilisateur cherchant volontairement à nuire
+        peut perdre définitivement l'accès à Blind Letter. Lorsque la situation l'exige,
+        les éléments nécessaires peuvent être transmis aux autorités compétentes conformément à la loi.
+      </p>
+
+      <div class="rule">De l'autre côté de cette lettre, il y a un être humain.</div>
+      <p>Écrivez-lui comme vous aimeriez qu'un inconnu vous écrive un jour où vous en auriez vraiment besoin.</p>
+    </div>
+  </div>
+</section>
+
+<section id="fonctionnement">
+  <div class="wrap">
+    <h2>6. Parcours utilisateur</h2>
+    <div class="flow">
+      <div class="step">1<br>Créer un compte privé</div>
+      <div class="step">2<br>Recevoir un #numéro</div>
+      <div class="step">3<br>Choisir 1 nom sur 5</div>
+      <div class="step">4<br>Choisir un tableau</div>
+      <div class="step">5<br>Écrire une carte</div>
+      <div class="step">6<br>Recevoir une réponse</div>
+    </div>
+
+    <div class="card wide" style="margin-top:20px">
+      <h3>Avant l'envoi</h3>
+      <p>L'IA peut vérifier automatiquement le contenu et demander une reformulation lorsqu'elle détecte :</p>
+      <span class="tag">coordonnées</span>
+      <span class="tag">adresse</span>
+      <span class="tag">réseau social</span>
+      <span class="tag">contenu sexuel</span>
+      <span class="tag">menace</span>
+      <span class="tag">harcèlement</span>
+      <span class="tag">tentative de rencontre</span>
+
+      <div class="warning" style="margin-top:18px">
+        <strong>Exemple :</strong><br>
+        « Ta lettre contient peut-être une information permettant de te localiser.
+        Peux-tu la reformuler ? »
+      </div>
+
+      <p style="margin-top:18px">
+        De temps en temps, juste avant l'envoi :
+        <strong>« Ces mots vont être lus par une vraie personne. Êtes-vous satisfait de la façon dont vous les avez écrits ? »</strong>
+      </p>
+    </div>
+  </div>
+</section>
+
+<section id="tech">
+  <div class="wrap">
+    <div class="grid">
+      <div class="card wide">
+        <h2>7. Première version à construire</h2>
+        <p>
+          Le projet ne doit pas commencer par une grosse entreprise ou une application complexe.
+          L'objectif est d'abord de construire un prototype simple et testable.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Version 1</h3>
+        <ul>
+          <li>accueil avec les tableaux ;</li>
+          <li>compte privé ;</li>
+          <li>#numéro anonyme ;</li>
+          <li>5 noms proposés par IA ;</li>
+          <li>création d'une carte ;</li>
+          <li>image IA ;</li>
+          <li>texte court ;</li>
+          <li>réponses privées ;</li>
+          <li>blocage / signalement ;</li>
+          <li>modération automatique.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Piste technique</h3>
+        <p><strong>Web App d'abord</strong>, puis applications Android/iPhone lorsque le concept est validé.</p>
+        <ul>
+          <li>interface : FlutterFlow ou équivalent ;</li>
+          <li>données : Supabase ou solution similaire ;</li>
+          <li>IA : noms, modération, aide aux images ;</li>
+          <li>test initial : petit groupe d'utilisateurs.</li>
+        </ul>
+      </div>
+
+      <div class="card wide">
+        <h3>Question essentielle du test</h3>
+        <p>
+          Est-ce que les gens <strong>écrivent</strong> ? Est-ce qu'ils <strong>répondent</strong> ?
+          Est-ce qu'ils <strong>reviennent</strong> quelques jours plus tard ?
+          Si oui, alors le projet mérite d'être développé plus loin.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <strong>Blind Letter — document de brainstorm</strong><br>
+    Concept en cours de réflexion. Cette page sert à conserver les idées et à les présenter simplement à des proches ou futurs collaborateurs.
+  </div>
+</footer>
+
+</body>
+</html>
