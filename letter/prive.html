@@ -16,6 +16,14 @@
 .shelf{grid-column:1/-1;background:linear-gradient(#9e744e,#795638);border-radius:8px;height:118px;margin-top:-4px;box-shadow:0 13px 24px #0002;display:flex;align-items:flex-end;justify-content:center;gap:28px;padding:18px 24px;position:relative}.shelf:after{content:"";position:absolute;left:0;right:0;bottom:-12px;height:12px;background:#65462f;border-radius:0 0 6px 6px}
 .object{text-align:center;color:#fff8ed;text-shadow:0 1px 2px #0008}.pens{font-size:2rem;letter-spacing:.2em}.jar{display:inline-flex;width:58px;height:58px;border-radius:10px 10px 16px 16px;background:linear-gradient(#63819a 30%,#2f4f68 31%);border:4px solid #d7e0e4;box-shadow:inset 0 7px 0 rgba(255,255,255,.2);align-items:center;justify-content:center;font-size:1.45rem}.emptyjar{opacity:.28}
 .status{margin-top:30px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card{background:#fffaf2;border:1px solid #d8cabb;border-radius:18px;padding:18px}.btns{display:flex;gap:8px;flex-wrap:wrap}.btn{padding:9px 12px;border-radius:999px;border:1px solid #d0c1b0;background:#fff;font-weight:700}.danger{color:#8a333d}.factor{margin-top:18px;background:#34352f;color:#fbf7f0;border-radius:18px;padding:18px 20px}.factor strong{font-family:Georgia,serif;font-size:1.25rem}.muted{color:#756c61}
+.compose{margin-top:28px;background:#fffaf2;border:1px solid #d8cabb;border-radius:22px;padding:22px;box-shadow:0 10px 24px rgba(76,51,29,.08)}
+.composegrid{display:grid;grid-template-columns:1fr 280px;gap:20px;align-items:start}
+.compose textarea{width:100%;min-height:190px;resize:vertical;border:1px solid #d4c4af;border-radius:12px;background:#fffdf7;padding:16px;font:1rem/1.55 Georgia,serif;color:var(--ink)}
+.meta{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:8px;font-size:.86rem;color:#756c61}
+.choice{background:#f5ecdf;border:1px solid #ddcfbd;border-radius:14px;padding:14px;margin-bottom:12px}
+.send{background:var(--wine);color:white;border:0;border-radius:999px;padding:11px 16px;font-weight:800;cursor:pointer;width:100%}
+.send:disabled{opacity:.45;cursor:not-allowed}
+@media(max-width:760px){.composegrid{grid-template-columns:1fr}}
 @media(max-width:950px){.scene{grid-template-columns:1fr}.side,.deskboard{min-height:auto}.shelf{grid-column:auto}.status{grid-template-columns:1fr}}
 </style>
 </head>
@@ -57,6 +65,28 @@
 <div class="card"><strong>Besoin d'écrire davantage ?</strong><p class="muted">Un pot d'encre supplémentaire peut être acheté. Chaque pot reste limité à 500 caractères.</p></div>
 </section>
 
+<section class="compose" id="ecrire">
+<h2>Écrire une carte</h2>
+<p class="muted">Un pot d'encre = une carte de 500 caractères maximum. Ici, pas besoin d'écrire long pour écrire quelque chose de vrai.</p>
+<div class="composegrid">
+<div>
+<textarea id="letterText" maxlength="500" placeholder="Écris ta lettre ici…"></textarea>
+<div class="meta"><span>🫙 Pot d'encre du jour</span><span id="chars">0 / 500 caractères</span></div>
+</div>
+<div>
+<div class="choice"><strong>Tableau choisi</strong><br><span class="small">J'ai besoin de parler…</span></div>
+<div class="choice"><strong>Illustration</strong><br><span class="small">Décris l'ambiance de ta carte ; l'image sera créée sans utiliser de photo personnelle.</span></div>
+<div class="choice"><strong>Avant l'envoi</strong><br><span class="small">Blind Letter vérifiera que la carte ne contient pas de coordonnées, de contenu agressif ou de tentative de rencontre.</span></div>
+<button class="send" id="sendBtn" disabled>Sceller ma lettre ✉️</button>
+</div>
+</div>
+</section>
+
 <div class="factor"><strong>📮 Passage du facteur</strong><br>Les nouvelles cartes ne tombent pas instantanément. Elles arrivent lors du passage quotidien du facteur. Blind Letter veut rester lent, calme et sans urgence.</div>
+
+<script>
+const t=document.getElementById('letterText'), c=document.getElementById('chars'), b=document.getElementById('sendBtn');
+t.addEventListener('input',()=>{const n=t.value.length;c.textContent=n+' / 500 caractères';b.disabled=n===0;});
+</script>
 </main>
 </body></html>
