@@ -75,14 +75,20 @@
 </div>
 <div>
 <div class="choice"><strong>Tableau choisi</strong><br><span class="small">J'ai besoin de parler…</span></div>
-<div class="choice"><strong>Illustration</strong><br><span class="small">Décris l'ambiance de ta carte ; l'image sera créée sans utiliser de photo personnelle.</span></div>
-<div class="choice"><strong>Avant l'envoi</strong><br><span class="small">Blind Letter vérifiera que la carte ne contient pas de coordonnées, de contenu agressif ou de tentative de rencontre.</span></div>
+<div class="choice"><strong>Signature sur la carte</strong><br><label class="small"><input type="radio" name="signature" checked> Afficher mon nom anonyme</label><br><label class="small"><input type="radio" name="signature"> Ne pas afficher mon nom</label></div>
+<div class="choice"><strong>Avant l'envoi</strong><br><span class="small">Chaque lettre est vérifiée automatiquement. Les mots interdits ou sensibles sont filtrés ; si le sens dépend du contexte, l'IA analyse la phrase entière avant publication.</span></div>
 <button class="send" id="sendBtn" disabled>Sceller ma lettre ✉️</button>
 </div>
 </div>
 </section>
 
-<div class="factor"><strong>📮 Passage du facteur</strong><br>Les nouvelles cartes ne tombent pas instantanément. Elles arrivent lors du passage quotidien du facteur. Blind Letter veut rester lent, calme et sans urgence.</div>
+<div class="factor"><strong>📮 Passage du facteur — 12 h 15</strong><br>Chaque jour à 12 h 15, les lettres validées sont déposées et les tableaux sont mis à jour automatiquement. Les réponses sont distribuées au même passage.</div>
+
+<section class="status">
+<div class="card"><strong>Conservation : 7 jours</strong><p class="muted">Une correspondance terminée reste disponible 7 jours avant suppression automatique.</p></div>
+<div class="card"><strong>🧷 Garder en mémoire</strong><p class="muted">Tu peux conserver un échange plus longtemps, mais il continuera d'occuper un emplacement de correspondance.</p></div>
+<div class="card"><strong>Texte avant tout</strong><p class="muted">Aucune image IA : les cartes publiques reposent uniquement sur les mots et la signature choisie.</p></div>
+</section>
 
 <script>
 const t=document.getElementById('letterText'), c=document.getElementById('chars'), b=document.getElementById('sendBtn');
