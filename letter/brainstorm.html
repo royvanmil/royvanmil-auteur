@@ -254,6 +254,14 @@
 
       <p><strong>Idée forte :</strong> il ne devrait pas être possible de rechercher un pseudo comme on recherche un profil.
       On retrouve uniquement les correspondances déjà commencées.</p>
+
+      <div class="warning" style="margin-top:18px">
+        <strong>Validation des noms anonymes :</strong><br>
+        avant de proposer 5 noms, le texte fourni par l'utilisateur est filtré.
+        Les insultes, termes humiliants, grossiers, discriminatoires ou destinés à contourner la modération ne servent jamais à générer un nom.
+        Une liste de mots interdits/sensibles déclenche un blocage ou une vérification de contexte par l'IA.
+        Les propositions générées sont elles-mêmes contrôlées une seconde fois avant affichage.
+      </div>
     </div>
   </div>
 </section>
@@ -635,6 +643,18 @@
           <li>réponses privées ;</li>
           <li>blocage / signalement ;</li>
           <li>modération automatique.</li>
+        </ul>
+      </div>
+
+      <div class="card wide">
+        <h3>Sécurité des comptes et des données</h3>
+        <ul>
+          <li>Le <strong>numéro Blind Letter</strong> et le <strong>nom anonyme</strong> servent d'identité publique.</li>
+          <li>L'<strong>adresse e-mail</strong> et les éventuelles informations personnelles restent dans un espace séparé et protégé.</li>
+          <li>La base publique ne doit pas permettre de retrouver directement l'e-mail ou l'identité réelle d'un utilisateur.</li>
+          <li>Les mots de passe ne sont jamais stockés en clair : seulement sous forme de hachage sécurisé.</li>
+          <li>Accès administrateur protégé fortement, journaux de sécurité, sauvegardes chiffrées et droits d'accès minimaux.</li>
+          <li>On conserve uniquement les données réellement nécessaires au fonctionnement du service.</li>
         </ul>
       </div>
 
