@@ -649,13 +649,23 @@
       <div class="card wide">
         <h3>Sécurité des comptes et des données</h3>
         <ul>
-          <li>Le <strong>numéro Blind Letter</strong> et le <strong>nom anonyme</strong> servent d'identité publique.</li>
-          <li>L'<strong>adresse e-mail</strong> et les éventuelles informations personnelles restent dans un espace séparé et protégé.</li>
-          <li>La base publique ne doit pas permettre de retrouver directement l'e-mail ou l'identité réelle d'un utilisateur.</li>
-          <li>Les mots de passe ne sont jamais stockés en clair : seulement sous forme de hachage sécurisé.</li>
-          <li>Accès administrateur protégé fortement, journaux de sécurité, sauvegardes chiffrées et droits d'accès minimaux.</li>
-          <li>On conserve uniquement les données réellement nécessaires au fonctionnement du service.</li>
+          <li><strong>Zone publique :</strong> uniquement le numéro Blind Letter, le nom anonyme choisi et les données strictement nécessaires aux cartes.</li>
+          <li><strong>Zone identité :</strong> e-mail et éventuelles informations personnelles stockés séparément, chiffrés avec une clé distincte.</li>
+          <li><strong>Zone correspondance :</strong> lettres et relations entre comptes séparées de l'identité réelle.</li>
+          <li><strong>Clés séparées des données :</strong> les clés de chiffrement ne doivent jamais être stockées dans la même base que les données chiffrées.</li>
+          <li><strong>Chiffrement par enveloppe :</strong> une clé de données chiffre les informations ; cette clé est elle-même protégée par une clé maîtresse conservée dans un coffre de clés/KMS/HSM.</li>
+          <li><strong>Mots de passe :</strong> jamais chiffrés de manière réversible ni stockés en clair ; uniquement hachés avec un algorithme adapté.</li>
+          <li><strong>Administration :</strong> aucun écran admin normal ne doit afficher ensemble numéro public, e-mail, identité et correspondances en clair.</li>
+          <li><strong>Accès exceptionnel :</strong> prévoir une procédure « break-glass » très rare, journalisée, avec double validation et droits temporaires.</li>
+          <li><strong>Double contrôle :</strong> les opérations sensibles (export, déchiffrement exceptionnel, rotation de clés) doivent nécessiter deux facteurs et, lorsque possible, deux rôles distincts.</li>
+          <li><strong>Journalisation :</strong> toute consultation ou opération sensible doit être tracée sans enregistrer les données privées elles-mêmes dans les logs.</li>
+          <li><strong>Rotation :</strong> les clés doivent pouvoir être renouvelées sans reconstruire toute la base.</li>
+          <li><strong>Sauvegardes :</strong> sauvegardes chiffrées séparément, restauration testée et accès fortement restreint.</li>
+          <li><strong>Principe minimal :</strong> même l'administrateur du site n'a pas un accès permanent à tout. Les rôles techniques sont cloisonnés.</li>
         </ul>
+        <p class="small">
+          Objectif : une compromission d'une seule base, d'un seul compte administrateur ou d'une seule clé ne doit pas suffire à reconstituer l'identité réelle et les conversations d'un utilisateur.
+        </p>
       </div>
 
       <div class="card">
