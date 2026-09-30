@@ -1,0 +1,17 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Blind Letter — Admin</title><style>
+:root{--bg:#f3ede3;--paper:#fffdf8;--ink:#2d2925;--wine:#8b3f46;--line:#d7c8b2;--soft:#efe6d8}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(#f7f2e9,#e9dfcf);color:var(--ink);font-family:Inter,system-ui,sans-serif;line-height:1.55}
+.top{position:sticky;top:0;z-index:20;background:rgba(247,243,235,.94);backdrop-filter:blur(12px);border-bottom:1px solid #ded3c4}
+.topin{max-width:1100px;margin:auto;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;gap:14px}
+.brand{font-family:Georgia,serif;font-size:1.4rem;font-weight:800}.brand span{color:var(--wine)}
+.nav{display:flex;gap:8px;flex-wrap:wrap}.nav a{color:var(--ink);text-decoration:none;padding:8px 11px;border-radius:999px;background:#fff;border:1px solid #ddd2c3;font-size:.88rem}
+.wrap{max-width:920px;margin:auto;padding:42px 18px 70px}h1,h2{font-family:Georgia,serif}h1{font-size:clamp(2.4rem,6vw,4.2rem);margin:.1em 0 .3em}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:24px;box-shadow:0 12px 28px #5b46331a;margin:16px 0}
+.muted{color:#71695f}.btn{display:inline-block;border:0;border-radius:999px;padding:11px 15px;font-weight:800;text-decoration:none;background:var(--wine);color:white;cursor:pointer}
+.btn.alt{background:#34352f}.field{display:grid;gap:7px;margin:14px 0}.field input,.field textarea,.field select{width:100%;padding:12px;border:1px solid #cfc1af;border-radius:11px;background:#fff;font:inherit}.field textarea{min-height:150px}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}.stat{background:#f8f2e9;border:1px solid #ded1bf;border-radius:16px;padding:18px}.stat b{font-size:2rem;font-family:Georgia,serif}
+table{width:100%;border-collapse:collapse;background:white;border-radius:14px;overflow:hidden}th,td{text-align:left;padding:12px;border-bottom:1px solid #eee4d7}th{background:#f3eadf}
+@media(max-width:700px){.topin{align-items:flex-start;flex-direction:column}.grid{grid-template-columns:1fr}}
+</style></head><body><div class="top"><div class="topin"><div class="brand">Blind <span>Letter</span> ✉️</div><div class="nav">
+<a href="index.html">Tableaux publics</a><a href="connexion.html">Mon écritoire</a><a href="regles.html">Les règles</a><a href="contact.html">Contact</a>
+</div></div></div><main class="wrap"><div class="muted">ADMINISTRATION — MAQUETTE</div><h1>Compteurs</h1><div class="grid"><div class="stat"><span>Comptes créés</span><br><b>128</b></div><div class="stat"><span>Lettres publiques</span><br><b>42</b></div><div class="stat"><span>Correspondances actives</span><br><b>67</b></div><div class="stat"><span>Messages contact non lus</span><br><b>3</b></div><div class="stat"><span>Lettres envoyées aujourd'hui</span><br><b>31</b></div><div class="stat"><span>Signalements ouverts</span><br><b>1</b></div></div><div class="card"><a class="btn alt" href="admin-messages.html">Lire les messages contact</a></div></main></body></html>
