@@ -267,24 +267,46 @@
     .herve-photos{ grid-template-columns:1fr; }
     .badge{ font-size:.92rem; padding:.5rem .9rem; }
   }
+
+  /* ---- sélecteur de langue (FR / EN / NL) ---- */
+  .langues{position:absolute;top:1rem;right:1rem;z-index:50;display:flex;gap:.35rem;
+    font-family:'Cormorant Garamond',Georgia,serif;}
+  .langues button{background:#fff;color:#2b3c4d;border:1px solid #cfdbe2;border-radius:999px;
+    padding:.32rem .62rem;font-family:inherit;font-size:.92rem;font-weight:600;
+    letter-spacing:.08em;cursor:pointer;transition:all .2s;}
+  .langues button:hover{color:#1c4f53;border-color:#2e6e73}
+  .langues button.actif{background:#2e6e73;color:#fff;border-color:#2e6e73}
+  .mention-fr{display:none;max-width:560px;margin:1rem auto 1.6rem;padding:.6rem .9rem;
+    border:1px solid #d9e4ea;border-radius:10px;background:#fff;text-align:center;
+    font-family:'EB Garamond',Georgia,serif;font-style:italic;color:#1c4f53;font-size:1rem;line-height:1.5;}
+  @media (max-width:480px){
+    .langues{top:.7rem;right:.7rem}
+    .langues button{padding:.28rem .5rem;font-size:.82rem}
+  }
 </style>
 </head>
 <body>
 
 <!-- Lien d'évitement pour navigation clavier / lecteurs d'écran -->
-<a href="#contenu" class="skip">Aller directement au contenu</a>
+<a href="#contenu" class="skip" data-i18n="skip">Aller directement au contenu</a>
+  <div class="langues" role="group" aria-label="Langue / Language / Taal">
+    <button type="button" data-lang="fr" onclick="setLang('fr')">FR</button>
+    <button type="button" data-lang="en" onclick="setLang('en')">EN</button>
+    <button type="button" data-lang="nl" onclick="setLang('nl')">NL</button>
+  </div>
+
 
 <div class="wrap">
 
-  <a href="index.html" class="retour">← Retour à l'accueil</a>
+  <a href="index.html" class="retour" data-i18n="retour">← Retour à l'accueil</a>
 
   <main id="contenu">
 
     <div class="titre-bulle">
-      <h1>Les aveugles et malvoyants<br>ont AUSSI droit aux histoires&nbsp;!</h1>
+      <h1 data-i18n="h1">Les aveugles et malvoyants<br>ont AUSSI droit aux histoires&nbsp;!</h1>
     </div>
 
-    <p class="sous-titre">
+    <p class="sous-titre" data-i18n="sous_titre">
       Une histoire, ça se vit… ça se lit. Avec les yeux. Mais alors, les
       personnes malvoyantes et aveugles n'auraient pas le droit aux histoires
       émouvantes&nbsp;? Le droit de ressentir des émotions — émouvantes, tristes,
@@ -293,14 +315,15 @@
 
     <!-- ===== C'EST EN ROUTE : histoires déjà en ligne ===== -->
     <div class="enligne">
-      <h2>🎧 C'est en route&nbsp;: 4 histoires vous attendent&nbsp;!</h2>
-      <p>
+      <h2 data-i18n="enligne_h2">🎧 C'est en route&nbsp;: 4 histoires vous attendent&nbsp;!</h2>
+      <p data-i18n="enligne_p">
         Le projet a démarré pour de vrai. <strong>Les 4 premières histoires
         sont déjà enregistrées et disponibles gratuitement à l'écoute.</strong>
       </p>
-      <a href="Piste-Audio.html" class="btn-ecouter">▶ Écouter les histoires</a>
+      <a href="Piste-Audio.html" class="btn-ecouter" data-i18n="ecouter">▶ Écouter les histoires</a>
+      <div class="mention-fr" data-i18n="mention"></div>
 
-      <div class="plateformes" role="list" aria-label="Plateformes où écouter le podcast">
+      <div class="plateformes" role="list" aria-label="Plateformes où écouter le podcast" data-i18n-aria="aria_plateformes">
         <a href="https://open.spotify.com/show/3MbZ40WgbyKWqREZJcRSTx" class="badge badge-spotify" role="listitem" target="_blank" rel="noopener noreferrer"><span class="pastille" aria-hidden="true"></span>Spotify</a>
         <a href="https://podcasts.apple.com/fr/podcast/un-instant-ou-deux/id6807992876" class="badge badge-apple" role="listitem" target="_blank" rel="noopener noreferrer"><span class="pastille" aria-hidden="true"></span>Apple Podcasts</a>
         <a href="https://link.deezer.com/s/34in4yKllFsAgPNA4nrgC" class="badge badge-deezer" role="listitem" target="_blank" rel="noopener noreferrer"><span class="pastille" aria-hidden="true"></span>Deezer</a>
@@ -308,15 +331,15 @@
         <a href="https://music.amazon.fr/podcasts/9371948e-a294-4d1f-9739-fe3279b4b718/un-instant-ou-deux" class="badge badge-amazon" role="listitem" target="_blank" rel="noopener noreferrer"><span class="pastille" aria-hidden="true"></span>Amazon Music</a>
         <a href="https://music.youtube.com" class="badge badge-youtube" role="listitem" target="_blank" rel="noopener noreferrer"><span class="pastille" aria-hidden="true"></span>YouTube Music</a>
       </div>
-      <p class="badge-legende">Disponible aussi sur vos plateformes d'écoute habituelles.</p>
+      <p class="badge-legende" data-i18n="legende">Disponible aussi sur vos plateformes d'écoute habituelles.</p>
     </div>
 
-    <h2>Le projet</h2>
-    <p>
+    <h2 data-i18n="h2_projet">Le projet</h2>
+    <p data-i18n="projet_p1">
       J'écris de courtes histoires — de quoi surprendre, sourire, ou pleurer.
       Elles sont réunies dans mes livres, en vente au grand public.
     </p>
-    <p>
+    <p data-i18n="projet_p2">
       Mais je me suis posé une question toute bête : et les personnes qui ne
       voient pas ? Elles aussi ont droit aux histoires. C'est de là qu'est née
       l'envie de créer cet espace : une version audio, pensée pour être écoutée,
@@ -324,8 +347,8 @@
       malvoyantes.
     </p>
 
-    <h2>Une page pensée pour vous</h2>
-    <p>
+    <h2 data-i18n="h2_page">Une page pensée pour vous</h2>
+    <p data-i18n="page_p">
       Cette page n'est pas une page ordinaire à laquelle on aurait « ajouté »
       de l'audio. Elle est <strong>conçue dès le départ</strong> pour les
       lecteurs d'écran et les outils de navigation des personnes aveugles :
@@ -333,16 +356,16 @@
     </p>
 
     <!-- ===== HERVÉ CARRASCO ===== -->
-    <h2>Une vraie voix, professionnelle</h2>
+    <h2 data-i18n="h2_voix">Une vraie voix, professionnelle</h2>
     <div class="herve-intro">
-      <p style="margin-bottom:0">
+      <p style="margin-bottom:0" data-i18n="voix_p1">
         J'y tenais&nbsp;: pas une voix de synthèse, mais un <strong>vrai
         comédien</strong>. Ces histoires sont lues par <strong>Hervé
         Carrasco</strong>, une voix professionnelle qui prête aussi sa voix à
         des publicités et des documentaires.
       </p>
     </div>
-    <p>
+    <p data-i18n="voix_p2">
       Le résultat m'a bouleversé. Même en connaissant mes textes par cœur, je
       les ai écoutés avec des frissons — et j'ai versé une larme. Une belle voix
       ne fait pas que lire les mots&nbsp;: <strong>elle donne vie aux
@@ -350,17 +373,17 @@
     </p>
 
     <div class="herve-photos">
-      <img src="img/herve-carrasco-1.jpg" alt="Hervé Carrasco en studio d'enregistrement, pouce levé devant son micro">
-      <img src="img/herve-carrasco-4.jpg" alt="Hervé Carrasco souriant en studio, casque sur les oreilles">
-      <img src="img/herve-carrasco-2.jpg" alt="Planche de photos d'Hervé Carrasco en studio d'enregistrement">
-      <img src="img/herve-carrasco-3.jpg" alt="Hervé Carrasco au micro dans son studio">
+      <img src="img/herve-carrasco-1.jpg" alt="Hervé Carrasco en studio d'enregistrement, pouce levé devant son micro" data-i18n-alt="alt1">
+      <img src="img/herve-carrasco-4.jpg" alt="Hervé Carrasco souriant en studio, casque sur les oreilles" data-i18n-alt="alt4">
+      <img src="img/herve-carrasco-2.jpg" alt="Planche de photos d'Hervé Carrasco en studio d'enregistrement" data-i18n-alt="alt2">
+      <img src="img/herve-carrasco-3.jpg" alt="Hervé Carrasco au micro dans son studio" data-i18n-alt="alt3">
     </div>
     <p class="herve-credit">
-      Voix&nbsp;: <strong>Hervé Carrasco</strong>
+      <span data-i18n="credit">Voix&nbsp;: <strong>Hervé Carrasco</strong></span>
     </p>
 
-    <h2>Ce que ça coûte</h2>
-    <p>
+    <h2 data-i18n="h2_cout">Ce que ça coûte</h2>
+    <p data-i18n="cout_p1">
       Je vais être honnête avec vous. Faire enregistrer ces histoires par une
       vraie voix — avec la narration, le nettoyage du son et un rendu propre —
       représente un vrai budget. C'est compréhensible&nbsp;: il y a le matériel,
@@ -368,7 +391,7 @@
       paie, et je le respecte.
     </p>
     <div class="encadre">
-      <p style="margin-bottom:0">
+      <p style="margin-bottom:0" data-i18n="cout_p2">
         Le prix de vente de mon livre sur Amazon, 12,50 €, inclut aussi bien les
         frais d'Amazon, les frais d'envoi, les taxes sur les livres, les impôts
         et l'Urssaf. Et aussi la publicité, le site web, etc. Bien sûr, je ne
@@ -380,8 +403,8 @@
     </div>
 
     <div class="cagnotte">
-      <h2>Un coup de main pour la suite&nbsp;?</h2>
-      <p style="margin-bottom:1rem">
+      <h2 data-i18n="h2_cagnotte">Un coup de main pour la suite&nbsp;?</h2>
+      <p style="margin-bottom:1rem" data-i18n="cagnotte_p">
         4 histoires sont en ligne… mais il en reste <strong>12 à
         enregistrer</strong>&nbsp;! Pour continuer à offrir ces histoires
         gratuitement aux personnes aveugles et malvoyantes, j'ai ouvert une
@@ -389,14 +412,14 @@
         l'enregistrement des voix.
       </p>
       <a href="https://www.leetchi.com/fr/c/des-histoires-pour-aveugles-1218180"
-         class="btn-don" target="_blank" rel="noopener noreferrer">Soutenir le projet</a>
+         class="btn-don" target="_blank" rel="noopener noreferrer" data-i18n="btn_don">Soutenir le projet</a>
     </div>
 
     <div class="note-bas">
-      <p>
+      <p data-i18n="bas_p1">
         Cette page continuera d'évoluer au fil des enregistrements.
       </p>
-      <p>
+      <p data-i18n="bas_p2">
         Elle sera aussi améliorée en tenant compte des retours des personnes
         aveugles et malvoyantes qui la testeront. Si vous rencontrez la moindre
         difficulté pour naviguer ou écouter, votre avis me sera précieux.
@@ -415,5 +438,155 @@
 </script>
 <script src="avis-bouton.js" defer></script>
 
+<script>
+  var I18N = {
+ "fr": {
+  "titre_page": "Les aveugles et malvoyants ont aussi droit aux histoires — Roy Van Mil",
+  "mention": "",
+  "aria_plateformes": "Plateformes où écouter le podcast",
+  "alt1": "Hervé Carrasco en studio d'enregistrement, pouce levé devant son micro",
+  "alt4": "Hervé Carrasco souriant en studio, casque sur les oreilles",
+  "alt2": "Planche de photos d'Hervé Carrasco en studio d'enregistrement",
+  "alt3": "Hervé Carrasco au micro dans son studio",
+  "legende": "Disponible aussi sur vos plateformes d'écoute habituelles.",
+  "skip": "Aller directement au contenu",
+  "retour": "← Retour à l'accueil",
+  "h1": "Les aveugles et malvoyants<br>ont AUSSI droit aux histoires&nbsp;!",
+  "enligne_h2": "🎧 C'est en route&nbsp;: 4 histoires vous attendent&nbsp;!",
+  "ecouter": "▶ Écouter les histoires",
+  "h2_projet": "Le projet",
+  "h2_page": "Une page pensée pour vous",
+  "h2_voix": "Une vraie voix, professionnelle",
+  "h2_cout": "Ce que ça coûte",
+  "h2_cagnotte": "Un coup de main pour la suite&nbsp;?",
+  "btn_don": "Soutenir le projet",
+  "credit": "Voix&nbsp;: <strong>Hervé Carrasco</strong>",
+  "sous_titre": "Une histoire, ça se vit… ça se lit. Avec les yeux. Mais alors, les\n      personnes malvoyantes et aveugles n'auraient pas le droit aux histoires\n      émouvantes&nbsp;? Le droit de ressentir des émotions — émouvantes, tristes,\n      drôles… ?",
+  "enligne_p": "Le projet a démarré pour de vrai. <strong>Les 4 premières histoires\n        sont déjà enregistrées et disponibles gratuitement à l'écoute.</strong>",
+  "projet_p1": "J'écris de courtes histoires — de quoi surprendre, sourire, ou pleurer.\n      Elles sont réunies dans mes livres, en vente au grand public.",
+  "projet_p2": "Mais je me suis posé une question toute bête : et les personnes qui ne\n      voient pas ? Elles aussi ont droit aux histoires. C'est de là qu'est née\n      l'envie de créer cet espace : une version audio, pensée pour être écoutée,\n      et <strong>totalement gratuite</strong> pour les personnes aveugles et\n      malvoyantes.",
+  "page_p": "Cette page n'est pas une page ordinaire à laquelle on aurait « ajouté »\n      de l'audio. Elle est <strong>conçue dès le départ</strong> pour les\n      lecteurs d'écran et les outils de navigation des personnes aveugles :\n      structure claire, titres repérables, liens explicites, contrastes forts.",
+  "voix_p1": "J'y tenais&nbsp;: pas une voix de synthèse, mais un <strong>vrai\n        comédien</strong>. Ces histoires sont lues par <strong>Hervé\n        Carrasco</strong>, une voix professionnelle qui prête aussi sa voix à\n        des publicités et des documentaires.",
+  "voix_p2": "Le résultat m'a bouleversé. Même en connaissant mes textes par cœur, je\n      les ai écoutés avec des frissons — et j'ai versé une larme. Une belle voix\n      ne fait pas que lire les mots&nbsp;: <strong>elle donne vie aux\n      histoires, elle les fait vibrer.</strong>",
+  "cout_p1": "Je vais être honnête avec vous. Faire enregistrer ces histoires par une\n      vraie voix — avec la narration, le nettoyage du son et un rendu propre —\n      représente un vrai budget. C'est compréhensible&nbsp;: il y a le matériel,\n      le studio, et surtout beaucoup d'heures de travail. Un bon travail se\n      paie, et je le respecte.",
+  "cout_p2": "Le prix de vente de mon livre sur Amazon, 12,50 €, inclut aussi bien les\n        frais d'Amazon, les frais d'envoi, les taxes sur les livres, les impôts\n        et l'Urssaf. Et aussi la publicité, le site web, etc. Bien sûr, je ne\n        compte pas mes soirées passées sur mon ordinateur. Écrire reste pour moi\n        un plaisir, un loisir — pas une source de revenus. Et je suis encore\n        loin d'avoir couvert mes premières dépenses de fabrication et de\n        promotion.",
+  "cagnotte_p": "4 histoires sont en ligne… mais il en reste <strong>12 à\n        enregistrer</strong>&nbsp;! Pour continuer à offrir ces histoires\n        gratuitement aux personnes aveugles et malvoyantes, j'ai ouvert une\n        cagnotte. Chaque participation, même petite, aide à financer\n        l'enregistrement des voix.",
+  "bas_p1": "Cette page continuera d'évoluer au fil des enregistrements.",
+  "bas_p2": "Elle sera aussi améliorée en tenant compte des retours des personnes\n        aveugles et malvoyantes qui la testeront. Si vous rencontrez la moindre\n        difficulté pour naviguer ou écouter, votre avis me sera précieux."
+ },
+ "en": {
+  "titre_page": "Blind and visually impaired people have a right to stories too — Roy Van Mil",
+  "skip": "Skip to main content",
+  "retour": "← Back to home",
+  "h1": "Blind and visually impaired people<br>have a right to stories TOO!",
+  "sous_titre": "A story is something you live… something you read. With your eyes. So would visually impaired and blind people have no right to moving stories? No right to feel emotions — touching, sad, funny…?",
+  "enligne_h2": "🎧 It has started: 4 stories are waiting for you!",
+  "enligne_p": "The project is really under way. <strong>The first 4 stories are already recorded and free to listen to.</strong>",
+  "ecouter": "▶ Listen to the stories",
+  "mention": "🇫🇷 The stories are read <strong>in French</strong>.",
+  "aria_plateformes": "Platforms where you can listen to the podcast",
+  "legende": "Also available on your usual listening platforms.",
+  "h2_projet": "The project",
+  "projet_p1": "I write short stories — to surprise you, make you smile, or make you cry. They are collected in my books, which are sold to the general public.",
+  "projet_p2": "But I asked myself a very simple question: what about people who cannot see? They have a right to stories too. That is how the idea for this space was born: an audio version, made to be listened to, and <strong>completely free</strong> for blind and visually impaired people.",
+  "h2_page": "A page designed for you",
+  "page_p": "This is not an ordinary page with some audio “added on”. It was <strong>designed from the start</strong> for screen readers and the navigation tools used by blind people: clear structure, easy-to-find headings, explicit links, strong contrast.",
+  "h2_voix": "A real, professional voice",
+  "voix_p1": "This mattered to me: not a synthetic voice, but a <strong>real actor</strong>. These stories are read by <strong>Hervé Carrasco</strong>, a professional voice artist who also lends his voice to commercials and documentaries.",
+  "voix_p2": "The result overwhelmed me. Even knowing my texts by heart, I listened to them with shivers — and shed a tear. A beautiful voice does more than read the words: <strong>it brings the stories to life, it makes them resonate.</strong>",
+  "alt1": "Hervé Carrasco in a recording studio, thumbs up in front of his microphone",
+  "alt4": "Hervé Carrasco smiling in the studio, headphones on",
+  "alt2": "Contact sheet of photos of Hervé Carrasco in a recording studio",
+  "alt3": "Hervé Carrasco at the microphone in his studio",
+  "credit": "Voice: <strong>Hervé Carrasco</strong>",
+  "h2_cout": "What it costs",
+  "cout_p1": "I will be honest with you. Having these stories recorded by a real voice — with narration, sound cleaning and a clean result — is a real budget. That is understandable: there is the equipment, the studio, and above all many hours of work. Good work deserves to be paid, and I respect that.",
+  "cout_p2": "The sale price of my book on Amazon, €12.50, covers Amazon's fees, shipping, book taxes, income tax and social charges. And also advertising, the website, and so on. Of course, I don't count the evenings spent at my computer. Writing remains a pleasure for me, a hobby — not a source of income. And I am still far from covering my first production and promotion costs.",
+  "h2_cagnotte": "A helping hand for what comes next?",
+  "cagnotte_p": "4 stories are online… but there are still <strong>12 to record</strong>! To keep offering these stories free of charge to blind and visually impaired people, I have opened a fundraiser. Every contribution, even a small one, helps pay for the voice recordings.",
+  "btn_don": "Support the project",
+  "bas_p1": "This page will keep evolving as the recordings progress.",
+  "bas_p2": "It will also be improved based on feedback from blind and visually impaired people who test it. If you have any difficulty navigating or listening, your feedback will be very valuable to me."
+ },
+ "nl": {
+  "titre_page": "Blinden en slechtzienden hebben ook recht op verhalen — Roy Van Mil",
+  "skip": "Direct naar de inhoud",
+  "retour": "← Terug naar de startpagina",
+  "h1": "Blinden en slechtzienden<br>hebben OOK recht op verhalen!",
+  "sous_titre": "Een verhaal beleef je… een verhaal lees je. Met je ogen. Maar hebben slechtziende en blinde mensen dan geen recht op ontroerende verhalen? Geen recht om emoties te voelen — ontroerend, verdrietig, grappig…?",
+  "enligne_h2": "🎧 Het is begonnen: 4 verhalen wachten op je!",
+  "enligne_p": "Het project is echt van start gegaan. <strong>De eerste 4 verhalen zijn al opgenomen en gratis te beluisteren.</strong>",
+  "ecouter": "▶ Luister naar de verhalen",
+  "mention": "🇫🇷 De verhalen worden <strong>in het Frans</strong> voorgelezen.",
+  "aria_plateformes": "Platforms waar je de podcast kunt beluisteren",
+  "legende": "Ook beschikbaar op je gewone luisterplatforms.",
+  "h2_projet": "Het project",
+  "projet_p1": "Ik schrijf korte verhalen — om je te verrassen, aan het lachen te maken of te laten huilen. Ze zijn gebundeld in mijn boeken, die voor iedereen te koop zijn.",
+  "projet_p2": "Maar ik stelde mezelf een heel eenvoudige vraag: en de mensen die niet kunnen zien? Ook zij hebben recht op verhalen. Zo ontstond het idee voor deze plek: een audioversie, gemaakt om naar te luisteren, en <strong>helemaal gratis</strong> voor blinde en slechtziende mensen.",
+  "h2_page": "Een pagina speciaal voor jou",
+  "page_p": "Dit is geen gewone pagina waar achteraf wat audio aan is “toegevoegd”. Ze is <strong>vanaf het begin ontworpen</strong> voor schermlezers en de navigatiehulpmiddelen van blinde mensen: duidelijke structuur, goed vindbare titels, duidelijke links, sterke contrasten.",
+  "h2_voix": "Een echte, professionele stem",
+  "voix_p1": "Dat vond ik belangrijk: geen computerstem, maar een <strong>echte acteur</strong>. Deze verhalen worden voorgelezen door <strong>Hervé Carrasco</strong>, een professionele stemacteur die ook zijn stem leent aan reclames en documentaires.",
+  "voix_p2": "Het resultaat raakte me diep. Ook al ken ik mijn teksten uit mijn hoofd, ik luisterde met kippenvel — en er rolde een traan. Een mooie stem leest niet alleen de woorden voor: <strong>ze brengt de verhalen tot leven, laat ze trillen.</strong>",
+  "alt1": "Hervé Carrasco in een opnamestudio, duim omhoog voor zijn microfoon",
+  "alt4": "Hervé Carrasco lachend in de studio, koptelefoon op",
+  "alt2": "Fotoblad met foto's van Hervé Carrasco in een opnamestudio",
+  "alt3": "Hervé Carrasco achter de microfoon in zijn studio",
+  "credit": "Stem: <strong>Hervé Carrasco</strong>",
+  "h2_cout": "Wat het kost",
+  "cout_p1": "Ik zal eerlijk zijn. Deze verhalen laten opnemen door een echte stem — met vertelling, geluidsnabewerking en een net resultaat — is een flinke uitgave. Dat is begrijpelijk: er is de apparatuur, de studio, en vooral veel uren werk. Goed werk mag betaald worden, en dat respecteer ik.",
+  "cout_p2": "De verkoopprijs van mijn boek op Amazon, € 12,50, dekt de kosten van Amazon, verzending, belastingen op boeken, inkomstenbelasting en sociale lasten. En ook reclame, de website, enzovoort. Mijn avonden achter de computer tel ik natuurlijk niet mee. Schrijven blijft voor mij een plezier, een hobby — geen bron van inkomsten. En ik ben nog ver van het terugverdienen van mijn eerste productie- en promotiekosten.",
+  "h2_cagnotte": "Een handje helpen voor het vervolg?",
+  "cagnotte_p": "4 verhalen staan online… maar er moeten er nog <strong>12 worden opgenomen</strong>! Om deze verhalen gratis te blijven aanbieden aan blinde en slechtziende mensen, ben ik een inzamelingsactie gestart. Elke bijdrage, hoe klein ook, helpt de stemopnames te betalen.",
+  "btn_don": "Steun het project",
+  "bas_p1": "Deze pagina blijft zich ontwikkelen naarmate er meer opnames komen.",
+  "bas_p2": "Ze wordt ook verbeterd op basis van de reacties van blinde en slechtziende mensen die haar testen. Heb je ook maar de minste moeite met navigeren of luisteren? Dan is je mening heel waardevol voor me."
+ }
+};
+
+  // ===== Langue (FR / EN / NL) =====
+  var LANG = 'fr';
+  function T(k){
+    var d = I18N[LANG] || I18N.fr;
+    return (d[k] !== undefined) ? d[k] : I18N.fr[k];
+  }
+  function setLang(lang){
+    if(!I18N[lang]) lang = 'fr';
+    LANG = lang;
+    document.querySelectorAll('[data-i18n]').forEach(function(el){
+      var v = T(el.getAttribute('data-i18n')); if(v !== undefined) el.innerHTML = v;
+    });
+    document.querySelectorAll('[data-i18n-ph]').forEach(function(el){
+      var v = T(el.getAttribute('data-i18n-ph')); if(v !== undefined) el.placeholder = v;
+    });
+    document.querySelectorAll('[data-i18n-alt]').forEach(function(el){
+      var v = T(el.getAttribute('data-i18n-alt')); if(v !== undefined) el.alt = v;
+    });
+    document.querySelectorAll('[data-i18n-aria]').forEach(function(el){
+      var v = T(el.getAttribute('data-i18n-aria')); if(v !== undefined) el.setAttribute('aria-label', v);
+    });
+    if(T('titre_page')) document.title = T('titre_page');
+    document.documentElement.lang = lang;
+    document.querySelectorAll('.langues button').forEach(function(b){
+      b.classList.toggle('actif', b.getAttribute('data-lang') === lang);
+    });
+    document.querySelectorAll('.mention-fr').forEach(function(m){
+      m.style.display = (lang === 'fr') ? 'none' : 'block';
+    });
+    try{ localStorage.setItem('rvm-lang', lang); localStorage.setItem('royvanmil-lang', lang); }catch(e){}
+    if(typeof apresLangue === 'function') apresLangue();
+  }
+  (function(){
+    var saved = 'fr';
+    try{
+      saved = localStorage.getItem('royvanmil-lang') || localStorage.getItem('rvm-lang');
+      if(!saved){
+        var l = (navigator.language || 'fr').toLowerCase();
+        saved = l.indexOf('nl') === 0 ? 'nl' : (l.indexOf('en') === 0 ? 'en' : 'fr');
+      }
+    }catch(e){ saved = 'fr'; }
+    setLang(saved);
+  })();
+</script>
 </body>
 </html>

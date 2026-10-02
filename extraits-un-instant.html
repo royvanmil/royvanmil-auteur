@@ -76,22 +76,46 @@
     .texte p{font-size:1.08rem;line-height:1.85}
     .wrap{padding:1.2rem 1.1rem 3rem}
   }
+
+  /* ---- sélecteur de langue (FR / EN / NL) ---- */
+  .langues{position:absolute;top:1rem;right:1rem;z-index:50;display:flex;gap:.35rem;
+    font-family:'Cormorant Garamond',Georgia,serif;}
+  .langues button{background:#fff;color:#2b3c4d;border:1px solid #cfdbe2;border-radius:999px;
+    padding:.32rem .62rem;font-family:inherit;font-size:.92rem;font-weight:600;
+    letter-spacing:.08em;cursor:pointer;transition:all .2s;}
+  .langues button:hover{color:#1c4f53;border-color:#2e6e73}
+  .langues button.actif{background:#2e6e73;color:#fff;border-color:#2e6e73}
+  .mention-fr{display:none;max-width:560px;margin:1rem auto 1.6rem;padding:.6rem .9rem;
+    border:1px solid #d9e4ea;border-radius:10px;background:#fff;text-align:center;
+    font-family:'EB Garamond',Georgia,serif;font-style:italic;color:#1c4f53;font-size:1rem;line-height:1.5;}
+  @media (max-width:480px){
+    .langues{top:.7rem;right:.7rem}
+    .langues button{padding:.28rem .5rem;font-size:.82rem}
+  }
 </style>
 </head>
 <body>
+  <div class="langues" role="group" aria-label="Langue / Language / Taal">
+    <button type="button" data-lang="fr" onclick="setLang('fr')">FR</button>
+    <button type="button" data-lang="en" onclick="setLang('en')">EN</button>
+    <button type="button" data-lang="nl" onclick="setLang('nl')">NL</button>
+  </div>
+
   <div class="wrap">
-    <a class="retour" href="un-instant.html">← Retour au livre</a>
+    <a class="retour" href="un-instant.html" data-i18n="retour">← Retour au livre</a>
 
     <div class="entete">
-      <h1>Avant de choisir un livre,<br>autant en lire une histoire…</h1>
-      <p class="soustitre">Une microhistoire en entier.<br>À vous de deviner les quinze autres.</p>
+      <h1 data-i18n="h1">Avant de choisir un livre,<br>autant en lire une histoire…</h1>
+      <p class="soustitre" data-i18n="soustitre">Une microhistoire en entier.<br>À vous de deviner les quinze autres.</p>
     </div>
+
+    <div class="mention-fr" data-i18n="mention"></div>
 
     <div class="filet"></div>
 
-    <div class="extrait-num">Histoire 01</div>
+    <div class="extrait-num" data-i18n="num1">Histoire 01</div>
     <div class="extrait-titre">Le bouton rouge</div>
-    <div class="texte">
+    <div class="texte" lang="fr">
       <p>Le véhicule de secours rouge s'arrêta devant une vieille maison de pierre aux volets fatigués. La porte d'entrée était déjà grande ouverte. Quatre pompiers volontaires descendirent presque en même temps, saisirent les sacs de secours, la bouteille d'oxygène et le défibrillateur, puis traversèrent rapidement le petit jardin.</p>
 
       <p>Une femme âgée les attendait dans le couloir. Elle avait un mouchoir serré dans le poing et le visage ruisselant de larmes. Elle tenta de leur parler, mais sa voix se brisa dès les premiers mots.</p>
@@ -310,17 +334,17 @@
     </div>
 
     <div class="zone-btn">
-      <a class="btn btn-attente" href="https://amzn.eu/d/0fEAc7cG" target="_blank" rel="noopener noreferrer" onclick="compte('clic-amazon')">J'en veux plus !</a>
+      <a class="btn btn-attente" href="https://amzn.eu/d/0fEAc7cG" target="_blank" rel="noopener noreferrer" onclick="compte('clic-amazon')" data-i18n="btn_plus">J'en veux plus !</a>
     </div>
 
     <div class="filet"></div>
 
-    <div class="extrait-num">Histoire 02</div>
+    <div class="extrait-num" data-i18n="num2">Histoire 02</div>
     <div class="extrait-titre">Les Deux</div>
-    <p class="teaser">Une histoire qui vous fera pleurer…</p>
+    <p class="teaser" data-i18n="teaser">Une histoire qui vous fera pleurer…</p>
 
     <div class="zone-btn">
-      <a class="btn btn-attente" href="https://amzn.eu/d/0fEAc7cG" target="_blank" rel="noopener noreferrer" onclick="compte('clic-amazon')">Je veux savoir</a>
+      <a class="btn btn-attente" href="https://amzn.eu/d/0fEAc7cG" target="_blank" rel="noopener noreferrer" onclick="compte('clic-amazon')" data-i18n="btn_savoir">Je veux savoir</a>
     </div>
 
   </div>
@@ -333,5 +357,89 @@
     compte("extraits");
   </script>
   <script src="avis-bouton.js" defer></script>
+<script>
+  var I18N = {
+ "fr": {
+  "titre_page": "Lire un extrait — Un instant, ou Deux… — Roy VAN MIL",
+  "retour": "← Retour au livre",
+  "h1": "Avant de choisir un livre,<br>autant en lire une histoire…",
+  "soustitre": "Une microhistoire en entier.<br>À vous de deviner les quinze autres.",
+  "mention": "",
+  "num1": "Histoire 01",
+  "num2": "Histoire 02",
+  "btn_plus": "J'en veux plus !",
+  "teaser": "Une histoire qui vous fera pleurer…",
+  "btn_savoir": "Je veux savoir"
+ },
+ "en": {
+  "titre_page": "Read an excerpt — Un instant, ou Deux… — Roy VAN MIL",
+  "retour": "← Back to the book",
+  "h1": "Before choosing a book,<br>why not read one of its stories…",
+  "soustitre": "One complete micro-story.<br>The other fifteen are yours to discover.",
+  "mention": "The story below is in French — the book <strong>« Un instant, ou Deux… »</strong> is written in French.",
+  "num1": "Story 01",
+  "num2": "Story 02",
+  "btn_plus": "I want more!",
+  "teaser": "A story that will make you cry…",
+  "btn_savoir": "I want to know"
+ },
+ "nl": {
+  "titre_page": "Lees een fragment — Un instant, ou Deux… — Roy VAN MIL",
+  "retour": "← Terug naar het boek",
+  "h1": "Voor je een boek kiest,<br>lees er eerst een verhaal uit…",
+  "soustitre": "Eén volledig microverhaal.<br>De andere vijftien mag je zelf ontdekken.",
+  "mention": "Het verhaal hieronder is in het Frans — het boek <strong>« Un instant, ou Deux… »</strong> is in het Frans geschreven.",
+  "num1": "Verhaal 01",
+  "num2": "Verhaal 02",
+  "btn_plus": "Ik wil meer!",
+  "teaser": "Een verhaal dat je aan het huilen brengt…",
+  "btn_savoir": "Ik wil het weten"
+ }
+};
+
+  // ===== Langue (FR / EN / NL) =====
+  var LANG = 'fr';
+  function T(k){
+    var d = I18N[LANG] || I18N.fr;
+    return (d[k] !== undefined) ? d[k] : I18N.fr[k];
+  }
+  function setLang(lang){
+    if(!I18N[lang]) lang = 'fr';
+    LANG = lang;
+    document.querySelectorAll('[data-i18n]').forEach(function(el){
+      var v = T(el.getAttribute('data-i18n')); if(v !== undefined) el.innerHTML = v;
+    });
+    document.querySelectorAll('[data-i18n-ph]').forEach(function(el){
+      var v = T(el.getAttribute('data-i18n-ph')); if(v !== undefined) el.placeholder = v;
+    });
+    document.querySelectorAll('[data-i18n-alt]').forEach(function(el){
+      var v = T(el.getAttribute('data-i18n-alt')); if(v !== undefined) el.alt = v;
+    });
+    document.querySelectorAll('[data-i18n-aria]').forEach(function(el){
+      var v = T(el.getAttribute('data-i18n-aria')); if(v !== undefined) el.setAttribute('aria-label', v);
+    });
+    if(T('titre_page')) document.title = T('titre_page');
+    document.documentElement.lang = lang;
+    document.querySelectorAll('.langues button').forEach(function(b){
+      b.classList.toggle('actif', b.getAttribute('data-lang') === lang);
+    });
+    document.querySelectorAll('.mention-fr').forEach(function(m){
+      m.style.display = (lang === 'fr') ? 'none' : 'block';
+    });
+    try{ localStorage.setItem('rvm-lang', lang); localStorage.setItem('royvanmil-lang', lang); }catch(e){}
+    if(typeof apresLangue === 'function') apresLangue();
+  }
+  (function(){
+    var saved = 'fr';
+    try{
+      saved = localStorage.getItem('royvanmil-lang') || localStorage.getItem('rvm-lang');
+      if(!saved){
+        var l = (navigator.language || 'fr').toLowerCase();
+        saved = l.indexOf('nl') === 0 ? 'nl' : (l.indexOf('en') === 0 ? 'en' : 'fr');
+      }
+    }catch(e){ saved = 'fr'; }
+    setLang(saved);
+  })();
+</script>
 </body>
 </html>

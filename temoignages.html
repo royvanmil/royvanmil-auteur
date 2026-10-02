@@ -128,19 +128,42 @@
     .form-carte{padding:1.4rem 1.1rem}
     .mur{grid-template-columns:1fr}
   }
+
+  /* ---- sélecteur de langue (FR / EN / NL) ---- */
+  .langues{position:absolute;top:1rem;right:1rem;z-index:50;display:flex;gap:.35rem;
+    font-family:'Cormorant Garamond',Georgia,serif;}
+  .langues button{background:#fff;color:#2b3c4d;border:1px solid #cfdbe2;border-radius:999px;
+    padding:.32rem .62rem;font-family:inherit;font-size:.92rem;font-weight:600;
+    letter-spacing:.08em;cursor:pointer;transition:all .2s;}
+  .langues button:hover{color:#1c4f53;border-color:#2e6e73}
+  .langues button.actif{background:#2e6e73;color:#fff;border-color:#2e6e73}
+  .mention-fr{display:none;max-width:560px;margin:1rem auto 1.6rem;padding:.6rem .9rem;
+    border:1px solid #d9e4ea;border-radius:10px;background:#fff;text-align:center;
+    font-family:'EB Garamond',Georgia,serif;font-style:italic;color:#1c4f53;font-size:1rem;line-height:1.5;}
+  @media (max-width:480px){
+    .langues{top:.7rem;right:.7rem}
+    .langues button{padding:.28rem .5rem;font-size:.82rem}
+  }
 </style>
 </head>
 <body>
+  <div class="langues" role="group" aria-label="Langue / Language / Taal">
+    <button type="button" data-lang="fr" onclick="setLang('fr')">FR</button>
+    <button type="button" data-lang="en" onclick="setLang('en')">EN</button>
+    <button type="button" data-lang="nl" onclick="setLang('nl')">NL</button>
+  </div>
+
   <div class="wrap">
-    <a class="retour" href="index.html">← Retour à la bibliothèque</a>
+    <a class="retour" href="index.html" data-i18n="retour">← Retour à la bibliothèque</a>
 
     <div class="entete">
-      <h1>Votre avis compte</h1>
-      <p class="soustitre">Vous avez lu l'un de mes livres ?<br>Dites-moi ce que vous en avez pensé.</p>
+      <h1 data-i18n="h1">Votre avis compte</h1>
+      <p class="soustitre" data-i18n="soustitre">Vous avez lu l'un de mes livres ?<br>Dites-moi ce que vous en avez pensé.</p>
     </div>
 
     <!-- ===== Mur d'avis ===== -->
-    <div class="mur-titre">Ce qu'en disent les lecteurs</div>
+    <div class="mur-titre" data-i18n="mur_titre">Ce qu'en disent les lecteurs</div>
+    <div class="mention-fr" data-i18n="mention"></div>
     <div class="mur-moyenne" id="mur-moyenne"></div>
     <div class="mur" id="mur"></div>
 
@@ -148,33 +171,33 @@
 
     <!-- ===== Formulaire ===== -->
     <div class="form-carte">
-      <div class="form-titre">Laisser un avis</div>
+      <div class="form-titre" data-i18n="form_titre">Laisser un avis</div>
 
       <div class="champ">
-        <label>Quel(s) livre(s) souhaitez-vous noter ?</label>
+        <label data-i18n="lab_livres">Quel(s) livre(s) souhaitez-vous noter ?</label>
         <div class="livres-choix" id="livres-choix"></div>
       </div>
 
       <div class="champ">
-        <label for="nom">Votre nom (ou prénom)</label>
-        <input type="text" id="nom" maxlength="60" placeholder="Ex. Marie, ou Jean D.">
+        <label for="nom" data-i18n="lab_nom">Votre nom (ou prénom)</label>
+        <input type="text" id="nom" maxlength="60" placeholder="Ex. Marie, ou Jean D." data-i18n-ph="ph_nom">
       </div>
 
       <div class="champ">
-        <label for="avis">Votre avis</label>
-        <textarea id="avis" maxlength="1500" placeholder="Ce que vous avez ressenti, aimé, retenu…"></textarea>
+        <label for="avis" data-i18n="lab_avis">Votre avis</label>
+        <textarea id="avis" maxlength="1500" placeholder="Ce que vous avez ressenti, aimé, retenu…" data-i18n-ph="ph_avis"></textarea>
         <div class="compte-car"><span id="car">0</span> / 1500</div>
       </div>
 
       <div class="champ">
-        <label>Votre note</label>
+        <label data-i18n="lab_note">Votre note</label>
         <div class="note-livres" id="note-livres">
           <span data-n="1">📖</span><span data-n="2">📖</span><span data-n="3">📖</span><span data-n="4">📖</span><span data-n="5">📖</span>
         </div>
         <div class="note-txt" id="note-txt"></div>
       </div>
 
-      <button class="envoyer" id="btn-envoyer" onclick="envoyer()">Envoyer mon avis</button>
+      <button class="envoyer" id="btn-envoyer" onclick="envoyer()" data-i18n="btn">Envoyer mon avis</button>
       <div class="form-msg" id="form-msg"></div>
     </div>
   </div>
@@ -188,8 +211,7 @@
     "la-cloche": "La Cloche des Morts",
     "un-instant-trois": "Un instant, ou Trois…"
   };
-  var TEXTE_NOTE = {1:"Bof",2:"Moyen",3:"Bien",4:"Très bien",5:"J'ai adoré !"};
-
+  
   var noteChoisie = 0;
 
   // --- construire les cases livres ---
@@ -224,7 +246,7 @@
       s.addEventListener('click', function(){
         noteChoisie = n;
         peindre(n);
-        document.getElementById('note-txt').textContent = TEXTE_NOTE[n];
+        document.getElementById('note-txt').textContent = T('note'+n);
       });
     });
     document.getElementById('note-livres').addEventListener('mouseleave', function(){ peindre(noteChoisie); });
@@ -241,14 +263,14 @@
     var nom = document.getElementById('nom').value.trim();
     var avis = document.getElementById('avis').value.trim();
 
-    if(livres.length === 0){ msg.className='form-msg err'; msg.textContent="Choisissez au moins un livre."; return; }
-    if(nom.length < 2){ msg.className='form-msg err'; msg.textContent="Indiquez votre nom."; return; }
-    if(avis.length < 3){ msg.className='form-msg err'; msg.textContent="Écrivez quelques mots d'avis."; return; }
-    if(noteChoisie < 1){ msg.className='form-msg err'; msg.textContent="Choisissez une note."; return; }
+    if(livres.length === 0){ msg.className='form-msg err'; msg.textContent=T('err_livre'); return; }
+    if(nom.length < 2){ msg.className='form-msg err'; msg.textContent=T('err_nom'); return; }
+    if(avis.length < 3){ msg.className='form-msg err'; msg.textContent=T('err_avis'); return; }
+    if(noteChoisie < 1){ msg.className='form-msg err'; msg.textContent=T('err_note'); return; }
 
     var btn = document.getElementById('btn-envoyer');
     btn.disabled = true;
-    btn.textContent = "Envoi…";
+    btn.textContent = T('envoi');
 
     fetch(API + "/avis", {
       method:"POST",
@@ -259,7 +281,7 @@
     .then(function(res){
       if(res.j.ok){
         msg.className='form-msg ok';
-        msg.textContent="Merci ! Votre avis sera publié après relecture.";
+        msg.textContent=T('merci');
         // vider le formulaire
         document.querySelectorAll('#livres-choix input:checked').forEach(function(c){ c.checked=false; c.closest('.livre-case').classList.remove('coche'); });
         document.getElementById('nom').value='';
@@ -268,23 +290,23 @@
         noteChoisie=0;
         document.querySelectorAll('#note-livres span').forEach(function(s){ s.classList.remove('actif'); });
         document.getElementById('note-txt').textContent='';
-        btn.textContent="Envoyé ✓";
-        setTimeout(function(){ btn.disabled=false; btn.textContent="Envoyer mon avis"; }, 3000);
+        btn.textContent=T('envoye');
+        setTimeout(function(){ btn.disabled=false; btn.textContent=T('btn'); }, 3000);
       } else {
         if(res.status === 429 || (res.j && res.j.erreur === "trop_rapide")){
           msg.className='form-msg err';
-          msg.textContent="Doucement ! Patientez une dizaine de secondes avant d'envoyer un autre avis.";
+          msg.textContent=T('err_vite');
         } else {
           msg.className='form-msg err';
-          msg.textContent="L'envoi n'a pas abouti. Patientez quelques secondes et réessayez.";
+          msg.textContent=T('err_envoi');
         }
-        btn.disabled=false; btn.textContent="Envoyer mon avis";
+        btn.disabled=false; btn.textContent=T('btn');
       }
     })
     .catch(function(){
       msg.className='form-msg err';
-      msg.textContent="Envoi impossible pour le moment. Si tu viens d'envoyer un avis, attends une trentaine de secondes et réessaie.";
-      btn.disabled=false; btn.textContent="Envoyer mon avis";
+      msg.textContent=T('err_reseau');
+      btn.disabled=false; btn.textContent=T('btn');
     });
   }
 
@@ -299,16 +321,17 @@
     fetch(API + "/avis-publics")
       .then(function(r){ return r.json(); })
       .then(function(avis){
+        MUR_DATA = avis || [];
         var mur = document.getElementById('mur');
         var moy = document.getElementById('mur-moyenne');
         if(!avis || avis.length === 0){
-          mur.innerHTML = '<div class="mur-vide">Aucun avis publié pour le moment. Soyez le premier !</div>';
+          mur.innerHTML = '<div class="mur-vide" data-i18n="mur_vide">' + T('mur_vide') + '</div>';
           moy.textContent = '';
           return;
         }
         var somme = avis.reduce(function(a,b){ return a + (b.note||0); }, 0);
         var moyenne = (somme / avis.length).toFixed(1);
-        moy.textContent = moyenne + " / 5 — " + avis.length + " avis";
+        moy.textContent = moyenne + " / 5 — " + avis.length + " " + T('mot_avis');
 
         mur.innerHTML = "";
         avis.forEach(function(e){
@@ -326,9 +349,10 @@
         });
       })
       .catch(function(){
-        document.getElementById('mur').innerHTML = '<div class="mur-vide">Impossible de charger les avis pour le moment.</div>';
+        document.getElementById('mur').innerHTML = '<div class="mur-vide" data-i18n="mur_erreur">' + T('mur_erreur') + '</div>';
       });
   }
+  var MUR_DATA = null;
   chargerMur();
 
   // --- compteur de visites de la page ---
@@ -336,6 +360,166 @@
     var url = API + "/compte?c=temoignages";
     try { if (navigator.sendBeacon && navigator.sendBeacon(url)) return; } catch(e){}
     try { fetch(url, {mode:"cors", keepalive:true}); } catch(e){}
+  })();
+</script>
+<script>
+  var I18N = {
+ "fr": {
+  "titre_page": "Vos avis — Roy VAN MIL",
+  "retour": "← Retour à la bibliothèque",
+  "h1": "Votre avis compte",
+  "soustitre": "Vous avez lu l'un de mes livres ?<br>Dites-moi ce que vous en avez pensé.",
+  "mur_titre": "Ce qu'en disent les lecteurs",
+  "mention": "",
+  "form_titre": "Laisser un avis",
+  "lab_livres": "Quel(s) livre(s) souhaitez-vous noter ?",
+  "lab_nom": "Votre nom (ou prénom)",
+  "ph_nom": "Ex. Marie, ou Jean D.",
+  "lab_avis": "Votre avis",
+  "ph_avis": "Ce que vous avez ressenti, aimé, retenu…",
+  "lab_note": "Votre note",
+  "btn": "Envoyer mon avis",
+  "note1": "Bof",
+  "note2": "Moyen",
+  "note3": "Bien",
+  "note4": "Très bien",
+  "note5": "J'ai adoré !",
+  "err_livre": "Choisissez au moins un livre.",
+  "err_nom": "Indiquez votre nom.",
+  "err_avis": "Écrivez quelques mots d'avis.",
+  "err_note": "Choisissez une note.",
+  "envoi": "Envoi…",
+  "merci": "Merci ! Votre avis sera publié après relecture.",
+  "envoye": "Envoyé ✓",
+  "err_vite": "Doucement ! Patientez une dizaine de secondes avant d'envoyer un autre avis.",
+  "err_envoi": "L'envoi n'a pas abouti. Patientez quelques secondes et réessayez.",
+  "err_reseau": "Envoi impossible pour le moment. Si vous venez d'envoyer un avis, attendez une trentaine de secondes et réessayez.",
+  "mur_vide": "Aucun avis publié pour le moment. Soyez le premier !",
+  "mur_erreur": "Impossible de charger les avis pour le moment.",
+  "mot_avis": "avis"
+ },
+ "en": {
+  "titre_page": "Your reviews — Roy VAN MIL",
+  "retour": "← Back to the library",
+  "h1": "Your opinion matters",
+  "soustitre": "Have you read one of my books?<br>Tell me what you thought of it.",
+  "mur_titre": "What readers say",
+  "mention": "The books are in French — and so are most of the reviews.",
+  "form_titre": "Leave a review",
+  "lab_livres": "Which book(s) would you like to rate?",
+  "lab_nom": "Your name (or first name)",
+  "ph_nom": "E.g. Mary, or John D.",
+  "lab_avis": "Your review",
+  "ph_avis": "What you felt, liked, remembered… (English is fine)",
+  "lab_note": "Your rating",
+  "btn": "Send my review",
+  "note1": "Meh",
+  "note2": "Average",
+  "note3": "Good",
+  "note4": "Very good",
+  "note5": "I loved it!",
+  "err_livre": "Please choose at least one book.",
+  "err_nom": "Please enter your name.",
+  "err_avis": "Please write a few words.",
+  "err_note": "Please choose a rating.",
+  "envoi": "Sending…",
+  "merci": "Thank you! Your review will be published after moderation.",
+  "envoye": "Sent ✓",
+  "err_vite": "Easy! Please wait about ten seconds before sending another review.",
+  "err_envoi": "Sending failed. Please wait a few seconds and try again.",
+  "err_reseau": "Unable to send right now. If you just sent a review, wait about thirty seconds and try again.",
+  "mur_vide": "No reviews published yet. Be the first!",
+  "mur_erreur": "Unable to load the reviews right now.",
+  "mot_avis": "reviews"
+ },
+ "nl": {
+  "titre_page": "Jouw mening — Roy VAN MIL",
+  "retour": "← Terug naar de bibliotheek",
+  "h1": "Jouw mening telt",
+  "soustitre": "Heb je een van mijn boeken gelezen?<br>Vertel me wat je ervan vond.",
+  "mur_titre": "Wat lezers zeggen",
+  "mention": "De boeken zijn in het Frans — en de meeste recensies ook.",
+  "form_titre": "Laat een recensie achter",
+  "lab_livres": "Welk(e) boek(en) wil je beoordelen?",
+  "lab_nom": "Je naam (of voornaam)",
+  "ph_nom": "Bijv. Marie, of Jan D.",
+  "lab_avis": "Je recensie",
+  "ph_avis": "Wat je voelde, mooi vond, onthield… (Nederlands mag)",
+  "lab_note": "Je beoordeling",
+  "btn": "Recensie versturen",
+  "note1": "Matig",
+  "note2": "Gemiddeld",
+  "note3": "Goed",
+  "note4": "Heel goed",
+  "note5": "Geweldig!",
+  "err_livre": "Kies minstens één boek.",
+  "err_nom": "Vul je naam in.",
+  "err_avis": "Schrijf een paar woorden.",
+  "err_note": "Kies een beoordeling.",
+  "envoi": "Versturen…",
+  "merci": "Bedankt! Je recensie wordt na controle gepubliceerd.",
+  "envoye": "Verstuurd ✓",
+  "err_vite": "Rustig aan! Wacht een tiental seconden voor je nog een recensie stuurt.",
+  "err_envoi": "Versturen is mislukt. Wacht een paar seconden en probeer het opnieuw.",
+  "err_reseau": "Versturen lukt nu niet. Heb je net een recensie gestuurd? Wacht dan een halve minuut en probeer opnieuw.",
+  "mur_vide": "Nog geen recensies gepubliceerd. Wees de eerste!",
+  "mur_erreur": "De recensies kunnen nu niet worden geladen.",
+  "mot_avis": "recensies"
+ }
+};
+
+  // réafficher les textes calculés quand on change de langue
+  function apresLangue(){
+    if(MUR_DATA && MUR_DATA.length){
+      var somme = MUR_DATA.reduce(function(a,b){ return a + (b.note||0); }, 0);
+      document.getElementById('mur-moyenne').textContent =
+        (somme / MUR_DATA.length).toFixed(1) + " / 5 — " + MUR_DATA.length + " " + T('mot_avis');
+    }
+    if(noteChoisie > 0) document.getElementById('note-txt').textContent = T('note'+noteChoisie);
+  }
+
+  // ===== Langue (FR / EN / NL) =====
+  var LANG = 'fr';
+  function T(k){
+    var d = I18N[LANG] || I18N.fr;
+    return (d[k] !== undefined) ? d[k] : I18N.fr[k];
+  }
+  function setLang(lang){
+    if(!I18N[lang]) lang = 'fr';
+    LANG = lang;
+    document.querySelectorAll('[data-i18n]').forEach(function(el){
+      var v = T(el.getAttribute('data-i18n')); if(v !== undefined) el.innerHTML = v;
+    });
+    document.querySelectorAll('[data-i18n-ph]').forEach(function(el){
+      var v = T(el.getAttribute('data-i18n-ph')); if(v !== undefined) el.placeholder = v;
+    });
+    document.querySelectorAll('[data-i18n-alt]').forEach(function(el){
+      var v = T(el.getAttribute('data-i18n-alt')); if(v !== undefined) el.alt = v;
+    });
+    document.querySelectorAll('[data-i18n-aria]').forEach(function(el){
+      var v = T(el.getAttribute('data-i18n-aria')); if(v !== undefined) el.setAttribute('aria-label', v);
+    });
+    if(T('titre_page')) document.title = T('titre_page');
+    document.documentElement.lang = lang;
+    document.querySelectorAll('.langues button').forEach(function(b){
+      b.classList.toggle('actif', b.getAttribute('data-lang') === lang);
+    });
+    document.querySelectorAll('.mention-fr').forEach(function(m){
+      m.style.display = (lang === 'fr') ? 'none' : 'block';
+    });
+    try{ localStorage.setItem('rvm-lang', lang); localStorage.setItem('royvanmil-lang', lang); }catch(e){}
+    if(typeof apresLangue === 'function') apresLangue();
+  }
+  (function(){
+    var saved = 'fr';
+    try{
+      saved = localStorage.getItem('royvanmil-lang') || localStorage.getItem('rvm-lang');
+      if(!saved){
+        var l = (navigator.language || 'fr').toLowerCase();
+        saved = l.indexOf('nl') === 0 ? 'nl' : (l.indexOf('en') === 0 ? 'en' : 'fr');
+      }
+    }catch(e){ saved = 'fr'; }
+    setLang(saved);
   })();
 </script>
 </body>

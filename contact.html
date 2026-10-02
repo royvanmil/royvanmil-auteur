@@ -142,89 +142,111 @@
     color:var(--creme);margin:1rem 0 .6rem;
   }
   .merci p{font-size:1.15rem;color:var(--creme-doux);font-style:italic;}
+
+  /* ---- sélecteur de langue (FR / EN / NL) ---- */
+  .langues{position:absolute;top:1rem;right:1rem;z-index:50;display:flex;gap:.35rem;
+    font-family:'Cormorant Garamond',Georgia,serif;}
+  .langues button{background:#fff;color:#2b3c4d;border:1px solid #cfdbe2;border-radius:999px;
+    padding:.32rem .62rem;font-family:inherit;font-size:.92rem;font-weight:600;
+    letter-spacing:.08em;cursor:pointer;transition:all .2s;}
+  .langues button:hover{color:#1c4f53;border-color:#2e6e73}
+  .langues button.actif{background:#2e6e73;color:#fff;border-color:#2e6e73}
+  .mention-fr{display:none;max-width:560px;margin:1rem auto 1.6rem;padding:.6rem .9rem;
+    border:1px solid #d9e4ea;border-radius:10px;background:#fff;text-align:center;
+    font-family:'EB Garamond',Georgia,serif;font-style:italic;color:#1c4f53;font-size:1rem;line-height:1.5;}
+  @media (max-width:480px){
+    .langues{top:.7rem;right:.7rem}
+    .langues button{padding:.28rem .5rem;font-size:.82rem}
+  }
 </style>
 </head>
 <body class="mode-message">
-  <div class="wrap">
-    <a class="retour" href="index.html">← Retour à la bibliothèque</a>
+  <div class="langues" role="group" aria-label="Langue / Language / Taal">
+    <button type="button" data-lang="fr" onclick="setLang('fr')">FR</button>
+    <button type="button" data-lang="en" onclick="setLang('en')">EN</button>
+    <button type="button" data-lang="nl" onclick="setLang('nl')">NL</button>
+  </div>
 
-    <img class="portrait" src="img/roy-auteur.jpg" alt="Roy Van Mil, auteur" width="150" height="150">
-    <h1>Écrivez-moi</h1>
-    <p class="intro">N'hésitez pas à m'envoyer un message… si vous voulez un exemplaire de mon livre… si une histoire vous a touché… si vous voulez me dire quelque chose…</p>
+  <div class="wrap">
+    <a class="retour" href="index.html" data-i18n="retour">← Retour à la bibliothèque</a>
+
+    <img class="portrait" src="img/roy-auteur.jpg" alt="Roy Van Mil, auteur" data-i18n-alt="alt_portrait" width="150" height="150">
+    <h1 data-i18n="h1">Écrivez-moi</h1>
+    <p class="intro" data-i18n="intro">N'hésitez pas à m'envoyer un message… si vous voulez un exemplaire de mon livre… si une histoire vous a touché… si vous voulez me dire quelque chose…</p>
 
     <div id="formulaire">
-      <div class="bascule" role="group" aria-label="Type de message">
-        <button type="button" id="btn-message" class="actif" onclick="setMode('message')">✉️ Un message</button>
-        <button type="button" id="btn-livre" onclick="setMode('livre')">📖 Demander un livre</button>
+      <div class="bascule" role="group" aria-label="Type de message" data-i18n-aria="aria_type">
+        <button type="button" id="btn-message" class="actif" onclick="setMode('message')" data-i18n="btn_message">✉️ Un message</button>
+        <button type="button" id="btn-livre" onclick="setMode('livre')" data-i18n="btn_livre">📖 Demander un livre</button>
       </div>
 
       <form onsubmit="return false;">
         <!-- Nom (toujours) -->
         <div class="champ">
-          <label for="nom"><span class="retour-message">Nom</span><span class="retour-livre">Nom de famille</span></label>
+          <label for="nom"><span class="retour-message" data-i18n="lab_nom">Nom</span><span class="retour-livre" data-i18n="lab_nomfam">Nom de famille</span></label>
           <input type="text" id="nom" maxlength="100" autocomplete="family-name">
         </div>
 
         <!-- Prénom (livre uniquement) -->
         <div class="champ retour-livre">
-          <label for="prenom">Prénom</label>
+          <label for="prenom" data-i18n="lab_prenom">Prénom</label>
           <input type="text" id="prenom" maxlength="100" autocomplete="given-name">
         </div>
 
         <!-- Contact : email + mobile -->
         <div class="champ">
-          <label for="email">Email</label>
+          <label for="email" data-i18n="lab_email">Email</label>
           <input type="email" id="email" maxlength="100" autocomplete="email">
         </div>
         <div class="champ">
-          <label for="mobile">Mobile</label>
+          <label for="mobile" data-i18n="lab_mobile">Mobile</label>
           <input type="tel" id="mobile" maxlength="100" autocomplete="tel">
-          <div class="aide">Email ou mobile — au moins l'un des deux, pour que je puisse vous répondre.</div>
+          <div class="aide" data-i18n="aide">Email ou mobile — au moins l'un des deux, pour que je puisse vous répondre.</div>
         </div>
 
         <!-- Message (message uniquement) -->
         <div class="champ retour-message">
-          <label for="message">Votre message</label>
+          <label for="message" data-i18n="lab_msg">Votre message</label>
           <textarea id="message" maxlength="2000"></textarea>
         </div>
 
         <!-- Adresse (livre uniquement) -->
         <div class="retour-livre">
-          <div class="avert visible">
+          <div class="avert visible" data-i18n="avert_adresse">
             📮 <strong>Vérifiez bien votre adresse :</strong> en cas d'erreur, le livre ne pourra pas être envoyé.
           </div>
           <div class="champ">
-            <label for="rue">Numéro et rue</label>
+            <label for="rue" data-i18n="lab_rue">Numéro et rue</label>
             <input type="text" id="rue" maxlength="100" autocomplete="street-address">
           </div>
           <div class="duo">
             <div class="champ cp">
-              <label for="cp">Code postal</label>
+              <label for="cp" data-i18n="lab_cp">Code postal</label>
               <input type="text" id="cp" maxlength="12" autocomplete="postal-code" inputmode="numeric">
             </div>
             <div class="champ">
-              <label for="ville">Ville</label>
+              <label for="ville" data-i18n="lab_ville">Ville</label>
               <input type="text" id="ville" maxlength="100" autocomplete="address-level2">
             </div>
           </div>
 
-          <div class="avert visible">
+          <div class="avert visible" data-i18n="avert_port">
             💶 Chaque envoi me coûte des <strong>frais de port</strong>. Dites-moi en quelques mots pourquoi un exemplaire vous ferait plaisir.
           </div>
           <div class="champ">
-            <label for="motif">Pourquoi souhaitez-vous un exemplaire ?</label>
+            <label for="motif" data-i18n="lab_motif">Pourquoi souhaitez-vous un exemplaire ?</label>
             <textarea id="motif" maxlength="2000"></textarea>
           </div>
         </div>
 
         <div class="reponse" id="reponse"></div>
-        <button type="button" class="envoyer" id="btn-envoyer" onclick="envoyerContact()">Envoyer</button>
+        <button type="button" class="envoyer" id="btn-envoyer" onclick="envoyerContact()" data-i18n="btn_envoyer">Envoyer</button>
       </form>
     </div>
 
     <div class="merci" id="merci">
       <div class="plume">🖋️</div>
-      <h2>Merci !</h2>
+      <h2 data-i18n="merci_h2">Merci !</h2>
       <p id="merci-texte">Votre message est bien arrivé. Je vous répondrai dès que possible.</p>
     </div>
   </div>
@@ -257,9 +279,9 @@
       // reset visuel
       ['nom','prenom','email','mobile','message','rue','cp','ville','motif'].forEach(function(i){ marquer(i,false); });
 
-      if(nom.length < 2){ erreurs.push("Indiquez votre nom."); marquer('nom',true); }
+      if(nom.length < 2){ erreurs.push(T('err_nom')); marquer('nom',true); }
       if(email.length < 3 && mobile.length < 5){
-        erreurs.push("Laissez un email ou un mobile pour que je puisse vous répondre.");
+        erreurs.push(T('err_contact'));
         marquer('email',true); marquer('mobile',true);
       }
 
@@ -267,15 +289,15 @@
 
       if(mode === "message"){
         var message = val('message');
-        if(message.length < 3){ erreurs.push("Écrivez votre message."); marquer('message',true); }
+        if(message.length < 3){ erreurs.push(T('err_msg')); marquer('message',true); }
         corps.message = message;
       } else {
         var prenom = val('prenom'), rue = val('rue'), cp = val('cp'), ville = val('ville'), motif = val('motif');
-        if(prenom.length < 2){ erreurs.push("Indiquez votre prénom."); marquer('prenom',true); }
-        if(rue.length < 3){ erreurs.push("Indiquez votre numéro et rue."); marquer('rue',true); }
-        if(cp.length < 4){ erreurs.push("Indiquez votre code postal."); marquer('cp',true); }
-        if(ville.length < 2){ erreurs.push("Indiquez votre ville."); marquer('ville',true); }
-        if(motif.length < 3){ erreurs.push("Dites-moi pourquoi vous souhaitez un exemplaire."); marquer('motif',true); }
+        if(prenom.length < 2){ erreurs.push(T('err_prenom')); marquer('prenom',true); }
+        if(rue.length < 3){ erreurs.push(T('err_rue')); marquer('rue',true); }
+        if(cp.length < 4){ erreurs.push(T('err_cp')); marquer('cp',true); }
+        if(ville.length < 2){ erreurs.push(T('err_ville')); marquer('ville',true); }
+        if(motif.length < 3){ erreurs.push(T('err_motif')); marquer('motif',true); }
         corps.prenom = prenom; corps.rue = rue; corps.cp = cp; corps.ville = ville; corps.motif = motif;
       }
 
@@ -286,7 +308,7 @@
       }
 
       var btn = document.getElementById('btn-envoyer');
-      btn.disabled = true; btn.textContent = "Envoi…";
+      btn.disabled = true; btn.textContent = T('envoi');
 
       fetch(API + "/contact", {
         method: "POST",
@@ -295,26 +317,26 @@
       })
       .then(function(r){ return r.json().then(function(j){ return { status: r.status, j: j }; }); })
       .then(function(res){
-        btn.disabled = false; btn.textContent = "Envoyer";
+        btn.disabled = false; btn.textContent = T('btn_envoyer');
         if(res.j && res.j.ok){
           document.getElementById('formulaire').style.display = "none";
           document.getElementById('merci-texte').textContent = (mode === "livre")
-            ? "Votre demande est bien arrivée. Je vous enverrai le livre dès que possible."
-            : "Votre message est bien arrivé. Je vous répondrai dès que possible.";
+            ? T('merci_livre')
+            : T('merci_msg');
           document.getElementById('merci').style.display = "block";
           window.scrollTo({ top: 0, behavior: "smooth" });
         } else {
           rep.className = "reponse err";
-          if(res.status === 429) rep.textContent = "Doucement ! Patientez quelques secondes avant de renvoyer.";
-          else if(res.j && res.j.erreur === "sans_contact") rep.textContent = "Laissez un email ou un mobile.";
-          else if(res.j && res.j.erreur === "adresse_incomplete") rep.textContent = "L'adresse est incomplète.";
-          else rep.textContent = "Message incomplet, vérifiez les champs.";
+          if(res.status === 429) rep.textContent = T('err_vite');
+          else if(res.j && res.j.erreur === "sans_contact") rep.textContent = T('err_sans');
+          else if(res.j && res.j.erreur === "adresse_incomplete") rep.textContent = T('err_adr');
+          else rep.textContent = T('err_incomplet');
         }
       })
       .catch(function(){
-        btn.disabled = false; btn.textContent = "Envoyer";
+        btn.disabled = false; btn.textContent = T('btn_envoyer');
         rep.className = "reponse err";
-        rep.textContent = "Erreur réseau. Réessayez dans un instant.";
+        rep.textContent = T('err_reseau');
       });
     }
   </script>
@@ -324,5 +346,176 @@
     try{ fetch(API2 + "/compte?c=contact", {mode:"cors", keepalive:true}); }catch(e){}
   </script>
   <script src="avis-bouton.js" defer></script>
+<script>
+  var I18N = {
+ "fr": {
+  "titre_page": "Me contacter — Roy Van Mil",
+  "retour": "← Retour à la bibliothèque",
+  "alt_portrait": "Roy Van Mil, auteur",
+  "h1": "Écrivez-moi",
+  "intro": "N'hésitez pas à m'envoyer un message… si vous voulez un exemplaire de mon livre… si une histoire vous a touché… si vous voulez me dire quelque chose…",
+  "aria_type": "Type de message",
+  "btn_message": "✉️ Un message",
+  "btn_livre": "📖 Demander un livre",
+  "lab_nom": "Nom",
+  "lab_nomfam": "Nom de famille",
+  "lab_prenom": "Prénom",
+  "lab_email": "Email",
+  "lab_mobile": "Mobile",
+  "aide": "Email ou mobile — au moins l'un des deux, pour que je puisse vous répondre.",
+  "lab_msg": "Votre message",
+  "avert_adresse": "📮 <strong>Vérifiez bien votre adresse :</strong> en cas d'erreur, le livre ne pourra pas être envoyé.",
+  "lab_rue": "Numéro et rue",
+  "lab_cp": "Code postal",
+  "lab_ville": "Ville",
+  "avert_port": "💶 Chaque envoi me coûte des <strong>frais de port</strong>. Dites-moi en quelques mots pourquoi un exemplaire vous ferait plaisir.",
+  "lab_motif": "Pourquoi souhaitez-vous un exemplaire ?",
+  "btn_envoyer": "Envoyer",
+  "merci_h2": "Merci !",
+  "merci_msg": "Votre message est bien arrivé. Je vous répondrai dès que possible.",
+  "merci_livre": "Votre demande est bien arrivée. Je vous enverrai le livre dès que possible.",
+  "err_nom": "Indiquez votre nom.",
+  "err_contact": "Laissez un email ou un mobile pour que je puisse vous répondre.",
+  "err_msg": "Écrivez votre message.",
+  "err_prenom": "Indiquez votre prénom.",
+  "err_rue": "Indiquez votre numéro et rue.",
+  "err_cp": "Indiquez votre code postal.",
+  "err_ville": "Indiquez votre ville.",
+  "err_motif": "Dites-moi pourquoi vous souhaitez un exemplaire.",
+  "envoi": "Envoi…",
+  "err_vite": "Doucement ! Patientez quelques secondes avant de renvoyer.",
+  "err_sans": "Laissez un email ou un mobile.",
+  "err_adr": "L'adresse est incomplète.",
+  "err_incomplet": "Message incomplet, vérifiez les champs.",
+  "err_reseau": "Erreur réseau. Réessayez dans un instant."
+ },
+ "en": {
+  "titre_page": "Contact — Roy Van Mil",
+  "retour": "← Back to the library",
+  "alt_portrait": "Roy Van Mil, author",
+  "h1": "Write to me",
+  "intro": "Feel free to send me a message… if you would like a copy of my book… if a story touched you… if you want to tell me something… You can write in English, French or Dutch.",
+  "aria_type": "Type of message",
+  "btn_message": "✉️ A message",
+  "btn_livre": "📖 Request a book",
+  "lab_nom": "Name",
+  "lab_nomfam": "Last name",
+  "lab_prenom": "First name",
+  "lab_email": "Email",
+  "lab_mobile": "Mobile",
+  "aide": "Email or mobile — at least one of the two, so I can reply to you.",
+  "lab_msg": "Your message",
+  "avert_adresse": "📮 <strong>Please check your address carefully:</strong> if it is wrong, the book cannot be sent.",
+  "lab_rue": "Number and street",
+  "lab_cp": "Postcode",
+  "lab_ville": "Town / City, country",
+  "avert_port": "💶 Each shipment costs me <strong>postage</strong>. Tell me in a few words why a copy would make you happy. Please note: the book is in French.",
+  "lab_motif": "Why would you like a copy?",
+  "btn_envoyer": "Send",
+  "merci_h2": "Thank you!",
+  "merci_msg": "Your message has arrived. I will reply as soon as possible.",
+  "merci_livre": "Your request has arrived. I will send you the book as soon as possible.",
+  "err_nom": "Please enter your name.",
+  "err_contact": "Please leave an email or a mobile number so I can reply.",
+  "err_msg": "Please write your message.",
+  "err_prenom": "Please enter your first name.",
+  "err_rue": "Please enter your number and street.",
+  "err_cp": "Please enter your postcode.",
+  "err_ville": "Please enter your town or city.",
+  "err_motif": "Tell me why you would like a copy.",
+  "envoi": "Sending…",
+  "err_vite": "Easy! Please wait a few seconds before sending again.",
+  "err_sans": "Please leave an email or a mobile number.",
+  "err_adr": "The address is incomplete.",
+  "err_incomplet": "Incomplete message, please check the fields.",
+  "err_reseau": "Network error. Please try again in a moment."
+ },
+ "nl": {
+  "titre_page": "Contact — Roy Van Mil",
+  "retour": "← Terug naar de bibliotheek",
+  "alt_portrait": "Roy Van Mil, auteur",
+  "h1": "Schrijf me",
+  "intro": "Stuur me gerust een bericht… als je een exemplaar van mijn boek wilt… als een verhaal je geraakt heeft… als je me iets wilt vertellen… Je mag in het Nederlands, Frans of Engels schrijven.",
+  "aria_type": "Soort bericht",
+  "btn_message": "✉️ Een bericht",
+  "btn_livre": "📖 Een boek aanvragen",
+  "lab_nom": "Naam",
+  "lab_nomfam": "Achternaam",
+  "lab_prenom": "Voornaam",
+  "lab_email": "E-mail",
+  "lab_mobile": "Mobiel",
+  "aide": "E-mail of mobiel — minstens één van de twee, zodat ik je kan antwoorden.",
+  "lab_msg": "Je bericht",
+  "avert_adresse": "📮 <strong>Controleer je adres goed:</strong> bij een fout kan het boek niet verstuurd worden.",
+  "lab_rue": "Straat en huisnummer",
+  "lab_cp": "Postcode",
+  "lab_ville": "Plaats en land",
+  "avert_port": "💶 Elke zending kost mij <strong>verzendkosten</strong>. Vertel me in een paar woorden waarom je blij zou zijn met een exemplaar. Let op: het boek is in het Frans.",
+  "lab_motif": "Waarom wil je graag een exemplaar?",
+  "btn_envoyer": "Versturen",
+  "merci_h2": "Bedankt!",
+  "merci_msg": "Je bericht is goed aangekomen. Ik antwoord zo snel mogelijk.",
+  "merci_livre": "Je aanvraag is goed aangekomen. Ik stuur je het boek zo snel mogelijk.",
+  "err_nom": "Vul je naam in.",
+  "err_contact": "Laat een e-mailadres of mobiel nummer achter, zodat ik je kan antwoorden.",
+  "err_msg": "Schrijf je bericht.",
+  "err_prenom": "Vul je voornaam in.",
+  "err_rue": "Vul je straat en huisnummer in.",
+  "err_cp": "Vul je postcode in.",
+  "err_ville": "Vul je woonplaats in.",
+  "err_motif": "Vertel me waarom je graag een exemplaar wilt.",
+  "envoi": "Versturen…",
+  "err_vite": "Rustig aan! Wacht een paar seconden voor je opnieuw verstuurt.",
+  "err_sans": "Laat een e-mailadres of mobiel nummer achter.",
+  "err_adr": "Het adres is onvolledig.",
+  "err_incomplet": "Bericht onvolledig, controleer de velden.",
+  "err_reseau": "Netwerkfout. Probeer het zo meteen opnieuw."
+ }
+};
+
+  // ===== Langue (FR / EN / NL) =====
+  var LANG = 'fr';
+  function T(k){
+    var d = I18N[LANG] || I18N.fr;
+    return (d[k] !== undefined) ? d[k] : I18N.fr[k];
+  }
+  function setLang(lang){
+    if(!I18N[lang]) lang = 'fr';
+    LANG = lang;
+    document.querySelectorAll('[data-i18n]').forEach(function(el){
+      var v = T(el.getAttribute('data-i18n')); if(v !== undefined) el.innerHTML = v;
+    });
+    document.querySelectorAll('[data-i18n-ph]').forEach(function(el){
+      var v = T(el.getAttribute('data-i18n-ph')); if(v !== undefined) el.placeholder = v;
+    });
+    document.querySelectorAll('[data-i18n-alt]').forEach(function(el){
+      var v = T(el.getAttribute('data-i18n-alt')); if(v !== undefined) el.alt = v;
+    });
+    document.querySelectorAll('[data-i18n-aria]').forEach(function(el){
+      var v = T(el.getAttribute('data-i18n-aria')); if(v !== undefined) el.setAttribute('aria-label', v);
+    });
+    if(T('titre_page')) document.title = T('titre_page');
+    document.documentElement.lang = lang;
+    document.querySelectorAll('.langues button').forEach(function(b){
+      b.classList.toggle('actif', b.getAttribute('data-lang') === lang);
+    });
+    document.querySelectorAll('.mention-fr').forEach(function(m){
+      m.style.display = (lang === 'fr') ? 'none' : 'block';
+    });
+    try{ localStorage.setItem('rvm-lang', lang); localStorage.setItem('royvanmil-lang', lang); }catch(e){}
+    if(typeof apresLangue === 'function') apresLangue();
+  }
+  (function(){
+    var saved = 'fr';
+    try{
+      saved = localStorage.getItem('royvanmil-lang') || localStorage.getItem('rvm-lang');
+      if(!saved){
+        var l = (navigator.language || 'fr').toLowerCase();
+        saved = l.indexOf('nl') === 0 ? 'nl' : (l.indexOf('en') === 0 ? 'en' : 'fr');
+      }
+    }catch(e){ saved = 'fr'; }
+    setLang(saved);
+  })();
+</script>
 </body>
 </html>
