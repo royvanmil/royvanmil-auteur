@@ -497,7 +497,13 @@
 
     (function(){
       var saved = 'fr';
-      try{ saved = localStorage.getItem('royvanmil-lang') || localStorage.getItem('rvm-lang') || 'fr'; }catch(e){}
+      try{
+        saved = localStorage.getItem('royvanmil-lang') || localStorage.getItem('rvm-lang');
+        if(!saved){
+          var l = (navigator.language || 'fr').toLowerCase();
+          saved = l.indexOf('nl') === 0 ? 'nl' : (l.indexOf('en') === 0 ? 'en' : 'fr');
+        }
+      }catch(e){ saved = 'fr'; }
       setLang(saved);
     })();
   </script>
