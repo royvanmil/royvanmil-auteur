@@ -63,7 +63,8 @@
   .who { display: flex; align-items: center; gap: 3mm; padding: 1.5mm 3mm; }
   .num { flex: 0 0 6.5mm; height: 6.5mm; border-radius: 50%; background: #e4e6dc; display: flex; align-items: center; justify-content: center; font-size: 9pt; }
   .name { font-weight: bold; font-size: 9.6pt; }
-  .addr { font-size: 8.4pt; line-height: 1.2; color: #2e3530; }
+  .who .txt { flex: 1 1 auto; }
+  .ville { margin-left: auto; padding-left: 3mm; font-size: 12pt; font-weight: bold; color: #1f3b73; text-align: right; }
   .date { font-size: 7.8pt; color: #6f7a66; font-style: italic; }
   .vide { text-align: center; padding: 8mm; color: #6f7a66; font-style: italic; }
   .marks { display: flex; justify-content: center; align-items: center; }
@@ -179,10 +180,9 @@
     $("corps").innerHTML = affiches.map(function (a, i) {
       return '<tr class="ligne' + (enEdition === a.id ? " enedit" : "") + '" data-id="' + esc(a.id) + '" tabindex="0">' +
         '<td class="dt">' + esc(jourFr(a.date)) + '</td>' +
-        '<td><div class="who"><div class="num">' + (i + 1) + '</div><div><div class="name">' + esc(a.enseigne) + '</div>' +
-        (a.ville ? '<div class="addr">' + esc(a.ville) + '</div>' : '') +
+        '<td><div class="who"><div class="num">' + (i + 1) + '</div><div class="txt"><div class="name">' + esc(a.enseigne) + '</div>' +
         (a.note ? '<div class="date">' + esc(a.note) + '</div>' : '') +
-        '</div></div></td>' +
+        '</div>' + (a.ville ? '<div class="ville">' + esc(a.ville) + '</div>' : '') + '</div></td>' +
         '<td><div class="marks">' + icone(SVG_VITRINE, a.vitrine) + '</div></td>' +
         '<td><div class="marks">' + icone(SVG_ACCUEIL, a.accueil) + '</div></td></tr>';
     }).join("");
