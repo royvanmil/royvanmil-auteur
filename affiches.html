@@ -19,7 +19,7 @@
   #connexion { display: none; }
 
   /* ---- formulaire (écran seulement) ---- */
-  .carte { max-width: 210mm; margin: 0 auto 14px; background: #fbfaf5; border: 1px solid #c9cdc0; border-radius: 10px; padding: 1rem 1.1rem; display: none; }
+  .carte { width: 210mm; margin: 0 auto 14px; background: #fbfaf5; border: 1px solid #c9cdc0; border-radius: 10px; padding: 1rem 1.1rem; display: none; }
   .carte h2 { font-size: 1.2rem; margin-bottom: .8rem; }
   .carte label { display: block; font-size: .9rem; color: #6f7a66; margin-bottom: .2rem; }
   .carte input[type=text], .carte input[type=date] { width: 100%; padding: .6rem .7rem; border: 1px solid #c9cdc0; border-radius: 7px; font-size: 1rem; font-family: inherit; background: #fff; }
@@ -39,8 +39,8 @@
 
   /* ---- feuille A4 ---- */
   .page {
-    width: 100%; max-width: 210mm; margin: 0 auto 20px; background: #fbfaf5;
-    padding: 8mm 6mm 6mm; display: flex; flex-direction: column; box-shadow: 0 2px 10px rgba(0,0,0,.15);
+    width: 210mm; margin: 0 auto 20px; background: #fbfaf5;
+    padding: 8mm 11mm 6mm; display: flex; flex-direction: column; box-shadow: 0 2px 10px rgba(0,0,0,.15);
   }
   header { text-align: center; margin-bottom: 3mm; }
   .orn { display: flex; align-items: center; gap: 5mm; justify-content: center; color: #7d8c6e; }
@@ -79,11 +79,10 @@
   .legend .mk { transform: scale(.75); }
   footer { text-align: center; margin-top: auto; padding-top: 3mm; font-style: italic; color: #4d5649; font-size: 11pt; }
   footer .orn { margin-bottom: 1mm; }
-  @media (max-width: 600px) { .grille { grid-template-columns: 1fr; } }
   @media print {
     html, body { background: #fbfaf5; }
     .barre, #msg, #connexion, .carte { display: none !important; }
-    .page { width: 210mm; max-width: none; min-height: 297mm; padding: 8mm 11mm 6mm; margin: 0; box-shadow: none; }
+    .page { min-height: 297mm; margin: 0; box-shadow: none; }
     tbody tr.enedit td, tbody tr.ligne:hover td { background: none; }
   }
 </style>
