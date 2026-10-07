@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Comptes &amp; espaces auteur</title>
+<style>
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  html, body { background: #e8e6df; }
+  body { font-family: Georgia, "Times New Roman", serif; color: #1e2320; }
+  .barre { max-width: 210mm; margin: 12px auto; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; padding: 0 8px; }
+  .barre a, .barre button { font-family: inherit; font-size: 15px; text-decoration: none; color: #1e2320; background: #fff; border: 1px solid #9ea596; padding: 7px 14px; border-radius: 7px; cursor: pointer; }
+  .barre a.actif { background: #1e2320; color: #fff; }
+  .barre button.imp { background: #3d8b3d; border-color: #3d8b3d; color: #fff; font-weight: bold; margin-left: auto; }
+  .barre input { font-family: inherit; font-size: 15px; padding: 7px 10px; border: 1px solid #9ea596; border-radius: 7px; }
+  #msg { max-width: 210mm; margin: 0 auto 8px; padding: 0 8px; color: #b3261e; }
+  #connexion { display: none; }
+
+  /* ---- formulaire (écran seulement) ---- */
+  .carte { width: 210mm; max-width: 100%; margin: 0 auto 14px; background: #fbfaf5; border: 1px solid #c9cdc0; border-radius: 10px; padding: 1rem 1.1rem; display: none; }
+  .carte h2 { font-size: 1.2rem; margin-bottom: .8rem; }
+  .carte label { display: block; font-size: .9rem; color: #6f7a66; margin-bottom: .2rem; }
+  .carte input[type=text], .carte input[type=date], .carte input[type=url], .carte textarea { width: 100%; padding: .6rem .7rem; border: 1px solid #c9cdc0; border-radius: 7px; font-size: 1rem; font-family: inherit; background: #fff; }
+  .carte textarea { min-height: 3.4rem; resize: vertical; }
+  .grille { display: grid; grid-template-columns: 1fr 1fr; gap: .7rem; }
+  .plein { grid-column: 1 / -1; }
+  .etats { display: flex; gap: .5rem; flex-wrap: wrap; margin-top: .9rem; padding-top: .8rem; border-top: 1px solid #e4e6dc; }
+  .etats label { margin: 0; cursor: pointer; }
+  .etats input { position: absolute; opacity: 0; pointer-events: none; }
+  .etats span { display: inline-block; font-size: 1rem; color: #1e2320; padding: .45rem .9rem; border: 1px solid #c9cdc0; border-radius: 99px; background: #fff; }
+  .etats input:checked + span { border-color: currentColor; font-weight: bold; box-shadow: inset 0 0 0 1px currentColor; }
+  .etats input:focus-visible + span { outline: 2px solid #1f3b73; outline-offset: 2px; }
+  .etats .e-ok { color: #2f7a2f; } .etats .e-maj { color: #b5651d; } .etats .e-verif { color: #1f3b73; } .etats .e-non { color: #b3261e; }
+  .boutons { display: flex; gap: .6rem; margin-top: 1rem; flex-wrap: wrap; }
+  .boutons button { font-family: inherit; font-size: 1rem; padding: .6rem 1.2rem; border-radius: 7px; border: 1px solid #1e2320; background: #fff; cursor: pointer; }
+  .boutons button.principal { background: #3d8b3d; border-color: #3d8b3d; color: #fff; font-weight: bold; }
+  .boutons button.danger { color: #b3261e; border-color: #b3261e; margin-left: auto; display: none; }
+  .msgf { margin-top: .7rem; font-size: .95rem; min-height: 1.2em; }
+  .msgf.ok { color: #3d8b3d; } .msgf.err { color: #b3261e; }
+  .astuce { font-size: .85rem; color: #6f7a66; font-style: italic; margin-top: .3rem; }
+  button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible, tr:focus-visible { outline: 2px solid #1f3b73; outline-offset: 2px; }
+  @media (max-width: 640px) { .grille { grid-template-columns: 1fr; } }
+
+  /* ---- feuille A4 ---- */
+  .page {
+    width: 210mm; max-width: 100%; margin: 0 auto 20px; background: #fbfaf5;
+    padding: 8mm 11mm 6mm; display: flex; flex-direction: column; box-shadow: 0 2px 10px rgba(0,0,0,.15);
+  }
+  header { text-align: center; margin-bottom: 3mm; }
+  .orn { display: flex; align-items: center; gap: 5mm; justify-content: center; color: #7d8c6e; }
+  .orn .line { flex: 1; height: 1px; background: #b9c0ae; }
+  h1 { font-size: 23pt; font-weight: bold; margin-top: 1.5mm; letter-spacing: -0.3px; }
+  .sub { font-style: italic; font-size: 14pt; color: #3a4238; margin-top: 0.5mm; }
+  .resume { text-align: center; font-size: 10pt; color: #4d5649; margin: 1mm 0 3mm; }
+  .resume b { color: #1e2320; }
+  table { width: 100%; border-collapse: separate; border-spacing: 0; border: 1px solid #9ea596; border-radius: 3mm; overflow: hidden; }
+  th { background: #e4e6dc; font-size: 11pt; padding: 2mm; border-bottom: 1px solid #9ea596; }
+  th + th, td + td { border-left: 1px solid #9ea596; }
+  td { border-bottom: 1px solid #c9cdc0; vertical-align: middle; }
+  tr { page-break-inside: avoid; }
+  tr:last-child td { border-bottom: none; }
+  tbody tr.ligne { cursor: pointer; }
+  tbody tr.ligne:hover td { background: #f1f2ea; }
+  tbody tr.enedit td { background: #fff8d6; }
+  .col-name { width: 34%; }
+  .col-etat { width: 15%; }
+  .col-date { width: 12%; }
+  .col-faire { width: 39%; }
+  .who { display: flex; align-items: center; gap: 3mm; padding: 1.5mm 3mm; }
+  .num { flex: 0 0 6.5mm; height: 6.5mm; border-radius: 50%; background: #e4e6dc; display: flex; align-items: center; justify-content: center; font-size: 9pt; }
+  .who .txt { flex: 1 1 auto; min-width: 0; }
+  .name { font-weight: bold; font-size: 9.8pt; }
+  .name a { color: #1f3b73; text-decoration: none; font-weight: normal; margin-left: 1mm; }
+  .petit { font-size: 7.8pt; color: #6f7a66; font-style: italic; overflow-wrap: anywhere; }
+  .dt { text-align: center; font-size: 9.4pt; padding: 1mm 2mm; white-space: nowrap; }
+  .etat { text-align: center; padding: 1mm; }
+  .pill { display: inline-block; font-size: 8.4pt; font-weight: bold; padding: .8mm 2.4mm; border-radius: 99px; border: 1px solid currentColor; white-space: nowrap; }
+  .p-ok { color: #2f7a2f; background: #e6f2e2; }
+  .p-maj { color: #a3561a; background: #fbeedd; }
+  .p-verif { color: #1f3b73; background: #e3e9f5; }
+  .p-non { color: #b3261e; background: #f8e3e1; }
+  .faire { font-size: 9pt; padding: 1.5mm 3mm; line-height: 1.25; }
+  .vide { text-align: center; padding: 8mm; color: #6f7a66; font-style: italic; }
+  footer { text-align: center; margin-top: auto; padding-top: 3mm; font-style: italic; color: #4d5649; font-size: 11pt; }
+  footer .orn { margin-bottom: 1mm; }
+  @media print {
+    html, body { background: #fbfaf5; }
+    .barre, #msg, #connexion, .carte { display: none !important; }
+    .page { min-height: 297mm; margin: 0; box-shadow: none; }
+    tbody tr.enedit td, tbody tr.ligne:hover td { background: none; }
+    .name a { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="barre">
+  <a href="livres-renseignements.html">Renseignements</a>
+  <a href="livres-dons.html">Liste dons</a>
+  <a href="livres-achats.html">Liste achats</a>
+  <a href="affiches.html">Affiches</a>
+  <a href="comptes.html" class="actif">Comptes</a>
+  <a href="presence.html">Présence</a>
+  <span id="connexion"><input type="password" id="mdp" placeholder="Mot de passe" autocomplete="current-password"> <button id="btnEntrer">Entrer</button></span>
+  <button class="imp" onclick="window.print()">Imprimer</button>
+</div>
+<div id="msg"></div>
+
+<div class="carte" id="formCarte">
+  <h2 id="formTitre">Nouveau compte</h2>
+  <div class="grille">
+    <div><label for="plateforme">Plateforme</label><input type="text" id="plateforme"></div>
+    <div><label for="type">Type</label><input type="text" id="type" placeholder="Fiche auteur, vente, audio…"></div>
+    <div><label for="mail">Mail / identifiant utilisé</label><input type="text" id="mail" autocomplete="off"></div>
+    <div><label for="date">Dernière trace</label><input type="date" id="date"></div>
+    <div class="plein"><label for="url">Adresse du site</label><input type="url" id="url" placeholder="https://…"></div>
+    <div class="plein"><label for="afaire">À faire</label><textarea id="afaire"></textarea></div>
+    <div class="plein"><label for="details">Détails (ce qui est déjà fait, n° de commande…)</label><textarea id="details"></textarea></div>
+  </div>
+  <div class="etats" role="radiogroup" aria-label="État">
+    <label><input type="radio" name="etat" value="ok"><span class="e-ok">✅ À jour</span></label>
+    <label><input type="radio" name="etat" value="maj"><span class="e-maj">✏️ À mettre à jour</span></label>
+    <label><input type="radio" name="etat" value="verif" checked><span class="e-verif">🔎 À vérifier</span></label>
+    <label><input type="radio" name="etat" value="non"><span class="e-non">❌ Pas fait</span></label>
+  </div>
+  <div class="boutons">
+    <button class="principal" id="btnEnregistrer">Enregistrer</button>
+    <button id="btnAnnuler">Vider / annuler</button>
+    <button class="danger" id="btnSupprimer">Supprimer</button>
+  </div>
+  <div class="msgf" id="msgForm"></div>
+  <div class="astuce">Touche une ligne de la liste pour la modifier ou la supprimer. La flèche ↗ ouvre le site.</div>
+</div>
+
+<div class="page">
+  <header>
+    <div class="orn"><span class="line"></span>
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#2c3a33" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><circle cx="8" cy="15" r="4"/><path d="M11 12l9-9"/><path d="M17 6l3 3"/><path d="M15 8l2 2"/></svg>
+    <span class="line"></span></div>
+    <h1>Comptes &amp; espaces</h1>
+    <div class="sub">Où je suis inscrit, et ce qu'il reste à faire</div>
+  </header>
+  <div class="resume" id="resume"></div>
+
+  <table>
+    <thead>
+      <tr><th class="col-name">Plateforme</th><th class="col-etat">État</th><th class="col-date">Dernière trace</th><th class="col-faire">À faire</th></tr>
+    </thead>
+    <tbody id="corps"><tr><td colspan="4" class="vide">Chargement…</td></tr></tbody>
+  </table>
+
+  <footer>
+    <div class="orn"><span class="line"></span><span>❦</span><span class="line"></span></div>
+    Roy Van Mil
+  </footer>
+</div>
+
+<script>
+  var API = "https://compteurs.royvanmil86.workers.dev";
+  var ETATS = {
+    ok:    { txt: "À jour", ordre: 4 },
+    maj:   { txt: "À mettre à jour", ordre: 2 },
+    verif: { txt: "À vérifier", ordre: 3 },
+    non:   { txt: "Pas fait", ordre: 1 }
+  };
+  var comptes = [];
+  var enEdition = null;
+  var code = sessionStorage.getItem("livresCode") || "";
+
+  function $(id) { return document.getElementById(id); }
+  function esc(t) { return String(t || "").replace(/[&<>"']/g, function (c) { return { "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]; }); }
+  function jourFr(d) { if (!d) return ""; var p = d.split("-"); return p.length === 3 ? p[2] + "/" + p[1] + "/" + p[0] : d; }
+  function aujourdhui() {
+    var d = new Date();
+    return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+  }
+  function message(txt, ok) { var m = $("msgForm"); m.textContent = txt; m.className = "msgf " + (ok ? "ok" : "err"); }
+  function etatChoisi() { var r = document.querySelector('input[name=etat]:checked'); return r ? r.value : "verif"; }
+  function choisirEtat(v) { var r = document.querySelector('input[name=etat][value="' + (ETATS[v] ? v : "verif") + '"]'); if (r) r.checked = true; }
+
+  function trier() {
+    // d'abord ce qui demande une action (pas fait, à mettre à jour, à vérifier), puis ce qui est à jour
+    comptes.sort(function (a, b) {
+      var oa = (ETATS[a.etat] || ETATS.verif).ordre, ob = (ETATS[b.etat] || ETATS.verif).ordre;
+      if (oa !== ob) return oa - ob;
+      return (a.plateforme || "").localeCompare(b.plateforme || "", "fr");
+    });
+  }
+
+  function resume() {
+    var n = { ok: 0, maj: 0, verif: 0, non: 0 };
+    comptes.forEach(function (c) { if (n[c.etat] !== undefined) n[c.etat]++; });
+    $("resume").innerHTML = "<b>" + comptes.length + "</b> comptes · <b>" + n.ok + "</b> à jour · <b>" + n.maj +
+      "</b> à mettre à jour · <b>" + n.verif + "</b> à vérifier · <b>" + n.non + "</b> pas fait";
+  }
+
+  function afficher() {
+    trier();
+    resume();
+    if (!comptes.length) { $("corps").innerHTML = '<tr><td colspan="4" class="vide">Aucun compte pour l\'instant.</td></tr>'; return; }
+    $("corps").innerHTML = comptes.map(function (c, i) {
+      var e = ETATS[c.etat] ? c.etat : "verif";
+      var lien = c.url ? ' <a href="' + esc(c.url) + '" target="_blank" rel="noopener" class="ext" title="Ouvrir le site">↗</a>' : "";
+      var sous = [c.type, c.mail].filter(Boolean).map(esc).join(" · ");
+      return '<tr class="ligne' + (enEdition === c.id ? " enedit" : "") + '" data-id="' + esc(c.id) + '" tabindex="0">' +
+        '<td><div class="who"><div class="num">' + (i + 1) + '</div><div class="txt">' +
+          '<div class="name">' + esc(c.plateforme) + lien + '</div>' +
+          (sous ? '<div class="petit">' + sous + '</div>' : '') +
+        '</div></div></td>' +
+        '<td class="etat"><span class="pill p-' + e + '">' + ETATS[e].txt + '</span></td>' +
+        '<td class="dt">' + esc(jourFr(c.date)) + '</td>' +
+        '<td class="faire">' + esc(c.afaire) +
+          (c.details ? '<div class="petit">' + esc(c.details) + '</div>' : '') + '</td></tr>';
+    }).join("");
+  }
+
+  function charger() {
+    return fetch(API + "/comptes-liste?code=" + encodeURIComponent(code))
+      .then(function (r) { if (r.status === 403) throw new Error("mdp"); if (!r.ok) throw new Error("reseau"); return r.json(); })
+      .then(function (data) {
+        comptes = data;
+        sessionStorage.setItem("livresCode", code);
+        $("connexion").style.display = "none"; $("msg").textContent = "";
+        $("formCarte").style.display = "block";
+        afficher();
+      })
+      .catch(function (e) {
+        sessionStorage.removeItem("livresCode");
+        $("connexion").style.display = "inline";
+        $("formCarte").style.display = "none";
+        $("msg").textContent = e.message === "mdp" ? (code ? "Mot de passe refusé." : "Entre le mot de passe.") : "Erreur réseau, réessaie.";
+        $("corps").innerHTML = '<tr><td colspan="4" class="vide">Liste protégée.</td></tr>';
+        $("resume").textContent = "";
+      });
+  }
+
+  function sauver(texteOk) {
+    return fetch(API + "/comptes-save?code=" + encodeURIComponent(code), {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ comptes: comptes })
+    })
+    .then(function (r) { if (!r.ok) throw new Error(); return r.json(); })
+    .then(function () { message(texteOk, true); return charger(); })
+    .catch(function () { message("Erreur : rien n'a été enregistré. Réessaie.", false); return charger(); });
+  }
+
+  var CHAMPS = ["plateforme", "type", "mail", "url", "afaire", "details"];
+
+  function vider() {
+    enEdition = null;
+    CHAMPS.forEach(function (c) { $(c).value = ""; });
+    $("date").value = aujourdhui();
+    choisirEtat("verif");
+    $("formTitre").textContent = "Nouveau compte";
+    $("btnEnregistrer").textContent = "Enregistrer";
+    $("btnSupprimer").style.display = "none";
+    afficher();
+  }
+
+  function remplir(c) {
+    enEdition = c.id;
+    CHAMPS.forEach(function (k) { $(k).value = c[k] || ""; });
+    $("date").value = c.date || "";
+    choisirEtat(c.etat);
+    $("formTitre").textContent = "Modifier : " + (c.plateforme || "compte");
+    $("btnEnregistrer").textContent = "Enregistrer les modifications";
+    $("btnSupprimer").style.display = "inline-block";
+    message("", true);
+    afficher();
+    $("formCarte").scrollIntoView({ behavior: "smooth" });
+  }
+
+  $("btnEntrer").addEventListener("click", function () { code = $("mdp").value; charger(); });
+  $("mdp").addEventListener("keydown", function (e) { if (e.key === "Enter") { code = this.value; charger(); } });
+  $("btnAnnuler").addEventListener("click", function () { vider(); message("", true); });
+
+  $("btnEnregistrer").addEventListener("click", function () {
+    var url = $("url").value.trim();
+    if (url && !/^https?:\/\//i.test(url)) url = "https://" + url;
+    var fiche = {
+      id: enEdition || (Date.now().toString(36) + Math.random().toString(36).slice(2, 7)),
+      plateforme: $("plateforme").value.trim(), type: $("type").value.trim(), mail: $("mail").value.trim(),
+      url: url, etat: etatChoisi(), date: $("date").value,
+      afaire: $("afaire").value.trim(), details: $("details").value.trim()
+    };
+    if (!fiche.plateforme) { message("Mets au moins le nom de la plateforme.", false); return; }
+    if (enEdition) comptes = comptes.map(function (c) { return c.id === enEdition ? fiche : c; });
+    else comptes.push(fiche);
+    vider();
+    sauver("Enregistré : " + fiche.plateforme);
+  });
+
+  $("btnSupprimer").addEventListener("click", function () {
+    var c = comptes.filter(function (x) { return x.id === enEdition; })[0];
+    if (c && confirm("Supprimer " + c.plateforme + " ? C'est définitif.")) {
+      comptes = comptes.filter(function (x) { return x.id !== c.id; });
+      vider();
+      sauver("Supprimé : " + c.plateforme);
+    }
+  });
+
+  function choisirLigne(e) {
+    if (e.target.closest("a.ext")) return; // la flèche ouvre le site, sans passer en modification
+    var tr = e.target.closest("tr.ligne"); if (!tr) return;
+    var c = comptes.filter(function (x) { return x.id === tr.getAttribute("data-id"); })[0];
+    if (c) remplir(c);
+  }
+  $("corps").addEventListener("click", choisirLigne);
+  $("corps").addEventListener("keydown", function (e) { if (e.key === "Enter") choisirLigne(e); });
+
+  $("date").value = aujourdhui();
+  charger();
+</script>
+</body>
+</html>
