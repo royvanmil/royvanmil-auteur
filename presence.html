@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Présence des livres</title>
+<style>
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  html, body { background: #e8e6df; }
+  body { font-family: Georgia, "Times New Roman", serif; color: #1e2320; }
+  .barre { max-width: 210mm; margin: 12px auto; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; padding: 0 8px; }
+  .barre a, .barre button { font-family: inherit; font-size: 15px; text-decoration: none; color: #1e2320; background: #fff; border: 1px solid #9ea596; padding: 7px 14px; border-radius: 7px; cursor: pointer; }
+  .barre a.actif { background: #1e2320; color: #fff; }
+  .barre button.imp { background: #3d8b3d; border-color: #3d8b3d; color: #fff; font-weight: bold; margin-left: auto; }
+  .barre input { font-family: inherit; font-size: 15px; padding: 7px 10px; border: 1px solid #9ea596; border-radius: 7px; }
+  #msg { max-width: 210mm; margin: 0 auto 8px; padding: 0 8px; color: #b3261e; }
+  #connexion { display: none; }
+
+  /* ---- formulaire (écran seulement) ---- */
+  .carte { width: 210mm; max-width: 100%; margin: 0 auto 14px; background: #fbfaf5; border: 1px solid #c9cdc0; border-radius: 10px; padding: 1rem 1.1rem; display: none; }
+  .carte h2 { font-size: 1.2rem; margin-bottom: .8rem; }
+  .carte label { display: block; font-size: .9rem; color: #6f7a66; margin-bottom: .2rem; }
+  .carte input[type=text], .carte input[type=date], .carte input[type=url] { width: 100%; padding: .6rem .7rem; border: 1px solid #c9cdc0; border-radius: 7px; font-size: 1rem; font-family: inherit; background: #fff; }
+  .grille { display: grid; grid-template-columns: 1fr 1fr; gap: .7rem; }
+  .plein { grid-column: 1 / -1; }
+  .coches { display: flex; gap: 1.2rem; flex-wrap: wrap; margin-top: .9rem; padding-top: .8rem; border-top: 1px solid #e4e6dc; }
+  .coches .titre { width: 100%; font-size: .9rem; color: #6f7a66; }
+  .carte label.coche { display: flex; align-items: center; gap: .4rem; font-size: 1rem; color: #1e2320; cursor: pointer; user-select: none; margin: 0; }
+  .coche input { width: 1.25rem; height: 1.25rem; accent-color: #3d8b3d; cursor: pointer; }
+  .boutons { display: flex; gap: .6rem; margin-top: 1rem; flex-wrap: wrap; }
+  .boutons button { font-family: inherit; font-size: 1rem; padding: .6rem 1.2rem; border-radius: 7px; border: 1px solid #1e2320; background: #fff; cursor: pointer; }
+  .boutons button.principal { background: #3d8b3d; border-color: #3d8b3d; color: #fff; font-weight: bold; }
+  .boutons button.danger { color: #b3261e; border-color: #b3261e; margin-left: auto; display: none; }
+  .msgf { margin-top: .7rem; font-size: .95rem; min-height: 1.2em; }
+  .msgf.ok { color: #3d8b3d; } .msgf.err { color: #b3261e; }
+  .astuce { font-size: .85rem; color: #6f7a66; font-style: italic; margin-top: .3rem; }
+  button:focus-visible, a:focus-visible, input:focus-visible, tr:focus-visible { outline: 2px solid #1f3b73; outline-offset: 2px; }
+  @media (max-width: 640px) { .grille { grid-template-columns: 1fr; } }
+
+  /* ---- feuille A4 ---- */
+  .page {
+    width: 210mm; max-width: 100%; margin: 0 auto 20px; background: #fbfaf5;
+    padding: 8mm 11mm 6mm; display: flex; flex-direction: column; box-shadow: 0 2px 10px rgba(0,0,0,.15);
+  }
+  header { text-align: center; margin-bottom: 3mm; }
+  .orn { display: flex; align-items: center; gap: 5mm; justify-content: center; color: #7d8c6e; }
+  .orn .line { flex: 1; height: 1px; background: #b9c0ae; }
+  h1 { font-size: 23pt; font-weight: bold; margin-top: 1.5mm; letter-spacing: -0.3px; }
+  .sub { font-style: italic; font-size: 14pt; color: #3a4238; margin-top: 0.5mm; }
+  .resume { text-align: center; font-size: 10pt; color: #4d5649; margin: 1mm 0 3mm; }
+  .resume b { color: #1e2320; }
+  table { width: 100%; border-collapse: separate; border-spacing: 0; border: 1px solid #9ea596; border-radius: 3mm; overflow: hidden; }
+  th { background: #e4e6dc; font-size: 11pt; padding: 2mm; border-bottom: 1px solid #9ea596; }
+  th.col-livre { font-size: 8.8pt; line-height: 1.15; padding: 1.5mm 1mm; }
+  th + th, td + td { border-left: 1px solid #9ea596; }
+  td { border-bottom: 1px solid #c9cdc0; vertical-align: middle; }
+  tr { page-break-inside: avoid; }
+  tr:last-child td { border-bottom: none; }
+  tbody tr.ligne { cursor: pointer; }
+  tbody tr.ligne:hover td { background: #f1f2ea; }
+  tbody tr.enedit td { background: #fff8d6; }
+  .col-site { width: 40%; }
+  .col-livre { width: 9%; }
+  .col-date { width: 15%; }
+  .who { display: flex; align-items: center; gap: 3mm; padding: 1.5mm 3mm; }
+  .num { flex: 0 0 6.5mm; height: 6.5mm; border-radius: 50%; background: #e4e6dc; display: flex; align-items: center; justify-content: center; font-size: 9pt; }
+  .who .txt { flex: 1 1 auto; min-width: 0; }
+  .name { font-weight: bold; font-size: 9.8pt; }
+  .name a { color: #1f3b73; text-decoration: none; font-weight: normal; margin-left: 1mm; }
+  .petit { font-size: 7.8pt; color: #6f7a66; font-style: italic; overflow-wrap: anywhere; }
+  .dt { text-align: center; font-size: 9.4pt; padding: 1mm 2mm; white-space: nowrap; }
+  .vide { text-align: center; padding: 8mm; color: #6f7a66; font-style: italic; }
+  .marks { display: flex; justify-content: center; align-items: center; }
+  .mk { position: relative; width: 7mm; height: 7mm; }
+  .mk svg { width: 7mm; height: 7mm; fill: none; stroke: #d3d7ca; stroke-width: 1.6; stroke-linejoin: round; stroke-linecap: round; }
+  .mk.on svg { stroke: #2c3a33; }
+  .mk .v { display: none; }
+  .mk.on .v { display: block; position: absolute; right: -1.6mm; bottom: -0.6mm; width: 4.4mm; height: 4.4mm; border-radius: 50%; background: #3d8b3d; border: 1px solid #fbfaf5; }
+  .mk.on .v::after { content: ""; position: absolute; left: 1.45mm; top: 0.55mm; width: 1mm; height: 2mm; border: solid #fff; border-width: 0 0.6mm 0.6mm 0; transform: rotate(45deg); }
+  tfoot td { background: #e4e6dc; border-top: 1px solid #9ea596; border-bottom: none; text-align: center; font-size: 9.5pt; font-weight: bold; padding: 1.5mm 1mm; }
+  tfoot td.total-txt { text-align: right; padding-right: 3mm; font-weight: normal; font-style: italic; }
+  footer { text-align: center; margin-top: auto; padding-top: 3mm; font-style: italic; color: #4d5649; font-size: 11pt; }
+  footer .orn { margin-bottom: 1mm; }
+  @media print {
+    html, body { background: #fbfaf5; }
+    .barre, #msg, #connexion, .carte { display: none !important; }
+    .page { min-height: 297mm; margin: 0; box-shadow: none; }
+    tbody tr.enedit td, tbody tr.ligne:hover td { background: none; }
+    .name a { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="barre">
+  <a href="livres-renseignements.html">Renseignements</a>
+  <a href="livres-dons.html">Liste dons</a>
+  <a href="livres-achats.html">Liste achats</a>
+  <a href="affiches.html">Affiches</a>
+  <a href="comptes.html">Comptes</a>
+  <a href="presence.html" class="actif">Présence</a>
+  <span id="connexion"><input type="password" id="mdp" placeholder="Mot de passe" autocomplete="current-password"> <button id="btnEntrer">Entrer</button></span>
+  <button class="imp" onclick="window.print()">Imprimer</button>
+</div>
+<div id="msg"></div>
+
+<div class="carte" id="formCarte">
+  <h2 id="formTitre">Nouveau site</h2>
+  <div class="grille">
+    <div><label for="site">Site</label><input type="text" id="site" placeholder="bol.com, Fnac, Kobo…"></div>
+    <div><label for="type">Type</label><input type="text" id="type" placeholder="Librairie en ligne, comparateur…"></div>
+    <div><label for="zone">Pays / zone</label><input type="text" id="zone"></div>
+    <div><label for="date">Vérifié le</label><input type="date" id="date"></div>
+    <div class="plein"><label for="url">Adresse de la page</label><input type="url" id="url" placeholder="https://…"></div>
+    <div class="plein"><label for="note">Remarque (prix, erreur à signaler…)</label><input type="text" id="note"></div>
+  </div>
+  <div class="coches" id="coches"><span class="titre">Livres trouvés sur ce site :</span></div>
+  <div class="boutons">
+    <button class="principal" id="btnEnregistrer">Enregistrer</button>
+    <button id="btnAnnuler">Vider / annuler</button>
+    <button class="danger" id="btnSupprimer">Supprimer</button>
+  </div>
+  <div class="msgf" id="msgForm"></div>
+  <div class="astuce">Touche une ligne de la liste pour la modifier ou la supprimer. La flèche ↗ ouvre la page.</div>
+</div>
+
+<div class="page">
+  <header>
+    <div class="orn"><span class="line"></span>
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#2c3a33" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.6 2.6 3.8 5.6 3.8 9s-1.2 6.4-3.8 9c-2.6-2.6-3.8-5.6-3.8-9S9.4 5.6 12 3z"/></svg>
+    <span class="line"></span></div>
+    <h1>Présence des livres</h1>
+    <div class="sub">Où l'on trouve mes livres dans le monde</div>
+  </header>
+  <div class="resume" id="resume"></div>
+
+  <table>
+    <thead><tr id="tete"></tr></thead>
+    <tbody id="corps"><tr><td colspan="7" class="vide">Chargement…</td></tr></tbody>
+    <tfoot><tr id="pied"></tr></tfoot>
+  </table>
+
+  <footer>
+    <div class="orn"><span class="line"></span><span>❦</span><span class="line"></span></div>
+    Roy Van Mil
+  </footer>
+</div>
+
+<script>
+  var API = "https://compteurs.royvanmil86.workers.dev";
+  // ordre des colonnes livres (clé utilisée par le Worker -> titre affiché)
+  var LIVRES = [
+    { k: "m",  court: "Cette maison",     long: "Cette maison, elle vaut vraiment le prix ?" },
+    { k: "d",  court: "Un instant, ou Deux…",  long: "Un instant, ou Deux…" },
+    { k: "t",  court: "Un instant, ou Trois…", long: "Un instant, ou Trois…" },
+    { k: "nl", court: "Een moment, of Twee (NL)", long: "Een moment, of Twee… (NL)" },
+    { k: "c",  court: "La Cloche des Morts",   long: "La Cloche des Morts" }
+  ];
+  var SVG_LIVRE = '<svg viewBox="0 0 24 24"><path d="M3 5.5c3-1.3 6-1.3 9 .5 3-1.8 6-1.8 9-.5V19c-3-1.3-6-1.3-9 .5-3-1.8-6-1.8-9-.5z"/><path d="M12 6v13.5"/></svg>';
+  var sites = [];
+  var enEdition = null;
+  var code = sessionStorage.getItem("livresCode") || "";
+  var NB_COL = LIVRES.length + 2;
+
+  function $(id) { return document.getElementById(id); }
+  function esc(t) { return String(t || "").replace(/[&<>"']/g, function (c) { return { "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]; }); }
+  function icone(on) { return '<div class="mk' + (on ? " on" : "") + '">' + SVG_LIVRE + '<span class="v"></span></div>'; }
+  function jourFr(d) { if (!d) return ""; var p = d.split("-"); return p.length === 3 ? p[2] + "/" + p[1] + "/" + p[0] : d; }
+  function aujourdhui() {
+    var d = new Date();
+    return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+  }
+  function message(txt, ok) { var m = $("msgForm"); m.textContent = txt; m.className = "msgf " + (ok ? "ok" : "err"); }
+
+  // en-tête du tableau + cases du formulaire, construits depuis la liste LIVRES
+  $("tete").innerHTML = '<th class="col-site">Site</th>' +
+    LIVRES.map(function (l) { return '<th class="col-livre">' + esc(l.court) + '</th>'; }).join("") +
+    '<th class="col-date">Vérifié le</th>';
+  $("coches").innerHTML += LIVRES.map(function (l) {
+    return '<label class="coche"><input type="checkbox" id="l-' + l.k + '"> ' + esc(l.long) + '</label>';
+  }).join("");
+
+  function trier() {
+    // les sites qui ont le plus de livres d'abord, puis par ordre alphabétique
+    function nb(s) { return LIVRES.filter(function (l) { return s.livres && s.livres[l.k]; }).length; }
+    sites.sort(function (a, b) {
+      var d = nb(b) - nb(a); if (d) return d;
+      return (a.site || "").localeCompare(b.site || "", "fr");
+    });
+  }
+
+  function afficher() {
+    trier();
+    var totaux = LIVRES.map(function (l) { return sites.filter(function (s) { return s.livres && s.livres[l.k]; }).length; });
+    $("resume").innerHTML = "<b>" + sites.length + "</b> sites suivis";
+    $("pied").innerHTML = '<td class="total-txt">Nombre de sites</td>' +
+      totaux.map(function (n) { return '<td>' + n + '</td>'; }).join("") + '<td></td>';
+    if (!sites.length) { $("corps").innerHTML = '<tr><td colspan="' + NB_COL + '" class="vide">Aucun site pour l\'instant.</td></tr>'; return; }
+    $("corps").innerHTML = sites.map(function (s, i) {
+      var lien = s.url ? ' <a href="' + esc(s.url) + '" target="_blank" rel="noopener" class="ext" title="Ouvrir la page">↗</a>' : "";
+      var sous = [s.type, s.zone].filter(Boolean).map(esc).join(" · ");
+      return '<tr class="ligne' + (enEdition === s.id ? " enedit" : "") + '" data-id="' + esc(s.id) + '" tabindex="0">' +
+        '<td><div class="who"><div class="num">' + (i + 1) + '</div><div class="txt">' +
+          '<div class="name">' + esc(s.site) + lien + '</div>' +
+          (sous ? '<div class="petit">' + sous + '</div>' : '') +
+          (s.note ? '<div class="petit">' + esc(s.note) + '</div>' : '') +
+        '</div></div></td>' +
+        LIVRES.map(function (l) { return '<td><div class="marks">' + icone(s.livres && s.livres[l.k]) + '</div></td>'; }).join("") +
+        '<td class="dt">' + esc(jourFr(s.date)) + '</td></tr>';
+    }).join("");
+  }
+
+  function charger() {
+    return fetch(API + "/presence-liste?code=" + encodeURIComponent(code))
+      .then(function (r) { if (r.status === 403) throw new Error("mdp"); if (!r.ok) throw new Error("reseau"); return r.json(); })
+      .then(function (data) {
+        sites = data;
+        sessionStorage.setItem("livresCode", code);
+        $("connexion").style.display = "none"; $("msg").textContent = "";
+        $("formCarte").style.display = "block";
+        afficher();
+      })
+      .catch(function (e) {
+        sessionStorage.removeItem("livresCode");
+        $("connexion").style.display = "inline";
+        $("formCarte").style.display = "none";
+        $("msg").textContent = e.message === "mdp" ? (code ? "Mot de passe refusé." : "Entre le mot de passe.") : "Erreur réseau, réessaie.";
+        $("corps").innerHTML = '<tr><td colspan="' + NB_COL + '" class="vide">Liste protégée.</td></tr>';
+        $("pied").innerHTML = ""; $("resume").textContent = "";
+      });
+  }
+
+  function sauver(texteOk) {
+    return fetch(API + "/presence-save?code=" + encodeURIComponent(code), {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ sites: sites })
+    })
+    .then(function (r) { if (!r.ok) throw new Error(); return r.json(); })
+    .then(function () { message(texteOk, true); return charger(); })
+    .catch(function () { message("Erreur : rien n'a été enregistré. Réessaie.", false); return charger(); });
+  }
+
+  var CHAMPS = ["site", "type", "zone", "url", "note"];
+
+  function vider() {
+    enEdition = null;
+    CHAMPS.forEach(function (c) { $(c).value = ""; });
+    LIVRES.forEach(function (l) { $("l-" + l.k).checked = false; });
+    $("date").value = aujourdhui();
+    $("formTitre").textContent = "Nouveau site";
+    $("btnEnregistrer").textContent = "Enregistrer";
+    $("btnSupprimer").style.display = "none";
+    afficher();
+  }
+
+  function remplir(s) {
+    enEdition = s.id;
+    CHAMPS.forEach(function (k) { $(k).value = s[k] || ""; });
+    LIVRES.forEach(function (l) { $("l-" + l.k).checked = !!(s.livres && s.livres[l.k]); });
+    $("date").value = s.date || "";
+    $("formTitre").textContent = "Modifier : " + (s.site || "site");
+    $("btnEnregistrer").textContent = "Enregistrer les modifications";
+    $("btnSupprimer").style.display = "inline-block";
+    message("", true);
+    afficher();
+    $("formCarte").scrollIntoView({ behavior: "smooth" });
+  }
+
+  $("btnEntrer").addEventListener("click", function () { code = $("mdp").value; charger(); });
+  $("mdp").addEventListener("keydown", function (e) { if (e.key === "Enter") { code = this.value; charger(); } });
+  $("btnAnnuler").addEventListener("click", function () { vider(); message("", true); });
+
+  $("btnEnregistrer").addEventListener("click", function () {
+    var url = $("url").value.trim();
+    if (url && !/^https?:\/\//i.test(url)) url = "https://" + url;
+    var livres = {};
+    LIVRES.forEach(function (l) { livres[l.k] = $("l-" + l.k).checked; });
+    var fiche = {
+      id: enEdition || (Date.now().toString(36) + Math.random().toString(36).slice(2, 7)),
+      site: $("site").value.trim(), type: $("type").value.trim(), zone: $("zone").value.trim(),
+      url: url, livres: livres, date: $("date").value, note: $("note").value.trim()
+    };
+    if (!fiche.site) { message("Mets au moins le nom du site.", false); return; }
+    if (enEdition) sites = sites.map(function (s) { return s.id === enEdition ? fiche : s; });
+    else sites.push(fiche);
+    vider();
+    sauver("Enregistré : " + fiche.site);
+  });
+
+  $("btnSupprimer").addEventListener("click", function () {
+    var s = sites.filter(function (x) { return x.id === enEdition; })[0];
+    if (s && confirm("Supprimer " + s.site + " ? C'est définitif.")) {
+      sites = sites.filter(function (x) { return x.id !== s.id; });
+      vider();
+      sauver("Supprimé : " + s.site);
+    }
+  });
+
+  function choisirLigne(e) {
+    if (e.target.closest("a.ext")) return; // la flèche ouvre la page, sans passer en modification
+    var tr = e.target.closest("tr.ligne"); if (!tr) return;
+    var s = sites.filter(function (x) { return x.id === tr.getAttribute("data-id"); })[0];
+    if (s) remplir(s);
+  }
+  $("corps").addEventListener("click", choisirLigne);
+  $("corps").addEventListener("keydown", function (e) { if (e.key === "Enter") choisirLigne(e); });
+
+  $("date").value = aujourdhui();
+  charger();
+</script>
+</body>
+</html>
