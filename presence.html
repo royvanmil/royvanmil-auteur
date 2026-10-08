@@ -273,26 +273,30 @@
   function LV(m, d, t, nl, c, q) { return { m: !!m, d: !!d, t: !!t, nl: !!nl, c: !!c, q: !!q }; }
   var RELEVE = [
     { site: "Amazon.fr", alias: [], type: "Marketplace", zone: "France", url: "https://www.amazon.fr/", livres: LV(1,1,1,0,0), note: "Tous publiés via KDP. Maison : 19,99 €" },
-    { site: "AbeBooks.fr", alias: ["abebooks"], type: "Place de marché", zone: "France", url: "https://www.abebooks.fr/products/isbn/9791098802317", livres: LV(0,0,1,0,0), note: "Trois : 17,06 € (vendeur aux États-Unis)" },
-    { site: "BnF — Nouveautés éditeurs", alias: [], type: "Catalogue (pas une boutique)", zone: "France", url: "https://nouveautes-editeurs.bnf.fr/accueil?id_declaration=10000001387100&titre_livre=Un_instant%2C_ou_Deux...", livres: LV(0,1,0,0,0), note: "Deux : 12,50 € (prix public déclaré)" },
-    { site: "Bigshopper.fr", alias: ["bigshopper"], type: "Comparateur", zone: "France", url: "https://bigshopper.fr/product/un-instant-ou-deux-16-microhistoires-pour-sourire-reflechir-et-se-souvenir-de-l-essentiel-3673137892.htm", livres: LV(0,1,0,0,0), note: "Deux : 12,50 € (broché) et 19,99 € (relié, EAN …2324) — renvoie vers Amazon" },
-    { site: "AllForMusic", alias: [], type: "Agrégateur / affiliation", zone: "France", livres: LV(1,0,0,0,0) },
+    { site: "AbeBooks.fr", alias: ["abebooks"], type: "Place de marché", zone: "France", url: "https://www.abebooks.fr/products/isbn/9791098802317", livres: LV(0,0,1,0,0), note: "Trois : 4 vendeurs (USA, UK, Allemagne), dès 16,26 € · Deux : fiche sans vendeur" },
+    { site: "BnF — Nouveautés éditeurs", alias: [], type: "Catalogue (pas une boutique)", zone: "France", url: "https://nouveautes-editeurs.bnf.fr/accueil?id_declaration=10000001387100&titre_livre=Un_instant%2C_ou_Deux...", livres: LV(0,1,0,0,0), note: "Deux : 12,50 € (prix public déclaré) · page non rouverte le 08/10" },
+    { site: "Bigshopper.fr", alias: ["bigshopper"], type: "Comparateur", zone: "France", url: "https://bigshopper.fr/product/un-instant-ou-deux-16-microhistoires-pour-sourire-reflechir-et-se-souvenir-de-l-essentiel-3673137892.htm", livres: LV(0,1,0,0,0), exact: true, note: "Deux : 12,50 € via Amazon (Trois non trouvé)" },
+    { site: "AllForMusic", alias: [], type: "Page automatique", zone: "France", livres: LV(1,0,0,0,0), exact: true, note: "Page générée sur le mot « Mili », sans ton nom — sans intérêt" },
     { site: "RoyVanMil.fr", alias: [], type: "Site officiel", zone: "France", livres: LV(1,1,1,1,1) },
     { site: "Pro2Tec.net", alias: [], type: "Site officiel", zone: "France", url: "https://www.pro2tec.net/livre.html", livres: LV(1,0,0,0,0), note: "Maison : 19,99 €" },
-    { site: "Bol.com BE", alias: [], type: "Librairie en ligne", zone: "Belgique", url: "https://www.bol.com/be/fr/p/un-instant-ou-trois/9300000388999933/", livres: LV(0,0,1,0,0), note: "Trois : 13,50 € · attendu sous 5 semaines" },
+    { site: "Bol.com BE", alias: [], type: "Librairie en ligne", zone: "Belgique", url: "https://www.bol.com/be/fr/p/un-instant-ou-trois/9300000388999933/", livres: LV(0,0,1,0,0), note: "Trois : 13,50 € · environ 5 semaines" },
     { site: "Kieskeurig.be", alias: ["kieskeurig"], type: "Comparateur", zone: "Belgique", url: "https://www.kieskeurig.be/fr/decoration-d-interieur/produit/60623246-un-instant-ou-deux-16-microhistoires-pour-sourire-reflechir-et-se-souvenir-de-lessentiel-", livres: LV(0,1,0,0,0), note: "Deux relié (EAN …2324) : 20,08 € via Amazon.be" },
     { site: "Bol.com NL", alias: ["bol.com"], type: "Librairie en ligne", zone: "Pays-Bas", url: "https://www.bol.com/nl/nl/p/un-instant-ou-trois-13-microhistoires-entre-rires-larmes-et-surprises/9300000388999933/", livres: LV(0,0,1,0,0), note: "Trois : 13,50 € · classé à tort dans Kantoor & School → à signaler" },
-    { site: "Amazon.nl", alias: [], type: "Marketplace", zone: "Pays-Bas", url: "https://www.amazon.nl/Cette-maison-Elle-vaut-vraiment/dp/B0H3XKDTZZ", livres: LV(1,0,0,0,0), note: "Maison : page vue en recherche, pas ouverte" },
-    { site: "Orell Füssli", alias: [], type: "Librairie en ligne", zone: "Suisse", url: "https://www.orellfuessli.ch/shop/home/artikeldetails/A1081691010", livres: LV(0,0,1,0,0), note: "Trois : 16,90 CHF · env. 3 semaines" },
-    { site: "Feltrinelli", alias: [], type: "Librairie en ligne", zone: "Italie", url: "https://www.lafeltrinelli.it/un-instant-ou-trois-13-libro-inglese-roy-van-mil/e/9791098802317", livres: LV(0,0,1,0,0), note: "Trois : 10,69 € · classé « libro inglese » mais texte en français" },
-    { site: "IberLibro", alias: [], type: "Place de marché", zone: "Espagne", livres: LV(0,0,1,0,0) },
-    { site: "Adlibris", alias: [], type: "Librairie en ligne", zone: "Suède", url: "https://www.adlibris.com/sv/bok/un-instant-ou-trois-9791098802317", livres: LV(0,0,1,0,0), note: "Trois : 205 SEK" },
-    { site: "Saxo", alias: [], type: "Librairie en ligne", zone: "Danemark", url: "https://www.saxo.com/dk/un-instant-ou-trois_bog_9791098802317", livres: LV(0,0,1,0,0), note: "Trois : 179,95 DKK (membre 164,95) · 2–3 semaines" },
+    { site: "Amazon.nl", alias: [], type: "Marketplace", zone: "Pays-Bas", url: "https://www.amazon.nl/Cette-maison-Elle-vaut-vraiment/dp/B0H3XKDTZZ", livres: LV(1,0,0,0,0), note: "Maison : à vérifier toi-même (Amazon bloque la lecture)" },
+    { site: "Orell Füssli", alias: [], type: "Librairie en ligne", zone: "Suisse", url: "https://www.orellfuessli.ch/shop/home/artikeldetails/A1081691010", livres: LV(0,0,1,0,0), note: "Trois : 19.90 CHF · prêt à expédier sous 3 semaines" },
+    { site: "Feltrinelli", alias: [], type: "Librairie en ligne", zone: "Italie", url: "https://www.lafeltrinelli.it/un-instant-ou-trois-13-libro-inglese-roy-van-mil/e/9791098802317", livres: LV(0,0,1,0,0), note: "Trois : 10,69 € · 3 semaines · classé « libro inglese » mais texte en français" },
+    { site: "IberLibro", alias: [], type: "Place de marché", zone: "Espagne", url: "https://www.iberlibro.com/products/isbn/9791098802317", livres: LV(0,0,1,0,0), note: "Trois : 4 vendeurs, dès 17,47 € livraison gratuite (réseau AbeBooks)" },
+    { site: "Adlibris", alias: [], type: "Librairie en ligne", zone: "Suède", url: "https://www.adlibris.com/sv/bok/un-instant-ou-trois-9791098802317", livres: LV(0,0,1,0,0), note: "Trois : 211 SEK" },
+    { site: "Bokus", alias: [], type: "Librairie en ligne", zone: "Suède", url: "https://www.bokus.com/bok/9791098802317", livres: LV(0,0,1,0,0), note: "Trois : 180 SEK (titre affiché sans le « Un »)" },
+    { site: "Saxo", alias: [], type: "Librairie en ligne", zone: "Danemark", url: "https://www.saxo.com/dk/un-instant-ou-trois_bog_9791098802317", livres: LV(0,0,1,0,0), note: "Trois : 179,95 DKK selon GPT · site bloqué pour moi, à vérifier" },
+    { site: "Waterstones", alias: [], type: "Librairie en ligne", zone: "Royaume-Uni", url: "https://www.waterstones.com/book/un-instant-ou-trois/roy-van-mil/9791098802317", livres: LV(0,0,1,0,0), note: "Trois : 10,18 £ · grande chaîne de librairies anglaise" },
+    { site: "Blackwell's", alias: [], type: "Librairie en ligne", zone: "Royaume-Uni", url: "https://www.blackwells.co.uk/bookshop/product/9791098802317", livres: LV(0,0,1,0,0), note: "Trois : fiche présente mais « pas disponible à la vente »" },
+    { site: "Barnes & Noble", alias: [], type: "Librairie en ligne", zone: "États-Unis", url: "https://www.barnesandnoble.com/w/un-instant-ou-trois-roy-van-mil/1151333459", livres: LV(0,0,1,0,0), note: "Trois : 13,76 USD · en rupture en ligne · 1re chaîne de librairies US" },
     { site: "Books-A-Million", alias: [], type: "Librairie en ligne", zone: "États-Unis", url: "https://www.booksamillion.com/p/Instant-ou-Trois/Roy-Van-Mil/9791098802317", livres: LV(0,0,1,0,0), note: "Trois : 13,76 USD · en stock" },
     { site: "Bookshop.org", alias: [], type: "Librairie en ligne", zone: "États-Unis", url: "https://bookshop.org/p/books/un-instant-ou-trois-13-microhistoires-entre-rires-larmes-et-surprises/f42a1f91d4d80a31", livres: LV(0,0,1,0,0), note: "Trois : 13,76 USD" },
-    { site: "ThriftBooks", alias: [], type: "Librairie en ligne", zone: "États-Unis", livres: LV(0,0,1,0,0) },
-    { site: "Amazon.ca", alias: [], type: "Marketplace", zone: "Canada", url: "https://www.amazon.ca/instant-Deux-MicroHistoires-r%C3%A9fl%C3%A9chir-lessentiel/dp/B0H9ZQX1K7", livres: LV(0,1,0,0,0), note: "Deux : page vue en recherche, pas ouverte" },
-    { site: "Amazon.in", alias: [], type: "Marketplace", zone: "Inde", url: "https://www.amazon.in/dp/B0HKDDZ2XV", livres: LV(0,0,1,0,0), note: "Trois : Kindle 435 INR · broché 1 674 INR" }
+    { site: "ThriftBooks", alias: [], type: "Librairie en ligne", zone: "États-Unis", livres: LV(0,0,1,0,0), note: "Trois : page bloquée pour moi le 08/10, à vérifier" },
+    { site: "Amazon.ca", alias: [], type: "Marketplace", zone: "Canada", url: "https://www.amazon.ca/instant-Deux-MicroHistoires-r%C3%A9fl%C3%A9chir-lessentiel/dp/B0H9ZQX1K7", livres: LV(0,1,0,0,0), note: "Deux : à vérifier toi-même (Amazon bloque la lecture)" },
+    { site: "Amazon.in", alias: [], type: "Marketplace", zone: "Inde", url: "https://www.amazon.in/dp/B0HKDDZ2XV", livres: LV(0,0,1,0,0), note: "Trois : Kindle 435 INR · broché 1 674 INR (capture GPT)" }
   ];
 
   function cleNom(t) { return String(t || "").toLowerCase().replace(/\s+/g, " ").trim(); }
@@ -314,7 +318,8 @@
       s.site = r.site; s.type = r.type; s.zone = r.zone;
       if (r.url) s.url = r.url;
       s.livres = s.livres || {};
-      LIVRES.forEach(function (l) { s.livres[l.k] = !!(s.livres[l.k] || r.livres[l.k]); }); // on ajoute, on ne décoche jamais
+      // en principe on ajoute sans jamais décocher ; "exact" = coches vérifiées, on remplace (erreur du premier relevé)
+      LIVRES.forEach(function (l) { s.livres[l.k] = r.exact ? !!r.livres[l.k] : !!(s.livres[l.k] || r.livres[l.k]); });
       if (r.note !== undefined) { s.note = r.note; s.date = RELEVE_DATE; }
       if (JSON.stringify(s) !== avant) majs++;
     });
@@ -325,7 +330,7 @@
     var f = fusionner(sites);
     if (!f[1] && !f[2]) { $("importCarte").style.display = "none"; return; }
     $("importTxt").innerHTML = "📥 <b>Relevé du 08/10/2026</b> : " + f[1] + " nouveau(x) site(s), " + f[2] +
-      " mise(s) à jour (pays, prix, liens). Rien n'est décoché ni supprimé.";
+      " mise(s) à jour (pays, prix, liens). Rien n'est supprimé. Vérifié par Claude le 08/10.";
     $("importCarte").style.display = "flex";
   }
 
