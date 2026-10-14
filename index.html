@@ -104,8 +104,27 @@ button{font:inherit}
   text-transform:uppercase;letter-spacing:.12em;font-weight:700;
 }
 .nav-right{display:flex;align-items:center;gap:24px}
-.menu{display:flex;gap:20px;align-items:center;font-size:.9rem;font-weight:600;color:#4d5e6f}
-.menu a:hover{color:var(--wine)}
+.menu{display:flex;gap:12px;align-items:center}
+.menu a{
+  display:inline-flex;align-items:center;gap:8px;
+  min-height:48px;padding:0 20px;border-radius:999px;
+  font-size:1.02rem;font-weight:800;color:#fff;
+  box-shadow:0 8px 20px rgba(30,55,75,.18);
+  transition:transform .2s ease,filter .2s ease;
+}
+.menu a:hover{transform:translateY(-2px);filter:brightness(1.1)}
+.menu-ico{font-size:1.25rem;line-height:1}
+.m-audio{background:#1f3a5f}
+.m-contact{background:#111}
+.m-avis{
+  background:#e69500;color:#1d1208!important;
+  animation:clignote 2s ease-in-out infinite;
+}
+@keyframes clignote{
+  0%,60%,100%{background:#e69500;box-shadow:0 8px 20px rgba(30,55,75,.18);transform:scale(1)}
+  75%{background:#ffbf1f;box-shadow:0 0 0 6px rgba(255,191,31,.35),0 8px 24px rgba(230,149,0,.5);transform:scale(1.07)}
+}
+@media(prefers-reduced-motion:reduce){.m-avis{animation:none}}
 .langs{
   display:flex;gap:3px;padding:4px;
   border:1px solid var(--line);border-radius:999px;
@@ -283,11 +302,13 @@ footer{padding:40px 0 120px;color:#56687a;font-size:.9rem}
   .bandeau-audio{padding:.72rem .7rem}
   .bandeau-audio__sous{font-size:.7rem}
   .site-header{position:relative}
-  .nav{min-height:68px}
+  .nav{min-height:68px;flex-wrap:wrap;padding:8px 0}
   .brand small{display:none}
   .brand-logo{height:40px}
-  .nav-right{gap:10px}
-  .menu{gap:12px;font-size:.82rem}
+  .nav-right{gap:10px;display:contents}
+  .menu{order:3;width:100%;justify-content:center;gap:8px;padding-bottom:6px}
+  .menu a{min-height:42px;padding:0 13px;font-size:.92rem;gap:6px}
+  .menu-ico{font-size:1.05rem}
   .langs{padding:3px}
   .lang-btn{padding:5px 7px;font-size:.7rem}
   .intro{padding:26px 0 26px}
@@ -300,9 +321,6 @@ footer{padding:40px 0 120px;color:#56687a;font-size:.9rem}
   .deux-livres{grid-template-columns:1fr;gap:18px}
   .support{padding:26px 22px}
   .footer-inner{justify-content:center;text-align:center}
-}
-@media(max-width:480px){
-  .menu{display:none}
 }
 </style>
 </head>
@@ -331,9 +349,9 @@ Bienvenue sur le site des Microhistoires de Roy Van Mil. Des histoires audio vou
 
     <div class="nav-right">
       <nav class="menu" aria-label="Navigation principale">
-        <a href="Piste-Audio.html" data-i18n="navAudio">Audio</a>
-        <a href="temoignages.html" data-i18n="navReviews">Avis</a>
-        <a href="contact.html" data-i18n="navContact">Contact</a>
+        <a href="Piste-Audio.html" class="m-audio"><span class="menu-ico" aria-hidden="true">🔊</span><span data-i18n="navAudio">Audio</span></a>
+        <a href="temoignages.html" class="m-avis"><span class="menu-ico" aria-hidden="true">👍</span><span data-i18n="navReviews">Avis</span></a>
+        <a href="contact.html" class="m-contact"><span class="menu-ico" aria-hidden="true">✉️</span><span data-i18n="navContact">Contact</span></a>
       </nav>
 
       <div class="langs" aria-label="Choix de la langue">
