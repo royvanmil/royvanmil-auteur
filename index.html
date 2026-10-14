@@ -206,8 +206,9 @@ h2,h3{margin:0;font-family:"Cormorant Garamond",Georgia,serif;line-height:1.05}
   content:"";position:absolute;width:270px;height:270px;border-radius:50%;
   border:1px solid rgba(50,50,50,.08);top:-60px;right:-50px;
 }
+.visuel > a{display:block;width:100%;position:relative;z-index:2}
 .couv{
-  position:relative;z-index:2;width:min(250px,66%);
+  position:relative;z-index:2;width:min(250px,66%);height:auto;margin:0 auto;
   filter:drop-shadow(0 22px 28px rgba(25,45,65,.16));transition:.25s ease;
 }
 .couv:hover{transform:translateY(-5px) rotate(-1deg)}
@@ -223,8 +224,9 @@ h2,h3{margin:0;font-family:"Cormorant Garamond",Georgia,serif;line-height:1.05}
   padding:28px 20px 26px;border-radius:22px;
   background:linear-gradient(180deg,#e8f0f3 0%,#fff 55%);
 }
+.livre > a:first-child{display:block;width:100%}
 .livre-couv{
-  width:min(260px,74%);aspect-ratio:2/3;object-fit:contain;
+  width:min(320px,90%);height:auto;margin:0 auto;
   filter:drop-shadow(0 25px 30px rgba(25,45,65,.18));transition:.25s ease;
 }
 .livre:hover .livre-couv{transform:translateY(-6px)}
