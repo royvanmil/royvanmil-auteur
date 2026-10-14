@@ -154,6 +154,12 @@ button{font:inherit}
   font-weight:700;font-size:.95rem;color:var(--ink);transition:.2s ease;
 }
 .btn-nl:hover{transform:translateY(-2px);border-color:var(--wine)}
+.btn-amazon{
+  margin-top:22px;min-height:54px;padding:0 26px;font-size:1.08rem;
+  background:#ffd814;color:#111;border:1px solid #e6c200;
+  box-shadow:0 10px 26px rgba(30,55,75,.16);
+}
+.btn-amazon:hover{background:#f7ca00}
 .nl-vlag{width:30px;height:20px;border-radius:3px;box-shadow:0 0 0 1px rgba(0,0,0,.12);flex-shrink:0}
 
 /* ===== Boutons ===== */
@@ -372,6 +378,9 @@ Bienvenue sur le site des Microhistoires de Roy Van Mil. Des histoires audio vou
     </div>
     <div class="wrap">
       <h1 data-i18n="chooseBook">Choisissez votre livre</h1>
+      <a class="btn btn-amazon"
+         href="https://www.amazon.fr/stores/Roy-VAN-MIL/author/B0HH4KJ7HN"
+         target="_blank" rel="noopener noreferrer"><span aria-hidden="true">🛒</span><span data-i18n="buyAmazon">Acheter sur Amazon</span></a>
     </div>
   </section>
 
@@ -526,7 +535,7 @@ const translations = {
     audioBannerMain:"PAGE AUDIO — pour aveugles & malvoyants",
     audioBannerSub:"Des histoires à écouter gratuitement • lecture d'écran intégrée",
     author:"Auteur", navAudio:"Audio", navReviews:"Avis", navContact:"Contact",
-    chooseBook:"Choisissez votre livre",
+    chooseBook:"Choisissez votre livre", buyAmazon:"Acheter sur Amazon",
     techLabel:"Livre technique",
     techText:"Un livre concret pour regarder une maison autrement : comprendre, repérer et mieux appréhender ce qui se cache derrière les murs.",
     discoverBook:"Découvrir ce livre →",
@@ -553,7 +562,7 @@ const translations = {
     audioBannerMain:"AUDIO PAGE — for blind & visually impaired listeners",
     audioBannerSub:"Free audio stories • screen-reader friendly",
     author:"Author", navAudio:"Audio", navReviews:"Reviews", navContact:"Contact",
-    chooseBook:"Choose your book",
+    chooseBook:"Choose your book", buyAmazon:"Buy on Amazon",
     techLabel:"Technical book",
     techText:"A practical book to help you look at a house differently: understand it, spot important details and see what may be hidden behind the walls.",
     discoverBook:"Discover this book →",
@@ -580,7 +589,7 @@ const translations = {
     audioBannerMain:"AUDIOPAGINA — voor blinde & slechtziende luisteraars",
     audioBannerSub:"Gratis verhalen om te beluisteren • geschikt voor schermlezers",
     author:"Schrijver", navAudio:"Audio", navReviews:"Reacties", navContact:"Contact",
-    chooseBook:"Kies je boek",
+    chooseBook:"Kies je boek", buyAmazon:"Kopen op Amazon",
     techLabel:"Technisch boek",
     techText:"Een praktisch boek waarmee je anders naar een huis leert kijken: begrijpen, belangrijke details herkennen en ontdekken wat er achter de muren kan schuilgaan.",
     discoverBook:"Ontdek dit boek →",
