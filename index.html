@@ -4,13 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Roy Van Mil — Auteur | Technique, microhistoires & roman</title>
-<meta name="description" content="Découvrez les trois univers de Roy Van Mil : le livre technique Cette maison, les recueils de microhistoires Un instant, ou Deux… et Un instant, ou Trois…, et le roman La Cloche des Morts.">
+<meta name="description" content="Découvrez les livres de Roy Van Mil : le livre technique Cette maison, les recueils de microhistoires Un instant, ou Deux… et Un instant, ou Trois…, et le roman La Cloche des Morts.">
 <meta name="author" content="Roy Van Mil">
 <link rel="canonical" href="https://royvanmil.fr/">
 
 <meta property="og:type" content="website">
 <meta property="og:title" content="Roy Van Mil — Auteur">
-<meta property="og:description" content="Technique, microhistoires et roman : entrez dans les trois univers de Roy Van Mil.">
+<meta property="og:description" content="Technique, microhistoires et roman : choisissez votre livre.">
 <meta property="og:image" content="https://royvanmil.fr/img/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="629">
@@ -30,12 +30,9 @@
   --ink:#22364a;
   --muted:#56687a;
   --orange:#ff7a00;
-  --orange-soft:#fff0df;
   --wine:#2e6e73;
   --wine-dark:#235a5e;
-  --blue:#507080;
   --blue-soft:#edf3f5;
-  --bronze:#5b6f86;
   --bronze-soft:#eaf1ee;
   --line:#d9e4ea;
   --shadow:0 18px 50px rgba(30,55,75,.10);
@@ -71,359 +68,181 @@ button{font:inherit}
 }
 .wrap{width:min(calc(100% - 36px),var(--max));margin:auto}
 
-/* ===== Bandeau orange historique ===== */
+/* ===== Bandeau orange audio ===== */
 .bandeau-audio{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:.75rem;
-  width:100%;
-  padding:.82rem 1rem;
-  color:#19120b;
-  background:#ff7a00;
+  display:flex;align-items:center;justify-content:center;gap:.75rem;
+  width:100%;padding:.82rem 1rem;
+  color:#19120b;background:#ff7a00;
   text-align:center;
-  text-decoration:none;
   font-family:"Cormorant Garamond",Georgia,serif;
   border-bottom:2px solid rgba(73,38,5,.25);
-  position:relative;
-  z-index:70;
+  position:relative;z-index:70;
 }
 .bandeau-audio:hover,.bandeau-audio:focus-visible{background:#ff9638}
 .bandeau-audio__icone{font-size:1.5rem}
-.bandeau-audio__txt{
-  font-size:clamp(1.05rem,2.5vw,1.35rem);
-  line-height:1.15;
-}
+.bandeau-audio__txt{font-size:clamp(1.05rem,2.5vw,1.35rem);line-height:1.15}
 .bandeau-audio__txt strong{font-weight:700}
 .bandeau-audio__sous{
   display:block;
   font-family:Inter,Arial,sans-serif;
-  font-size:.75rem;
-  font-weight:600;
-  margin-top:.1rem;
+  font-size:.75rem;font-weight:600;margin-top:.1rem;
 }
 
 /* ===== Navigation ===== */
 .site-header{
-  position:sticky;
-  top:0;
-  z-index:60;
+  position:sticky;top:0;z-index:60;
   background:rgba(243,247,249,.94);
   backdrop-filter:blur(15px);
   border-bottom:1px solid rgba(214,226,233,.9);
 }
-.nav{
-  min-height:74px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:20px;
-}
-.brand{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  min-width:max-content;
-}
+.nav{min-height:74px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{display:flex;flex-direction:column;align-items:center;min-width:max-content}
 .brand-logo{height:54px;width:auto}
-.brand-r{
-  width:39px;height:39px;
-  border-radius:50%;
-  display:grid;place-items:center;
-  color:#fff;
-  background:var(--wine);
-  font-family:"Cormorant Garamond",Georgia,serif;
-  font-size:1.15rem;font-weight:700;
-  box-shadow:0 7px 18px rgba(46,110,115,.2);
-}
-.brand strong{
-  display:block;
-  font-family:"Cormorant Garamond",Georgia,serif;
-  font-size:1.35rem;line-height:1;
-}
 .brand small{
-  display:block;
-  margin-top:-.15rem;
-  color:var(--muted);
-  font-size:.68rem;
-  text-transform:uppercase;
-  letter-spacing:.12em;
-  font-weight:700;
+  display:block;margin-top:-.15rem;
+  color:var(--muted);font-size:.68rem;
+  text-transform:uppercase;letter-spacing:.12em;font-weight:700;
 }
 .nav-right{display:flex;align-items:center;gap:24px}
 .menu{display:flex;gap:20px;align-items:center;font-size:.9rem;font-weight:600;color:#4d5e6f}
 .menu a:hover{color:var(--wine)}
 .langs{
-  display:flex;
-  gap:3px;
-  padding:4px;
-  border:1px solid var(--line);
-  border-radius:999px;
-  background:#fff;
-  box-shadow:var(--shadow-soft);
+  display:flex;gap:3px;padding:4px;
+  border:1px solid var(--line);border-radius:999px;
+  background:#fff;box-shadow:var(--shadow-soft);
 }
 .lang-btn{
-  border:0;
-  background:transparent;
-  color:#526374;
-  border-radius:999px;
-  padding:6px 9px;
-  cursor:pointer;
-  font-size:.77rem;
-  font-weight:800;
+  border:0;background:transparent;color:#526374;
+  border-radius:999px;padding:6px 9px;cursor:pointer;
+  font-size:.77rem;font-weight:800;
 }
 .lang-btn.active{background:var(--wine);color:#fff}
 
-/* ===== Hero ===== */
-.hero{padding:68px 0 66px}
-.hero-inner{text-align:center;max-width:930px;margin:auto}
-.eyebrow{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  padding:7px 13px;
-  border-radius:999px;
-  background:#fff;
-  border:1px solid var(--line);
-  color:#4f6a73;
-  font-size:.76rem;
-  text-transform:uppercase;
-  letter-spacing:.1em;
-  font-weight:800;
-  box-shadow:var(--shadow-soft);
-}
-h1,h2,h3{
+/* ===== Intro : une seule phrase ===== */
+.intro{padding:70px 0 34px;text-align:center}
+.intro h1{
   margin:0;
   font-family:"Cormorant Garamond",Georgia,serif;
-  line-height:1.05;
+  font-size:clamp(2.6rem,6vw,4.4rem);
+  line-height:1.05;letter-spacing:-.04em;
 }
-h1{
-  margin-top:20px;
-  font-size:clamp(3.4rem,8vw,7rem);
-  letter-spacing:-.055em;
-}
-h1 em{color:var(--wine);font-weight:500}
-.hero p{
-  max-width:720px;
-  margin:22px auto 0;
-  color:var(--muted);
-  font-size:clamp(1rem,1.7vw,1.2rem);
-}
-.hero-actions{
-  display:flex;
-  flex-wrap:wrap;
-  gap:11px;
-  justify-content:center;
-  margin-top:27px;
-}
-.btn{
-  min-height:49px;
-  padding:0 20px;
-  border-radius:999px;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
-  border:1px solid transparent;
-  font-weight:700;
-  transition:.2s ease;
-}
-.btn:hover{transform:translateY(-2px)}
-.btn-main{background:var(--wine);color:#fff;box-shadow:0 10px 26px rgba(46,110,115,.18)}
-.btn-main:hover{background:var(--wine-dark)}
-.btn-light{background:#fff;border-color:var(--line);box-shadow:var(--shadow-soft)}
-.btn-orange{background:var(--orange);color:#1d1208}
-/* bouton vers le site néerlandais (texte toujours en néerlandais) */
 .nl-coin{position:relative;height:0}
 .btn-nl{
-  position:absolute;left:0;top:-46px;
+  position:absolute;left:0;top:-52px;
   display:inline-flex;align-items:center;gap:.6rem;
   padding:.55rem 1.2rem .55rem .7rem;border-radius:999px;
   background:#fff;border:1px solid var(--line);box-shadow:var(--shadow-soft);
   font-weight:700;font-size:.95rem;color:var(--ink);transition:.2s ease;
 }
 .btn-nl:hover{transform:translateY(-2px);border-color:var(--wine)}
-@media(max-width:680px){
-  .nl-coin{height:auto;text-align:center;margin-bottom:18px}
-  .btn-nl{position:static}
-}
 .nl-vlag{width:30px;height:20px;border-radius:3px;box-shadow:0 0 0 1px rgba(0,0,0,.12);flex-shrink:0}
 
-/* ===== 3 univers ===== */
-section{padding:74px 0}
-.section-head{max-width:800px;margin-bottom:34px}
-.kicker{
-  color:var(--wine);
-  font-size:.78rem;
-  font-weight:800;
-  text-transform:uppercase;
-  letter-spacing:.12em;
-  margin-bottom:9px;
+/* ===== Boutons ===== */
+.btn{
+  min-height:49px;padding:0 20px;border-radius:999px;
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  border:1px solid transparent;font-weight:700;transition:.2s ease;
 }
-h2{
-  font-size:clamp(2.45rem,5vw,4.6rem);
-  letter-spacing:-.04em;
-}
-.section-head p{margin:14px 0 0;color:var(--muted);font-size:1.04rem}
+.btn:hover{transform:translateY(-2px)}
+.btn-main{background:var(--wine);color:#fff;box-shadow:0 10px 26px rgba(46,110,115,.18)}
+.btn-main:hover{background:var(--wine-dark)}
+.btn-light{background:#fff;border-color:var(--line);box-shadow:var(--shadow-soft)}
+.btn-orange{background:var(--orange);color:#1d1208}
 
-.universe-card{
-  display:grid;
-  grid-template-columns:.9fr 1.1fr;
-  gap:48px;
-  align-items:center;
-  padding:40px;
+/* ===== Les 3 bulles ===== */
+.bulles{padding:10px 0 40px}
+.bulle{
   border:1px solid var(--line);
   border-radius:var(--radius);
-  background:rgba(255,255,255,.88);
+  background:rgba(255,255,255,.9);
   box-shadow:var(--shadow);
   overflow:hidden;
 }
-.universe-card + .universe-card{margin-top:28px}
-.universe-visual{
-  position:relative;
-  min-height:430px;
-  display:grid;
-  place-items:center;
-  border-radius:22px;
-  overflow:hidden;
+.bulle + .bulle{margin-top:28px}
+h2,h3{margin:0;font-family:"Cormorant Garamond",Georgia,serif;line-height:1.05}
+.label{
+  display:inline-flex;padding:6px 11px;border-radius:999px;
+  font-size:.75rem;text-transform:uppercase;letter-spacing:.11em;font-weight:800;
+  margin-bottom:13px;background:var(--blue-soft);color:#42616e;
 }
-.tech .universe-visual{background:linear-gradient(145deg,#edf4f6,#dfeaed)}
-.roman .universe-visual{background:linear-gradient(145deg,#eaf2f4,#dde8ed)}
-.universe-visual:after{
-  content:"";
-  position:absolute;
-  width:270px;height:270px;
-  border-radius:50%;
-  border:1px solid rgba(50,50,50,.08);
-  top:-60px;right:-50px;
-}
-.cover-single{
-  position:relative;
-  z-index:2;
-  width:min(260px,66%);
-  filter:drop-shadow(0 22px 28px rgba(25,45,65,.16));
-  transition:.25s ease;
-}
-.cover-single:hover{transform:translateY(-5px) rotate(-1deg)}
-.universe-copy .label{
-  display:inline-flex;
-  padding:6px 11px;
-  border-radius:999px;
-  font-size:.75rem;
-  text-transform:uppercase;
-  letter-spacing:.11em;
-  font-weight:800;
-  margin-bottom:13px;
-}
-.tech .label{background:var(--blue-soft);color:#42616e}
-.roman .label{background:var(--bronze-soft);color:#4f6a73}
-.universe-copy h3{
-  font-size:clamp(2.5rem,4vw,4.1rem);
-  letter-spacing:-.04em;
-}
-.universe-copy p{color:var(--muted);font-size:1.04rem}
-.universe-copy .btn{margin-top:8px}
 
-/* ===== Microhistoires ===== */
-.micro-section{
-  background:linear-gradient(180deg,rgba(255,255,255,.45),rgba(232,241,244,.7));
-  border-top:1px solid rgba(214,226,233,.7);
-  border-bottom:1px solid rgba(214,226,233,.7);
+/* bulle 1 et 3 : un livre */
+.bulle-un{
+  display:grid;grid-template-columns:.9fr 1.1fr;gap:48px;
+  align-items:center;padding:40px;
 }
-.micro-head{text-align:center;margin:0 auto 42px;max-width:850px}
-.micro-head .kicker{color:var(--wine)}
-.micro-head p{color:var(--muted);font-size:1.06rem}
-.micro-books{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:34px;
+.visuel{
+  position:relative;min-height:400px;
+  display:grid;place-items:center;
+  border-radius:22px;overflow:hidden;
+  background:linear-gradient(145deg,#edf4f6,#dfeaed);
 }
-.micro-book{
-  position:relative;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  text-align:center;
-  padding:36px 28px 30px;
-  border-radius:30px;
-  background:#fff;
-  border:1px solid var(--line);
-  box-shadow:var(--shadow);
-  overflow:hidden;
+.visuel:after{
+  content:"";position:absolute;width:270px;height:270px;border-radius:50%;
+  border:1px solid rgba(50,50,50,.08);top:-60px;right:-50px;
 }
-.micro-book:before{
-  content:"";
-  position:absolute;
-  inset:0 0 auto 0;
-  height:48%;
-  background:linear-gradient(145deg,#e8f0f3,#e3edf1);
-  z-index:0;
+.couv{
+  position:relative;z-index:2;width:min(250px,66%);
+  filter:drop-shadow(0 22px 28px rgba(25,45,65,.16));transition:.25s ease;
 }
-.micro-cover{
-  position:relative;
-  z-index:2;
-  width:min(330px,78%);
-  aspect-ratio:2/3;
-  object-fit:contain;
-  filter:drop-shadow(0 25px 30px rgba(25,45,65,.18));
-  transition:.25s ease;
+.couv:hover{transform:translateY(-5px) rotate(-1deg)}
+.texte h3{font-size:clamp(2.4rem,4vw,3.8rem);letter-spacing:-.04em}
+.texte p{color:var(--muted);font-size:1.04rem}
+.texte .btn{margin-top:8px}
+
+/* bulle 2 : deux livres */
+.bulle-deux{padding:34px 40px 40px;text-align:center}
+.deux-livres{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-top:6px}
+.livre{
+  display:flex;flex-direction:column;align-items:center;
+  padding:28px 20px 26px;border-radius:22px;
+  background:linear-gradient(180deg,#e8f0f3 0%,#fff 55%);
 }
-.micro-book:hover .micro-cover{transform:translateY(-6px)}
-.micro-book-content{position:relative;z-index:2;margin-top:27px}
-.micro-book h3{font-size:clamp(2rem,3.6vw,3.4rem)}
-.micro-book p{color:var(--muted);max-width:500px;margin:10px auto 0}
-.micro-book .btn{margin-top:18px}
+.livre-couv{
+  width:min(260px,74%);aspect-ratio:2/3;object-fit:contain;
+  filter:drop-shadow(0 25px 30px rgba(25,45,65,.18));transition:.25s ease;
+}
+.livre:hover .livre-couv{transform:translateY(-6px)}
+.livre h3{font-size:clamp(1.9rem,3.2vw,2.8rem);margin-top:22px}
+.livre p{color:var(--muted);max-width:420px;margin:10px auto 0}
+.livre .btn{margin-top:16px}
 
 /* ===== Cagnotte ===== */
+.zone{padding:30px 0}
 .support{
-  display:grid;
-  grid-template-columns:1fr auto;
-  gap:28px;
-  align-items:center;
-  padding:34px 38px;
-  border-radius:26px;
+  display:grid;grid-template-columns:1fr auto;gap:28px;align-items:center;
+  padding:34px 38px;border-radius:26px;
   background:linear-gradient(125deg,#fff2e3,#fbfdfe);
-  border:1px solid #f0cda8;
-  box-shadow:var(--shadow-soft);
+  border:1px solid #f0cda8;box-shadow:var(--shadow-soft);
 }
-.support h2{font-size:clamp(2rem,4vw,3.2rem)}
+.support h2{font-size:clamp(2rem,4vw,3rem)}
 .support p{color:#526374;margin:.6rem 0 0;max-width:760px}
-
-/* ===== Liens secondaires ===== */
-.quick-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:18px;
+.kicker{
+  color:#b75d10;font-size:.78rem;font-weight:800;
+  text-transform:uppercase;letter-spacing:.12em;margin-bottom:9px;
 }
+
+/* ===== 3 cartes ===== */
+.quick-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
 .quick{
-  padding:26px;
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:22px;
-  box-shadow:var(--shadow-soft);
+  padding:26px;background:#fff;border:1px solid var(--line);
+  border-radius:22px;box-shadow:var(--shadow-soft);
 }
 .quick-icon{
-  width:48px;height:48px;
-  display:grid;place-items:center;
-  border-radius:15px;
-  background:var(--paper-soft);
-  font-size:1.35rem;
-  margin-bottom:17px;
+  width:48px;height:48px;display:grid;place-items:center;
+  border-radius:15px;background:var(--paper-soft);
+  font-size:1.35rem;margin-bottom:17px;
 }
 .quick h3{font-size:1.55rem}
 .quick p{color:var(--muted);font-size:.94rem}
 .quick a{color:var(--wine);font-weight:700}
+.centre{display:flex;justify-content:center;margin-top:30px}
 
 /* ===== Footer ===== */
 footer{padding:40px 0 120px;color:#56687a;font-size:.9rem}
 .footer-inner{
-  display:flex;
-  justify-content:space-between;
-  gap:20px;
-  align-items:center;
-  flex-wrap:wrap;
-  border-top:1px solid var(--line);
-  padding-top:28px;
+  display:flex;justify-content:space-between;gap:20px;align-items:center;flex-wrap:wrap;
+  border-top:1px solid var(--line);padding-top:28px;
 }
 .lien-photo{opacity:.45}
 .lien-photo:hover{opacity:1}
@@ -431,37 +250,20 @@ footer{padding:40px 0 120px;color:#56687a;font-size:.9rem}
 
 /* ===== Popup cagnotte ===== */
 .popup-backdrop{
-  position:fixed;
-  inset:0;
-  z-index:9998;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  padding:18px;
-  background:rgba(25,45,65,.26);
-  backdrop-filter:blur(4px);
+  position:fixed;inset:0;z-index:9998;display:none;
+  align-items:center;justify-content:center;padding:18px;
+  background:rgba(25,45,65,.26);backdrop-filter:blur(4px);
 }
 .popup-backdrop.show{display:flex}
 .popup{
-  position:relative;
-  width:min(520px,100%);
-  padding:34px;
-  border-radius:28px;
-  background:#fbfdfe;
-  border:1px solid #d7e5ea;
-  box-shadow:0 28px 90px rgba(25,45,65,.22);
-  text-align:center;
+  position:relative;width:min(520px,100%);padding:34px;border-radius:28px;
+  background:#fbfdfe;border:1px solid #d7e5ea;
+  box-shadow:0 28px 90px rgba(25,45,65,.22);text-align:center;
 }
 .popup-close{
-  position:absolute;
-  top:12px;right:13px;
-  width:36px;height:36px;
-  border:0;
-  border-radius:50%;
-  background:#eaf2f4;
-  cursor:pointer;
-  color:#4d5e6f;
-  font-size:1.2rem;
+  position:absolute;top:12px;right:13px;width:36px;height:36px;
+  border:0;border-radius:50%;background:#eaf2f4;cursor:pointer;
+  color:#4d5e6f;font-size:1.2rem;
 }
 .popup-heart{font-size:2.2rem}
 .popup h2{font-size:2.5rem;margin-top:6px}
@@ -470,10 +272,9 @@ footer{padding:40px 0 120px;color:#56687a;font-size:.9rem}
 
 /* ===== Responsive ===== */
 @media(max-width:900px){
-  .menu{display:none}
-  .universe-card{grid-template-columns:1fr;padding:28px}
-  .universe-visual{min-height:390px}
-  .micro-books{gap:20px}
+  .bulle-un{grid-template-columns:1fr;padding:28px;gap:28px}
+  .roman .visuel{order:-1}
+  .visuel{min-height:360px}
   .quick-grid{grid-template-columns:1fr}
   .support{grid-template-columns:1fr}
 }
@@ -485,20 +286,23 @@ footer{padding:40px 0 120px;color:#56687a;font-size:.9rem}
   .nav{min-height:68px}
   .brand small{display:none}
   .brand-logo{height:40px}
-  .nav-right{gap:8px}
+  .nav-right{gap:10px}
+  .menu{gap:12px;font-size:.82rem}
   .langs{padding:3px}
   .lang-btn{padding:5px 7px;font-size:.7rem}
-  .hero{padding:44px 0 48px}
-  h1{font-size:clamp(3rem,16vw,5rem)}
-  section{padding:54px 0}
-  .universe-card{padding:18px;gap:24px}
-  .universe-visual{min-height:330px}
-  .cover-single{width:min(220px,68%)}
-  .micro-books{grid-template-columns:1fr}
-  .micro-book{padding:28px 18px 25px}
-  .micro-cover{width:min(300px,78%)}
+  .intro{padding:26px 0 26px}
+  .nl-coin{height:auto;text-align:center;margin-bottom:18px}
+  .btn-nl{position:static}
+  .bulle-un{padding:18px;gap:22px}
+  .visuel{min-height:320px}
+  .couv{width:min(210px,66%)}
+  .bulle-deux{padding:24px 16px 20px}
+  .deux-livres{grid-template-columns:1fr;gap:18px}
   .support{padding:26px 22px}
   .footer-inner{justify-content:center;text-align:center}
+}
+@media(max-width:480px){
+  .menu{display:none}
 }
 </style>
 </head>
@@ -509,9 +313,8 @@ footer{padding:40px 0 120px;color:#56687a;font-size:.9rem}
 Bienvenue sur le site des Microhistoires de Roy Van Mil. Des histoires audio vous sont spécialement dédiées si vous êtes aveugle ou malvoyant, pour vous surprendre, sourire ou pleurer. Le premier lien ci-dessous vous conduit directement aux histoires à écouter.
 </p>
 
-<!-- BANDEAU ORANGE CONSERVÉ -->
-<a href="Piste-Audio.html" class="bandeau-audio"
-   aria-label="Écouter les histoires audio">
+<!-- BANDEAU ORANGE AUDIO -->
+<a href="Piste-Audio.html" class="bandeau-audio" aria-label="Écouter les histoires audio">
   <span class="bandeau-audio__icone" aria-hidden="true">🔊</span>
   <span class="bandeau-audio__txt">
     <strong data-i18n="audioBannerMain">PAGE AUDIO — pour aveugles & malvoyants</strong>
@@ -528,8 +331,6 @@ Bienvenue sur le site des Microhistoires de Roy Van Mil. Des histoires audio vou
 
     <div class="nav-right">
       <nav class="menu" aria-label="Navigation principale">
-        <a href="#univers" data-i18n="navUnivers">Univers</a>
-        <a href="#microhistoires" data-i18n="navMicro">Microhistoires</a>
         <a href="Piste-Audio.html" data-i18n="navAudio">Audio</a>
         <a href="temoignages.html" data-i18n="navReviews">Avis</a>
         <a href="contact.html" data-i18n="navContact">Contact</a>
@@ -546,146 +347,88 @@ Bienvenue sur le site des Microhistoires de Roy Van Mil. Des histoires audio vou
 
 <main>
 
-  <section class="hero">
+  <!-- UNE SEULE PHRASE -->
+  <section class="intro">
     <div class="wrap nl-coin">
-  <a href="NL/indexNL.html" class="btn-nl" lang="nl" hreflang="nl"><svg class="nl-vlag" viewBox="0 0 3 2" aria-hidden="true"><rect width="3" height="2" fill="#21468B"/><rect width="3" height="1.333" fill="#fff"/><rect width="3" height=".667" fill="#AE1C28"/></svg><span>Nederlandse website</span></a>
+      <a href="NL/indexNL.html" class="btn-nl" lang="nl" hreflang="nl"><svg class="nl-vlag" viewBox="0 0 3 2" aria-hidden="true"><rect width="3" height="2" fill="#21468B"/><rect width="3" height="1.333" fill="#fff"/><rect width="3" height=".667" fill="#AE1C28"/></svg><span>Nederlandse website</span></a>
     </div>
-    <div class="wrap hero-inner">
-      <div class="eyebrow" data-i18n="eyebrow">✦ Trois univers • un même auteur</div>
-
-      <h1>
-        <span data-i18n="hero1">Des choses à</span>
-        <em data-i18n="hero2">transmettre et raconter.</em>
-      </h1>
-
-      <p data-i18n="heroText">
-        Du concret d'un livre technique aux émotions des microhistoires,
-        jusqu'au mystère d'un roman : bienvenue dans mes trois univers.
-      </p>
-
-      <div class="hero-actions">
-        <a href="#univers" class="btn btn-main" data-i18n="discoverUnivers">Découvrir les univers ↓</a>
-        <a href="Piste-Audio.html" class="btn btn-light" data-i18n="listenStories">🎧 Écouter les histoires</a>
-      </div>
+    <div class="wrap">
+      <h1 data-i18n="chooseBook">Choisissez votre livre</h1>
     </div>
   </section>
 
-  <!-- UNIVERS TECHNIQUE -->
-  <section id="univers">
+  <section class="bulles">
     <div class="wrap">
-      <div class="section-head">
-        <div class="kicker" data-i18n="threeWorlds">Les trois univers</div>
-        <h2 data-i18n="chooseWorld">Choisissez celui qui vous ressemble aujourd'hui.</h2>
-        <p data-i18n="chooseWorldText">
-          Technique, petites histoires ou roman : chaque livre possède sa propre ambiance.
-        </p>
-      </div>
 
-      <article class="universe-card tech">
-        <div class="universe-visual">
+      <!-- BULLE 1 : TECHNIQUE -->
+      <article class="bulle bulle-un tech">
+        <div class="visuel">
           <a href="cette-maison.html" aria-label="Cette maison">
-            <img class="cover-single" src="img/couv-cette-maison.jpg"
+            <img class="couv" src="img/couv-cette-maison.jpg"
                  alt="Couverture du livre Cette maison, elle vaut vraiment le prix ?">
           </a>
         </div>
-
-        <div class="universe-copy">
-          <span class="label" data-i18n="techLabel">Univers technique</span>
+        <div class="texte">
+          <span class="label" data-i18n="techLabel">Livre technique</span>
           <h3>Cette maison</h3>
-          <p data-i18n="techText">
-            Un livre concret pour regarder une maison autrement :
-            comprendre, repérer et mieux appréhender ce qui se cache derrière les murs.
-          </p>
-          <a href="cette-maison.html" class="btn btn-main" data-i18n="discoverTech">Découvrir ce livre →</a>
+          <p data-i18n="techText">Un livre concret pour regarder une maison autrement : comprendre, repérer et mieux appréhender ce qui se cache derrière les murs.</p>
+          <a href="cette-maison.html" class="btn btn-main" data-i18n="discoverBook">Découvrir ce livre →</a>
         </div>
       </article>
-    </div>
-  </section>
 
-  <!-- MICROHISTOIRES : 2 VISUELS EN GRAND -->
-  <section id="microhistoires" class="micro-section">
-    <div class="wrap">
+      <!-- BULLE 2 : MICROHISTOIRES -->
+      <article class="bulle bulle-deux">
+        <span class="label" data-i18n="microLabel">Microhistoires</span>
+        <div class="deux-livres">
 
-      <div class="micro-head">
-        <div class="kicker" data-i18n="microLabel">Univers microhistoires</div>
-        <h2 data-i18n="microTitle">Quelques minutes pour lire.<br>Parfois bien plus longtemps pour oublier.</h2>
-        <p data-i18n="microIntro">
-          Deux recueils, des histoires indépendantes, des personnages différents
-          et toujours cette envie de provoquer un sourire, une surprise ou une émotion.
-        </p>
-      </div>
-
-      <div class="micro-books">
-
-        <article class="micro-book">
-          <a href="un-instant.html">
-            <img class="micro-cover" src="img/couv-un-instant.png"
-                 alt="Couverture Un instant, ou Deux…">
-          </a>
-          <div class="micro-book-content">
+          <div class="livre">
+            <a href="un-instant.html">
+              <img class="livre-couv" src="img/couv-un-instant.png" alt="Couverture Un instant, ou Deux…">
+            </a>
             <h3>Un instant,<br>ou Deux…</h3>
-            <p data-i18n="bookTwoText">
-              16 microhistoires à découvrir séparément, selon votre humeur et votre curiosité.
-            </p>
+            <p data-i18n="bookTwoText">16 microhistoires à découvrir séparément, selon votre humeur et votre curiosité.</p>
             <a href="un-instant.html" class="btn btn-main" data-i18n="enterBook">Entrer dans le livre →</a>
           </div>
-        </article>
 
-        <article class="micro-book">
-          <a href="trois-instants.html">
-            <img class="micro-cover" src="img/couv-trois-instants.png"
-                 alt="Couverture Un instant, ou Trois…">
-          </a>
-          <div class="micro-book-content">
+          <div class="livre">
+            <a href="trois-instants.html">
+              <img class="livre-couv" src="img/couv-trois-instants.png" alt="Couverture Un instant, ou Trois…">
+            </a>
             <h3>Un instant,<br>ou Trois…</h3>
-            <p data-i18n="bookThreeText">
-              De nouvelles microhistoires, de nouvelles rencontres et leurs coulisses.
-            </p>
+            <p data-i18n="bookThreeText">De nouvelles microhistoires, de nouvelles rencontres et leurs coulisses.</p>
             <a href="trois-instants.html" class="btn btn-main" data-i18n="enterBook">Entrer dans le livre →</a>
           </div>
-        </article>
 
-      </div>
-    </div>
-  </section>
+        </div>
+      </article>
 
-  <!-- UNIVERS ROMAN -->
-  <section>
-    <div class="wrap">
-      <article class="universe-card roman">
-        <div class="universe-copy">
-          <span class="label" data-i18n="novelLabel">Univers roman</span>
+      <!-- BULLE 3 : ROMAN -->
+      <article class="bulle bulle-un roman">
+        <div class="texte">
+          <span class="label" data-i18n="novelLabel">Roman</span>
           <h3>La Cloche des Morts</h3>
-          <p data-i18n="novelText">
-            Un autre rythme, une autre atmosphère. Un roman où le mystère s'installe
-            doucement et où certaines choses semblent refuser de rester silencieuses.
-          </p>
+          <p data-i18n="novelText">Un autre rythme, une autre atmosphère. Un roman où le mystère s'installe doucement et où certaines choses semblent refuser de rester silencieuses.</p>
           <a href="la-cloche-des-morts.html" class="btn btn-main" data-i18n="discoverNovel">Découvrir le roman →</a>
         </div>
-
-        <div class="universe-visual">
+        <div class="visuel">
           <a href="la-cloche-des-morts.html" aria-label="La Cloche des Morts">
-            <img class="cover-single" src="img/couv-cloche.png"
-                 alt="Couverture La Cloche des Morts">
+            <img class="couv" src="img/couv-cloche.png" alt="Couverture La Cloche des Morts">
           </a>
         </div>
       </article>
+
     </div>
   </section>
 
   <!-- CAGNOTTE -->
-  <section>
+  <section class="zone">
     <div class="wrap">
       <div class="support">
         <div>
-          <div class="kicker" style="color:#b75d10" data-i18n="supportKicker">Projet audio accessible</div>
+          <div class="kicker" data-i18n="supportKicker">Projet audio accessible</div>
           <h2 data-i18n="supportTitle">Aider les histoires à prendre voix ❤️</h2>
-          <p data-i18n="supportText">
-            J'ai créé une cagnotte pour aider à financer l'enregistrement professionnel
-            d'histoires gratuites destinées notamment aux personnes aveugles et malvoyantes.
-          </p>
+          <p data-i18n="supportText">J'ai créé une cagnotte pour aider à financer l'enregistrement professionnel d'histoires gratuites destinées notamment aux personnes aveugles et malvoyantes.</p>
         </div>
-
         <a class="btn btn-orange"
            href="https://www.leetchi.com/fr/c/des-histoires-pour-aveugles-1218180"
            target="_blank" rel="noopener noreferrer"
@@ -694,8 +437,8 @@ Bienvenue sur le site des Microhistoires de Roy Van Mil. Des histoires audio vou
     </div>
   </section>
 
-  <!-- AUDIO / AVIS / CONTACT -->
-  <section>
+  <!-- 3 CARTES : AUDIO / POURQUOI / AVIS -->
+  <section class="zone">
     <div class="wrap">
       <div class="quick-grid">
 
@@ -722,7 +465,7 @@ Bienvenue sur le site des Microhistoires de Roy Van Mil. Des histoires audio vou
 
       </div>
 
-      <div class="hero-actions" style="margin-top:30px">
+      <div class="centre">
         <a href="contact.html" class="btn btn-light" data-i18n="contactMe">✒️ Me contacter</a>
       </div>
     </div>
@@ -750,10 +493,7 @@ Bienvenue sur le site des Microhistoires de Roy Van Mil. Des histoires audio vou
     <button class="popup-close" id="popupClose" aria-label="Fermer">×</button>
     <div class="popup-heart" aria-hidden="true">❤️</div>
     <h2 id="supportPopupTitle" data-i18n="popupTitle">Un petit coup de pouce ?</h2>
-    <p data-i18n="popupText">
-      La cagnotte aide à financer de nouvelles histoires audio enregistrées par une vraie voix professionnelle
-      et mises gratuitement à disposition.
-    </p>
+    <p data-i18n="popupText">La cagnotte aide à financer de nouvelles histoires audio enregistrées par une vraie voix professionnelle et mises gratuitement à disposition.</p>
     <a class="btn btn-orange"
        href="https://www.leetchi.com/fr/c/des-histoires-pour-aveugles-1218180"
        target="_blank" rel="noopener noreferrer"
@@ -767,23 +507,16 @@ const translations = {
     srWelcome:"Bienvenue sur le site des Microhistoires de Roy Van Mil. Des histoires audio vous sont spécialement dédiées si vous êtes aveugle ou malvoyant, pour vous surprendre, sourire ou pleurer. Le premier lien ci-dessous vous conduit directement aux histoires à écouter.",
     audioBannerMain:"PAGE AUDIO — pour aveugles & malvoyants",
     audioBannerSub:"Des histoires à écouter gratuitement • lecture d'écran intégrée",
-    author:"Auteur", navUnivers:"Univers", navMicro:"Microhistoires", navAudio:"Audio", navReviews:"Avis", navContact:"Contact",
-    eyebrow:"✦ Trois univers • un même auteur",
-    hero1:"Des choses à", hero2:"transmettre et raconter.",
-    heroText:"Du concret d'un livre technique aux émotions des microhistoires, jusqu'au mystère d'un roman : bienvenue dans mes trois univers.",
-    discoverUnivers:"Découvrir les univers ↓", listenStories:"🎧 Écouter les histoires",
-    threeWorlds:"Les trois univers", chooseWorld:"Choisissez celui qui vous ressemble aujourd'hui.",
-    chooseWorldText:"Technique, petites histoires ou roman : chaque livre possède sa propre ambiance.",
-    techLabel:"Univers technique",
+    author:"Auteur", navAudio:"Audio", navReviews:"Avis", navContact:"Contact",
+    chooseBook:"Choisissez votre livre",
+    techLabel:"Livre technique",
     techText:"Un livre concret pour regarder une maison autrement : comprendre, repérer et mieux appréhender ce qui se cache derrière les murs.",
-    discoverTech:"Découvrir ce livre →",
-    microLabel:"Univers microhistoires",
-    microTitle:"Quelques minutes pour lire.<br>Parfois bien plus longtemps pour oublier.",
-    microIntro:"Deux recueils, des histoires indépendantes, des personnages différents et toujours cette envie de provoquer un sourire, une surprise ou une émotion.",
+    discoverBook:"Découvrir ce livre →",
+    microLabel:"Microhistoires",
     bookTwoText:"16 microhistoires à découvrir séparément, selon votre humeur et votre curiosité.",
     bookThreeText:"De nouvelles microhistoires, de nouvelles rencontres et leurs coulisses.",
     enterBook:"Entrer dans le livre →",
-    novelLabel:"Univers roman",
+    novelLabel:"Roman",
     novelText:"Un autre rythme, une autre atmosphère. Un roman où le mystère s'installe doucement et où certaines choses semblent refuser de rester silencieuses.",
     discoverNovel:"Découvrir le roman →",
     supportKicker:"Projet audio accessible", supportTitle:"Aider les histoires à prendre voix ❤️",
@@ -801,23 +534,16 @@ const translations = {
     srWelcome:"Welcome to the short stories of Roy Van Mil. Audio stories are specially made for you if you are blind or visually impaired, to surprise you, make you smile or cry. The first link below takes you straight to the stories to listen to.",
     audioBannerMain:"AUDIO PAGE — for blind & visually impaired listeners",
     audioBannerSub:"Free audio stories • screen-reader friendly",
-    author:"Author", navUnivers:"Worlds", navMicro:"Short stories", navAudio:"Audio", navReviews:"Reviews", navContact:"Contact",
-    eyebrow:"✦ Three worlds • one author",
-    hero1:"Things to", hero2:"share and tell.",
-    heroText:"From the practical world of a technical book to the emotions of short stories and the mystery of a novel: welcome to my three worlds.",
-    discoverUnivers:"Discover the worlds ↓", listenStories:"🎧 Listen to the stories",
-    threeWorlds:"Three worlds", chooseWorld:"Choose the one that speaks to you today.",
-    chooseWorldText:"Technical, short stories or novel: every book has its own atmosphere.",
-    techLabel:"Technical world",
+    author:"Author", navAudio:"Audio", navReviews:"Reviews", navContact:"Contact",
+    chooseBook:"Choose your book",
+    techLabel:"Technical book",
     techText:"A practical book to help you look at a house differently: understand it, spot important details and see what may be hidden behind the walls.",
-    discoverTech:"Discover this book →",
-    microLabel:"Short-story world",
-    microTitle:"A few minutes to read.<br>Sometimes much longer to forget.",
-    microIntro:"Two collections, independent stories, different characters and the same desire to make you smile, wonder or feel something.",
+    discoverBook:"Discover this book →",
+    microLabel:"Short stories",
     bookTwoText:"16 short stories to discover separately, depending on your mood and curiosity.",
     bookThreeText:"New short stories, new encounters and a look behind the scenes.",
     enterBook:"Enter the book →",
-    novelLabel:"Novel world",
+    novelLabel:"Novel",
     novelText:"A different pace and atmosphere. A novel in which mystery slowly settles in and some things seem unwilling to remain silent.",
     discoverNovel:"Discover the novel →",
     supportKicker:"Accessible audio project", supportTitle:"Help give the stories a voice ❤️",
@@ -835,23 +561,16 @@ const translations = {
     srWelcome:"Welkom bij de korte verhalen van Roy Van Mil. Er zijn audioverhalen speciaal voor jou als je blind of slechtziend bent, om je te verrassen, te laten glimlachen of te ontroeren. De eerste link hieronder brengt je rechtstreeks naar de verhalen om te beluisteren.",
     audioBannerMain:"AUDIOPAGINA — voor blinde & slechtziende luisteraars",
     audioBannerSub:"Gratis verhalen om te beluisteren • geschikt voor schermlezers",
-    author:"Schrijver", navUnivers:"Werelden", navMicro:"Korte verhalen", navAudio:"Audio", navReviews:"Reacties", navContact:"Contact",
-    eyebrow:"✦ Drie werelden • één schrijver",
-    hero1:"Dingen om", hero2:"door te geven en te vertellen.",
-    heroText:"Van de praktische wereld van een technisch boek tot de emoties van korte verhalen en het mysterie van een roman: welkom in mijn drie werelden.",
-    discoverUnivers:"Ontdek de werelden ↓", listenStories:"🎧 Luister naar de verhalen",
-    threeWorlds:"Drie werelden", chooseWorld:"Kies de wereld die vandaag bij je past.",
-    chooseWorldText:"Techniek, korte verhalen of roman: ieder boek heeft zijn eigen sfeer.",
-    techLabel:"Technische wereld",
+    author:"Schrijver", navAudio:"Audio", navReviews:"Reacties", navContact:"Contact",
+    chooseBook:"Kies je boek",
+    techLabel:"Technisch boek",
     techText:"Een praktisch boek waarmee je anders naar een huis leert kijken: begrijpen, belangrijke details herkennen en ontdekken wat er achter de muren kan schuilgaan.",
-    discoverTech:"Ontdek dit boek →",
-    microLabel:"Wereld van korte verhalen",
-    microTitle:"Een paar minuten om te lezen.<br>Soms veel langer om te vergeten.",
-    microIntro:"Twee bundels, losse verhalen, verschillende personages en steeds dezelfde wens om je te laten glimlachen, verrassen of raken.",
+    discoverBook:"Ontdek dit boek →",
+    microLabel:"Korte verhalen",
     bookTwoText:"16 korte verhalen die je los van elkaar kunt ontdekken, afhankelijk van je stemming en nieuwsgierigheid.",
     bookThreeText:"Nieuwe korte verhalen, nieuwe ontmoetingen en een kijkje achter de schermen.",
     enterBook:"Open het boek →",
-    novelLabel:"Romanwereld",
+    novelLabel:"Roman",
     novelText:"Een ander tempo en een andere sfeer. Een roman waarin het mysterie langzaam groeit en sommige dingen niet stil lijken te willen blijven.",
     discoverNovel:"Ontdek de roman →",
     supportKicker:"Toegankelijk audioproject", supportTitle:"Help de verhalen een stem te geven ❤️",
@@ -891,11 +610,10 @@ try{
 }catch(e){}
 setLanguage(initial);
 
-/* Popup cagnotte : maximum une fois tous les 7 jours */
+/* Popup cagnotte : s'affiche à chaque chargement, dans la langue de la page */
 (function(){
   const pop=document.getElementById("supportPopup");
   const close=document.getElementById("popupClose");
-  // s'affiche à chaque chargement (F5 compris), dans la langue de la page
   setTimeout(()=>{pop.classList.add("show")},1800);
   function fermer(){pop.classList.remove("show")}
   close.addEventListener("click",fermer);
