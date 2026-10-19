@@ -3,258 +3,271 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Roy van Mil — Nederlands</title>
+<title>Een moment, of Twee… — Microverhalen van Roy van Mil</title>
+<meta name="description" content="Een moment, of Twee… — 16 microverhalen van Roy van Mil om te glimlachen, na te denken… en het wezenlijke niet te vergeten. Nu in het Nederlands.">
+<meta name="author" content="Roy van Mil">
+<link rel="canonical" href="https://royvanmil.fr/NL/tweemoment.html">
+
+<meta property="og:type" content="book">
+<meta property="og:title" content="Een moment, of Twee… — Roy van Mil">
+<meta property="og:description" content="16 microverhalen om te glimlachen, na te denken… en het wezenlijke niet te vergeten.">
+<meta property="og:image" content="https://royvanmil.fr/NL/img/couv-een-moment.png">
+<meta property="og:url" content="https://royvanmil.fr/NL/tweemoment.html">
+<meta property="og:locale" content="nl_NL">
+<meta name="twitter:card" content="summary_large_image">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Book",
+  "name": "Een moment, of Twee…",
+  "genre": "Microverhalen",
+  "inLanguage": "nl",
+  "isbn": "9791098802348",
+  "bookFormat": "https://schema.org/Hardcover",
+  "url": "https://royvanmil.fr/NL/tweemoment.html",
+  "image": "https://royvanmil.fr/NL/img/couv-een-moment.png",
+  "author": { "@type": "Person", "name": "Roy van Mil", "url": "https://royvanmil.fr/" }
+}
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
 <style>
   :root{
-    /* Palette claire du site (blancs bleutés, accent pétrole) */
-    --ink:#14212e;
-    --soft:#2b3c4d;
-    --paper:#f3f7f9;
+    --fond:#f3f7f9;
+    --encre:#14212e;
+    --doux:#2b3c4d;
     --petrole:#2e6e73;
     --petrole-f:#1c4f53;
     --ligne:#d9e4ea;
-    --line-teal:#2e6e73;
-    --shadow:0 20px 44px -24px rgba(25,45,65,.38);
+    --ombre:0 20px 44px -24px rgba(25,45,65,.38);
   }
-  *{box-sizing:border-box}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
   body{
-    margin:0; background:
+    font-family:'EB Garamond',Georgia,serif;font-size:18px;line-height:1.65;
+    color:var(--encre);min-height:100vh;
+    background:
       radial-gradient(ellipse at 15% 0%, rgba(120,170,205,.14) 0%, transparent 45%),
       radial-gradient(ellipse at 90% 10%, rgba(110,170,160,.10) 0%, transparent 40%),
-      var(--paper);
-    color:var(--ink);
-    font-family:'EB Garamond', Georgia, serif;
-    font-size:18px; line-height:1.65;
-    padding:0 16px 70px;
+      var(--fond);
   }
-  .wrap{max-width:920px; margin:0 auto}
+  a{color:inherit}
+  :focus-visible{outline:2px solid var(--petrole);outline-offset:4px}
+  .wrap{max-width:1000px;margin:0 auto;padding:1.5rem 16px 4rem}
 
-  /* ---- Kop / portret ---- */
-  header{text-align:center; padding:46px 0 8px}
-  .portret{
-    width:170px; height:170px; border-radius:50%;
-    object-fit:cover; object-position:center 22%;
-    border:5px solid #fff;
-    box-shadow:var(--shadow), 0 0 0 1px rgba(25,45,65,.08);
-    margin-bottom:18px;
-  }
-  h1{
-    font-family:'Cormorant Garamond', serif;
-    font-weight:700; font-size:2.7rem; margin:.1em 0 .05em; letter-spacing:.5px;
-  }
-  .kicker{
-    font-family:'EB Garamond', serif; font-style:italic;
-    color:var(--soft); font-size:1.15rem; margin:0;
-  }
+  /* ---- terug ---- */
+  .terug{display:inline-flex;align-items:center;gap:.4rem;color:var(--petrole-f);
+    text-decoration:none;font-family:'Cormorant Garamond',serif;font-weight:700;letter-spacing:.08em;
+    text-transform:uppercase;font-size:.9rem;margin-bottom:2rem;opacity:.85;transition:opacity .2s;}
+  .terug:hover{opacity:1}
 
-  /* ---- Bubbels ---- */
-  .bubble{
-    position:relative;
-    border-radius:20px;
-    padding:26px 30px;
-    margin:26px 0;
-    box-shadow:var(--shadow);
-    border:1px solid var(--ligne);
-    background:#fff;
-  }
-  /* la première bulle (présentation) légèrement teintée */
-  .bubble.teal{background:#e9f2f3;border-color:#cfe2e3}
+  /* ---- boek ---- */
+  .boek-pagina{display:grid;grid-template-columns:minmax(220px,320px) 1fr;
+    gap:clamp(1.5rem,5vw,3.5rem);align-items:start;}
+  .omslag{width:100%;border-radius:4px;display:block;
+    box-shadow:0 24px 50px -14px rgba(25,45,65,.35), 0 0 0 1px rgba(25,45,65,.06);}
+  .info h1{font-family:'Cormorant Garamond',serif;font-weight:700;
+    font-size:clamp(2rem,5vw,3rem);line-height:1.05;margin-bottom:.4rem;}
+  .schrijver{font-style:italic;color:var(--petrole-f);font-size:1.15rem;margin-bottom:1.6rem;}
+  .filet{height:1px;background:linear-gradient(90deg,var(--petrole),transparent);margin:1.4rem 0}
+  .info p{font-weight:500;font-size:1.08rem;line-height:1.7;color:var(--doux);margin-bottom:1rem}
+  .intro-cite{font-style:italic;color:var(--encre)!important;font-size:1.12rem!important}
+  .editie{font-size:.98rem!important;font-style:italic}
 
-  .bubble h2{
-    font-family:'Cormorant Garamond', serif;
-    font-weight:700; font-size:1.7rem; margin:.1em 0 .5em; color:var(--petrole-f);
-  }
-  .bubble p{margin:.55em 0; font-weight:500}
-  .big-black{font-weight:700; color:var(--ink); font-size:1.2rem}
+  /* 16 verhalen */
+  .verhalen{columns:2;column-gap:2rem;list-style:none;margin:1.4rem 0;counter-reset:h;}
+  .verhalen li{break-inside:avoid;padding:.35rem 0 .35rem 2rem;position:relative;
+    font-size:1.02rem;color:var(--encre);counter-increment:h;}
+  .verhalen li::before{content:counter(h,decimal-leading-zero);position:absolute;left:0;top:.35rem;
+    font-family:'Cormorant Garamond',serif;color:var(--petrole);font-size:.95rem;font-weight:600;}
 
-  /* ---- Downloads ---- */
-  .downloads{
-    display:flex; gap:26px; flex-wrap:wrap; justify-content:center;
-    margin:10px 0 4px;
+  /* ---- kopen-knop (wit, rode rand, gele lichtslang) ---- */
+  .knoppen{display:flex;flex-wrap:wrap;gap:1rem;margin-top:2rem}
+  .btn-kopen{
+    display:inline-flex;align-items:center;text-decoration:none;
+    font-family:'Cormorant Garamond',serif;color:#d40000;background:#fff;
+    font-size:1.45rem;font-weight:700;letter-spacing:.05em;
+    padding:1.2rem 2.5rem;border-radius:9px;border:3px solid #d40000;
+    box-shadow:0 8px 22px -6px rgba(25,45,65,.25);transition:transform .2s, box-shadow .2s;
   }
-  .dl-card{
-    flex:1 1 260px; max-width:340px; text-align:center;
+  .btn-kopen:hover{transform:translateY(-3px);box-shadow:0 14px 30px -6px rgba(212,0,0,.5)}
+  .btn-kopen-wrap{position:relative;display:inline-flex}
+  .btn-kopen-wrap::before{
+    content:"";position:absolute;inset:0;z-index:2;pointer-events:none;
+    offset-path:inset(0 round 9px);offset-distance:0%;
+    width:26px;height:26px;margin:-13px;border-radius:50%;
+    background:radial-gradient(circle,#fff2b0 0%,#ffd24d 45%,transparent 72%);
+    animation:slang 3s linear infinite;
   }
-  .dl-card img{
-    width:100%; height:auto; border-radius:12px;
-    border:1px solid var(--ligne); box-shadow:var(--shadow); background:#fff;
-    display:block; margin:0 auto 14px;
-  }
-  /* Etiket boven de download-kaart: welk formaat */
-  .format-label{
-    display:inline-block;
-    font-family:'Cormorant Garamond',serif; font-weight:700;
-    font-size:.85rem; letter-spacing:.12em; text-transform:uppercase;
-    padding:.2em .8em; border-radius:20px; margin-bottom:10px;
-    color:#fff;
-  }
-  .format-label.pdf{background:#c0392b}
-  .format-label.word{background:#2b579a}
-  .btn{
-    display:inline-block; text-decoration:none;
-    font-family:'Cormorant Garamond',serif; font-weight:700; font-size:1.15rem;
-    color:#fff; padding:12px 26px; border-radius:30px;
-    box-shadow:var(--shadow); transition:transform .12s ease, filter .12s ease;
-  }
-  .btn:hover{transform:translateY(-2px); filter:brightness(1.06)}
-  .btn.teal{background:var(--petrole)}
-  .btn.peach{background:var(--petrole)}
-  .btn.word{background:#2b579a}
-  .btn.teal:hover,.btn.peach:hover{background:var(--petrole-f);filter:none}
+  @keyframes slang{to{offset-distance:100%}}
 
-  /* ---- Dankbetuiging ---- */
-  .thanks{ text-align:center }
-  .thanks .top-name{
-    font-family:'Cormorant Garamond',serif; font-weight:700;
-    font-size:1.9rem; color:var(--petrole-f); margin:.2em 0 .05em;
-  }
-  .thanks .top-note{font-style:italic; color:var(--soft); margin:0 0 .8em}
-  .thanks .names{
-    font-size:1.05rem; color:var(--soft);
-    line-height:2; margin-top:.4em;
-  }
-  .contact a{color:var(--petrole-f); text-decoration:underline; text-underline-offset:3px; font-weight:700}
-  .contact a:hover{text-decoration:underline}
+  /* ---- galerij ---- */
+  .gal-titel{font-family:'Cormorant Garamond',serif;font-weight:600;
+    font-size:clamp(1.6rem,4vw,2.2rem);color:var(--petrole-f);text-align:center;margin:4rem 0 .5rem;}
+  .gal-sub{text-align:center;font-style:italic;color:var(--doux);margin-bottom:2rem;}
+  .galerij{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.4rem;}
+  .tegel{position:relative;cursor:pointer;border-radius:6px;overflow:hidden;background:#fff;
+    box-shadow:0 12px 30px -12px rgba(25,45,65,.28), 0 0 0 1px rgba(25,45,65,.06);
+    transition:transform .25s, box-shadow .25s;}
+  .tegel img{display:block;width:100%;height:auto}
+  .tegel:hover{transform:translateY(-5px);box-shadow:0 18px 38px -12px rgba(25,45,65,.38)}
+  .tegel .loep{position:absolute;bottom:.7rem;right:.7rem;background:rgba(34,54,74,.85);
+    color:#fff;width:2.2rem;height:2.2rem;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;font-size:1.05rem;opacity:0;transition:opacity .25s;}
+  .tegel:hover .loep{opacity:1}
+  .bijschrift{text-align:center;font-size:.9rem;color:var(--doux);margin-top:.5rem;font-style:italic;}
 
-  footer{text-align:center; margin-top:40px}
-  footer a{color:var(--soft); font-style:italic; text-decoration:none}
-  footer a:hover{text-decoration:underline}
+  .lightbox{position:fixed;inset:0;z-index:100;background:rgba(20,34,48,.94);
+    display:none;align-items:center;justify-content:center;padding:2rem;cursor:zoom-out;}
+  .lightbox.actief{display:flex}
+  .lightbox img{max-width:96vw;max-height:92vh;border-radius:4px;box-shadow:0 0 60px rgba(0,0,0,.5);}
+  .lightbox-sluit{position:absolute;top:1.2rem;right:1.6rem;color:#fff;font-size:2.4rem;
+    line-height:1;background:none;border:none;cursor:pointer;font-family:'Cormorant Garamond',serif;}
 
-  @media(max-width:520px){
-    body{font-size:17px}
-    h1{font-size:2.2rem}
-    .bubble{padding:22px 20px}
+  footer{text-align:center;padding:3rem 0 1rem;color:var(--doux);font-size:.95rem}
+  footer a{text-decoration:underline;text-underline-offset:3px}
+
+  @media (max-width:640px){
+    .boek-pagina{grid-template-columns:1fr;justify-items:center;text-align:center}
+    .omslag{max-width:260px}
+    .verhalen{columns:1;text-align:left;display:inline-block}
+    .knoppen{justify-content:center}
+    .filet{width:60%;margin-left:auto;margin-right:auto}
+    .btn-kopen{font-size:1.25rem;padding:1rem 1.8rem}
   }
-  /* Grote terug-pijl linksboven */
-  .terug-top{
-    position:fixed; top:16px; left:16px; z-index:100;
-    display:inline-flex; align-items:center; gap:.5em;
-    text-decoration:none;
-    font-family:'Cormorant Garamond',serif; font-weight:700;
-    font-size:1.25rem; color:var(--petrole-f);
-    background:rgba(255,255,255,.95);
-    border:1.5px solid var(--petrole);
-    padding:.4em .95em .4em .7em; border-radius:30px;
-    box-shadow:var(--shadow);
-    transition:transform .15s ease, background .2s ease;
-  }
-  .terug-top:hover{transform:translateX(-3px); background:#fff}
-  .terug-top .pijl{font-size:1.5rem; line-height:1}
-  @media(max-width:600px){
-    .terug-top{font-size:1rem; padding:.35em .7em}
-    .terug-top .terug-txt{display:none}   /* mobiel: alleen de pijl */
-    .terug-top .pijl{font-size:1.4rem}
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important}
+    .btn-kopen-wrap::before{animation:none;opacity:0}
   }
 </style>
 </head>
 <body>
+  <div class="wrap">
+    <a class="terug" href="indexNL.html">← Terug naar de boekenkast</a>
 
-<!-- Grote terug-pijl linksboven -->
-<a class="terug-top" href="indexNL.html" aria-label="Terug naar de boekenkast">
-  <span class="pijl" aria-hidden="true">←</span>
-  <span class="terug-txt">Boekenkast</span>
-</a>
+    <div class="boek-pagina">
+      <img class="omslag" src="img/couv-een-moment.png" alt="Omslag — Een moment, of Twee…"
+           onerror="this.onerror=null;this.src='../img/couv-un-instant.png'">
 
-<div class="wrap">
+      <div class="info">
+        <h1>Een moment, of Twee…</h1>
+        <div class="schrijver">Roy VAN MIL</div>
 
-  <header>
-    <img class="portret" src="img/auteur2.png" alt="Roy van Mil">
-    <h1>Hoi, ik ben Roy!</h1>
-    <p class="kicker">Schrijver · Frankrijk</p>
-  </header>
+        <p class="intro-cite">16 microverhalen om te glimlachen, na te denken… en het wezenlijke niet te vergeten.</p>
 
-  <!-- Voorstelling -->
-  <section class="bubble teal">
-    <p>Ik woon in Frankrijk sinds ongeveer 25 jaar… (JA! Dat is best lang…)</p>
-    <p>Mijn beroep is elektricien / loodgieter.</p>
-    <p>Maar… ik heb ook meerdere hobby's. Waarvan een: boeken schrijven.</p>
-    <p>Ik heb m'n eerste boek al uit. En die staat in de Franse Amazon te koop.
-       16 microverhalen.</p>
-    <p class="big-black">Je zal lachen, giechelen, verrast zijn… maar ook huilen…</p>
-  </section>
+        <div class="filet"></div>
 
-  <!-- Vraag om hulp -->
-  <section class="bubble rose">
-    <h2>Wil je meelezen?</h2>
-    <p>Ik wil deze verhalen ook in het Nederlands vertalen… Ik heb het eerste werk
-       al gedaan (met hulp van AI). Maar… ik zou graag willen dat jij mij helpt,
-       als je zin en tijd hebt.</p>
-    <p>Een, of meerdere verhalen lezen… en mij laten weten of er verbeteringen
-       nodig zijn. Ik wil het verhaal niet anders maken… maar de goede
-       Nederlandse vertaling hebben.</p>
-    <p><strong>Hoe?</strong> Ik denk lekker simpel: je kan het uitprinten, met een
-       rode pen erop schrijven en daarna via foto's (WhatsApp?) naar mij sturen:
-       <span class="contact"><a href="https://wa.me/33601099859">+33 6 01 09 98 59</a></span>.
-       Of via m'n mail:
-       <span class="contact"><a href="mailto:royvanmilperso@gmail.com">royvanmilperso@gmail.com</a></span>.</p>
-    <p>Ook kan ik het uitprinten en naar je toe sturen. (Kost mij een beetje geld,
-       maar dat maakt niet uit! Als je mij kan helpen!)</p>
-  </section>
+        <p>Korte verhalen, grappig, vreemd of ontroerend. Een opa die door de woonkamer springt. Een simpele handdruk die goeddoet. Een kasteel dat ontwaakt voor een onzichtbaar banket. Machines die oordelen, buren van wie je dacht dat je ze nooit zou begrijpen, aanwezigheden die je eigenlijk nooit meer zou mogen zien.</p>
 
-  <!-- Wat levert het op -->
-  <section class="bubble gold">
-    <h2>Wat levert het op?</h2>
-    <p>Deze vertaling helpt mij om m'n boek met 16 microverhalen netjes in het
-       Nederlands te hebben. Ik wil een Nederlandse versie in Nederland kunnen
-       verkopen. (Nee, ik zal er niet rijk mee worden… maar ik wil dat mensen
-       voor een kleine prijs een leuk boek hebben.)</p>
-    <p><strong>En JIJ zal van mij een exemplaar GRATIS krijgen!</strong></p>
-    <p>En als je wilt, zet ik je naam ook op de 'Dankbetuiging'-lijst.
-       Een kleinigheidje… maar het is wel leuk dat mensen weten dat jij geholpen
-       hebt met dit boek.</p>
-  </section>
+        <p>Een klein boek om overal mee naartoe te nemen, in stukjes te lezen en verder te laten leven in je eigen verbeelding.</p>
 
-  <!-- Downloads -->
-  <section class="bubble blue">
-    <h2>Lees mee — download het boek</h2>
-    <p>Kies het formaat dat het prettigst leest of het makkelijkst te bewerken is:</p>
-    <div class="downloads">
-      <div class="dl-card">
-        <span class="format-label pdf">PDF</span>
-        <img src="img/enkelpagina.png" alt="Enkele pagina — voorbeeld">
-        <a class="btn teal" href="img/Een_moment_of_Twee_NL_enkele_pagina.pdf" download>Enkele pagina</a>
-      </div>
-      <div class="dl-card">
-        <span class="format-label pdf">PDF</span>
-        <img src="img/dubbelpagina.png" alt="Dubbele pagina — voorbeeld">
-        <a class="btn peach" href="img/Een_moment_of_Twee_NL_dubbele_pagina.pdf" download>Dubbele pagina</a>
-      </div>
-      <div class="dl-card">
-        <span class="format-label word">WORD</span>
-        <img src="img/wordpagina.png" alt="Word-versie — voorbeeld">
-        <a class="btn word" href="img/Een_moment_of_Twee_NL.docx" download>Word (bewerkbaar)</a>
+        <div class="filet"></div>
+
+        <ol class="verhalen">
+          <li>De rode knop</li>
+          <li>Ik weet het al</li>
+          <li>De Slapers</li>
+          <li>De Twee</li>
+          <li>Aanwezigheden uit het verleden</li>
+          <li>De digitale revolutie</li>
+          <li>De fles armagnac</li>
+          <li>De Helm</li>
+          <li>Het onzichtbare banket</li>
+          <li>De hand die goeddoet</li>
+          <li>De Andere Wereld</li>
+          <li>De oude oven</li>
+          <li>De video wist het</li>
+          <li>De Koffer</li>
+          <li>Mijn Tante</li>
+          <li>De laatste beslissing</li>
+        </ol>
+
+        <p class="editie">Gebonden editie · 6 × 9 inch · Oktober 2026</p>
+
+        <div class="knoppen">
+          <span class="btn-kopen-wrap"><a class="btn-kopen" href="https://www.amazon.nl/dp/B0HLHZ67FN" target="_blank" rel="noopener noreferrer" onclick="compte('nl-clic-amazon')">KOOP dit BOEK</a></span>
+        </div>
       </div>
     </div>
-    <p style="text-align:center; font-style:italic; color:var(--soft); margin-top:18px">
-       De Word-versie kun je direct op je computer aanpassen — handig op Windows én Apple.</p>
-  </section>
 
-  <!-- Dankbetuiging -->
-  <section class="bubble peach thanks">
-    <h2>Met dank aan</h2>
-    <p class="top-name">Fred VAN HEEL</p>
-    <p class="top-note">Heel erg bedankt, oom!</p>
-    <div class="names">
-      <!-- Hier komen de namen van iedereen die meehelpt -->
-      <em>… en aan iedereen die meeleest en meehelpt. Dank jullie wel!</em>
+    <h2 class="gal-titel">Enkele illustraties</h2>
+    <p class="gal-sub">Potloodtekeningen, tussen zachtheid en vreemdheid. Klik om te vergroten.</p>
+
+    <div class="galerij">
+      <figure style="margin:0">
+        <div class="tegel" onclick="openen('img/couv-een-moment.png')">
+          <img src="img/couv-een-moment.png" alt="De omslag" loading="lazy" onerror="this.onerror=null;this.src='../img/couv-un-instant.png'"><span class="loep">⤢</span>
+        </div>
+        <figcaption class="bijschrift">De omslag</figcaption>
+      </figure>
+      <figure style="margin:0">
+        <div class="tegel" onclick="openen('../img/ui-main.png')">
+          <img src="../img/ui-main.png" alt="De hand die goeddoet" loading="lazy"><span class="loep">⤢</span>
+        </div>
+        <figcaption class="bijschrift">De hand die goeddoet</figcaption>
+      </figure>
+      <figure style="margin:0">
+        <div class="tegel" onclick="openen('../img/ui-banquet.png')">
+          <img src="../img/ui-banquet.png" alt="Het onzichtbare banket" loading="lazy"><span class="loep">⤢</span>
+        </div>
+        <figcaption class="bijschrift">Het onzichtbare banket</figcaption>
+      </figure>
+      <figure style="margin:0">
+        <div class="tegel" onclick="openen('../img/ui-casque.png')">
+          <img src="../img/ui-casque.png" alt="De Helm" loading="lazy"><span class="loep">⤢</span>
+        </div>
+        <figcaption class="bijschrift">De Helm</figcaption>
+      </figure>
+      <figure style="margin:0">
+        <div class="tegel" onclick="openen('../img/ui-video.png')">
+          <img src="../img/ui-video.png" alt="De video wist het" loading="lazy"><span class="loep">⤢</span>
+        </div>
+        <figcaption class="bijschrift">De video wist het</figcaption>
+      </figure>
+      <figure style="margin:0">
+        <div class="tegel" onclick="openen('../img/ui-presences.png')">
+          <img src="../img/ui-presences.png" alt="Aanwezigheden uit het verleden" loading="lazy"><span class="loep">⤢</span>
+        </div>
+        <figcaption class="bijschrift">Aanwezigheden uit het verleden</figcaption>
+      </figure>
+      <figure style="margin:0">
+        <div class="tegel" onclick="openen('../img/ui-revolution.png')">
+          <img src="../img/ui-revolution.png" alt="De digitale revolutie" loading="lazy"><span class="loep">⤢</span>
+        </div>
+        <figcaption class="bijschrift">De digitale revolutie</figcaption>
+      </figure>
     </div>
-  </section>
 
-  <footer>
-    <a href="indexNL.html">← Terug naar de boekenkast</a>
-  </footer>
+    <footer>
+      © 2026 Roy van Mil · <a href="indexNL.html">Boekenkast</a> · <a href="../index.html" lang="fr">Version française</a>
+    </footer>
+  </div>
 
-</div>
-<script>
-  var API = "https://compteurs.royvanmil86.workers.dev";
-  function compte(cle){
-    try{ fetch(API + "/compte?c=" + cle, {mode:"cors", keepalive:true}); }catch(e){}
-  }
-  compte("nl-tweemoment");
-</script>
+  <div class="lightbox" id="lightbox" onclick="sluiten()">
+    <button class="lightbox-sluit" onclick="sluiten()" aria-label="Sluiten">✕</button>
+    <img id="lightbox-img" src="" alt="">
+  </div>
 
+  <script>
+    function openen(src){
+      document.getElementById('lightbox-img').src = src;
+      document.getElementById('lightbox').classList.add('actief');
+      document.body.style.overflow = 'hidden';
+    }
+    function sluiten(){
+      document.getElementById('lightbox').classList.remove('actief');
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape') sluiten(); });
+
+    var API = "https://compteurs.royvanmil86.workers.dev";
+    function compte(cle){
+      try{ fetch(API + "/compte?c=" + cle, {mode:"cors", keepalive:true}); }catch(e){}
+    }
+    compte("nl-tweemoment");
+  </script>
 </body>
 </html>
