@@ -104,6 +104,9 @@
     border:6px solid #fff;box-shadow:var(--ombre),0 0 0 1px rgba(25,45,65,.08)}
   .auteur .naam{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:2rem;margin-top:.8rem}
   .auteur .sub{font-style:italic;color:var(--doux);font-size:1.15rem}
+  .auteur a img{transition:transform .25s}
+  .auteur a:hover img{transform:scale(1.04)}
+  .auteur .knop{margin-top:1rem}
 
   footer{text-align:center;padding:1.5rem 0 3rem;color:var(--doux);font-size:.95rem}
   footer a{text-decoration:underline;text-underline-offset:3px}
@@ -177,9 +180,12 @@
   </section>
 
   <section class="auteur">
-    <img src="img/auteur2.png" alt="Roy van Mil">
+    <a href="overmij.html" aria-label="Over mij — Roy van Mil">
+      <img src="img/auteur2.png" alt="Roy van Mil">
+    </a>
     <p class="naam">Roy van Mil</p>
     <p class="sub">Schrijver &amp; verhalenverteller</p>
+    <a class="knop" href="overmij.html">Over mij ›</a>
   </section>
 
 </main>
