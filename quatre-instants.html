@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Un instant, ou Quatre… — Roy Van Mil</title>
+<meta name="description" content="Un instant, ou Quatre… — le prochain recueil de microhistoires de Roy Van Mil. Bientôt disponible.">
+<meta name="author" content="Roy Van Mil">
+<link rel="canonical" href="https://royvanmil.fr/quatre-instants.html">
+<meta property="og:type" content="book">
+<meta property="og:title" content="Un instant, ou Quatre… — Roy Van Mil">
+<meta property="og:description" content="Le prochain recueil de microhistoires. Bientôt…">
+<meta property="og:image" content="https://royvanmil.fr/img/couv-quatre-instants.jpg">
+<meta property="og:url" content="https://royvanmil.fr/quatre-instants.html">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#f3f7f9; --ink:#22364a; --muted:#56687a; --line:#d9e4ea;
+  --rouge:#a3242c; --rouge-dark:#861c23; --sang:#8a0303;
+  --wine:#2e6e73;
+  --shadow:0 18px 50px rgba(30,55,75,.10);
+  --shadow-soft:0 8px 28px rgba(30,55,75,.07);
+  --radius:28px; --max:1100px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;color:var(--ink);
+  background:
+    radial-gradient(circle at 8% 4%,rgba(120,170,205,.12),transparent 24rem),
+    radial-gradient(circle at 92% 8%,rgba(163,36,44,.05),transparent 28rem),
+    var(--bg);
+  font-family:Inter,Arial,sans-serif;line-height:1.6;
+}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+.wrap{width:min(calc(100% - 36px),var(--max));margin:auto}
+h1,h2,h3{margin:0;font-family:"Cormorant Garamond",Georgia,serif;line-height:1.05}
+
+/* Haut de page */
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:18px 0}
+.retour{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:9px 16px;border-radius:999px;background:#fff;
+  border:1px solid var(--line);box-shadow:var(--shadow-soft);font-weight:700;
+}
+.retour:hover{border-color:var(--wine)}
+.langs{display:flex;gap:3px;padding:4px;border:1px solid var(--line);border-radius:999px;background:#fff;box-shadow:var(--shadow-soft)}
+.lang-btn{border:0;background:transparent;color:#526374;border-radius:999px;padding:6px 9px;cursor:pointer;font-size:.77rem;font-weight:800}
+.lang-btn.active{background:var(--wine);color:#fff}
+
+/* Bloc principal */
+.hero{
+  display:grid;grid-template-columns:.85fr 1.15fr;gap:48px;align-items:center;
+  padding:40px;margin-top:10px;border-radius:var(--radius);
+  background:rgba(255,255,255,.92);border:1px solid var(--line);box-shadow:var(--shadow);
+}
+.hero-couv{
+  width:min(330px,100%);margin:auto;border-radius:6px;
+  box-shadow:0 26px 40px rgba(25,45,65,.22);transition:.25s ease;
+}
+.hero-couv:hover{transform:translateY(-5px) rotate(-1deg)}
+.label{
+  display:inline-flex;padding:6px 11px;border-radius:999px;margin-bottom:13px;
+  font-size:.75rem;text-transform:uppercase;letter-spacing:.11em;font-weight:800;
+  background:#f8e3e3;color:var(--rouge);
+}
+.hero h1{font-size:clamp(2.8rem,6vw,4.6rem);letter-spacing:-.03em;color:var(--rouge)}
+.hero p{color:var(--muted);font-size:1.06rem}
+.citation{
+  margin:18px 0 0;padding:16px 20px;border-left:4px solid var(--rouge);
+  background:#fbf3f3;border-radius:0 14px 14px 0;
+  font-family:"Cormorant Garamond",Georgia,serif;font-style:italic;font-size:1.35rem;color:#5a3a3a;
+}
+.fr-note{font-size:.85rem;color:#8a6a6a;margin-top:8px}
+.btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px}
+.btn{
+  min-height:49px;padding:0 20px;border-radius:999px;
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  border:1px solid transparent;font-weight:700;transition:.2s ease;cursor:pointer;
+}
+.btn:hover{transform:translateY(-2px)}
+.btn-bientot{background:#eef1f3;color:#7a8794;border-color:#dde3e7;cursor:default}
+.btn-bientot:hover{transform:none}
+.btn-avis{background:#e69500;color:#1d1208;animation:clignote 2s ease-in-out infinite}
+@keyframes clignote{
+  0%,60%,100%{background:#e69500;transform:scale(1)}
+  75%{background:#ffbf1f;box-shadow:0 0 0 6px rgba(255,191,31,.35);transform:scale(1.05)}
+}
+@media(prefers-reduced-motion:reduce){.btn-avis{animation:none}}
+.btn-light{background:#fff;border-color:var(--line);box-shadow:var(--shadow-soft)}
+
+/* Histoire gratuite */
+.gratuite{
+  margin-top:34px;padding:44px 40px;text-align:center;border-radius:var(--radius);
+  background:linear-gradient(135deg,#fff 0%,#fbefe9 100%);
+  border:1px solid #efd6cc;box-shadow:var(--shadow);position:relative;overflow:hidden;
+}
+.gratuite .kicker{
+  color:var(--rouge);font-size:.8rem;font-weight:800;text-transform:uppercase;letter-spacing:.14em;
+}
+.gratuite h2{font-size:clamp(2.2rem,5vw,3.4rem);margin-top:6px}
+.bientot-txt{
+  margin:22px auto 0;max-width:640px;
+  font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(1.4rem,3vw,1.9rem);line-height:1.35;color:#5a3a3a;
+}
+.bientot-txt span{display:block;opacity:0;animation:apparait 1s ease forwards}
+.bientot-txt span:nth-child(1){animation-delay:.3s}
+.bientot-txt span:nth-child(2){animation-delay:1.3s}
+.bientot-txt span:nth-child(3){animation-delay:2.3s;color:var(--rouge);font-weight:700}
+@keyframes apparait{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.bientot-txt span{animation:none;opacity:1}}
+.livre-ouvert{font-size:2.6rem;margin-bottom:6px}
+
+/* Les histoires */
+.histoires{
+  margin-top:34px;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;
+  padding:40px;border-radius:var(--radius);
+  background:rgba(255,255,255,.92);border:1px solid var(--line);box-shadow:var(--shadow);
+}
+.histoires h2{font-size:clamp(2rem,4vw,3rem)}
+.liste{list-style:none;padding:0;margin:18px 0 0;counter-reset:n}
+.liste li{
+  counter-increment:n;display:flex;gap:14px;align-items:baseline;
+  padding:9px 0;border-bottom:1px solid var(--line);
+  font-family:"Cormorant Garamond",Georgia,serif;font-size:1.4rem;
+}
+.liste li:before{content:counter(n) ".";color:#b07a2a;font-weight:700;min-width:1.6em}
+.liste-img{width:min(380px,100%);margin:auto;border-radius:14px;box-shadow:var(--shadow);cursor:zoom-in}
+
+/* IA et moi */
+.ia-bloc{display:flex;justify-content:center;margin-top:34px}
+.btn-ia{
+  display:inline-flex;align-items:center;gap:.55rem;padding:.6rem 1.2rem;border-radius:10px;
+  background:var(--sang);border:2px solid #5c0000;box-shadow:0 8px 20px rgba(138,3,3,.3);
+  font-weight:800;font-size:1.08rem;color:#fff;transition:.2s ease;
+}
+.btn-ia:hover{transform:translateY(-2px);background:#a30808}
+
+/* Lightbox */
+.lightbox{position:fixed;inset:0;z-index:999;display:none;align-items:center;justify-content:center;background:rgba(10,15,20,.88);padding:16px;cursor:zoom-out}
+.lightbox.show{display:flex}
+.lightbox img{max-height:94vh;width:auto;border-radius:8px}
+
+footer{padding:40px 0 120px;color:#56687a;font-size:.9rem}
+.footer-inner{display:flex;justify-content:space-between;gap:20px;align-items:center;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:28px}
+.footer-links{display:flex;gap:15px;flex-wrap:wrap}
+
+@media(max-width:860px){
+  .hero,.histoires{grid-template-columns:1fr;padding:26px;gap:28px}
+  .gratuite{padding:34px 20px}
+}
+@media(max-width:560px){
+  .wrap{width:min(calc(100% - 24px),var(--max))}
+  .hero,.histoires{padding:20px}
+  .hero-couv{width:min(260px,80%)}
+  .liste li{font-size:1.25rem}
+  .footer-inner{justify-content:center;text-align:center}
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrap top">
+  <a href="index.html" class="retour"><span aria-hidden="true">←</span><span data-i18n="back">Retour</span></a>
+  <div class="langs" aria-label="Choix de la langue">
+    <button type="button" class="lang-btn active" data-lang="fr">FR</button>
+    <button type="button" class="lang-btn" data-lang="en">EN</button>
+    <button type="button" class="lang-btn" data-lang="nl">NL</button>
+  </div>
+</div>
+
+<main class="wrap">
+
+  <!-- LIVRE -->
+  <section class="hero">
+    <div>
+      <img class="hero-couv" src="img/couv-quatre-instants.jpg" alt="Couverture Un instant, ou Quatre…" data-zoom>
+    </div>
+    <div>
+      <span class="label" data-i18n="soon">Bientôt</span>
+      <h1>Un instant,<br>ou Quatre…</h1>
+      <p data-i18n="intro">Le prochain recueil de microhistoires. De courts récits pour rire, être surpris, voire choqués… et peut-être laisser couler une larme.</p>
+      <blockquote class="citation" lang="fr">« Je sais… La couverture, avec une vache au milieu du salon. Ça intrigue. Lol. Et ce n'est pas du tout ce que vous pensez… »</blockquote>
+      <p class="fr-note" data-i18n="frNote"></p>
+      <div class="btns">
+        <span class="btn btn-bientot" data-i18n="buySoon">🛒 Acheter le livre — bientôt</span>
+        <a href="temoignages.html" class="btn btn-avis" data-i18n="review">⭐ Laissez votre avis !</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- HISTOIRE GRATUITE -->
+  <section class="gratuite">
+    <div class="livre-ouvert" aria-hidden="true">📖</div>
+    <div class="kicker" data-i18n="freeKicker">Cadeau</div>
+    <h2 data-i18n="freeTitle">Une histoire gratuite à lire</h2>
+    <p class="bientot-txt">
+      <span data-i18n="free1">Bientôt en ligne…</span>
+      <span data-i18n="free2">Soyez patients…</span>
+      <span data-i18n="free3">Vous allez vraiment aimer…</span>
+    </p>
+  </section>
+
+  <!-- LES HISTOIRES -->
+  <section class="histoires">
+    <div>
+      <h2 data-i18n="storiesTitle">Les histoires en cours d'écriture</h2>
+      <ol class="liste" lang="fr">
+        <li>La maison des partages</li>
+        <li>Le distributeur</li>
+        <li>L'observateur silencieux</li>
+        <li>Je suis différent…</li>
+        <li>L'horloge d'entre-vous</li>
+        <li>Rencontre nocturne</li>
+        <li>La famille robot</li>
+        <li>Immersif</li>
+        <li>Le bout du monde</li>
+      </ol>
+    </div>
+    <div>
+      <img class="liste-img" src="img/liste-quatre-instants.jpg" alt="Liste des histoires de Un instant, ou Quatre…" data-zoom>
+    </div>
+  </section>
+
+  <div class="ia-bloc">
+    <a href="ia-et-moi.html" class="btn-ia"><span aria-hidden="true">🤖</span><span data-i18n="iaLink">IA et moi ?</span></a>
+  </div>
+
+  <div class="btns" style="justify-content:center;margin-top:24px">
+    <a href="contact.html" class="btn btn-light" data-i18n="contact">✉️ Contactez-moi</a>
+  </div>
+
+</main>
+
+<footer>
+  <div class="wrap footer-inner">
+    <div>© 2026 Roy Van Mil</div>
+    <div class="footer-links">
+      <a href="index.html" data-i18n="home">Accueil</a>
+      <a href="un-instant.html">Un instant, ou Deux…</a>
+      <a href="trois-instants.html">Un instant, ou Trois…</a>
+      <a href="ia-et-moi.html" data-i18n="iaLink">IA et moi ?</a>
+    </div>
+  </div>
+</footer>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true"><img id="lightboxImg" alt=""></div>
+
+<script>
+const translations={
+  fr:{back:"Retour",home:"Accueil",soon:"Bientôt",
+    intro:"Le prochain recueil de microhistoires. De courts récits pour rire, être surpris, voire choqués… et peut-être laisser couler une larme.",
+    frNote:"",
+    buySoon:"🛒 Acheter le livre — bientôt",review:"⭐ Laissez votre avis !",
+    freeKicker:"Cadeau",freeTitle:"Une histoire gratuite à lire",
+    free1:"Bientôt en ligne…",free2:"Soyez patients…",free3:"Vous allez vraiment aimer…",
+    storiesTitle:"Les histoires en cours d'écriture",
+    iaLink:"IA et moi ?",contact:"✉️ Contactez-moi"},
+  en:{back:"Back",home:"Home",soon:"Coming soon",
+    intro:"The next collection of short stories. Short tales to make you laugh, surprise you, even shock you… and maybe bring a tear to your eye.",
+    frNote:"Book in French.",
+    buySoon:"🛒 Buy the book — coming soon",review:"⭐ Leave a review!",
+    freeKicker:"A gift",freeTitle:"A free story to read",
+    free1:"Online soon…",free2:"Be patient…",free3:"You are really going to love it…",
+    storiesTitle:"Stories being written",
+    iaLink:"AI and me?",contact:"✉️ Contact me"},
+  nl:{back:"Terug",home:"Home",soon:"Binnenkort",
+    intro:"De volgende bundel korte verhalen. Korte verhalen om te lachen, verrast of zelfs geschokt te worden… en misschien een traantje te laten.",
+    frNote:"Boek in het Frans.",
+    buySoon:"🛒 Boek kopen — binnenkort",review:"⭐ Laat je mening achter!",
+    freeKicker:"Cadeautje",freeTitle:"Een gratis verhaal om te lezen",
+    free1:"Binnenkort online…",free2:"Even geduld…",free3:"Je gaat het echt mooi vinden…",
+    storiesTitle:"Verhalen die ik nu schrijf",
+    iaLink:"AI en ik?",contact:"✉️ Neem contact op"}
+};
+function setLanguage(lang){
+  const t=translations[lang]||translations.fr;
+  document.documentElement.lang=lang;
+  document.querySelectorAll("[data-i18n]").forEach(el=>{const k=el.dataset.i18n;if(t[k]!==undefined) el.innerHTML=t[k];});
+  document.querySelectorAll(".lang-btn").forEach(b=>b.classList.toggle("active",b.dataset.lang===lang));
+  try{localStorage.setItem("royvanmil-lang",lang)}catch(e){}
+}
+document.querySelectorAll(".lang-btn").forEach(b=>b.addEventListener("click",()=>setLanguage(b.dataset.lang)));
+let initial="fr";
+try{
+  const saved=localStorage.getItem("royvanmil-lang");
+  if(saved&&translations[saved]) initial=saved;
+  else{const l=(navigator.language||"fr").toLowerCase();if(l.startsWith("nl"))initial="nl";else if(l.startsWith("en"))initial="en";}
+}catch(e){}
+setLanguage(initial);
+
+/* Lightbox (clic sur une image) */
+(function(){
+  const lb=document.getElementById("lightbox"),img=document.getElementById("lightboxImg");
+  document.querySelectorAll("[data-zoom]").forEach(i=>{i.style.cursor="zoom-in";i.addEventListener("click",()=>{img.src=i.src;img.alt=i.alt;lb.classList.add("show")})});
+  function fermer(){lb.classList.remove("show")}
+  lb.addEventListener("click",fermer);
+  document.addEventListener("keydown",e=>{if(e.key==="Escape")fermer()});
+})();
+</script>
+
+<!-- Compteur -->
+<script>
+var API="https://compteurs.royvanmil86.workers.dev";
+function compte(cle){var url=API+"/compte?c="+cle;try{if(navigator.sendBeacon&&navigator.sendBeacon(url))return;}catch(e){}try{fetch(url,{mode:"cors",keepalive:true});}catch(e){}}
+compte("quatre-instants");
+</script>
+
+<script src="avis-bouton.js" defer></script>
+</body>
+</html>

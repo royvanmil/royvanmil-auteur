@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Un instant, ou Quatre… — Audio — Roy Van Mil</title>
+<!-- PAGE CACHÉE : pas de lien sur le site, pas sur Google -->
+<meta name="robots" content="noindex, nofollow">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<script>
+/* =========================================================
+   RÉGLAGES (à modifier ici seulement)
+   ---------------------------------------------------------
+   HISTOIRES : pour chaque histoire, le nom du dossier audio
+   sur GitHub, dans audio/un-instant-ou-quatre/
+   - dossier vide ""  →  « bientôt » en rouge dans le menu
+   - la page lit TOUTE SEULE les .mp3 du dossier
+     (partie 1, partie 2… dans l'ordre des noms)
+
+   LIENS : colle l'adresse entre les guillemets.
+   Vide ""  →  le bouton s'affiche en gris « bientôt ».
+   ========================================================= */
+const HISTOIRES = [
+  { titre: "La maison des partages",   dossier: "" },
+  { titre: "Le distributeur",          dossier: "" },
+  { titre: "L'observateur silencieux", dossier: "" },
+  { titre: "Je suis différent…",       dossier: "" },
+  { titre: "L'horloge d'entre-vous",   dossier: "" },
+  { titre: "Rencontre nocturne",       dossier: "06-Rencontre-Nocturne" },
+  { titre: "La famille robot",         dossier: "" },
+  { titre: "Immersif",                 dossier: "" },
+  { titre: "Le bout du monde",         dossier: "09-le-bout-du-monde" }
+];
+
+const LIENS = {
+  spotify: "",
+  deezer:  "",
+  apple:   "",
+  amazon:  "",
+  podcast: "",
+  livre:   ""   /* lien Amazon du livre (vide = bientôt) */
+};
+</script>
+
+<style>
+:root{
+  --bg:#f3f7f9; --ink:#22364a; --muted:#56687a; --line:#d9e4ea;
+  --tampon:#c0141c; --rouge:#a3242c; --wine:#2e6e73; --or:#a8742a; --brun:#2a1d12;
+  --shadow:0 18px 50px rgba(30,55,75,.12);
+  --shadow-soft:0 8px 28px rgba(30,55,75,.07);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;color:var(--ink);
+  background:
+    radial-gradient(circle at 8% 4%,rgba(120,170,205,.12),transparent 24rem),
+    radial-gradient(circle at 92% 8%,rgba(192,20,28,.05),transparent 26rem),
+    var(--bg);
+  font-family:Inter,Arial,sans-serif;line-height:1.6;
+}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+
+/* ===== Haut ===== */
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:18px 28px}
+.retour{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:999px;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow-soft);font-weight:700}
+.retour:hover{border-color:var(--wine)}
+.langs{display:flex;gap:3px;padding:4px;border:1px solid var(--line);border-radius:999px;background:#fff;box-shadow:var(--shadow-soft)}
+.lang-btn{border:0;background:transparent;color:#526374;border-radius:999px;padding:6px 9px;cursor:pointer;font-size:.77rem;font-weight:800}
+.lang-btn.active{background:var(--wine);color:#fff}
+.btn-menu{display:none}
+
+/* ===== Grille 3 colonnes ===== */
+.grille{
+  display:grid;grid-template-columns:330px minmax(0,1fr) 240px;gap:24px;
+  align-items:start;padding:0 28px 40px;max-width:1400px;margin:auto;
+}
+
+/* ===== Menu image ===== */
+.menu-col{position:sticky;top:18px}
+.menu{
+  container-type:inline-size;
+  position:relative;aspect-ratio:1024/1536;
+  background:url(img/menu-quatre-fond.jpg) center/cover no-repeat;
+  border-radius:16px;box-shadow:var(--shadow);
+  padding:13% 13% 0 22%;
+}
+.menu h2{
+  margin:0 0 6cqw;text-align:center;color:var(--brun);
+  font-family:"Cormorant Garamond",Georgia,serif;font-weight:700;font-size:14cqw;line-height:1;
+}
+.menu h2 span{display:block;color:var(--or)}
+.menu ol{list-style:none;margin:0;padding:0}
+.menu button{
+  width:100%;display:flex;align-items:baseline;gap:2.4cqw;
+  padding:2.2cqw 0;border:0;background:none;cursor:pointer;text-align:left;
+  font-family:"Cormorant Garamond",Georgia,serif;font-size:7.6cqw;line-height:1.12;color:var(--brun);
+  transition:color .15s ease;
+}
+.menu button:hover{color:var(--rouge)}
+.menu button b{color:var(--or);min-width:1.1em}
+.menu button .t{flex:1}
+.menu button small{
+  color:var(--tampon);font-family:Inter,Arial,sans-serif;font-size:3.9cqw;font-weight:800;
+  white-space:nowrap;align-self:center;
+}
+.menu button[aria-current="true"]{color:var(--rouge);font-weight:700}
+.menu button[aria-current="true"] b{color:var(--rouge)}
+
+/* ===== Cartes ===== */
+.carte{background:#fff;border:1px solid var(--line);border-radius:22px;padding:26px;box-shadow:var(--shadow-soft)}
+
+/* Histoire */
+.histoire{position:relative;min-height:300px}
+.livre-nom{color:var(--muted);font-family:"Cormorant Garamond",Georgia,serif;font-style:italic;font-size:1.2rem}
+.histoire h1{
+  margin:2px 0 4px;padding-right:130px;
+  font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(2.4rem,4.2vw,3.4rem);line-height:1;letter-spacing:-.02em;
+}
+.fr-note{color:var(--muted);font-size:.88rem;margin:0 0 16px}
+.tampon{
+  position:absolute;top:22px;right:24px;
+  padding:5px 13px 3px;border:4px double var(--tampon);border-radius:8px;
+  color:var(--tampon);font-weight:800;font-size:1.4rem;letter-spacing:.14em;
+  transform:rotate(-14deg);opacity:.88;
+  -webkit-mask-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='80'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' seed='4'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -1.5 1.45'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  mask-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='80'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' seed='4'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -1.5 1.45'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  -webkit-mask-size:cover;mask-size:cover;
+}
+.piste{margin-bottom:14px}
+.piste-titre{font-weight:800;font-size:.92rem;margin-bottom:6px}
+audio{width:100%}
+.attente{
+  padding:22px;border-radius:16px;background:#fbf3f3;color:#7a3a3a;text-align:center;
+  font-family:"Cormorant Garamond",Georgia,serif;font-size:1.4rem;font-style:italic;
+}
+
+/* Boutons */
+.actions{display:grid;gap:10px;margin-top:20px}
+.btn{
+  min-height:50px;padding:0 20px;border-radius:999px;
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  font-weight:800;border:1px solid transparent;transition:.2s ease;text-align:center;
+}
+.btn:hover{transform:translateY(-2px)}
+.btn-livre{background:#ffd814;color:#111;border-color:#e6c200}
+.btn-livre.off{background:#eef1f3;color:#7a8794;border-color:#dde3e7;cursor:default}
+.btn-livre.off:hover{transform:none}
+.btn-contact{background:#111;color:#fff}
+.btn-avis{background:#e69500;color:#1d1208;animation:clignote 2s ease-in-out infinite}
+@keyframes clignote{
+  0%,60%,100%{background:#e69500;transform:scale(1)}
+  75%{background:#ffbf1f;box-shadow:0 0 0 6px rgba(255,191,31,.35);transform:scale(1.03)}
+}
+@media(prefers-reduced-motion:reduce){.btn-avis{animation:none}}
+
+/* Disponible sur */
+.dispo{position:sticky;top:18px}
+.dispo h2{margin:0 0 12px;font-family:"Cormorant Garamond",Georgia,serif;font-size:1.6rem;line-height:1.1}
+.plats{display:grid;gap:9px}
+.plat{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  min-height:50px;padding:6px 12px;border-radius:12px;
+  font-weight:800;color:#fff;line-height:1.2;text-align:center;transition:.2s ease;
+}
+.plat:hover{transform:translateY(-2px);filter:brightness(1.08)}
+.p-spotify{background:#1db954;color:#06210f}
+.p-deezer{background:#a238ff}
+.p-apple{background:#9933cc}
+.p-amazon{background:#232f3e}
+.p-podcast{background:#e8590c}
+.plat.off{background:#eef1f3!important;color:#8a96a1!important;cursor:default;font-weight:700}
+.plat.off:hover{transform:none;filter:none}
+.plat small{font-size:.7rem;font-weight:600}
+
+footer{padding:20px 0 120px;color:#56687a;font-size:.9rem;text-align:center}
+
+/* ===== Fenêtre menu (mobile) ===== */
+.fond-menu{display:none}
+
+/* ===== Tablette : menu + histoire, « Disponible sur » sous l'histoire ===== */
+@media(max-width:1100px){
+  .grille{grid-template-columns:300px minmax(0,1fr)}
+  .dispo{position:static;grid-column:2}
+  .plats{grid-template-columns:repeat(auto-fit,minmax(140px,1fr))}
+}
+
+/* ===== Mobile : une colonne + bouton « Les histoires » ===== */
+@media(max-width:760px){
+  .top{padding:14px 12px;flex-wrap:wrap}
+  .btn-menu{
+    display:inline-flex;align-items:center;gap:8px;order:3;width:100%;justify-content:center;
+    min-height:48px;border-radius:999px;border:1px solid #e3cfa8;cursor:pointer;
+    background:#fbf3e4;color:var(--brun);font-weight:800;font-size:1rem;
+  }
+  .grille{grid-template-columns:1fr;padding:0 12px 30px;gap:16px}
+  .dispo{grid-column:auto}
+  .carte{padding:20px}
+  .histoire h1{padding-right:0;padding-top:34px}
+  .tampon{top:14px;right:14px;font-size:1.1rem}
+
+  .menu-col{
+    display:none;position:fixed;inset:0;z-index:200;top:0;
+    align-items:center;justify-content:center;padding:14px;
+  }
+  .menu-col.ouvert{display:flex}
+  .fond-menu{display:block;position:absolute;inset:0;background:rgba(20,25,30,.6);border:0}
+  .menu{width:min(420px,100%,calc((100vh - 28px) * 1024 / 1536))}
+  .menu .fermer{
+    display:flex;align-items:center;justify-content:center;padding:0;
+    position:absolute;top:10px;right:10px;z-index:3;width:38px;height:38px;border-radius:50%;
+    border:0;background:rgba(255,255,255,.9);font-size:1.3rem;cursor:pointer;
+  }
+}
+@media(min-width:761px){.menu .fermer{display:none}}
+</style>
+</head>
+
+<body>
+
+<div class="top">
+  <a href="quatre-instants.html" class="retour"><span aria-hidden="true">←</span><span data-i18n="back">Retour</span></a>
+  <button type="button" class="btn-menu" id="ouvrirMenu"><span aria-hidden="true">📜</span><span data-i18n="stories">Les histoires</span></button>
+  <div class="langs" aria-label="Choix de la langue">
+    <button type="button" class="lang-btn active" data-lang="fr">FR</button>
+    <button type="button" class="lang-btn" data-lang="en">EN</button>
+    <button type="button" class="lang-btn" data-lang="nl">NL</button>
+  </div>
+</div>
+
+<div class="grille">
+
+  <!-- MENU (image + 9 titres) -->
+  <div class="menu-col" id="menuCol">
+    <button type="button" class="fond-menu" id="fondMenu" aria-label="Fermer"></button>
+    <nav class="menu" aria-label="Les histoires">
+      <button type="button" class="fermer" id="fermerMenu" aria-label="Fermer">×</button>
+      <h2 lang="fr">Un instant,<span>ou quatre…</span></h2>
+      <ol id="liste" lang="fr"></ol>
+    </nav>
+  </div>
+
+  <!-- HISTOIRE -->
+  <main class="carte histoire" id="histoire" aria-live="polite">
+    <div class="livre-nom">Un instant, ou Quatre…</div>
+    <h1 id="titre" lang="fr"></h1>
+    <span class="tampon" aria-label="Version audio">AUDIO</span>
+    <p class="fr-note" data-i18n="frNote">Histoire en français.</p>
+    <div id="pistes"></div>
+    <div class="actions">
+      <a id="btnLivre" class="btn btn-livre"><span aria-hidden="true">🛒</span><span id="btnLivreTxt"></span></a>
+      <a class="btn btn-contact" href="contact.html"><span aria-hidden="true">✉️</span><span data-i18n="contact">Contactez-moi</span></a>
+      <a class="btn btn-avis" href="temoignages.html"><span aria-hidden="true">⭐</span><span data-i18n="review">Laissez votre avis ! Cela me fait très plaisir !</span></a>
+    </div>
+  </main>
+
+  <!-- DISPONIBLE SUR -->
+  <aside class="carte dispo">
+    <h2 data-i18n="availableOn">Disponible sur :</h2>
+    <div class="plats" id="plateformes"></div>
+  </aside>
+
+</div>
+
+<footer>© 2026 Roy Van Mil</footer>
+
+<script>
+const translations={
+  fr:{back:"Retour",stories:"Les histoires",frNote:"Histoire en français.",
+      soon:"bientôt",soonAudio:"L'audio de cette histoire arrive bientôt…",loading:"Chargement…",part:"Partie",
+      availableOn:"Disponible sur :",buy:"Acheter le livre",buySoon:"Acheter le livre — bientôt",
+      contact:"Contactez-moi",review:"Laissez votre avis ! Cela me fait très plaisir !"},
+  en:{back:"Back",stories:"The stories",frNote:"Story in French.",
+      soon:"soon",soonAudio:"The audio for this story is coming soon…",loading:"Loading…",part:"Part",
+      availableOn:"Available on:",buy:"Buy the book",buySoon:"Buy the book — coming soon",
+      contact:"Contact me",review:"Leave a review! It makes me very happy!"},
+  nl:{back:"Terug",stories:"De verhalen",frNote:"Verhaal in het Frans.",
+      soon:"binnenkort",soonAudio:"De audio van dit verhaal komt binnenkort…",loading:"Laden…",part:"Deel",
+      availableOn:"Beschikbaar op:",buy:"Boek kopen",buySoon:"Boek kopen — binnenkort",
+      contact:"Neem contact op",review:"Laat je mening achter! Daar word ik heel blij van!"}
+};
+let T=translations.fr;
+let actuelle=1;          /* numéro de l'histoire affichée (1 à 9) */
+let fichiers=null;       /* liste des MP3 de l'histoire affichée */
+const cache={};          /* évite de redemander la liste à GitHub */
+
+const PLATEFORMES=[
+  ["spotify","p-spotify","Spotify"],
+  ["deezer","p-deezer","Deezer"],
+  ["apple","p-apple","Apple Podcasts"],
+  ["amazon","p-amazon","Amazon Music"],
+  ["podcast","p-podcast","Podcast"]
+];
+
+/* ----- Menu ----- */
+function dessineMenu(){
+  const ol=document.getElementById("liste");ol.innerHTML="";
+  HISTOIRES.forEach((h,i)=>{
+    const n=i+1,li=document.createElement("li"),b=document.createElement("button");
+    b.type="button";
+    b.innerHTML="<b>"+n+".</b><span class='t'></span>"+(h.dossier?"":"<small>"+T.soon+"</small>");
+    b.querySelector(".t").textContent=h.titre;
+    if(n===actuelle) b.setAttribute("aria-current","true");
+    b.addEventListener("click",()=>{location.hash=n;fermeMenu();});
+    li.appendChild(b);ol.appendChild(li);
+  });
+}
+
+/* ----- Plateformes + bouton livre ----- */
+function dessinePlateformes(){
+  const box=document.getElementById("plateformes");box.innerHTML="";
+  PLATEFORMES.forEach(([cle,classe,nom])=>{
+    const url=LIENS[cle],a=document.createElement(url?"a":"span");
+    a.className="plat "+classe+(url?"":" off");
+    if(url){a.href=url;a.target="_blank";a.rel="noopener noreferrer";a.textContent=nom;}
+    else a.innerHTML=nom+"<small>"+T.soon+"</small>";
+    box.appendChild(a);
+  });
+  const b=document.getElementById("btnLivre"),bt=document.getElementById("btnLivreTxt");
+  if(LIENS.livre){b.href=LIENS.livre;b.target="_blank";b.rel="noopener noreferrer";b.classList.remove("off");bt.textContent=T.buy;}
+  else{b.removeAttribute("href");b.classList.add("off");bt.textContent=T.buySoon;}
+}
+
+/* ----- Lecteurs audio ----- */
+function dessinePistes(){
+  const box=document.getElementById("pistes");
+  const h=HISTOIRES[actuelle-1];
+  if(!h.dossier){box.innerHTML='<div class="attente">'+T.soonAudio+'</div>';return;}
+  if(fichiers===null){box.innerHTML='<div class="attente">'+T.loading+'</div>';return;}
+  if(!fichiers.length){box.innerHTML='<div class="attente">'+T.soonAudio+'</div>';return;}
+  box.innerHTML="";
+  fichiers.forEach((f,i)=>{
+    const d=document.createElement("div");d.className="piste";
+    if(fichiers.length>1){const t=document.createElement("div");t.className="piste-titre";t.textContent=T.part+" "+(i+1);d.appendChild(t);}
+    const au=document.createElement("audio");au.controls=true;au.preload="metadata";au.src=f;
+    au.setAttribute("aria-label",h.titre+(fichiers.length>1?" — "+T.part+" "+(i+1):""));
+    d.appendChild(au);box.appendChild(d);
+  });
+  /* une seule piste à la fois ; la partie suivante démarre toute seule */
+  const tous=[...box.querySelectorAll("audio")];
+  tous.forEach((a,i)=>{
+    a.addEventListener("play",()=>tous.forEach(x=>{if(x!==a)x.pause()}));
+    a.addEventListener("ended",()=>{if(tous[i+1])tous[i+1].play()});
+  });
+}
+
+/* Lit la liste des MP3 du dossier sur GitHub (comme les galeries photos) */
+function chargePistes(){
+  const h=HISTOIRES[actuelle-1];
+  fichiers=null;dessinePistes();
+  if(!h.dossier) return;
+  if(cache[h.dossier]){fichiers=cache[h.dossier];dessinePistes();return;}
+  const n=actuelle;
+  const chemin=("audio/un-instant-ou-quatre/"+h.dossier).split("/").map(encodeURIComponent).join("/");
+  fetch("https://api.github.com/repos/royvanmil/royvanmil-auteur/contents/"+chemin+"?ref=main")
+    .then(r=>r.ok?r.json():[])
+    .then(liste=>{
+      const res=(Array.isArray(liste)?liste:[])
+        .filter(f=>f.type==="file"&&/\.mp3$/i.test(f.name))
+        .sort((a,b)=>a.name.localeCompare(b.name,"fr",{numeric:true}))
+        .map(f=>"/"+f.path.split("/").map(encodeURIComponent).join("/"));
+      cache[h.dossier]=res;
+      if(n===actuelle){fichiers=res;dessinePistes();}
+    })
+    .catch(()=>{if(n===actuelle){fichiers=[];dessinePistes();}});
+}
+
+/* ----- Afficher une histoire ----- */
+function afficheHistoire(){
+  let n=parseInt(location.hash.replace("#",""),10);
+  if(!(n>=1&&n<=HISTOIRES.length)) n=1;
+  actuelle=n;
+  const h=HISTOIRES[n-1];
+  document.getElementById("titre").textContent=h.titre;
+  document.title=h.titre+" — Audio — Roy Van Mil";
+  dessineMenu();
+  chargePistes();
+  compte("audio-quatre-"+String(n).padStart(2,"0"));
+  if(window.innerWidth<=760) window.scrollTo({top:0,behavior:"smooth"});
+}
+window.addEventListener("hashchange",afficheHistoire);
+
+/* ----- Menu mobile ----- */
+const menuCol=document.getElementById("menuCol");
+function ouvreMenu(){menuCol.classList.add("ouvert")}
+function fermeMenu(){menuCol.classList.remove("ouvert")}
+document.getElementById("ouvrirMenu").addEventListener("click",ouvreMenu);
+document.getElementById("fermerMenu").addEventListener("click",fermeMenu);
+document.getElementById("fondMenu").addEventListener("click",fermeMenu);
+document.addEventListener("keydown",e=>{if(e.key==="Escape")fermeMenu()});
+
+/* ----- Langue ----- */
+function setLanguage(lang){
+  T=translations[lang]||translations.fr;
+  document.documentElement.lang=lang;
+  document.querySelectorAll("[data-i18n]").forEach(el=>{const k=el.dataset.i18n;if(T[k]!==undefined) el.innerHTML=T[k];});
+  document.querySelectorAll(".lang-btn").forEach(b=>b.classList.toggle("active",b.dataset.lang===lang));
+  try{localStorage.setItem("royvanmil-lang",lang)}catch(e){}
+  dessineMenu();dessinePlateformes();dessinePistes();
+}
+document.querySelectorAll(".lang-btn").forEach(b=>b.addEventListener("click",()=>setLanguage(b.dataset.lang)));
+
+/* ----- Compteur ----- */
+var API="https://compteurs.royvanmil86.workers.dev";
+function compte(cle){var url=API+"/compte?c="+cle;try{if(navigator.sendBeacon&&navigator.sendBeacon(url))return;}catch(e){}try{fetch(url,{mode:"cors",keepalive:true});}catch(e){}}
+
+/* ----- Démarrage ----- */
+let initial="fr";
+try{
+  const saved=localStorage.getItem("royvanmil-lang");
+  if(saved&&translations[saved]) initial=saved;
+  else{const l=(navigator.language||"fr").toLowerCase();if(l.startsWith("nl"))initial="nl";else if(l.startsWith("en"))initial="en";}
+}catch(e){}
+T=translations[initial];
+afficheHistoire();
+setLanguage(initial);
+</script>
+
+<script src="avis-bouton.js" defer></script>
+</body>
+</html>

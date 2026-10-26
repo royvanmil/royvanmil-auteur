@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IA et moi ? — Roy Van Mil</title>
+<meta name="description" content="Comment Roy Van Mil se sert de l'intelligence artificielle pour ses livres : ce qui vient de lui, ce qui vient de l'IA.">
+<meta name="author" content="Roy Van Mil">
+<link rel="canonical" href="https://royvanmil.fr/ia-et-moi.html">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#f3f7f9; --ink:#22364a; --muted:#56687a; --line:#d9e4ea;
+  --sang:#8a0303; --wine:#2e6e73;
+  --shadow:0 18px 50px rgba(30,55,75,.10);
+  --shadow-soft:0 8px 28px rgba(30,55,75,.07);
+}
+*{box-sizing:border-box}
+body{
+  margin:0;color:var(--ink);
+  background:
+    radial-gradient(circle at 10% 5%,rgba(138,3,3,.06),transparent 26rem),
+    radial-gradient(circle at 90% 10%,rgba(120,170,205,.12),transparent 26rem),
+    var(--bg);
+  font-family:Inter,Arial,sans-serif;line-height:1.7;
+}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+.wrap{width:min(calc(100% - 36px),780px);margin:auto}
+
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:18px 0}
+.retour{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:999px;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow-soft);font-weight:700}
+.retour:hover{border-color:var(--wine)}
+.langs{display:flex;gap:3px;padding:4px;border:1px solid var(--line);border-radius:999px;background:#fff;box-shadow:var(--shadow-soft)}
+.lang-btn{border:0;background:transparent;color:#526374;border-radius:999px;padding:6px 9px;cursor:pointer;font-size:.77rem;font-weight:800}
+.lang-btn.active{background:var(--wine);color:#fff}
+
+.carte{
+  margin-top:14px;padding:48px 52px;border-radius:28px;
+  background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);
+  position:relative;overflow:hidden;
+}
+.carte:before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:var(--sang)}
+.robot{font-size:2.6rem;line-height:1}
+h1{
+  margin:10px 0 4px;font-family:"Cormorant Garamond",Georgia,serif;
+  font-size:clamp(2.8rem,7vw,4.4rem);line-height:1;letter-spacing:-.03em;color:var(--sang);
+}
+.sous{color:var(--muted);font-style:italic;font-family:"Cormorant Garamond",Georgia,serif;font-size:1.3rem;margin:0 0 26px}
+.texte p{font-size:1.1rem;margin:0 0 1.1em}
+.texte strong{color:var(--sang)}
+.signature{
+  margin-top:30px;text-align:right;
+  font-family:"Cormorant Garamond",Georgia,serif;font-style:italic;font-size:1.6rem;color:#5a3a3a;
+}
+.fr-note{margin-top:6px;font-size:.88rem;color:#8a6a6a;text-align:right}
+
+.deux{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:28px}
+.case{padding:20px 22px;border-radius:18px;border:1px solid var(--line);background:#fafcfd}
+.case h2{margin:0 0 6px;font-size:1.05rem}
+.case p{margin:0;color:var(--muted);font-size:.95rem}
+.case.moi{border-color:#e8c9c9;background:#fdf6f6}
+
+.btns{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:30px}
+.btn{min-height:49px;padding:0 20px;border-radius:999px;display:inline-flex;align-items:center;gap:8px;font-weight:700;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow-soft);transition:.2s ease}
+.btn:hover{transform:translateY(-2px)}
+.btn-rouge{background:#a3242c;color:#fff;border-color:#a3242c}
+
+footer{padding:40px 0 120px;color:#56687a;font-size:.9rem;text-align:center}
+
+@media(max-width:600px){
+  .wrap{width:min(calc(100% - 24px),780px)}
+  .carte{padding:30px 22px}
+  .texte p{font-size:1.04rem}
+  .deux{grid-template-columns:1fr}
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrap top">
+  <a href="index.html" class="retour"><span aria-hidden="true">←</span><span data-i18n="back">Retour</span></a>
+  <div class="langs" aria-label="Choix de la langue">
+    <button type="button" class="lang-btn active" data-lang="fr">FR</button>
+    <button type="button" class="lang-btn" data-lang="en">EN</button>
+    <button type="button" class="lang-btn" data-lang="nl">NL</button>
+  </div>
+</div>
+
+<main class="wrap">
+  <article class="carte">
+    <div class="robot" aria-hidden="true">🤖</div>
+    <h1 data-i18n="title">IA et moi ?</h1>
+    <p class="sous" data-i18n="sub">Note : l'intelligence artificielle</p>
+
+    <div class="texte" data-i18n="text">
+      <p>Aujourd'hui, nous sommes entourés d'IA. Cette intelligence artificielle peut aider, réparer, créer… voire détruire. Avec une puissance et une facilité incroyables.</p>
+      <p>Elle sait aussi écrire des histoires. Il existe déjà plein d'images et d'histoires faites sans aucune aide humaine.</p>
+      <p>Alors sachez-le : mes histoires sortent <strong>VRAIMENT</strong> de ma tête. De mon petit cinéma intérieur, où plein d'histoires prennent vie. Je les écris <strong>MOI-MÊME</strong>. Je les vois précisément dans ma tête. Je peux m'y balader, comme une caméra qui flotte à travers les instants…</p>
+      <p>Sachez aussi que l'IA m'aide. Je ne peux donc pas dire que c'est mon histoire à 100 %. Pour éviter que vos yeux saignent, je demande à l'IA de relire chaque histoire et de la remettre en bon français. J'écris vite, avec plein de fautes. Mes mains ne vont pas aussi vite que mes pensées. Mes doigts oublient des touches, et ça donne des phrases bizarres… Lol.</p>
+      <p>Je tiens quand même à vous le dire : ce sont <strong>MES</strong> histoires. Vraiment inventées par mon imagination débordante et mes fantasmes tordus. Lol.</p>
+      <p>Les images, par contre, viennent entièrement de l'IA. Je ne sais pas dessiner. Je veux de jolies images, <strong>EXACTEMENT</strong> comme je les vois dans ma tête. Et ce n'est pas toujours facile. Créer une image avec l'IA, c'est facile. Obtenir exactement l'image que <strong>JE</strong> veux… disons que j'engueule l'IA de temps en temps, parce qu'elle ne fait pas toujours ce que je lui demande…</p>
+      <p>En tout cas, j'espère que <strong>MES</strong> histoires vous plairont. Et que l'IA m'aide assez pour ne pas massacrer la langue française…</p>
+    </div>
+
+    <div class="deux">
+      <div class="case moi">
+        <h2 data-i18n="meTitle">✍️ De moi</h2>
+        <p data-i18n="meText">Les histoires, les idées, les personnages, les mots.</p>
+      </div>
+      <div class="case">
+        <h2 data-i18n="aiTitle">🤖 De l'IA</h2>
+        <p data-i18n="aiText">La relecture du français, et les images.</p>
+      </div>
+    </div>
+
+    <div class="signature">Roy Van Mil</div>
+    <p class="fr-note" data-i18n="frNote"></p>
+  </article>
+
+  <div class="btns">
+    <a href="quatre-instants.html" class="btn btn-rouge">Un instant, ou Quatre… →</a>
+    <a href="index.html" class="btn" data-i18n="allBooks">📚 Tous mes livres</a>
+  </div>
+</main>
+
+<footer>© 2026 Roy Van Mil</footer>
+
+<script>
+const translations={
+  fr:{back:"Retour",title:"IA et moi ?",sub:"Note : l'intelligence artificielle",
+    meTitle:"✍️ De moi",meText:"Les histoires, les idées, les personnages, les mots.",
+    aiTitle:"🤖 De l'IA",aiText:"La relecture du français, et les images.",
+    frNote:"",allBooks:"📚 Tous mes livres"},
+  en:{back:"Back",title:"AI and me?",sub:"A note on artificial intelligence",
+    text:`<p>Today, we are surrounded by AI. This artificial intelligence can help, repair, create… or even destroy. With incredible power and ease.</p>
+<p>It can also write stories. There are already plenty of images and stories made without any human help.</p>
+<p>So know this: my stories <strong>REALLY</strong> come out of my head. From my little inner cinema, where lots of stories come to life. I write them <strong>MYSELF</strong>. I see them precisely in my head. I can wander through them, like a camera floating through the moments…</p>
+<p>Know too that AI helps me. So I can't say the story is 100% mine. To keep your eyes from bleeding, I ask AI to proofread each story and put it into proper French. I write fast, with lots of mistakes. My hands can't keep up with my thoughts. My fingers skip keys, and that gives strange sentences… Lol.</p>
+<p>Still, I want to tell you: these are <strong>MY</strong> stories. Truly invented by my overflowing imagination and my twisted fantasies. Lol.</p>
+<p>The images, on the other hand, come entirely from AI. I can't draw. I want beautiful images, <strong>EXACTLY</strong> as I see them in my head. And that isn't always easy. Creating an image with AI is easy. Getting exactly the image <strong>I</strong> want… let's just say I shout at the AI now and then, because it doesn't always do what I ask…</p>
+<p>Anyway, I hope you'll enjoy <strong>MY</strong> stories. And that AI helps me enough not to butcher the French language…</p>`,
+    meTitle:"✍️ From me",meText:"The stories, the ideas, the characters, the words.",
+    aiTitle:"🤖 From AI",aiText:"Proofreading the French, and the images.",
+    frNote:"My books are written in French.",allBooks:"📚 All my books"},
+  nl:{back:"Terug",title:"AI en ik?",sub:"Een woordje over kunstmatige intelligentie",
+    text:`<p>Vandaag zijn we omringd door AI. Deze kunstmatige intelligentie kan helpen, repareren, creëren… en zelfs vernietigen. Met een ongelooflijke kracht en gemak.</p>
+<p>Ze kan ook verhalen schrijven. Er bestaan al heel veel beelden en verhalen die zonder enige menselijke hulp gemaakt zijn.</p>
+<p>Weet dus dit: mijn verhalen komen <strong>ECHT</strong> uit mijn hoofd. Uit mijn eigen kleine bioscoop vanbinnen, waar heel veel verhalen tot leven komen. Ik schrijf ze <strong>ZELF</strong>. Ik zie ze precies voor me. Ik kan erin rondlopen, als een camera die door de momenten zweeft…</p>
+<p>Weet ook dat AI me helpt. Ik kan dus niet zeggen dat het verhaal voor 100 % van mij is. Om te voorkomen dat je ogen gaan bloeden, vraag ik AI om elk verhaal na te lezen en in goed Frans te zetten. Ik schrijf snel, met veel fouten. Mijn handen gaan niet zo snel als mijn gedachten. Mijn vingers vergeten toetsen, en dan krijg je rare zinnen… Lol.</p>
+<p>Toch wil ik het je zeggen: het zijn <strong>MIJN</strong> verhalen. Echt bedacht door mijn overlopende verbeelding en mijn verknipte fantasieën. Lol.</p>
+<p>De afbeeldingen komen daarentegen helemaal van AI. Ik kan niet tekenen. Ik wil mooie afbeeldingen, <strong>PRECIES</strong> zoals ik ze in mijn hoofd zie. En dat is niet altijd makkelijk. Een afbeelding maken met AI is makkelijk. Precies de afbeelding krijgen die <strong>IK</strong> wil… laten we zeggen dat ik AI af en toe flink uitscheld, omdat ze niet altijd doet wat ik vraag…</p>
+<p>Hoe dan ook, ik hoop dat je <strong>MIJN</strong> verhalen mooi vindt. En dat AI me genoeg helpt om de Franse taal niet te verminken…</p>`,
+    meTitle:"✍️ Van mij",meText:"De verhalen, de ideeën, de personages, de woorden.",
+    aiTitle:"🤖 Van AI",aiText:"Het nalezen van het Frans, en de afbeeldingen.",
+    frNote:"Mijn boeken zijn in het Frans geschreven.",allBooks:"📚 Al mijn boeken"}
+};
+/* Garde le texte français d'origine */
+translations.fr.text=document.querySelector('[data-i18n="text"]').innerHTML;
+
+function setLanguage(lang){
+  const t=translations[lang]||translations.fr;
+  document.documentElement.lang=lang;
+  document.querySelectorAll("[data-i18n]").forEach(el=>{const k=el.dataset.i18n;if(t[k]!==undefined) el.innerHTML=t[k];});
+  document.querySelectorAll(".lang-btn").forEach(b=>b.classList.toggle("active",b.dataset.lang===lang));
+  try{localStorage.setItem("royvanmil-lang",lang)}catch(e){}
+}
+document.querySelectorAll(".lang-btn").forEach(b=>b.addEventListener("click",()=>setLanguage(b.dataset.lang)));
+let initial="fr";
+try{
+  const saved=localStorage.getItem("royvanmil-lang");
+  if(saved&&translations[saved]) initial=saved;
+  else{const l=(navigator.language||"fr").toLowerCase();if(l.startsWith("nl"))initial="nl";else if(l.startsWith("en"))initial="en";}
+}catch(e){}
+setLanguage(initial);
+</script>
+
+<!-- Compteur -->
+<script>
+var API="https://compteurs.royvanmil86.workers.dev";
+function compte(cle){var url=API+"/compte?c="+cle;try{if(navigator.sendBeacon&&navigator.sendBeacon(url))return;}catch(e){}try{fetch(url,{mode:"cors",keepalive:true});}catch(e){}}
+compte("ia-et-moi");
+</script>
+
+<script src="avis-bouton.js" defer></script>
+</body>
+</html>
