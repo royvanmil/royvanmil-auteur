@@ -265,6 +265,40 @@ h2,h3{margin:0;font-family:"Cormorant Garamond",Georgia,serif;line-height:1.05}
 .quick a{color:var(--wine);font-weight:700}
 .centre{display:flex;justify-content:center;margin-top:30px}
 
+/* ===== Bulle 4 : Un instant, ou Quatre… ===== */
+.quatre .visuel{background:linear-gradient(145deg,#f8eeea,#ecdfd8)}
+.quatre h3{color:#a3242c}
+.label-rouge{background:#f8e3e3;color:#a3242c}
+.btn-rouge{background:#a3242c;color:#fff;box-shadow:0 10px 26px rgba(163,36,44,.2)}
+.btn-rouge:hover{background:#861c23}
+
+/* ===== Rectangle IA et moi (sous Nederlandse website) ===== */
+.btn-ia{
+  position:absolute;left:0;top:64px;
+  display:inline-flex;align-items:center;gap:.55rem;
+  padding:.6rem 1.2rem;border-radius:10px;
+  background:#8a0303;border:2px solid #5c0000;
+  box-shadow:0 8px 20px rgba(138,3,3,.3);
+  font-weight:800;font-size:1.08rem;color:#fff;transition:.2s ease;
+}
+.btn-ia:hover{transform:translateY(-2px);background:#a30808}
+.btn-ia span:first-child{font-size:1.25rem;line-height:1}
+
+/* ===== 2 LED autour du bouton Amazon ===== */
+.amazon-ligne{display:inline-flex;align-items:center;gap:18px;margin-top:22px}
+.amazon-ligne .btn-amazon{margin-top:0}
+.led{
+  width:14px;height:14px;border-radius:50%;flex-shrink:0;
+  background:#e69500;
+  animation:led 1.6s ease-in-out infinite;
+}
+.led-2{animation-delay:.8s}
+@keyframes led{
+  0%,40%,100%{background:#c98200;box-shadow:0 0 0 0 rgba(255,191,31,0);transform:scale(1)}
+  20%{background:#ffd23f;box-shadow:0 0 0 5px rgba(255,191,31,.35),0 0 16px 4px rgba(255,191,31,.8);transform:scale(1.15)}
+}
+@media(prefers-reduced-motion:reduce){.led{animation:none}}
+
 /* ===== Footer ===== */
 footer{padding:40px 0 120px;color:#56687a;font-size:.9rem}
 .footer-inner{
@@ -304,6 +338,7 @@ footer{padding:40px 0 120px;color:#56687a;font-size:.9rem}
   .visuel{min-height:360px}
   .quick-grid{grid-template-columns:1fr}
   .support{grid-template-columns:1fr}
+  .quatre .visuel{order:-1}
 }
 @media(max-width:680px){
   .wrap{width:min(calc(100% - 24px),var(--max))}
@@ -322,6 +357,8 @@ footer{padding:40px 0 120px;color:#56687a;font-size:.9rem}
   .intro{padding:26px 0 26px}
   .nl-coin{height:auto;text-align:center;margin-bottom:18px}
   .btn-nl{position:static}
+  .btn-ia{position:static;margin:20px auto 0}
+  .nl-coin{display:flex;flex-direction:column;align-items:center}
   .bulle-un{padding:18px;gap:22px}
   .visuel{min-height:320px}
   .couv{width:min(210px,66%)}
@@ -377,12 +414,17 @@ Bienvenue sur le site des Microhistoires de Roy Van Mil. Des histoires audio vou
   <section class="intro">
     <div class="wrap nl-coin">
       <a href="NL/indexNL.html" class="btn-nl" lang="nl" hreflang="nl"><svg class="nl-vlag" viewBox="0 0 3 2" aria-hidden="true"><rect width="3" height="2" fill="#21468B"/><rect width="3" height="1.333" fill="#fff"/><rect width="3" height=".667" fill="#AE1C28"/></svg><span>Nederlandse website</span></a>
+      <a href="ia-et-moi.html" class="btn-ia"><span aria-hidden="true">🤖</span><span data-i18n="iaLink">IA et moi ?</span></a>
     </div>
     <div class="wrap">
       <h1 data-i18n="chooseBook">Choisissez votre livre</h1>
-      <a class="btn btn-amazon"
-         href="https://www.amazon.fr/stores/author/B0HH4KJ7HN/allbooks"
-         target="_blank" rel="noopener noreferrer"><span aria-hidden="true">🛒</span><span data-i18n="buyAmazon">Acheter sur Amazon</span></a>
+      <div class="amazon-ligne">
+        <span class="led led-1" aria-hidden="true"></span>
+        <a class="btn btn-amazon"
+           href="https://www.amazon.fr/stores/author/B0HH4KJ7HN/allbooks"
+           target="_blank" rel="noopener noreferrer"><span aria-hidden="true">🛒</span><span data-i18n="buyAmazon">Acheter sur Amazon</span></a>
+        <span class="led led-2" aria-hidden="true"></span>
+      </div>
     </div>
   </section>
 
@@ -443,6 +485,21 @@ Bienvenue sur le site des Microhistoires de Roy Van Mil. Des histoires audio vou
           <a href="la-cloche-des-morts.html" aria-label="La Cloche des Morts">
             <img class="couv" src="img/couv-cloche.png" alt="Couverture La Cloche des Morts">
           </a>
+        </div>
+      </article>
+
+      <!-- BULLE 4 : BIENTÔT — UN INSTANT, OU QUATRE… -->
+      <article class="bulle bulle-un quatre">
+        <div class="visuel">
+          <a href="quatre-instants.html" aria-label="Un instant, ou Quatre…">
+            <img class="couv" src="img/Couverture_Un_instant_ou_Quatre.jpg" alt="Couverture Un instant, ou Quatre…">
+          </a>
+        </div>
+        <div class="texte">
+          <span class="label label-rouge" data-i18n="fourLabel">Bientôt</span>
+          <h3>Un instant,<br>ou Quatre…</h3>
+          <p data-i18n="fourText">Le prochain recueil de microhistoires arrive. De nouvelles histoires pour rire, être surpris… et peut-être laisser couler une larme.</p>
+          <a href="quatre-instants.html" class="btn btn-rouge" data-i18n="fourButton">Découvrir →</a>
         </div>
       </article>
 
@@ -509,7 +566,9 @@ Bienvenue sur le site des Microhistoires de Roy Van Mil. Des histoires audio vou
       <a href="cette-maison.html">Cette maison</a>
       <a href="un-instant.html">Un instant, ou Deux…</a>
       <a href="trois-instants.html">Un instant, ou Trois…</a>
+      <a href="quatre-instants.html">Un instant, ou Quatre…</a>
       <a href="la-cloche-des-morts.html">La Cloche des Morts</a>
+      <a href="ia-et-moi.html" data-i18n="iaLink">IA et moi ?</a>
       <a href="NL/indexNL.html" lang="nl">🇳🇱 Nederlandse website</a>
       <a href="IndexPhotos.html" class="lien-photo" aria-label="Photographe" title="Photographe">📷</a>
     </div>
@@ -557,7 +616,11 @@ const translations = {
     contactMe:"✒️ Me contacter",
     popupTitle:"Un petit coup de pouce ?",
     popupText:"La cagnotte aide à financer de nouvelles histoires audio enregistrées par une vraie voix professionnelle et mises gratuitement à disposition.",
-    popupButton:"Voir la cagnotte →"
+    popupButton:"Voir la cagnotte →",
+    fourLabel:"Bientôt",
+    fourText:"Le prochain recueil de microhistoires arrive. De nouvelles histoires pour rire, être surpris… et peut-être laisser couler une larme.",
+    fourButton:"Découvrir →",
+    iaLink:"IA et moi ?"
   },
   en:{
     srWelcome:"Welcome to the short stories of Roy Van Mil. Audio stories are specially made for you if you are blind or visually impaired, to surprise you, make you smile or cry. The first link below takes you straight to the stories to listen to.",
@@ -584,7 +647,11 @@ const translations = {
     contactMe:"✒️ Contact me",
     popupTitle:"Would you like to help?",
     popupText:"The fundraiser helps finance new audio stories recorded by a professional human voice and made available for free.",
-    popupButton:"View the fundraiser →"
+    popupButton:"View the fundraiser →",
+    fourLabel:"Coming soon",
+    fourText:"The next collection of short stories is on its way. New stories to make you laugh, surprise you… and maybe bring a tear to your eye.",
+    fourButton:"Discover →",
+    iaLink:"AI and me?"
   },
   nl:{
     srWelcome:"Welkom bij de korte verhalen van Roy Van Mil. Er zijn audioverhalen speciaal voor jou als je blind of slechtziend bent, om je te verrassen, te laten glimlachen of te ontroeren. De eerste link hieronder brengt je rechtstreeks naar de verhalen om te beluisteren.",
@@ -611,7 +678,11 @@ const translations = {
     contactMe:"✒️ Neem contact op",
     popupTitle:"Wil je een handje helpen?",
     popupText:"De inzamelingsactie helpt nieuwe audioverhalen te financieren die door een professionele menselijke stem worden ingesproken en gratis beschikbaar zijn.",
-    popupButton:"Bekijk de inzamelingsactie →"
+    popupButton:"Bekijk de inzamelingsactie →",
+    fourLabel:"Binnenkort",
+    fourText:"De volgende bundel korte verhalen komt eraan. Nieuwe verhalen om te lachen, verrast te worden… en misschien een traantje te laten.",
+    fourButton:"Ontdekken →",
+    iaLink:"AI en ik?"
   }
 };
 
