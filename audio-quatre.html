@@ -383,7 +383,6 @@ function afficheHistoire(){
   document.title=titre+" — Audio — Roy Van Mil";
   dessineMenu();
   dessinePistes();
-  compte("audio-quatre-"+String(n).padStart(2,"0"));
   if(window.innerWidth<=760) window.scrollTo({top:0,behavior:"smooth"});
 }
 window.addEventListener("hashchange",afficheHistoire);
@@ -423,6 +422,7 @@ T=translations[initial];
 afficheHistoire();
 setLanguage(initial);
 chargePistes();
+compte("audio-quatre");   /* une visite par chargement de la page */
 </script>
 
 <script src="avis-bouton.js" defer></script>
