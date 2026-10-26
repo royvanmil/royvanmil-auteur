@@ -15,25 +15,29 @@
 /* =========================================================
    RÉGLAGES (à modifier ici seulement)
    ---------------------------------------------------------
-   HISTOIRES : pour chaque histoire, le nom du dossier audio
-   sur GitHub, dans audio/un-instant-ou-quatre/
-   - dossier vide ""  →  « bientôt » en rouge dans le menu
-   - la page lit TOUTE SEULE les .mp3 du dossier
-     (partie 1, partie 2… dans l'ordre des noms)
+   AUDIO : rien à régler ici.
+   La page lit TOUTE SEULE les .mp3 du dossier GitHub
+   audio/un-instant-ou-quatre/
+   Le numéro au début du nom choisit l'histoire :
+     06-V1-64k-Rencontre_nocturne.mp3  →  histoire 6
+     09-…partie_1.mp3 et 09-…partie_2.mp3  →  histoire 9
+   Pas de MP3 pour une histoire  →  « bientôt » dans le menu.
 
    LIENS : colle l'adresse entre les guillemets.
    Vide ""  →  le bouton s'affiche en gris « bientôt ».
    ========================================================= */
+const DOSSIER_AUDIO = "audio/un-instant-ou-quatre";
+
 const HISTOIRES = [
-  { titre: "La maison des partages",   dossier: "" },
-  { titre: "Le distributeur",          dossier: "" },
-  { titre: "L'observateur silencieux", dossier: "" },
-  { titre: "Je suis différent…",       dossier: "" },
-  { titre: "L'horloge d'entre-vous",   dossier: "" },
-  { titre: "Rencontre nocturne",       dossier: "06-Rencontre-Nocturne" },
-  { titre: "La famille robot",         dossier: "" },
-  { titre: "Immersif",                 dossier: "" },
-  { titre: "Le bout du monde",         dossier: "09-le-bout-du-monde" }
+  "La maison des partages",
+  "Le distributeur",
+  "L'observateur silencieux",
+  "Je suis différent…",
+  "L'horloge d'entre-vous",
+  "Rencontre nocturne",
+  "La famille robot",
+  "Immersif",
+  "Le bout du monde"
 ];
 
 const LIENS = {
@@ -286,8 +290,7 @@ const translations={
 };
 let T=translations.fr;
 let actuelle=1;          /* numéro de l'histoire affichée (1 à 9) */
-let fichiers=null;       /* liste des MP3 de l'histoire affichée */
-const cache={};          /* évite de redemander la liste à GitHub */
+let PISTES=null;         /* MP3 trouvés : {6:[...], 9:[...]} (null = en chargement) */
 
 const PLATEFORMES=[
   ["spotify","p-spotify","Spotify"],
@@ -300,11 +303,12 @@ const PLATEFORMES=[
 /* ----- Menu ----- */
 function dessineMenu(){
   const ol=document.getElementById("liste");ol.innerHTML="";
-  HISTOIRES.forEach((h,i)=>{
+  HISTOIRES.forEach((titre,i)=>{
     const n=i+1,li=document.createElement("li"),b=document.createElement("button");
+    const bientot=PISTES!==null&&!(PISTES[n]&&PISTES[n].length);
     b.type="button";
-    b.innerHTML="<b>"+n+".</b><span class='t'></span>"+(h.dossier?"":"<small>"+T.soon+"</small>");
-    b.querySelector(".t").textContent=h.titre;
+    b.innerHTML="<b>"+n+".</b><span class='t'></span>"+(bientot?"<small>"+T.soon+"</small>":"");
+    b.querySelector(".t").textContent=titre;
     if(n===actuelle) b.setAttribute("aria-current","true");
     b.addEventListener("click",()=>{location.hash=n;fermeMenu();});
     li.appendChild(b);ol.appendChild(li);
@@ -329,16 +333,16 @@ function dessinePlateformes(){
 /* ----- Lecteurs audio ----- */
 function dessinePistes(){
   const box=document.getElementById("pistes");
-  const h=HISTOIRES[actuelle-1];
-  if(!h.dossier){box.innerHTML='<div class="attente">'+T.soonAudio+'</div>';return;}
-  if(fichiers===null){box.innerHTML='<div class="attente">'+T.loading+'</div>';return;}
+  const titre=HISTOIRES[actuelle-1];
+  if(PISTES===null){box.innerHTML='<div class="attente">'+T.loading+'</div>';return;}
+  const fichiers=PISTES[actuelle]||[];
   if(!fichiers.length){box.innerHTML='<div class="attente">'+T.soonAudio+'</div>';return;}
   box.innerHTML="";
   fichiers.forEach((f,i)=>{
     const d=document.createElement("div");d.className="piste";
     if(fichiers.length>1){const t=document.createElement("div");t.className="piste-titre";t.textContent=T.part+" "+(i+1);d.appendChild(t);}
     const au=document.createElement("audio");au.controls=true;au.preload="metadata";au.src=f;
-    au.setAttribute("aria-label",h.titre+(fichiers.length>1?" — "+T.part+" "+(i+1):""));
+    au.setAttribute("aria-label",titre+(fichiers.length>1?" — "+T.part+" "+(i+1):""));
     d.appendChild(au);box.appendChild(d);
   });
   /* une seule piste à la fois ; la partie suivante démarre toute seule */
@@ -349,25 +353,24 @@ function dessinePistes(){
   });
 }
 
-/* Lit la liste des MP3 du dossier sur GitHub (comme les galeries photos) */
+/* Lit UNE fois la liste des MP3 du dossier sur GitHub (comme les galeries photos)
+   et les range par numéro d'histoire (06-… → 6) */
 function chargePistes(){
-  const h=HISTOIRES[actuelle-1];
-  fichiers=null;dessinePistes();
-  if(!h.dossier) return;
-  if(cache[h.dossier]){fichiers=cache[h.dossier];dessinePistes();return;}
-  const n=actuelle;
-  const chemin=("audio/un-instant-ou-quatre/"+h.dossier).split("/").map(encodeURIComponent).join("/");
+  const chemin=DOSSIER_AUDIO.split("/").map(encodeURIComponent).join("/");
   fetch("https://api.github.com/repos/royvanmil/royvanmil-auteur/contents/"+chemin+"?ref=main")
     .then(r=>r.ok?r.json():[])
     .then(liste=>{
-      const res=(Array.isArray(liste)?liste:[])
-        .filter(f=>f.type==="file"&&/\.mp3$/i.test(f.name))
+      const res={};
+      (Array.isArray(liste)?liste:[])
+        .filter(f=>f.type==="file"&&/^\d+.*\.mp3$/i.test(f.name))
         .sort((a,b)=>a.name.localeCompare(b.name,"fr",{numeric:true}))
-        .map(f=>"/"+f.path.split("/").map(encodeURIComponent).join("/"));
-      cache[h.dossier]=res;
-      if(n===actuelle){fichiers=res;dessinePistes();}
+        .forEach(f=>{
+          const n=parseInt(f.name,10);
+          (res[n]=res[n]||[]).push("/"+f.path.split("/").map(encodeURIComponent).join("/"));
+        });
+      PISTES=res;dessineMenu();dessinePistes();
     })
-    .catch(()=>{if(n===actuelle){fichiers=[];dessinePistes();}});
+    .catch(()=>{PISTES={};dessineMenu();dessinePistes();});
 }
 
 /* ----- Afficher une histoire ----- */
@@ -375,11 +378,11 @@ function afficheHistoire(){
   let n=parseInt(location.hash.replace("#",""),10);
   if(!(n>=1&&n<=HISTOIRES.length)) n=1;
   actuelle=n;
-  const h=HISTOIRES[n-1];
-  document.getElementById("titre").textContent=h.titre;
-  document.title=h.titre+" — Audio — Roy Van Mil";
+  const titre=HISTOIRES[n-1];
+  document.getElementById("titre").textContent=titre;
+  document.title=titre+" — Audio — Roy Van Mil";
   dessineMenu();
-  chargePistes();
+  dessinePistes();
   compte("audio-quatre-"+String(n).padStart(2,"0"));
   if(window.innerWidth<=760) window.scrollTo({top:0,behavior:"smooth"});
 }
@@ -419,6 +422,7 @@ try{
 T=translations[initial];
 afficheHistoire();
 setLanguage(initial);
+chargePistes();
 </script>
 
 <script src="avis-bouton.js" defer></script>
