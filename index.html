@@ -114,6 +114,7 @@ button{font:inherit}
 }
 .menu a:hover{transform:translateY(-2px);filter:brightness(1.1)}
 .menu-ico{font-size:1.25rem;line-height:1}
+.m-video{background:#7a1018;box-shadow:0 8px 20px rgba(122,16,24,.28)}
 .m-audio{background:#1f3a5f}
 .m-contact{background:#111}
 .m-avis{
@@ -349,9 +350,9 @@ footer{padding:40px 0 120px;color:#56687a;font-size:.9rem}
   .brand small{display:none}
   .brand-logo{height:40px}
   .nav-right{gap:10px;display:contents}
-  .menu{order:3;width:100%;justify-content:center;gap:8px;padding-bottom:6px}
-  .menu a{min-height:42px;padding:0 13px;font-size:.92rem;gap:6px}
-  .menu-ico{font-size:1.05rem}
+  .menu{order:3;width:100%;max-width:340px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:8px;padding-bottom:6px}
+  .menu a{min-height:42px;padding:0 10px;font-size:.9rem;gap:6px;justify-content:center}
+  .menu-ico{font-size:.95rem}
   .langs{padding:3px}
   .lang-btn{padding:5px 7px;font-size:.7rem}
   .intro{padding:26px 0 26px}
@@ -394,6 +395,7 @@ Bienvenue sur le site des Microhistoires de Roy Van Mil. Des histoires audio vou
 
     <div class="nav-right">
       <nav class="menu" aria-label="Navigation principale">
+        <a href="videos.html" class="m-video"><span class="menu-ico" aria-hidden="true">🎬</span><span data-i18n="navVideo">Vidéo</span></a>
         <a href="Piste-Audio.html" class="m-audio"><span class="menu-ico" aria-hidden="true">🔊</span><span data-i18n="navAudio">Audio</span></a>
         <a href="temoignages.html" class="m-avis"><span class="menu-ico" aria-hidden="true">👍</span><span data-i18n="navReviews">Avis</span></a>
         <a href="contact.html" class="m-contact"><span class="menu-ico" aria-hidden="true">✉️</span><span data-i18n="navContact">Contact</span></a>
@@ -595,7 +597,7 @@ const translations = {
     srWelcome:"Bienvenue sur le site des Microhistoires de Roy Van Mil. Des histoires audio vous sont spécialement dédiées si vous êtes aveugle ou malvoyant, pour vous surprendre, sourire ou pleurer. Le premier lien ci-dessous vous conduit directement aux histoires à écouter.",
     audioBannerMain:"PAGE AUDIO — pour aveugles & malvoyants",
     audioBannerSub:"Des histoires à écouter gratuitement • lecture d'écran intégrée",
-    author:"Auteur", navAudio:"Audio", navReviews:"Avis", navContact:"Contact",
+    author:"Auteur", navVideo:"Vidéo", navAudio:"Audio", navReviews:"Avis", navContact:"Contact",
     chooseBook:"Choisissez votre livre", buyAmazon:"Acheter sur Amazon",
     techLabel:"Livre technique",
     techText:"Un livre concret pour regarder une maison autrement : comprendre, repérer et mieux appréhender ce qui se cache derrière les murs.",
@@ -626,7 +628,7 @@ const translations = {
     srWelcome:"Welcome to the short stories of Roy Van Mil. Audio stories are specially made for you if you are blind or visually impaired, to surprise you, make you smile or cry. The first link below takes you straight to the stories to listen to.",
     audioBannerMain:"AUDIO PAGE — for blind & visually impaired listeners",
     audioBannerSub:"Free audio stories • screen-reader friendly",
-    author:"Author", navAudio:"Audio", navReviews:"Reviews", navContact:"Contact",
+    author:"Author", navVideo:"Video", navAudio:"Audio", navReviews:"Reviews", navContact:"Contact",
     chooseBook:"Choose your book", buyAmazon:"Buy on Amazon",
     techLabel:"Technical book",
     techText:"A practical book to help you look at a house differently: understand it, spot important details and see what may be hidden behind the walls.",
@@ -657,7 +659,7 @@ const translations = {
     srWelcome:"Welkom bij de korte verhalen van Roy Van Mil. Er zijn audioverhalen speciaal voor jou als je blind of slechtziend bent, om je te verrassen, te laten glimlachen of te ontroeren. De eerste link hieronder brengt je rechtstreeks naar de verhalen om te beluisteren.",
     audioBannerMain:"AUDIOPAGINA — voor blinde & slechtziende luisteraars",
     audioBannerSub:"Gratis verhalen om te beluisteren • geschikt voor schermlezers",
-    author:"Schrijver", navAudio:"Audio", navReviews:"Reacties", navContact:"Contact",
+    author:"Schrijver", navVideo:"Video", navAudio:"Audio", navReviews:"Reacties", navContact:"Contact",
     chooseBook:"Kies je boek", buyAmazon:"Kopen op Amazon",
     techLabel:"Technisch boek",
     techText:"Een praktisch boek waarmee je anders naar een huis leert kijken: begrijpen, belangrijke details herkennen en ontdekken wat er achter de muren kan schuilgaan.",
