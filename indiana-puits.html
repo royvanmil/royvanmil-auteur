@@ -64,16 +64,15 @@ body.panne #nuit{background:#000 !important;opacity:.98 !important}
 body.panne #faisceau{opacity:0 !important}
 body.panne #indy .led{opacity:.08 !important;animation:none}
 
-/* les GRANDS yeux à la fin */
-#yeux{position:fixed;inset:0;z-index:13;background:#000;display:flex;justify-content:center;gap:4vw;align-items:center;opacity:0;pointer-events:none;transition:opacity .4s}
-#yeux.on{opacity:1}
-.oeil{width:min(46vw,72vh);height:min(46vw,72vh);overflow:visible;transform:scaleY(.02);filter:drop-shadow(0 0 40px rgba(255,20,0,.7)) drop-shadow(0 0 90px rgba(200,0,0,.45))}
-#yeux.on .oeil{animation:regard 4.4s ease-in-out forwards}
-@keyframes regard{0%{transform:scaleY(.02)}12%{transform:scaleY(1)}40%{transform:scaleY(1)}42%{transform:scaleY(.04)}45%{transform:scaleY(1)}70%{transform:scaleY(1)}71.5%{transform:scaleY(.04)}74%{transform:scaleY(1)}100%{transform:scaleY(1)}}
-.pupille{animation:fixe 4.4s ease-in-out forwards}
-.pupille{transform-origin:150px 150px}
-@keyframes fixe{0%,20%{transform:translate(0,0)}30%{transform:translate(-10px,4px)}48%{transform:translate(10px,4px)}60%,100%{transform:translate(0,0) scale(1.06)}}
-#yeux.on .oeil:nth-child(2){animation-delay:.05s}
+/* les grands yeux dans la terre, de chaque côté du fond du puits */
+.oeilT{position:absolute;transform:translate(-50%,-50%);opacity:0;transition:opacity 2.5s;pointer-events:none}
+.oeilT.on{opacity:1}
+.oeilT{mix-blend-mode:screen}
+.oeilT img{width:100%;height:100%;display:block;transform-origin:50% 55%;
+  -webkit-mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,#000 55%,transparent 100%);mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,#000 55%,transparent 100%)}
+.oeilT.on img{animation:clignote 7s ease-in-out infinite}
+.oeilT.d.on img{animation-delay:.08s}
+@keyframes clignote{0%,46%,50%,88%,92%,100%{transform:scaleY(1)}48%,90%{transform:scaleY(.05)}}
 
 /* terre en couches */
 .terre{position:absolute;left:0;right:0;top:var(--sol);bottom:0;
@@ -185,10 +184,19 @@ body.panne #indy .led{opacity:.08 !important;animation:none}
 #treuil button:active,#treuil button.appui{background:radial-gradient(circle at 40% 35%,#6a5232,#2a1e12);transform:scale(.95)}
 #treuil .roue{width:58px;height:58px}
 #treuil .roue svg{width:100%;height:100%;transition:transform .05s linear}
-#treuil .vite{width:46px !important;height:46px !important;font-size:1.15rem !important;opacity:.85}
+#treuil .vite{width:46px !important;height:46px !important;font-family:Arial,sans-serif;font-size:.62rem !important;font-weight:800;line-height:1.05;letter-spacing:.04em;color:#1a120a !important;background:radial-gradient(circle at 40% 35%,#ffb066,#c8501a) !important;border-color:#ffcf9f !important;flex-direction:column}
+#treuil .vite.appui,#treuil .vite:active{background:radial-gradient(circle at 40% 35%,#ffc48a,#e0682a) !important}
 #treuil .corde{width:4px;height:30px;background:repeating-linear-gradient(170deg,#c8a86a 0 4px,#8a6a3a 4px 8px);border-radius:2px}
 #treuil small{font-family:'Cormorant Garamond',serif;font-size:.85rem;color:var(--creme-doux);text-align:center;line-height:1.1}
-@media(max-width:700px){#treuil{right:6px;padding:8px 6px;gap:6px}#treuil button{width:48px;height:48px}#treuil .vite{width:42px !important;height:42px !important}#treuil .corde{height:14px}#treuil .roue{width:46px;height:46px}}
+@media(max-width:700px){
+  /* sur téléphone : le treuil passe en bas, à l'horizontale, pour laisser voir les yeux */
+  #treuil{flex-direction:row;top:auto;bottom:10px;right:50%;transform:translateX(50%);padding:6px 10px;gap:6px}
+  #treuil small,#treuil .corde{display:none}
+  #treuil button{width:50px;height:50px}#treuil .vite{width:46px !important;height:46px !important}#treuil .roue{width:44px;height:44px}
+  #treuil #descendre{order:4}#treuil #descendreVite{order:5}#treuil .roue{order:3}#treuil #monter{order:2}#treuil #monterVite{order:1}
+  #retour{bottom:auto !important;top:70px !important;left:10px;font-size:.95rem;padding:.4rem .8rem}
+  #fin{bottom:86px !important}
+}
 #retour{position:fixed;z-index:8;bottom:14px;left:14px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.05rem;
   color:var(--laiton-clair);background:rgba(18,16,14,.72);border:1px solid rgba(201,162,94,.4);border-radius:40px;padding:.55rem 1rem;text-decoration:none}
 #vraie{position:fixed;inset:0;z-index:8;background:#000 center/cover no-repeat;opacity:0;pointer-events:none;transition:opacity 2.5s}
@@ -303,7 +311,7 @@ body.bug #scene,body.bug #lumieres{filter:contrast(1.25) saturate(.5) brightness
 
 <div id="treuil" role="group" aria-label="Treuil d'Indy">
   <small>Remonter</small>
-  <button type="button" id="monterVite" class="vite" aria-label="Remonter vite (rester appuyé)">⏫</button>
+  <button type="button" id="monterVite" class="vite" aria-label="Remonter vite (rester appuyé)">VITE<br>▲</button>
   <button type="button" id="monter" aria-label="Remonter doucement (rester appuyé)">▲</button>
   <div class="corde" aria-hidden="true"></div>
   <div class="roue" aria-hidden="true"><svg viewBox="0 0 60 60" id="roue"><circle cx="30" cy="30" r="24" fill="none" stroke="#c9a25e" stroke-width="4"/>
@@ -311,43 +319,14 @@ body.bug #scene,body.bug #lumieres{filter:contrast(1.25) saturate(.5) brightness
     <rect x="44" y="8" width="8" height="16" rx="3" fill="#6b4a2c" stroke="#c9a25e"/></svg></div>
   <div class="corde" aria-hidden="true"></div>
   <button type="button" id="descendre" aria-label="Descendre doucement (rester appuyé)">▼</button>
-  <button type="button" id="descendreVite" class="vite" aria-label="Descendre vite (rester appuyé)">⏬</button>
+  <button type="button" id="descendreVite" class="vite" aria-label="Descendre vite (rester appuyé)">▼<br>VITE</button>
   <small>Descendre</small>
 </div>
 
 <div id="vraie" aria-hidden="true"></div>
 <canvas id="grain" width="160" height="100" aria-hidden="true"></canvas>
 <div id="signal" aria-hidden="true">SIGNAL PERDU…</div>
-<div id="yeux" aria-hidden="true">
-  <svg class="oeil" viewBox="0 0 300 300">
-    <defs>
-      <radialGradient id="rouge" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#2a0000"/><stop offset=".28" stop-color="#3a0000"/><stop offset=".36" stop-color="#ff3a2a"/><stop offset=".5" stop-color="#ff1a0a"/><stop offset=".72" stop-color="#b30000"/><stop offset=".9" stop-color="#4a0000"/><stop offset="1" stop-color="#4a0000" stop-opacity="0"/></radialGradient>
-      <radialGradient id="halo" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ff2010" stop-opacity=".55"/><stop offset=".55" stop-color="#a00000" stop-opacity=".25"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
-      <filter id="flou"><feGaussianBlur stdDeviation="3"/></filter>
-    </defs>
-    <circle cx="150" cy="150" r="150" fill="url(#halo)"/>
-    <g class="pupille">
-      <circle cx="150" cy="150" r="92" fill="url(#rouge)" filter="url(#flou)"/>
-      <circle cx="150" cy="150" r="30" fill="#140000"/>
-      <circle cx="150" cy="150" r="12" fill="#ffd8c8" opacity=".85" filter="url(#flou)"/>
-      <circle cx="122" cy="118" r="9" fill="#fff" opacity=".7" filter="url(#flou)"/>
-    </g>
-  </svg>
-  <svg class="oeil" viewBox="0 0 300 300">
-    <defs>
-      <radialGradient id="rouge2" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#2a0000"/><stop offset=".28" stop-color="#3a0000"/><stop offset=".36" stop-color="#ff3a2a"/><stop offset=".5" stop-color="#ff1a0a"/><stop offset=".72" stop-color="#b30000"/><stop offset=".9" stop-color="#4a0000"/><stop offset="1" stop-color="#4a0000" stop-opacity="0"/></radialGradient>
-      <radialGradient id="halo2" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ff2010" stop-opacity=".55"/><stop offset=".55" stop-color="#a00000" stop-opacity=".25"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
-      <filter id="flou2"><feGaussianBlur stdDeviation="3"/></filter>
-    </defs>
-    <circle cx="150" cy="150" r="150" fill="url(#halo2)"/>
-    <g class="pupille">
-      <circle cx="150" cy="150" r="92" fill="url(#rouge2)" filter="url(#flou2)"/>
-      <circle cx="150" cy="150" r="30" fill="#140000"/>
-      <circle cx="150" cy="150" r="12" fill="#ffd8c8" opacity=".85" filter="url(#flou2)"/>
-      <circle cx="122" cy="118" r="9" fill="#fff" opacity=".7" filter="url(#flou2)"/>
-    </g>
-  </svg>
-</div>
+
 <div id="fin">
   <p>Indy a touché le fond… et il y a d'autres puits qui t'attendent.</p>
   <a href="indiana-puits-liste.html">Explorer les puits →</a>
@@ -565,6 +544,8 @@ body.bug #scene,body.bug #lumieres{filter:contrast(1.25) saturate(.5) brightness
     objetsEl.appendChild(r);
   }
 
+  var OEIL = '<svg viewBox="0 0 300 300"> <defs> <radialGradient id="rougeID" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#2a0000"/><stop offset=".28" stop-color="#3a0000"/><stop offset=".36" stop-color="#ff3a2a"/><stop offset=".5" stop-color="#ff1a0a"/><stop offset=".72" stop-color="#b30000"/><stop offset=".9" stop-color="#4a0000"/><stop offset="1" stop-color="#4a0000" stop-opacity="0"/></radialGradient> <radialGradient id="haloID" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ff2010" stop-opacity=".55"/><stop offset=".55" stop-color="#a00000" stop-opacity=".25"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient> <filter id="flouID"><feGaussianBlur stdDeviation="3"/></filter> </defs> <circle cx="150" cy="150" r="150" fill="url(#haloID)"/> <g > <circle cx="150" cy="150" r="92" fill="url(#rougeID)" filter="url(#flouID)"/> <circle cx="150" cy="150" r="30" fill="#140000"/> <circle cx="150" cy="150" r="12" fill="#ffd8c8" opacity=".85" filter="url(#flouID)"/> <circle cx="122" cy="118" r="9" fill="#fff" opacity=".7" filter="url(#flouID)"/> </g> </svg>';
+
   /* --- lumières dans le noir --- */
   var lum = document.getElementById("lumieres");
   for (i = 0; i < 70; i++){                       // vers luisants sur les murs
@@ -587,6 +568,18 @@ body.bug #scene,body.bug #lumieres{filter:contrast(1.25) saturate(.5) brightness
     e.style.left = "calc(50% + " + ((n%2 ? 1 : -1) * (demiPuits + 22)) + "px)"; e.style.top = (SOL + y) + "px";
     e.style.animationDelay = (n*1.3) + "s"; lum.appendChild(e);
   });
+  // les deux grands yeux, cachés dans la terre de chaque côté du fond
+  var NUM_YEUX = 1 + Math.floor(Math.random() * 5);      // une des 5 paires d'yeux, au hasard à chaque visite
+  var TAILLE_OEIL = mobile ? 120 : 300, yeuxTerre = [];
+  [-1, 1].forEach(function(cote){
+    var o = document.createElement("div"); o.className = "oeilT " + (cote < 0 ? "g" : "d");
+    o.style.width = TAILLE_OEIL + "px"; o.style.height = (TAILLE_OEIL * .73) + "px";
+    o.style.left = "calc(50% + " + (cote * (demiPuits + (mobile ? 22 : 30) + TAILLE_OEIL * (mobile ? .05 : .5))) + "px)";
+    o.style.top = (SOL + FOND - 120) + "px";
+    o.innerHTML = '<img src="img/puits/yeux' + NUM_YEUX + '-' + (cote < 0 ? 'g' : 'd') + '.jpg" alt="">';
+    lum.appendChild(o); yeuxTerre.push(o);
+  });
+
   for (i = 0; i < 14; i++){                       // étincelles sur le trésor
     var et = document.createElement("div"); et.className = "etincelle";
     et.style.left = "calc(50% + " + (10 + Math.random()*110) + "px)"; et.style.top = (SOL + FOND - 40 + Math.random()*60) + "px";
@@ -689,7 +682,6 @@ body.bug #scene,body.bug #lumieres{filter:contrast(1.25) saturate(.5) brightness
   /* --- au fond : l'écran grésille, puis la vraie image apparaît --- */
   var grain = document.getElementById("grain"), signal = document.getElementById("signal"), gctx = grain.getContext("2d");
   var phase = "rien", debutGrain = 0, debutYeux = 0, img = gctx.createImageData(160, 100);
-  var yeux = document.getElementById("yeux");
   // image « buggée », hors réseau : bandes noires, micro-coupures, image qui saute (pas de neige blanche)
   function bruit(t){
     gctx.clearRect(0, 0, 160, 100);
@@ -705,7 +697,7 @@ body.bug #scene,body.bug #lumieres{filter:contrast(1.25) saturate(.5) brightness
   }
   function finDuPuits(auFond, t){
     if (!auFond){
-      if (phase !== "rien"){ phase = "rien"; yeux.classList.remove("on"); document.body.classList.remove("bug"); grain.classList.remove("on"); signal.classList.remove("on");
+      if (phase !== "rien"){ phase = "rien"; document.body.classList.remove("bug"); grain.classList.remove("on"); signal.classList.remove("on");
         fin.classList.remove("on"); vraie.classList.remove("on"); }
       return;
     }
@@ -717,15 +709,12 @@ body.bug #scene,body.bug #lumieres{filter:contrast(1.25) saturate(.5) brightness
       document.body.classList.toggle("bug", e < 1900);
       if (e > 1100) signal.textContent = "SIGNAL RETROUVÉ";
       if (e > 1900) signal.classList.remove("on");
-      if (e > 2100){                                   // place aux GRANDS yeux
-        phase = "yeux"; debutYeux = t; grain.classList.remove("on"); grain.style.opacity = "";
-        document.body.classList.remove("bug"); yeux.classList.add("on");
+      if (e > 2100){                                   // le signal revient… et deux yeux nous regardent depuis la terre
+        phase = "fini"; grain.classList.remove("on"); grain.style.opacity = "";
+        document.body.classList.remove("bug");
+        yeuxTerre.forEach(function(o){ o.classList.add("on"); });
+        setTimeout(function(){ if (phase === "fini") fin.classList.add("on"); }, 3200);
       }
-    }
-    if (phase === "yeux" && t - debutYeux > 4600){
-      phase = "fini"; yeux.classList.remove("on");
-      if (vraieOk) vraie.classList.add("on");
-      setTimeout(function(){ if (phase === "fini") fin.classList.add("on"); }, vraieOk ? 1200 : 300);
     }
   }
 
