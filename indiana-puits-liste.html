@@ -61,6 +61,10 @@ main{max-width:1200px;margin:0 auto;padding:0 1.25rem 3rem}
 .btn{display:inline-flex;align-items:center;gap:.45rem;min-height:46px;padding:.55rem 1.1rem;border-radius:40px;text-decoration:none;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:1.1rem}
 .btn.or{background:linear-gradient(#f0d48f,#c9a25e);color:#1a120a}
 .btn.ligne{border:1px solid var(--laiton);color:var(--laiton-clair);background:rgba(0,0,0,.3)}
+.accord{display:inline-flex;align-items:center;gap:.5rem;margin-top:1rem;padding:.45rem .9rem;border-radius:40px;font-weight:500;font-size:1rem;border:1px solid}
+.accord.oui{color:#a8e08a;border-color:#6ea04f;background:rgba(110,160,79,.15)}
+.accord.non{color:#ff9a8a;border-color:#b23a2c;background:rgba(178,58,44,.18)}
+.accord.attente{color:var(--laiton-clair);border-color:rgba(201,162,94,.5);background:rgba(201,162,94,.1)}
 .note{font-size:.95rem;color:var(--creme-doux);font-style:italic;margin-top:1rem}
 
 /* plein écran */
@@ -106,6 +110,7 @@ var PUITS = [
     horsSol: "≈ 0,65 m",
     profondeur: "à mesurer",
     lat: 43.7642, lon: 0.3439,
+    accord: "attente",   // accord du propriétaire : "oui" | "non" | "attente" (pas encore demandé)
     note: "",
     photos: ["img/puits/piquet-1.jpg","img/puits/piquet-2.jpg","img/puits/piquet-3.jpg","img/puits/piquet-4.jpg","img/puits/piquet-5.jpg","img/puits/piquet-6.jpg"]
   }
@@ -118,6 +123,7 @@ var PUITS = [
     horsSol: "à mesurer",
     profondeur: "à mesurer",
     lat: 43.737311, lon: 0.479919,
+    accord: "attente",   // accord du propriétaire : "oui" | "non" | "attente" (pas encore demandé)
     note: "",
     photos: ["img/puits/puits2-1.jpg","img/puits/puits2-2.jpg","img/puits/puits2-3.jpg"]
   }
@@ -130,6 +136,7 @@ var PUITS = [
     horsSol: "à mesurer",
     profondeur: "à mesurer",
     lat: 43.736378, lon: 0.480336,
+    accord: "attente",   // accord du propriétaire : "oui" | "non" | "attente" (pas encore demandé)
     note: "",
     photos: ["img/puits/puits3-1.jpg","img/puits/puits3-2.jpg","img/puits/puits3-3.jpg","img/puits/puits3-4.jpg"]
   }
@@ -142,6 +149,7 @@ var PUITS = [
     horsSol: "à mesurer",
     profondeur: "à mesurer",
     lat: 43.800089, lon: 0.308078,
+    accord: "attente",   // accord du propriétaire : "oui" | "non" | "attente" (pas encore demandé)
     note: "",
     photos: []
   }
@@ -150,6 +158,7 @@ var PUITS = [
 
 function esc(t){ return String(t).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
 var courant = null;
+var ACCORD = { oui: "✅ Accord du propriétaire : oui", non: "⛔ Accord du propriétaire : non", attente: "⏳ Accord du propriétaire : pas encore demandé" };
 
 function vignettes(){
   var h = "";
@@ -185,6 +194,7 @@ function montrer(id){
     '<div class="boutons"><a class="btn or" href="' + earth + '" target="_blank" rel="noopener">🌍 Google Earth</a>' +
     '<a class="btn ligne" href="' + maps + '" target="_blank" rel="noopener">🗺️ Google Maps</a></div>'
     : '<div class="gps">📍 GPS : bientôt…</div>') +
+    '<div><span class="accord ' + (ACCORD[p.accord] ? p.accord : 'attente') + '">' + (ACCORD[p.accord] || ACCORD.attente) + '</span></div>' +
     (p.note ? '<p class="note">' + esc(p.note) + '</p>' : '') +
     '</div>';
   if (history.replaceState) history.replaceState(null, "", "#" + p.id);
