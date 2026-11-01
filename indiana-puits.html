@@ -47,17 +47,14 @@ html,body{background:#050403;color:var(--creme);font-family:'EB Garamond',Georgi
 
 /* le puits */
 .puits{position:absolute;top:calc(var(--sol) - 130px);bottom:380px;left:50%;width:calc(var(--puitsL) + 60px);margin-left:calc((var(--puitsL) + 60px) / -2);}
-.mur{position:absolute;top:0;bottom:0;width:30px;
-  background:
-   repeating-linear-gradient(0deg,rgba(0,0,0,.55) 0 3px,transparent 3px 34px),
-   repeating-linear-gradient(90deg,rgba(0,0,0,.35) 0 2px,transparent 2px 15px),
-   linear-gradient(90deg,#7c6e60,#a39280 50%,#6c5f52)}
+.mur{position:absolute;top:0;bottom:0;width:30px;background-color:#3a3029;background-repeat:repeat-y;background-size:30px auto;
+  box-shadow:inset -6px 0 10px rgba(0,0,0,.45),inset 6px 0 10px rgba(0,0,0,.25)}
 .mur.g{left:0;border-radius:6px 0 0 0}.mur.d{right:0;border-radius:0 6px 0 0}
-.interieur{position:absolute;top:130px;bottom:0;left:30px;right:30px;
-  background:linear-gradient(90deg,#140f0b,#241a12 20%,#2c2117 50%,#241a12 80%,#140f0b)}
-.margelle{position:absolute;top:-8px;left:-14px;right:-14px;height:34px;border-radius:8px;
-  background:repeating-linear-gradient(90deg,#9a8a78 0 46px,#6e6052 46px 49px),#9a8a78;
-  box-shadow:inset 0 -6px 0 rgba(0,0,0,.35),0 6px 14px rgba(0,0,0,.5)}
+.interieur{position:absolute;top:130px;bottom:0;left:30px;right:30px;background-color:#1c1612;background-repeat:repeat-y;background-size:100% auto}
+.interieur::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(90deg,rgba(0,0,0,.92),rgba(0,0,0,.45) 18%,rgba(0,0,0,.15) 50%,rgba(0,0,0,.45) 82%,rgba(0,0,0,.92))}
+.margelle{position:absolute;top:-10px;left:-16px;right:-16px;height:40px;border-radius:10px 10px 4px 4px;background-color:#7a6c5c;background-size:auto 100%;
+  box-shadow:inset 0 -8px 10px rgba(0,0,0,.45),0 8px 16px rgba(0,0,0,.55)}
 /* portique en bois + poulie */
 .portique{position:absolute;top:calc(var(--sol) - 420px);left:50%;width:360px;margin-left:-180px;height:300px;pointer-events:none}
 .poteau{position:absolute;bottom:0;width:18px;height:300px;background:linear-gradient(90deg,#4a321e,#6b4a2c,#4a321e);border-radius:4px}
@@ -112,7 +109,7 @@ html,body{background:#050403;color:var(--creme);font-family:'EB Garamond',Georgi
 /* ===== OBSCURITÉ + LAMPE (fixe) ===== */
 #nuit{position:fixed;inset:0;pointer-events:none;z-index:4;opacity:0;
   background:radial-gradient(ellipse 260px 330px at var(--lx,50%) var(--ly,45%),rgba(0,0,0,0) 0,rgba(0,0,0,0) 35%,rgba(0,0,0,.6) 70%,rgba(0,0,0,.93) 100%)}
-#faisceau{position:fixed;pointer-events:none;z-index:3;width:260px;height:340px;opacity:0;
+#faisceau{position:fixed;pointer-events:none;z-index:3;width:300px;height:380px;opacity:0;
   background:radial-gradient(ellipse at 50% 0%,rgba(255,236,170,.32),rgba(255,236,170,.08) 55%,transparent 72%);
   clip-path:polygon(42% 0,58% 0,100% 100%,0 100%);mix-blend-mode:screen}
 
@@ -129,7 +126,7 @@ html,body{background:#050403;color:var(--creme);font-family:'EB Garamond',Georgi
 
 /* ===== INDY ===== */
 #cable{position:fixed;left:50%;width:2px;margin-left:-1px;background:linear-gradient(#a8a8a8,#6a6a6a);z-index:5;top:0}
-#indy{position:fixed;left:50%;width:74px;height:62px;margin-left:-37px;z-index:6;transform-origin:50% 0}
+#indy{position:fixed;left:50%;width:120px;height:70px;margin-left:-60px;z-index:6;transform-origin:50% 0}
 #indy svg{width:100%;height:100%;overflow:visible}
 .led{animation:led 1.2s ease-in-out infinite}
 @keyframes led{0%,100%{opacity:.75}50%{opacity:1}}
@@ -195,19 +192,28 @@ html,body{background:#050403;color:var(--creme);font-family:'EB Garamond',Georgi
 
 <div id="lumieres"></div>
 <div id="cable"></div>
-<div id="indy" aria-label="Indy, la caméra">
-  <svg viewBox="0 0 74 62" aria-hidden="true">
-    <rect x="35" y="0" width="4" height="8" fill="#555"/>
-    <rect x="8" y="8" width="58" height="38" rx="8" fill="#2a2a2e" stroke="#555" stroke-width="2"/>
-    <rect x="12" y="12" width="50" height="6" rx="3" fill="#3a3a40"/>
-    <circle cx="37" cy="29" r="12" fill="#111" stroke="#777" stroke-width="3"/>
-    <circle cx="37" cy="29" r="6" fill="#1f3a5a"/>
-    <circle cx="34" cy="26" r="2" fill="#9cc6ff"/>
-    <rect class="led" x="0" y="20" width="8" height="14" rx="3" fill="#fff6c8"/>
-    <rect class="led" x="66" y="20" width="8" height="14" rx="3" fill="#fff6c8"/>
-    <rect class="led" x="25" y="46" width="24" height="6" rx="3" fill="#fff6c8"/>
-    <circle class="rec" cx="57" cy="15" r="3" fill="#ff3b3b"/>
-    <text x="16" y="17" font-size="6" fill="#c9a25e" font-family="monospace" font-weight="bold">INDY</text>
+<div id="indy" aria-label="Indy, la caméra avec ses deux lampes">
+  <svg viewBox="0 0 120 70" aria-hidden="true">
+    <defs>
+      <linearGradient id="tube" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#e8e8ea"/><stop offset=".5" stop-color="#9a9ca0"/><stop offset="1" stop-color="#5a5c60"/></linearGradient>
+      <linearGradient id="torche" x1="0" x2="1"><stop offset="0" stop-color="#111"/><stop offset=".45" stop-color="#3a3a3e"/><stop offset="1" stop-color="#0c0c0e"/></linearGradient>
+      <linearGradient id="bleu" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#3f8fd8"/><stop offset="1" stop-color="#1c4f8a"/></linearGradient>
+      <radialGradient id="verre"><stop offset="0" stop-color="#ffffff"/><stop offset=".45" stop-color="#fff3c0"/><stop offset="1" stop-color="#d8b860"/></radialGradient>
+    </defs>
+    <line x1="60" y1="0" x2="60" y2="12" stroke="#777" stroke-width="2"/>
+    <path d="M60 12 L36 22 M60 12 L84 22" stroke="#888" stroke-width="1.5"/>
+    <rect x="18" y="20" width="84" height="5" rx="2.5" fill="url(#tube)"/>
+    <rect x="22" y="24" width="4" height="16" rx="2" fill="url(#tube)"/>
+    <rect x="94" y="24" width="4" height="16" rx="2" fill="url(#tube)"/>
+    <g transform="rotate(14 18 34)"><rect x="6" y="22" width="16" height="36" rx="5" fill="url(#torche)"/><rect x="4" y="52" width="20" height="10" rx="4" fill="#222"/><ellipse class="led" cx="14" cy="62" rx="9" ry="3.5" fill="url(#verre)"/></g>
+    <g transform="rotate(-14 102 34)"><rect x="98" y="22" width="16" height="36" rx="5" fill="url(#torche)"/><rect x="96" y="52" width="20" height="10" rx="4" fill="#222"/><ellipse class="led" cx="106" cy="62" rx="9" ry="3.5" fill="url(#verre)"/></g>
+    <rect x="42" y="28" width="36" height="28" rx="4" fill="url(#bleu)" stroke="#0e2f55" stroke-width="1.5"/>
+    <rect x="44" y="30" width="32" height="5" rx="2" fill="#5aa6ea" opacity=".6"/>
+    <circle cx="60" cy="44" r="9" fill="#0a0a0c" stroke="#9aa6b2" stroke-width="2.5"/>
+    <circle cx="60" cy="44" r="4.5" fill="#1d3550"/><circle cx="58" cy="42" r="1.6" fill="#9cc6ff"/>
+    <text x="45" y="53" font-size="5" fill="#e8f2ff" font-family="Arial" font-weight="bold">4K</text>
+    <circle class="rec" cx="73" cy="33" r="2" fill="#ff3b3b"/>
+    <text x="47" y="34" font-size="4.2" fill="#e8f2ff" font-family="monospace" font-weight="bold">INDY</text>
   </svg>
 </div>
 
@@ -234,6 +240,64 @@ html,body{background:#050403;color:var(--creme);font-family:'EB Garamond',Georgi
   var objetsEl = document.getElementById("objets");
   var mobile = window.innerWidth < 700;
   var demiPuits = (mobile ? 170 : 240) / 2;
+
+  /* --- vieilles pierres irrégulières, toutes différentes --- */
+  function alea(a, b){ return a + Math.random() * (b - a); }
+  function pierres(largeur, hauteur, sombre){
+    var cv = document.createElement("canvas"); cv.width = largeur; cv.height = hauteur;
+    var g = cv.getContext("2d");
+    g.fillStyle = sombre ? "#1a1410" : "#2a221b"; g.fillRect(0, 0, largeur, hauteur);    // mortier / terre
+    var teintes = sombre
+      ? [[70,60,50],[84,72,58],[62,56,50],[92,80,64],[54,48,42],[76,70,62]]
+      : [[107,93,79],[133,116,99],[90,78,68],[154,135,112],[77,68,60],[118,108,96],[96,88,74]];
+    var y = 0;
+    while (y < hauteur){
+      var h = alea(16, 42), x = -alea(0, 30);
+      while (x < largeur){
+        var w = alea(18, 64), t = teintes[Math.floor(Math.random()*teintes.length)], v = alea(-14, 14);
+        var c = "rgb(" + (t[0]+v|0) + "," + (t[1]+v|0) + "," + (t[2]+v|0) + ")";
+        var j = 4;                                  // forme irrégulière
+        g.beginPath();
+        g.moveTo(x + alea(1, j+2), y + alea(1, j));
+        g.lineTo(x + w*alea(.3,.6), y + alea(0, j));
+        g.lineTo(x + w - alea(1, j+2), y + alea(1, j+1));
+        g.lineTo(x + w - alea(0, j), y + h*alea(.4,.6));
+        g.lineTo(x + w - alea(1, j+2), y + h - alea(1, j));
+        g.lineTo(x + w*alea(.4,.7), y + h - alea(0, j));
+        g.lineTo(x + alea(1, j+2), y + h - alea(1, j+1));
+        g.lineTo(x + alea(0, j), y + h*alea(.4,.6));
+        g.closePath();
+        g.fillStyle = c; g.fill();
+        var gr = g.createLinearGradient(x, y, x, y + h);                  // relief
+        gr.addColorStop(0, "rgba(255,240,210,.18)"); gr.addColorStop(.5, "rgba(0,0,0,0)"); gr.addColorStop(1, "rgba(0,0,0,.35)");
+        g.fillStyle = gr; g.fill();
+        for (var k = 0; k < w*h/40; k++){                                 // grain de la pierre
+          g.fillStyle = Math.random() < .5 ? "rgba(0,0,0,.18)" : "rgba(255,255,255,.07)";
+          g.fillRect(x + Math.random()*w, y + Math.random()*h, alea(1,2.5), alea(1,2.5));
+        }
+        if (Math.random() < .12){                                         // fissure
+          g.strokeStyle = "rgba(0,0,0,.45)"; g.lineWidth = 1; g.beginPath();
+          var fx = x + alea(4, w-4), fy = y + 3; g.moveTo(fx, fy);
+          for (var f = 0; f < 4; f++){ fx += alea(-5, 5); fy += h/5; g.lineTo(fx, fy); } g.stroke();
+        }
+        if (Math.random() < (sombre ? .22 : .14)){                        // mousse / salpêtre
+          g.fillStyle = Math.random() < .7 ? "rgba(60,90,40,.45)" : "rgba(220,215,190,.25)";
+          for (var mo = 0; mo < 14; mo++){ g.beginPath(); g.arc(x + alea(0,w), y + alea(h*.5,h), alea(1.5,4.5), 0, 6.3); g.fill(); }
+        }
+        x += w + alea(1, 4);
+      }
+      y += h + alea(1, 4);
+    }
+    for (var c2 = 0; c2 < largeur/14; c2++){                              // traînées d'humidité
+      var cx = Math.random()*largeur, gr2 = g.createLinearGradient(0, 0, 0, hauteur);
+      g.fillStyle = "rgba(0,0,0," + alea(.08,.22) + ")"; g.fillRect(cx, alea(0, hauteur*.5), alea(3,10), alea(150, hauteur));
+    }
+    return cv.toDataURL("image/jpeg", .82);
+  }
+  var murL = mobile ? 30 : 30, tuile = pierres(murL * 2, 1800, false);
+  document.querySelectorAll(".mur").forEach(function(m){ m.style.backgroundImage = "url(" + tuile + ")"; });
+  document.querySelector(".interieur").style.backgroundImage = "url(" + pierres((mobile ? 170 : 240), 1800, true) + ")";
+  document.querySelector(".margelle").style.backgroundImage = "url(" + pierres(400, 46, false) + ")";
 
   /* --- étoiles --- */
   var ciel = document.getElementById("ciel");
@@ -401,8 +465,8 @@ html,body{background:#050403;color:var(--creme);font-family:'EB Garamond',Georgi
     nuit.style.opacity = noir;
     nuit.style.setProperty("--ly", (indyY + 40) + "px");
     faisceau.style.opacity = noir;
-    faisceau.style.top = (indyY + 50) + "px";
-    faisceau.style.left = (window.innerWidth/2 - 130) + "px";
+    faisceau.style.top = (indyY + 58) + "px";
+    faisceau.style.left = (window.innerWidth/2 - 150) + "px";
 
     // profondeur affichée
     var m = Math.max(0, sousSol) / (FOND + 20) * PROF_M;
