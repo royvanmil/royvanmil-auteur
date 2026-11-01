@@ -109,6 +109,18 @@ var PUITS = [
     note: "",
     photos: ["img/puits/piquet-1.jpg","img/puits/piquet-2.jpg","img/puits/piquet-3.jpg","img/puits/piquet-4.jpg","img/puits/piquet-5.jpg","img/puits/piquet-6.jpg"]
   }
+  ,{
+    id: "puits2",
+    nom: "Le puits à la poulie",
+    lieu: "Lieu à compléter",
+    description: "Une margelle en grosses pierres, fermée par une plaque de tôle rouillée. Au-dessus, un arceau de fer avec sa vieille poulie. Dedans, les parois sont couvertes de mousse et de petites fougères, et le puits plonge dans le noir. Juste à côté : une vieille maison en pierre et un grand bassin ovale envahi de lentilles d’eau, avec une roue en fer.",
+    diametre: "à mesurer",
+    horsSol: "à mesurer",
+    profondeur: "à mesurer",
+    lat: null, lon: null,
+    note: "",
+    photos: ["img/puits/puits2-1.jpg","img/puits/puits2-2.jpg","img/puits/puits2-3.jpg"]
+  }
   // , { id:"...", nom:"...", ... }   ← le puits suivant
 ];
 
@@ -133,7 +145,8 @@ function montrer(id){
   var minis = p.photos.map(function(src, i){
     return '<button type="button" aria-pressed="' + (i === 0) + '" data-src="' + esc(src) + '" aria-label="Photo ' + (i+1) + '"><img src="' + esc(src) + '" alt=""></button>';
   }).join("");
-  var gps = p.lat.toFixed(5) + ", " + p.lon.toFixed(5);
+  var aGps = typeof p.lat === "number" && typeof p.lon === "number";
+  var gps = aGps ? p.lat.toFixed(5) + ", " + p.lon.toFixed(5) : "";
   var earth = "https://earth.google.com/web/search/" + p.lat + "," + p.lon;
   var maps = "https://www.google.com/maps/search/?api=1&query=" + p.lat + "," + p.lon;
   document.getElementById("detail").innerHTML =
@@ -143,9 +156,10 @@ function montrer(id){
     '<div class="mesures"><div class="mesure"><b>' + esc(p.diametre) + '</b><span>diamètre</span></div>' +
     '<div class="mesure"><b>' + esc(p.horsSol) + '</b><span>hors sol</span></div>' +
     '<div class="mesure"><b>' + esc(p.profondeur) + '</b><span>profondeur</span></div></div>' +
-    '<div class="gps">📍 GPS : ' + gps + '</div>' +
+    (aGps ? '<div class="gps">📍 GPS : ' + gps + '</div>' +
     '<div class="boutons"><a class="btn or" href="' + earth + '" target="_blank" rel="noopener">🌍 Google Earth</a>' +
-    '<a class="btn ligne" href="' + maps + '" target="_blank" rel="noopener">🗺️ Google Maps</a></div>' +
+    '<a class="btn ligne" href="' + maps + '" target="_blank" rel="noopener">🗺️ Google Maps</a></div>'
+    : '<div class="gps">📍 GPS : bientôt…</div>') +
     (p.note ? '<p class="note">' + esc(p.note) + '</p>' : '') +
     '</div>';
   if (history.replaceState) history.replaceState(null, "", "#" + p.id);
