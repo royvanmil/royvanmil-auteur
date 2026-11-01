@@ -129,6 +129,25 @@
     .chapeau{width:96px;top:1rem;left:1rem}
     .wrap{padding-top:8rem}
   }
+
+  /* ---- mini puits sans fond ---- */
+  .mini-puits{display:block;margin:3.2rem auto 6rem;width:min(320px,86vw);text-decoration:none;color:var(--creme);text-align:center}
+  .mini-puits svg{width:100%;height:auto;display:block;overflow:visible}
+  .mini-puits .lgd{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.45rem;color:var(--laiton-clair);margin-top:.4rem}
+  .mini-puits .sub{font-style:italic;color:var(--creme-doux);font-size:1rem}
+  .mini-puits:hover .trou{filter:brightness(1.25)}
+  .mini-puits:focus-visible{outline:2px solid var(--laiton-clair);outline-offset:8px;border-radius:12px}
+  .mp-tourbillon{transform-origin:160px 118px;animation:mpTourne 14s linear infinite}
+  @keyframes mpTourne{to{transform:rotate(360deg)}}
+  .mp-fil{animation:mpFil 6s ease-in-out infinite}
+  @keyframes mpFil{0%,100%{transform:translateY(-22px)}50%{transform:translateY(0)}}
+  .mp-caillou{animation:mpChute 5s ease-in infinite}
+  @keyframes mpChute{0%,55%{transform:translate(0,0) scale(1);opacity:0}58%{opacity:1}100%{transform:translate(4px,44px) scale(.1);opacity:0}}
+  .mp-yeux{animation:mpYeux 9s infinite}
+  @keyframes mpYeux{0%,70%,100%{opacity:0}74%,86%{opacity:1}79%{opacity:.1}}
+  .mp-seau{transform-origin:160px 22px;animation:mpBalance 4s ease-in-out infinite}
+  @keyframes mpBalance{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+  @media (prefers-reduced-motion: reduce){.mini-puits *{animation:none !important}}
 </style>
 </head>
 <body>
@@ -169,6 +188,49 @@
         </span>
       </a>
     </div>
+
+    <a class="mini-puits" href="indiana-puits.html" aria-label="Un puits sans fond : descendre avec Indy">
+      <svg viewBox="0 0 320 230" aria-hidden="true">
+        <defs>
+          <radialGradient id="mpNoir" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#000"/><stop offset=".55" stop-color="#050302"/><stop offset=".85" stop-color="#1c130c"/><stop offset="1" stop-color="#3a2a1c"/></radialGradient>
+          <linearGradient id="mpPierre" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#a39480"/><stop offset="1" stop-color="#5e5244"/></linearGradient>
+          <linearGradient id="mpBois" x1="0" x2="1"><stop offset="0" stop-color="#4a321e"/><stop offset=".5" stop-color="#6b4a2c"/><stop offset="1" stop-color="#4a321e"/></linearGradient>
+        </defs>
+        <!-- portique -->
+        <rect x="62" y="16" width="10" height="120" rx="3" fill="url(#mpBois)"/>
+        <rect x="248" y="16" width="10" height="120" rx="3" fill="url(#mpBois)"/>
+        <rect x="54" y="10" width="212" height="12" rx="5" fill="url(#mpBois)"/>
+        <circle cx="160" cy="18" r="9" fill="#3a3a3a" stroke="#8a8a8a" stroke-width="3"/>
+        <!-- fil + Indy qui monte et descend -->
+        <g class="mp-fil">
+          <line x1="160" y1="22" x2="160" y2="78" stroke="#b8b8b8" stroke-width="1.5"/>
+          <rect x="146" y="78" width="28" height="15" rx="3" fill="#2f78c0" stroke="#0e2f55"/>
+          <circle cx="160" cy="85.5" r="4.5" fill="#0a0a0c" stroke="#9aa6b2" stroke-width="1.5"/>
+          <rect x="138" y="80" width="7" height="12" rx="2" fill="#1a1a1c"/><rect x="175" y="80" width="7" height="12" rx="2" fill="#1a1a1c"/>
+          <path d="M141 92 L128 120 L156 120Z M179 92 L164 120 L192 120Z" fill="#fff3c0" opacity=".22"/>
+        </g>
+        <!-- trou sans fond -->
+        <ellipse class="trou" cx="160" cy="132" rx="102" ry="34" fill="url(#mpNoir)"/>
+        <g class="mp-tourbillon" opacity=".35">
+          <path d="M160 118 m-70 14 a70 22 0 1 1 140 0" fill="none" stroke="#c9a25e" stroke-width="1" stroke-dasharray="3 9"/>
+          <path d="M160 118 m-45 14 a45 14 0 1 0 90 0" fill="none" stroke="#c9a25e" stroke-width="1" stroke-dasharray="2 7"/>
+        </g>
+        <g class="mp-yeux"><ellipse cx="146" cy="136" rx="4" ry="2.4" fill="#ff2a1a"/><ellipse cx="174" cy="136" rx="4" ry="2.4" fill="#ff2a1a"/></g>
+        <circle class="mp-caillou" cx="196" cy="108" r="3" fill="#c8b895"/>
+        <!-- margelle en pierres -->
+        <path d="M52 132 Q52 170 160 172 Q268 170 268 132 L268 196 Q268 222 160 224 Q52 222 52 196Z" fill="url(#mpPierre)"/>
+        <g stroke="#3a3027" stroke-width="2" fill="none" opacity=".75">
+          <path d="M52 158 Q160 190 268 158"/><path d="M54 182 Q160 214 266 182"/>
+          <path d="M84 158 L82 180 M122 166 L120 192 M160 170 L160 196 M200 166 L202 192 M238 158 L240 180"/>
+          <path d="M66 186 L64 206 M102 196 L101 214 M140 200 L140 220 M180 200 L180 220 M218 196 L219 214 M254 186 L256 206"/>
+        </g>
+        <ellipse cx="160" cy="132" rx="108" ry="38" fill="none" stroke="#8a7a68" stroke-width="10"/>
+        <ellipse cx="160" cy="132" rx="108" ry="38" fill="none" stroke="#b8a892" stroke-width="2" opacity=".6"/>
+        <path d="M90 104 q8 -6 14 0 M222 102 q8 -6 14 0" stroke="#4a6a3a" stroke-width="4" fill="none" stroke-linecap="round" opacity=".8"/>
+      </svg>
+      <div class="lgd">Le puits sans fond</div>
+      <div class="sub">Oseras-tu y descendre Indy ?</div>
+    </a>
   </div>
 
   <script>
