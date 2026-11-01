@@ -143,7 +143,14 @@ html,body{background:#050403;color:var(--creme);font-family:'EB Garamond',Georgi
 #vraie{position:fixed;inset:0;z-index:8;background:#000 center/cover no-repeat;opacity:0;pointer-events:none;transition:opacity 2.5s}
 #vraie.on{opacity:1}
 #vraie::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 55%,rgba(0,0,0,.85))}
-#fin{position:fixed;z-index:9;left:50%;bottom:9vh;transform:translate(-50%,30px);opacity:0;pointer-events:none;transition:all .8s;text-align:center;width:min(92vw,520px)}
+#grain{position:fixed;inset:0;z-index:9;width:100%;height:100%;image-rendering:pixelated;opacity:0;pointer-events:none}
+#grain.on{opacity:1}
+#signal{position:fixed;z-index:10;left:50%;top:44%;transform:translate(-50%,-50%);font-family:ui-monospace,Menlo,Consolas,monospace;
+  font-size:clamp(1.1rem,4vw,1.6rem);color:#e8f2d8;background:rgba(0,0,0,.6);padding:.5rem 1rem;border:1px solid rgba(232,242,216,.5);
+  letter-spacing:.15em;opacity:0;pointer-events:none;text-shadow:2px 0 #f33,-2px 0 #3cf}
+#signal.on{opacity:1;animation:tremble .12s steps(2) infinite}
+@keyframes tremble{50%{transform:translate(calc(-50% + 3px),calc(-50% - 2px))}}
+#fin{position:fixed;z-index:11;left:50%;bottom:9vh;transform:translate(-50%,30px);opacity:0;pointer-events:none;transition:all .8s;text-align:center;width:min(92vw,520px)}
 #fin.on{opacity:1;transform:translate(-50%,0);pointer-events:auto}
 #fin p{font-style:italic;color:var(--creme);font-size:1.15rem;margin-bottom:.8rem;text-shadow:0 2px 10px #000}
 #fin a{display:inline-flex;align-items:center;gap:.6rem;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:1.4rem;
@@ -228,6 +235,8 @@ html,body{background:#050403;color:var(--creme);font-family:'EB Garamond',Georgi
 <a id="retour" href="indiana-fraise.html">← Retour</a>
 
 <div id="vraie" aria-hidden="true"></div>
+<canvas id="grain" width="160" height="100" aria-hidden="true"></canvas>
+<div id="signal" aria-hidden="true">SIGNAL PERDU…</div>
 <div id="fin">
   <p>Indy a touché le fond… et il y a d'autres puits qui t'attendent.</p>
   <a href="indiana-puits-liste.html">Explorer les puits →</a>
@@ -398,7 +407,7 @@ html,body{background:#050403;color:var(--creme);font-family:'EB Garamond',Georgi
     el.style.width = (mobile ? o.w*0.8 : o.w) + "px";
     el.style.height = (mobile ? o.h*0.8 : o.h) + "px";
     el.innerHTML = (o.b ? '<div class="eclat"></div>' : '') + D[o.t];
-    essayerImage(el, o.t);
+    // essayerImage(el, o.t);   // désactivé : la descente reste en style rétro
     objetsEl.appendChild(el);
     objets.push({el: el, y: SOL + o.y});
   });
@@ -505,11 +514,41 @@ html,body{background:#050403;color:var(--creme);font-family:'EB Garamond',Georgi
 
     // au fond : le bouton
     var auFond = cible > maxScroll() - 40 && Math.abs(cible - actuel) < 60;
-    fin.classList.toggle("on", auFond);
-    if (vraieOk) vraie.classList.toggle("on", auFond);
+    finDuPuits(auFond, t);
 
     requestAnimationFrame(boucle);
   }
+  /* --- au fond : l'écran grésille, puis la vraie image apparaît --- */
+  var grain = document.getElementById("grain"), signal = document.getElementById("signal"), gctx = grain.getContext("2d");
+  var phase = "rien", debutGrain = 0, img = gctx.createImageData(160, 100);
+  function bruit(t){
+    var d = img.data, barre = (t / 6) % 100;
+    for (var p = 0; p < d.length; p += 4){
+      var ligne = (p / 4 / 160) | 0, v = Math.random() * 255;
+      if (Math.abs(ligne - barre) < 6) v = 200 + Math.random() * 55;      // barre qui défile
+      if (ligne % 2) v *= .75;                                              // lignes de balayage
+      d[p] = d[p+1] = d[p+2] = v; d[p+3] = 255;
+    }
+    gctx.putImageData(img, 0, 0);
+  }
+  function finDuPuits(auFond, t){
+    if (!auFond){
+      if (phase !== "rien"){ phase = "rien"; grain.classList.remove("on"); signal.classList.remove("on");
+        fin.classList.remove("on"); vraie.classList.remove("on"); }
+      return;
+    }
+    if (phase === "rien"){ phase = "grain"; debutGrain = t; grain.classList.add("on"); signal.textContent = "SIGNAL PERDU…"; signal.classList.add("on"); }
+    if (phase === "grain"){
+      var e = t - debutGrain;
+      bruit(t);
+      grain.style.opacity = (e < 1700 ? (Math.random() < .12 ? .55 : 1) : Math.max(0, 1 - (e - 1700) / 900));
+      if (e > 1100) signal.textContent = "SIGNAL RETROUVÉ";
+      if (e > 1700 && vraieOk) vraie.classList.add("on");
+      if (e > 1900) signal.classList.remove("on");
+      if (e > 2600){ phase = "fini"; grain.classList.remove("on"); grain.style.opacity = ""; fin.classList.add("on"); }
+    }
+  }
+
   /* la vraie image du fond (img/puits/fond-puits.jpg), si elle existe */
   var vraie = document.getElementById("vraie"), vraieOk = false, tv = new Image();
   tv.onload = function(){ vraie.style.backgroundImage = "url(img/puits/fond-puits.jpg)"; vraieOk = true; };
