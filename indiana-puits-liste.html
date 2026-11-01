@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Les puits à explorer — Indiana Fraise</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--noir:#12100e;--bois:#2a1f16;--laiton:#c9a25e;--laiton-clair:#e6c98a;--creme:#e8dcc4;--creme-doux:#c8b895;--rouge:#b23a2c;--vert:#6ea04f;}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'EB Garamond',Georgia,serif;color:var(--creme);min-height:100vh;
+  background:radial-gradient(ellipse at 50% 0%,#241a12 0%,var(--noir) 60%),var(--noir);line-height:1.6}
+a{color:var(--laiton-clair)}
+.haut{max-width:1200px;margin:0 auto;padding:1.4rem 1.25rem .5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.haut img{width:clamp(80px,12vw,120px);filter:drop-shadow(0 8px 18px rgba(0,0,0,.6))}
+.retour{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.1rem;color:var(--laiton-clair);text-decoration:none;
+  border:1px solid rgba(201,162,94,.45);border-radius:40px;padding:.55rem 1.1rem;background:rgba(18,16,14,.6);min-height:44px;display:inline-flex;align-items:center}
+.retour:hover{background:rgba(201,162,94,.15)}
+.titre{max-width:1200px;margin:0 auto;padding:0 1.25rem 1.2rem;text-align:center}
+h1{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(2.2rem,6vw,3.6rem);color:var(--laiton-clair);line-height:1.05}
+.titre p{font-style:italic;color:var(--creme-doux);font-size:1.15rem;margin-top:.4rem}
+main{max-width:1200px;margin:0 auto;padding:0 1.25rem 3rem}
+
+/* vignettes */
+.strip{display:flex;gap:1rem;overflow-x:auto;padding:.3rem .2rem 1.2rem;scroll-snap-type:x mandatory}
+.vig{flex:0 0 230px;scroll-snap-align:start;background:rgba(42,31,22,.7);border:2px solid rgba(201,162,94,.25);border-radius:14px;
+  padding:0;text-align:left;cursor:pointer;font:inherit;color:inherit;overflow:hidden;position:relative;transition:border-color .2s,transform .2s}
+.vig:hover{transform:translateY(-3px)}
+.vig[aria-selected="true"]{border-color:var(--laiton-clair);box-shadow:0 0 24px rgba(230,201,138,.25)}
+.vig img{width:100%;height:140px;object-fit:cover;display:block;filter:saturate(.85)}
+.vig .n{position:absolute;top:8px;left:8px;background:rgba(0,0,0,.7);color:var(--laiton-clair);font-family:'Cormorant Garamond',serif;font-weight:700;
+  border:1px solid var(--laiton);border-radius:8px;padding:.05rem .55rem}
+.vig .t{padding:.7rem .9rem .9rem}
+.vig .nom{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:1.25rem;color:var(--laiton-clair);line-height:1.15}
+.vig .lieu{font-size:.95rem;color:var(--creme-doux)}
+.vig.bientot{opacity:.55;cursor:default}
+.vig.bientot .ph{height:140px;display:flex;align-items:center;justify-content:center;font-size:2.4rem;background:#1a1410}
+
+/* détail */
+.detail{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:1.6rem;margin-top:.6rem}
+@media(max-width:900px){.detail{grid-template-columns:1fr}}
+.grande{border-radius:14px;overflow:hidden;background:#000;aspect-ratio:4/3;border:1px solid rgba(201,162,94,.3);cursor:zoom-in}
+.grande img{width:100%;height:100%;object-fit:contain;display:block}
+.minis{display:flex;gap:.55rem;margin-top:.7rem;flex-wrap:wrap}
+.minis button{width:80px;height:62px;padding:0;border:2px solid rgba(201,162,94,.25);border-radius:9px;overflow:hidden;cursor:pointer;background:#000}
+.minis button[aria-pressed="true"]{border-color:var(--laiton-clair)}
+.minis img{width:100%;height:100%;object-fit:cover;display:block}
+.fiche{background:rgba(42,31,22,.72);border:1px solid rgba(201,162,94,.3);border-radius:14px;padding:1.4rem 1.5rem}
+.fiche h2{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:2rem;color:var(--laiton-clair);line-height:1.1}
+.fiche .lieu{font-style:italic;color:var(--creme-doux);font-size:1.1rem}
+.fiche .desc{margin:1rem 0;font-size:1.12rem}
+.mesures{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.6rem;margin:1rem 0}
+.mesure{background:rgba(0,0,0,.35);border:1px solid rgba(201,162,94,.22);border-radius:10px;padding:.55rem .6rem;text-align:center}
+.mesure b{display:block;font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--laiton-clair);line-height:1.1}
+.mesure span{font-size:.85rem;color:var(--creme-doux)}
+.gps{background:rgba(0,0,0,.35);border-radius:10px;padding:.7rem .9rem;margin:1rem 0;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.95rem;color:#e8f2d8}
+.boutons{display:flex;gap:.6rem;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:.45rem;min-height:46px;padding:.55rem 1.1rem;border-radius:40px;text-decoration:none;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:1.1rem}
+.btn.or{background:linear-gradient(#f0d48f,#c9a25e);color:#1a120a}
+.btn.ligne{border:1px solid var(--laiton);color:var(--laiton-clair);background:rgba(0,0,0,.3)}
+.note{font-size:.95rem;color:var(--creme-doux);font-style:italic;margin-top:1rem}
+
+/* plein écran */
+.loupe{display:none;position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.94);align-items:center;justify-content:center}
+.loupe.on{display:flex}
+.loupe img{max-width:94vw;max-height:90vh;object-fit:contain;border-radius:8px}
+.loupe button{position:absolute;top:1rem;right:1rem;width:48px;height:48px;border:none;background:none;color:#fff;font-size:2rem;cursor:pointer}
+</style>
+</head>
+<body>
+
+<div class="haut">
+  <img src="img/indiana_rond_detoure.png" alt="Indiana Fraise">
+  <a class="retour" href="indiana-puits.html">← Remonter dans le puits</a>
+</div>
+<div class="titre">
+  <h1>Les puits à explorer</h1>
+  <p>Des puits qui attendent Indy… Choisis-en un.</p>
+</div>
+
+<main>
+  <div class="strip" id="strip" role="tablist" aria-label="Liste des puits"></div>
+  <section class="detail" id="detail" aria-live="polite"></section>
+</main>
+
+<div class="loupe" id="loupe" role="dialog" aria-label="Photo en grand">
+  <button type="button" id="fermerLoupe" aria-label="Fermer">✕</button>
+  <img id="loupeImg" src="" alt="">
+</div>
+
+<script>
+/* =========================================================
+   LES PUITS — pour ajouter un puits : copier un bloc { ... }
+   et changer les textes. Les photos vont dans img/puits/.
+   ========================================================= */
+var PUITS = [
+  {
+    id: "piquet",
+    nom: "Le puits du Piquet",
+    lieu: "Vic-Fezensac, Gers (32)",
+    description: "Vieux puits en pierres sèches, bien rond, avec sa margelle maçonnée couverte de mousse. Fermé par de vieilles planches et une grille, avec le treuil en bois et sa chaîne rouillée posés dessus. Il se cache sous une glycine, à l’entrée de la propriété. Tout en bas, l’eau brille dans le noir…",
+    diametre: "≈ 1 m",
+    horsSol: "≈ 0,65 m",
+    profondeur: "à mesurer",
+    lat: 43.7642, lon: 0.3439,
+    note: "",
+    photos: ["img/puits/piquet-1.jpg","img/puits/piquet-2.jpg","img/puits/piquet-3.jpg","img/puits/piquet-4.jpg","img/puits/piquet-5.jpg","img/puits/piquet-6.jpg"]
+  }
+  // , { id:"...", nom:"...", ... }   ← le puits suivant
+];
+
+function esc(t){ return String(t).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
+var courant = null;
+
+function vignettes(){
+  var h = "";
+  PUITS.forEach(function(p, i){
+    h += '<button type="button" class="vig" role="tab" aria-selected="false" data-id="' + p.id + '">' +
+         '<span class="n">' + (i+1) + '</span><img src="' + esc(p.photos[0]) + '" alt="" loading="lazy">' +
+         '<div class="t"><div class="nom">' + esc(p.nom) + '</div><div class="lieu">' + esc(p.lieu) + '</div></div></button>';
+  });
+  h += '<div class="vig bientot" aria-hidden="true"><div class="ph">🔦</div><div class="t"><div class="nom">Puits n° ' + (PUITS.length+1) + '</div><div class="lieu">Bientôt…</div></div></div>';
+  document.getElementById("strip").innerHTML = h;
+}
+
+function montrer(id){
+  var p = PUITS.filter(function(x){ return x.id === id; })[0] || PUITS[0];
+  courant = p;
+  document.querySelectorAll(".vig[data-id]").forEach(function(v){ v.setAttribute("aria-selected", v.getAttribute("data-id") === p.id ? "true" : "false"); });
+  var minis = p.photos.map(function(src, i){
+    return '<button type="button" aria-pressed="' + (i === 0) + '" data-src="' + esc(src) + '" aria-label="Photo ' + (i+1) + '"><img src="' + esc(src) + '" alt=""></button>';
+  }).join("");
+  var gps = p.lat.toFixed(5) + ", " + p.lon.toFixed(5);
+  var earth = "https://earth.google.com/web/search/" + p.lat + "," + p.lon;
+  var maps = "https://www.google.com/maps/search/?api=1&query=" + p.lat + "," + p.lon;
+  document.getElementById("detail").innerHTML =
+    '<div><div class="grande" id="grande"><img id="big" src="' + esc(p.photos[0]) + '" alt="' + esc(p.nom) + '"></div><div class="minis" id="minis">' + minis + '</div></div>' +
+    '<div class="fiche"><h2>' + esc(p.nom) + '</h2><div class="lieu">' + esc(p.lieu) + '</div>' +
+    '<p class="desc">' + esc(p.description) + '</p>' +
+    '<div class="mesures"><div class="mesure"><b>' + esc(p.diametre) + '</b><span>diamètre</span></div>' +
+    '<div class="mesure"><b>' + esc(p.horsSol) + '</b><span>hors sol</span></div>' +
+    '<div class="mesure"><b>' + esc(p.profondeur) + '</b><span>profondeur</span></div></div>' +
+    '<div class="gps">📍 GPS : ' + gps + '</div>' +
+    '<div class="boutons"><a class="btn or" href="' + earth + '" target="_blank" rel="noopener">🌍 Google Earth</a>' +
+    '<a class="btn ligne" href="' + maps + '" target="_blank" rel="noopener">🗺️ Google Maps</a></div>' +
+    (p.note ? '<p class="note">' + esc(p.note) + '</p>' : '') +
+    '</div>';
+  if (history.replaceState) history.replaceState(null, "", "#" + p.id);
+}
+
+document.getElementById("strip").addEventListener("click", function(e){
+  var v = e.target.closest(".vig[data-id]"); if (v) montrer(v.getAttribute("data-id"));
+});
+document.getElementById("detail").addEventListener("click", function(e){
+  var b = e.target.closest("#minis button");
+  if (b){
+    document.getElementById("big").src = b.getAttribute("data-src");
+    document.querySelectorAll("#minis button").forEach(function(x){ x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
+    return;
+  }
+  if (e.target.closest("#grande")){
+    document.getElementById("loupeImg").src = document.getElementById("big").src;
+    document.getElementById("loupe").classList.add("on");
+  }
+});
+function fermer(){ document.getElementById("loupe").classList.remove("on"); }
+document.getElementById("fermerLoupe").addEventListener("click", fermer);
+document.getElementById("loupe").addEventListener("click", function(e){ if (e.target === this) fermer(); });
+document.addEventListener("keydown", function(e){ if (e.key === "Escape") fermer(); });
+
+vignettes();
+montrer((location.hash || "").replace("#", "") || PUITS[0].id);
+</script>
+</body>
+</html>
