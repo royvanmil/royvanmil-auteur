@@ -208,20 +208,13 @@ footer{padding:20px 0 120px;color:#56687a;font-size:.9rem;text-align:center}
   .histoire h1{padding-right:0;padding-top:34px}
   .tampon{top:14px;right:14px;font-size:1.1rem}
 
-  .menu-col{
-    display:none;position:fixed;inset:0;z-index:200;top:0;
-    align-items:center;justify-content:center;padding:14px;
-  }
-  .menu-col.ouvert{display:flex}
-  .fond-menu{display:block;position:absolute;inset:0;background:rgba(20,25,30,.6);border:0}
-  .menu{width:min(420px,100%,calc((100vh - 28px) * 1024 / 1536))}
-  .menu .fermer{
-    display:flex;align-items:center;justify-content:center;padding:0;
-    position:absolute;top:10px;right:10px;z-index:3;width:38px;height:38px;border-radius:50%;
-    border:0;background:rgba(255,255,255,.9);font-size:1.3rem;cursor:pointer;
-  }
+  /* menu « Les histoires » toujours déroulé, au-dessus de l'histoire */
+  .btn-menu{display:none !important}
+  .menu-col{position:static;display:flex;justify-content:center}
+  .fond-menu{display:none}
+  .menu{width:min(420px,100%)}
 }
-@media(min-width:761px){.menu .fermer{display:none}}
+.menu .fermer{display:none}
 </style>
 </head>
 
@@ -383,7 +376,7 @@ function afficheHistoire(){
   document.title=titre+" — Audio — Roy Van Mil";
   dessineMenu();
   dessinePistes();
-  if(window.innerWidth<=760) window.scrollTo({top:0,behavior:"smooth"});
+  if(window.innerWidth<=760){ var h=document.querySelector(".histoire")||document.querySelector(".carte"); if(h && location.hash) h.scrollIntoView({behavior:"smooth",block:"start"}); }
 }
 window.addEventListener("hashchange",afficheHistoire);
 
