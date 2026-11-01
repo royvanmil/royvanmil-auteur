@@ -570,12 +570,17 @@ body.bug #scene,body.bug #lumieres{filter:contrast(1.25) saturate(.5) brightness
   });
   // les deux grands yeux, cachés dans la terre de chaque côté du fond
   var NUM_YEUX = 1 + Math.floor(Math.random() * 5);      // une des 5 paires d'yeux, au hasard à chaque visite
-  var TAILLE_OEIL = mobile ? 120 : 300, yeuxTerre = [];
+  var TAILLE_OEIL = mobile ? 175 : 300, yeuxTerre = [];
   [-1, 1].forEach(function(cote){
     var o = document.createElement("div"); o.className = "oeilT " + (cote < 0 ? "g" : "d");
     o.style.width = TAILLE_OEIL + "px"; o.style.height = (TAILLE_OEIL * .73) + "px";
-    o.style.left = "calc(50% + " + (cote * (demiPuits + (mobile ? 22 : 30) + TAILLE_OEIL * (mobile ? .05 : .5))) + "px)";
-    o.style.top = (SOL + FOND - 120) + "px";
+    if (mobile){                                   // téléphone : sous le puits, côte à côte
+      o.style.left = "calc(50% + " + (cote * TAILLE_OEIL * .5) + "px)";
+      o.style.top = (H - 330) + "px";
+    } else {                                       // ordinateur : dans la terre, de chaque côté
+      o.style.left = "calc(50% + " + (cote * (demiPuits + 30 + TAILLE_OEIL * .5)) + "px)";
+      o.style.top = (SOL + FOND - 120) + "px";
+    }
     o.innerHTML = '<img src="img/puits/yeux' + NUM_YEUX + '-' + (cote < 0 ? 'g' : 'd') + '.jpg" alt="">';
     lum.appendChild(o); yeuxTerre.push(o);
   });
