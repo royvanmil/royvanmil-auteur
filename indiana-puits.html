@@ -56,7 +56,7 @@ html,body{background:#050403;color:var(--creme);font-family:'EB Garamond',Georgi
 .brumeChamp{position:absolute;top:calc(var(--sol) - 70px);left:-10%;width:120%;height:90px;z-index:2;pointer-events:none;
   background:radial-gradient(ellipse at 30% 50%,rgba(200,200,215,.22),transparent 60%),radial-gradient(ellipse at 75% 60%,rgba(200,200,215,.18),transparent 60%);
   animation:brume 12s ease-in-out infinite}
-@media(max-width:700px){.oeil{width:47vw !important;height:34vh !important}.mais.g{width:30%}.mais.d{width:26%}.epouv{left:2%;width:110px;height:190px;top:calc(var(--sol) - 225px)}
+@media(max-width:700px){.oeil{width:46vw !important;height:46vw !important}.mais.g{width:30%}.mais.d{width:26%}.epouv{left:2%;width:110px;height:190px;top:calc(var(--sol) - 225px)}
   .corbeau.pose{left:calc(2% + 78px);top:calc(var(--sol) - 196px)}.ombre{right:3%;width:50px;height:150px;top:calc(var(--sol) - 160px)}}
 
 /* panne de lampe à mi-chemin */
@@ -65,13 +65,15 @@ body.panne #faisceau{opacity:0 !important}
 body.panne #indy .led{opacity:.08 !important;animation:none}
 
 /* les GRANDS yeux à la fin */
-#yeux{position:fixed;inset:0;z-index:10;background:#000;display:flex;justify-content:space-around;align-items:center;opacity:0;pointer-events:none;transition:opacity .4s}
+#yeux{position:fixed;inset:0;z-index:13;background:#000;display:flex;justify-content:center;gap:4vw;align-items:center;opacity:0;pointer-events:none;transition:opacity .4s}
 #yeux.on{opacity:1}
-.oeil{width:44vw;height:30vw;max-height:70vh;overflow:visible;transform:scaleY(.02);filter:drop-shadow(0 0 30px rgba(255,140,20,.55))}
+.oeil{width:min(46vw,72vh);height:min(46vw,72vh);overflow:visible;transform:scaleY(.02);filter:drop-shadow(0 0 40px rgba(255,20,0,.7)) drop-shadow(0 0 90px rgba(200,0,0,.45))}
 #yeux.on .oeil{animation:regard 4.4s ease-in-out forwards}
 @keyframes regard{0%{transform:scaleY(.02)}12%{transform:scaleY(1)}40%{transform:scaleY(1)}42%{transform:scaleY(.04)}45%{transform:scaleY(1)}70%{transform:scaleY(1)}71.5%{transform:scaleY(.04)}74%{transform:scaleY(1)}100%{transform:scaleY(1)}}
 .pupille{animation:fixe 4.4s ease-in-out forwards}
-@keyframes fixe{0%,20%{transform:translateX(0)}30%{transform:translateX(-14px)}48%{transform:translateX(14px)}60%,100%{transform:translateX(0) scaleX(.75)}}
+.pupille{transform-origin:150px 150px}
+@keyframes fixe{0%,20%{transform:translate(0,0)}30%{transform:translate(-10px,4px)}48%{transform:translate(10px,4px)}60%,100%{transform:translate(0,0) scale(1.06)}}
+#yeux.on .oeil:nth-child(2){animation-delay:.05s}
 
 /* terre en couches */
 .terre{position:absolute;left:0;right:0;top:var(--sol);bottom:0;
@@ -183,9 +185,10 @@ body.panne #indy .led{opacity:.08 !important;animation:none}
 #treuil button:active,#treuil button.appui{background:radial-gradient(circle at 40% 35%,#6a5232,#2a1e12);transform:scale(.95)}
 #treuil .roue{width:58px;height:58px}
 #treuil .roue svg{width:100%;height:100%;transition:transform .05s linear}
-#treuil .corde{width:4px;height:44px;background:repeating-linear-gradient(170deg,#c8a86a 0 4px,#8a6a3a 4px 8px);border-radius:2px}
+#treuil .vite{width:46px !important;height:46px !important;font-size:1.15rem !important;opacity:.85}
+#treuil .corde{width:4px;height:30px;background:repeating-linear-gradient(170deg,#c8a86a 0 4px,#8a6a3a 4px 8px);border-radius:2px}
 #treuil small{font-family:'Cormorant Garamond',serif;font-size:.85rem;color:var(--creme-doux);text-align:center;line-height:1.1}
-@media(max-width:700px){#treuil{right:6px;padding:8px 6px}#treuil button{width:52px;height:52px}#treuil .corde{height:28px}}
+@media(max-width:700px){#treuil{right:6px;padding:8px 6px;gap:6px}#treuil button{width:48px;height:48px}#treuil .vite{width:42px !important;height:42px !important}#treuil .corde{height:14px}#treuil .roue{width:46px;height:46px}}
 #retour{position:fixed;z-index:8;bottom:14px;left:14px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.05rem;
   color:var(--laiton-clair);background:rgba(18,16,14,.72);border:1px solid rgba(201,162,94,.4);border-radius:40px;padding:.55rem 1rem;text-decoration:none}
 #vraie{position:fixed;inset:0;z-index:8;background:#000 center/cover no-repeat;opacity:0;pointer-events:none;transition:opacity 2.5s}
@@ -300,13 +303,15 @@ body.bug #scene,body.bug #lumieres{filter:contrast(1.25) saturate(.5) brightness
 
 <div id="treuil" role="group" aria-label="Treuil d'Indy">
   <small>Remonter</small>
-  <button type="button" id="monter" aria-label="Remonter Indy (rester appuyé)">▲</button>
+  <button type="button" id="monterVite" class="vite" aria-label="Remonter vite (rester appuyé)">⏫</button>
+  <button type="button" id="monter" aria-label="Remonter doucement (rester appuyé)">▲</button>
   <div class="corde" aria-hidden="true"></div>
   <div class="roue" aria-hidden="true"><svg viewBox="0 0 60 60" id="roue"><circle cx="30" cy="30" r="24" fill="none" stroke="#c9a25e" stroke-width="4"/>
     <circle cx="30" cy="30" r="6" fill="#c9a25e"/><path d="M30 6 V54 M6 30 H54 M13 13 L47 47 M47 13 L13 47" stroke="#8a6a3a" stroke-width="3"/>
     <rect x="44" y="8" width="8" height="16" rx="3" fill="#6b4a2c" stroke="#c9a25e"/></svg></div>
   <div class="corde" aria-hidden="true"></div>
-  <button type="button" id="descendre" aria-label="Descendre Indy (rester appuyé)">▼</button>
+  <button type="button" id="descendre" aria-label="Descendre doucement (rester appuyé)">▼</button>
+  <button type="button" id="descendreVite" class="vite" aria-label="Descendre vite (rester appuyé)">⏬</button>
   <small>Descendre</small>
 </div>
 
@@ -314,19 +319,33 @@ body.bug #scene,body.bug #lumieres{filter:contrast(1.25) saturate(.5) brightness
 <canvas id="grain" width="160" height="100" aria-hidden="true"></canvas>
 <div id="signal" aria-hidden="true">SIGNAL PERDU…</div>
 <div id="yeux" aria-hidden="true">
-  <svg class="oeil" viewBox="0 0 400 260" preserveAspectRatio="none"><defs><radialGradient id="iris" cx="50%" cy="50%" r="55%"><stop offset="0" stop-color="#fff2a0"/><stop offset=".35" stop-color="#ffb21a"/><stop offset=".75" stop-color="#c8460a"/><stop offset="1" stop-color="#4a0e02"/></radialGradient><clipPath id="formeOeil"><path d="M10 130 Q200 -20 390 130 Q200 280 10 130Z"/></clipPath></defs>
-    <path d="M10 130 Q200 -20 390 130 Q200 280 10 130Z" fill="url(#iris)"/>
-    <g clip-path="url(#formeOeil)"><g stroke="#7a1a04" stroke-width="2" opacity=".55" fill="none"><path d="M40 130 Q90 110 130 125"/><path d="M360 130 Q310 150 270 135"/><path d="M80 90 Q120 100 150 118"/><path d="M320 170 Q280 160 250 142"/></g>
-    <ellipse class="pupille" cx="200" cy="130" rx="22" ry="108" fill="#050100"/>
-    <ellipse cx="170" cy="85" rx="18" ry="10" fill="#fff" opacity=".55"/>
-    <path d="M10 130 Q200 -20 390 130" stroke="#2a0600" stroke-width="18" fill="none" opacity=".6"/></g>
+  <svg class="oeil" viewBox="0 0 300 300">
+    <defs>
+      <radialGradient id="rouge" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#2a0000"/><stop offset=".28" stop-color="#3a0000"/><stop offset=".36" stop-color="#ff3a2a"/><stop offset=".5" stop-color="#ff1a0a"/><stop offset=".72" stop-color="#b30000"/><stop offset=".9" stop-color="#4a0000"/><stop offset="1" stop-color="#4a0000" stop-opacity="0"/></radialGradient>
+      <radialGradient id="halo" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ff2010" stop-opacity=".55"/><stop offset=".55" stop-color="#a00000" stop-opacity=".25"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+      <filter id="flou"><feGaussianBlur stdDeviation="3"/></filter>
+    </defs>
+    <circle cx="150" cy="150" r="150" fill="url(#halo)"/>
+    <g class="pupille">
+      <circle cx="150" cy="150" r="92" fill="url(#rouge)" filter="url(#flou)"/>
+      <circle cx="150" cy="150" r="30" fill="#140000"/>
+      <circle cx="150" cy="150" r="12" fill="#ffd8c8" opacity=".85" filter="url(#flou)"/>
+      <circle cx="122" cy="118" r="9" fill="#fff" opacity=".7" filter="url(#flou)"/>
+    </g>
   </svg>
-  <svg class="oeil" viewBox="0 0 400 260" preserveAspectRatio="none">
-    <path d="M10 130 Q200 -20 390 130 Q200 280 10 130Z" fill="url(#iris)"/>
-    <g clip-path="url(#formeOeil)"><g stroke="#7a1a04" stroke-width="2" opacity=".55" fill="none"><path d="M40 130 Q90 110 130 125"/><path d="M360 130 Q310 150 270 135"/><path d="M80 90 Q120 100 150 118"/><path d="M320 170 Q280 160 250 142"/></g>
-    <ellipse class="pupille" cx="200" cy="130" rx="22" ry="108" fill="#050100"/>
-    <ellipse cx="170" cy="85" rx="18" ry="10" fill="#fff" opacity=".55"/>
-    <path d="M10 130 Q200 -20 390 130" stroke="#2a0600" stroke-width="18" fill="none" opacity=".6"/></g>
+  <svg class="oeil" viewBox="0 0 300 300">
+    <defs>
+      <radialGradient id="rouge2" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#2a0000"/><stop offset=".28" stop-color="#3a0000"/><stop offset=".36" stop-color="#ff3a2a"/><stop offset=".5" stop-color="#ff1a0a"/><stop offset=".72" stop-color="#b30000"/><stop offset=".9" stop-color="#4a0000"/><stop offset="1" stop-color="#4a0000" stop-opacity="0"/></radialGradient>
+      <radialGradient id="halo2" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ff2010" stop-opacity=".55"/><stop offset=".55" stop-color="#a00000" stop-opacity=".25"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+      <filter id="flou2"><feGaussianBlur stdDeviation="3"/></filter>
+    </defs>
+    <circle cx="150" cy="150" r="150" fill="url(#halo2)"/>
+    <g class="pupille">
+      <circle cx="150" cy="150" r="92" fill="url(#rouge2)" filter="url(#flou2)"/>
+      <circle cx="150" cy="150" r="30" fill="#140000"/>
+      <circle cx="150" cy="150" r="12" fill="#ffd8c8" opacity=".85" filter="url(#flou2)"/>
+      <circle cx="122" cy="118" r="9" fill="#fff" opacity=".7" filter="url(#flou2)"/>
+    </g>
   </svg>
 </div>
 <div id="fin">
@@ -579,7 +598,7 @@ body.bug #scene,body.bug #lumieres{filter:contrast(1.25) saturate(.5) brightness
   var POULIE_Y = SOL - 400;  // haut du fil (poulie)
   var cible = 0, actuel = 0, vitesse = 0, dernier = 0, panneFaite = false, actuelAvant = 0;
   var maxScroll = function(){ return Math.max(1, H - window.innerHeight); };
-  var sens = 0, VITESSE = 6;                         // pixels par image quand on tourne la manivelle
+  var sens = 0;                         // pixels par image quand on tourne la manivelle
   function borne(v){ return Math.max(0, Math.min(maxScroll(), v)); }
   function tenir(btn, s){
     function go(e){ e.preventDefault(); sens = s; btn.classList.add("appui"); }
@@ -589,8 +608,10 @@ body.bug #scene,body.bug #lumieres{filter:contrast(1.25) saturate(.5) brightness
     btn.addEventListener("keydown", function(e){ if (e.key === "Enter" || e.key === " "){ e.preventDefault(); sens = s; } });
     btn.addEventListener("keyup", stop);
   }
-  tenir(document.getElementById("descendre"), 1);
-  tenir(document.getElementById("monter"), -1);
+  tenir(document.getElementById("descendre"), 1.6);       // petite vitesse
+  tenir(document.getElementById("monter"), -1.6);
+  tenir(document.getElementById("descendreVite"), 7);     // grande vitesse
+  tenir(document.getElementById("monterVite"), -7);
   // la molette et le doigt marchent aussi (sans barre de défilement)
   window.addEventListener("wheel", function(e){ e.preventDefault(); cible = borne(cible + e.deltaY * .6); }, {passive:false});
   var doigt = null;
@@ -604,7 +625,7 @@ body.bug #scene,body.bug #lumieres{filter:contrast(1.25) saturate(.5) brightness
   var roue = document.getElementById("roue"), angleRoue = 0;
 
   function boucle(t){
-    if (sens) cible = borne(cible + sens * VITESSE);
+    if (sens) cible = borne(cible + sens);
     angleRoue += (actuel - (actuelAvant || 0)) * 1.2; actuelAvant = actuel;
     roue.style.transform = "rotate(" + angleRoue + "deg)";
     // Indy descend lentement : il rattrape le défilement petit à petit
