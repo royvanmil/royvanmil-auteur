@@ -5,259 +5,268 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
 <title>Plan facile — royvanmil.fr</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --auteur:#b5892a;
-    --photos:#2a7bb5;
-    --audio:#7d3cc0;
-    --nl:#e07a00;
-    --livre:#0e7c86;
-    --admin:#d81b1b;
-  }
-  *{ margin:0; padding:0; box-sizing:border-box; }
-  body{
-    font-family:'Segoe UI',Arial,sans-serif;
-    background:#f4f1ea;
-    color:#1a1a1a;
-    line-height:1.5;
-    padding:1.5rem 1rem 4rem;
-  }
-  .wrap{ max-width:1100px; margin:0 auto; }
+:root{
+  --bg:#f3f7f9; --paper:#fff; --soft:#e9f1f4; --ink:#22364a; --muted:#56687a;
+  --teal:#2e6e73; --teal-dark:#235a5e; --orange:#ff7a00; --line:#d9e4ea; --red:#b3261e;
+  --c-auteur:#9a7322; --c-livre:#0e7c86; --c-nl:#c76a00; --c-audio:#6b35a8; --c-photos:#2a6fa5; --c-admin:#b3261e;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;}
+header{background:var(--paper);border-bottom:1px solid var(--line);}
+header .in{max-width:1150px;margin:0 auto;padding:1rem 1.25rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
+.brand{display:flex;align-items:center;gap:1rem;}
+.brand img{height:54px;width:auto;}
+.brand h1{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:1.9rem;color:var(--teal);line-height:1;}
+.brand h1 small{display:block;font-family:Inter,sans-serif;font-size:.8rem;font-weight:500;color:var(--muted);margin-top:.3rem;}
+.top-btn{background:none;border:2px solid var(--teal);color:var(--teal);border-radius:40px;padding:.45rem 1.1rem;font:inherit;font-weight:600;cursor:pointer;min-height:44px;}
+.top-btn:hover{background:var(--teal);color:white;}
+.wrap{max-width:1150px;margin:0 auto;padding:1.5rem 1.25rem 3rem;}
 
-  h1{
-    text-align:center;
-    font-size:1.9rem;
-    margin-bottom:.3rem;
-  }
-  .sous{
-    text-align:center;
-    color:#666;
-    margin-bottom:2rem;
-    font-size:1rem;
-  }
+.login{max-width:380px;margin:3rem auto;background:var(--paper);border-radius:18px;padding:1.9rem;border:1px solid var(--line);box-shadow:0 10px 30px rgba(34,54,74,.06);}
+.login h2{font-family:'Cormorant Garamond',serif;font-weight:700;color:var(--teal);font-size:1.8rem;margin-bottom:1rem;}
+label{display:block;font-weight:600;margin-bottom:.35rem;}
+input[type=password]{width:100%;font:inherit;padding:.75rem .9rem;border:2px solid var(--line);border-radius:10px;background:white;}
+input[type=password]:focus{outline:none;border-color:var(--teal);}
+button.go{width:100%;margin-top:1rem;min-height:48px;border:none;border-radius:40px;background:var(--teal);color:white;font:inherit;font-weight:700;font-size:1.05rem;cursor:pointer;}
+button.go:hover{background:var(--teal-dark);}
+.err{color:var(--red);margin-top:.6rem;min-height:1.4em;font-weight:600;}
+.hidden{display:none !important;}
 
-  /* Grille des sections */
-  .grille{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-    gap:1.4rem;
-  }
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:1.25rem;}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:1.25rem 1.4rem;border-top:6px solid var(--c, var(--teal));}
+.card h2{font-family:'Cormorant Garamond',serif;font-weight:700;color:var(--c, var(--teal));font-size:1.6rem;line-height:1.15;margin-bottom:.6rem;display:flex;justify-content:space-between;align-items:center;gap:.5rem;flex-wrap:wrap;}
+.card h2 small{font-family:Inter,sans-serif;font-size:.8rem;color:var(--muted);font-weight:500;}
+.card a{display:block;padding:.45rem 0;color:var(--ink);text-decoration:none;font-weight:600;border-bottom:1px solid var(--line);}
+.card a:last-child{border-bottom:none;}
+.card a:hover{color:var(--c, var(--teal));}
+.card a small{color:var(--muted);font-weight:400;}
+.card a.sub{padding-left:1.1rem;font-weight:500;}
+.groupe{margin:.9rem 0 .2rem;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;}
+.cache{background:var(--soft);border-radius:12px;padding:.2rem .8rem .3rem;margin-top:.7rem;}
+.big{grid-column:1/-1;}
+.c-auteur{--c:var(--c-auteur);} .c-livre{--c:var(--c-livre);} .c-nl{--c:var(--c-nl);}
+.c-audio{--c:var(--c-audio);} .c-photos{--c:var(--c-photos);} .c-admin{--c:var(--c-admin);}
 
-  .section{
-    background:#fff;
-    border-radius:10px;
-    border-top:7px solid var(--c);
-    padding:1.2rem 1.3rem 1.4rem;
-    box-shadow:0 2px 6px rgba(0,0,0,.08);
-  }
-  .section h2{
-    font-size:1.3rem;
-    margin-bottom:.9rem;
-    color:var(--c);
-    display:flex;
-    align-items:center;
-    gap:.5rem;
-  }
-  .section a{
-    display:block;
-    padding:.5rem .7rem;
-    margin-bottom:.35rem;
-    border-radius:6px;
-    text-decoration:none;
-    color:#1a1a1a;
-    background:#f7f5f0;
-    border-left:4px solid var(--c);
-    font-size:1.02rem;
-  }
-  .section a:hover{ background:#efe9dd; }
-  .section a small{ color:#888; font-weight:normal; }
+table{width:100%;border-collapse:collapse;font-size:.95rem;}
+th,td{text-align:right;padding:.5rem .55rem;border-bottom:1px solid var(--line);white-space:nowrap;}
+th:first-child,td:first-child{text-align:left;white-space:normal;}
+th{font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:600;}
+td.n{font-variant-numeric:tabular-nums;font-weight:600;}
+tr.tot td{font-weight:700;color:var(--teal);border-top:2px solid var(--teal);}
+tr.groupe-ligne td{background:var(--soft);font-size:.75rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:700;text-align:left;}
+.scroll{overflow-x:auto;}
+.note{color:var(--muted);font-size:.86rem;margin-top:.6rem;}
+.refresh{background:var(--teal);color:white;border:none;border-radius:40px;padding:.4rem 1rem;font:inherit;font-size:.9rem;font-weight:600;cursor:pointer;min-height:40px;}
 
-  /* Sous-pages : décalées vers la droite */
-  .section a.sub{ margin-left:1cm; }
-
-  /* section auteur */
-  .auteur{ --c:var(--auteur); }
-  .photos{ --c:var(--photos); }
-  .audio{ --c:var(--audio); }
-  .nl{ --c:var(--nl); }
-  .livre{ --c:var(--livre); }
-  .admin{ --c:var(--admin); }
-
-  .admin{ border-top-width:7px; }
-  .admin h2::after{
-    content:"privé";
-    font-size:.7rem;
-    background:var(--admin);
-    color:#fff;
-    padding:.15rem .5rem;
-    border-radius:20px;
-    margin-left:.3rem;
-  }
-
-  /* sous-titre de groupe dans une section */
-  .groupe{
-    font-size:.8rem;
-    text-transform:uppercase;
-    letter-spacing:.5px;
-    color:#999;
-    margin:.9rem 0 .4rem;
-    font-weight:bold;
-  }
-
-  /* Encadré distinct (série cachée) dans une section */
-  .encadre-cache{
-    margin:.9rem 0;
-    padding:.8rem .9rem 1rem;
-    background:#fbf7ef;
-    border:2px dashed var(--auteur);
-    border-radius:8px;
-  }
-  .encadre-cache .groupe{
-    margin-top:0;
-    color:var(--auteur);
-  }
-
-  /* Rectangle pense-bête photos */
-  .memo{
-    margin-top:2rem;
-    background:#fff;
-    border:3px dashed var(--photos);
-    border-radius:10px;
-    padding:1.3rem 1.5rem;
-  }
-  .memo h2{
-    color:var(--photos);
-    font-size:1.25rem;
-    margin-bottom:.8rem;
-  }
-  .memo ul{ margin:.5rem 0 .8rem 1.2rem; }
-  .memo li{ margin-bottom:.4rem; }
-  .memo code{
-    background:#eef3f8;
-    padding:.1rem .4rem;
-    border-radius:4px;
-    font-size:.95rem;
-    color:#2a5b85;
-  }
-  .memo .regle{
-    background:#fff8e6;
-    border-left:4px solid #d4a017;
-    padding:.7rem .9rem;
-    border-radius:4px;
-    font-size:.95rem;
-  }
+.memo{margin-top:1.25rem;}
+.memo ul{margin:.4rem 0 .8rem 1.2rem;}
+.memo li{padding:.15rem 0;}
+.memo code{background:var(--soft);padding:.1rem .35rem;border-radius:5px;font-size:.9em;}
+.regle{background:#fff8e6;border-left:4px solid #d4a017;padding:.7rem .9rem;border-radius:6px;font-size:.95rem;}
 </style>
 </head>
 <body>
+
+<header><div class="in">
+  <div class="brand">
+    <img src="img/roy-van-mil.png" alt="Roy Van Mil">
+    <h1>Plan facile<small>Tous mes sites et pages, en un clic — royvanmil.fr</small></h1>
+  </div>
+  <button class="top-btn hidden" id="logout" type="button">Se déconnecter</button>
+</div></header>
+
 <div class="wrap">
 
-  <h1>Plan facile</h1>
-  <p class="sous">Tous mes sites et pages, en un clic — royvanmil.fr</p>
+  <form class="login" id="loginBox" autocomplete="off">
+    <h2>Accès privé</h2>
+    <label for="pw">Mot de passe</label>
+    <input type="password" id="pw" required>
+    <button class="go" type="submit">Entrer</button>
+    <div class="err" id="err" role="alert"></div>
+  </form>
 
-  <div class="grille">
+  <div id="app" class="hidden">
+    <div class="grid">
 
-    <!-- ===== SITE AUTEUR ===== -->
-    <div class="section auteur">
-      <h2>📖 Site Auteur</h2>
-      <a href="https://royvanmil.fr/index.html">Accueil auteur <small>(l'armoire à livres)</small></a>
-
-      <div class="groupe">Les livres</div>
-      <a href="https://royvanmil.fr/un-instant.html">Un instant, ou Deux…</a>
-      <a class="sub" href="https://royvanmil.fr/extraits-un-instant.html">↳ Extraits (Un instant)</a>
-      <a href="https://royvanmil.fr/trois-instants.html">Un instant, ou Trois…</a>
-      <a href="https://royvanmil.fr/quatre-instants.html">Un instant, ou Quatre… <small>(bientôt)</small></a>
-      <a class="sub" href="https://royvanmil.fr/audio-quatre.html">↳ Audio Quatre <small>(page cachée)</small></a>
-      <a href="https://royvanmil.fr/cette-maison.html">Cette maison, elle vaut vraiment le prix ?</a>
-      <a href="https://royvanmil.fr/la-cloche-des-morts.html">La Cloche des Morts</a>
-      <a href="https://royvanmil.fr/temoignages.html">Témoignages</a>
-
-      <div class="groupe">Autres pages</div>
-      <a href="https://royvanmil.fr/ia-et-moi.html">IA et moi ? <small>(note IA, 3 langues)</small></a>
-
-      <div class="encadre-cache">
-        <div class="groupe">🔦 Série cachée — Indiana Fraise</div>
-        <a href="https://royvanmil.fr/indiana-fraise.html">Indiana Fraise</a>
-        <a href="https://royvanmil.fr/indiana-infos.html">Indiana — Infos</a>
-        <a href="https://royvanmil.fr/indiana-indices.html">Indiana — Indices</a>
-        <a href="https://royvanmil.fr/indiana-maison.html">Indiana — Maison</a>
-        <a href="https://royvanmil.fr/indiana-nuit.html">Indiana — Nuit</a>
+      <!-- ===== COMPTEURS ===== -->
+      <div class="card big">
+        <h2>Compteurs de visites <button class="refresh" type="button" id="refresh">Actualiser</button></h2>
+        <div class="scroll"><table id="tStats"><thead><tr><th>Page</th><th>Aujourd’hui</th><th>7 jours</th><th>30 jours</th><th>Depuis remise à 0</th><th>Total</th></tr></thead><tbody></tbody></table></div>
+        <p class="note">Remise à zéro et courbes : page <a href="https://royvanmil.fr/dashboard.html" style="display:inline;border:none;padding:0;color:var(--teal)">Compteurs (dashboard)</a>.</p>
       </div>
 
-      <div class="groupe">Contact</div>
-      <a href="https://royvanmil.fr/contact.html">Contact <small>(public)</small></a>
+      <!-- ===== SITE AUTEUR ===== -->
+      <div class="card c-auteur">
+        <h2>📖 Site auteur</h2>
+        <a href="https://royvanmil.fr/index.html">Accueil auteur <small>(l’armoire à livres)</small></a>
+        <div class="groupe">Les livres</div>
+        <a href="https://royvanmil.fr/un-instant.html">Un instant, ou Deux…</a>
+        <a class="sub" href="https://royvanmil.fr/extraits-un-instant.html">↳ Extraits (Un instant)</a>
+        <a href="https://royvanmil.fr/trois-instants.html">Un instant, ou Trois…</a>
+        <a href="https://royvanmil.fr/quatre-instants.html">Un instant, ou Quatre… <small>(bientôt)</small></a>
+        <a class="sub" href="https://royvanmil.fr/audio-quatre.html">↳ Audio Quatre <small>(page cachée)</small></a>
+        <a href="https://royvanmil.fr/cette-maison.html">Cette maison, elle vaut vraiment le prix ?</a>
+        <a href="https://royvanmil.fr/la-cloche-des-morts.html">La Cloche des Morts</a>
+        <a href="https://royvanmil.fr/temoignages.html">Témoignages</a>
+        <div class="groupe">Autres pages</div>
+        <a href="https://royvanmil.fr/ia-et-moi.html">IA et moi ? <small>(note IA, 3 langues)</small></a>
+        <a href="https://royvanmil.fr/videos.html">Vidéos <small>(Papi conteur)</small></a>
+        <a href="https://royvanmil.fr/contact.html">Contact <small>(public)</small></a>
+        <div class="cache">
+          <div class="groupe">🔦 Série cachée — Indiana Fraise</div>
+          <a href="https://royvanmil.fr/indiana-fraise.html">Indiana Fraise</a>
+          <a href="https://royvanmil.fr/indiana-infos.html">Indiana — Infos</a>
+          <a href="https://royvanmil.fr/indiana-indices.html">Indiana — Indices</a>
+          <a href="https://royvanmil.fr/indiana-maison.html">Indiana — Maison</a>
+          <a href="https://royvanmil.fr/indiana-nuit.html">Indiana — Nuit</a>
+        </div>
+      </div>
+
+      <!-- ===== ADMIN ===== -->
+      <div class="card c-admin">
+        <h2>🔒 Admin</h2>
+        <a href="https://royvanmil.fr/dashboard.html">Compteurs <small>(dashboard, courbes)</small></a>
+        <a href="https://royvanmil.fr/avis-admin.html">Avis lecteurs</a>
+        <a href="https://royvanmil.fr/contact-admin.html">Contact &amp; demandes de livre</a>
+        <div class="groupe">Listes livres</div>
+        <a href="https://royvanmil.fr/livres-renseignements.html">Renseignements <small>(ajouter / modifier une personne)</small></a>
+        <a class="sub" href="https://royvanmil.fr/livres-dons.html">↳ Liste dons <small>(imprimable A4)</small></a>
+        <a class="sub" href="https://royvanmil.fr/livres-achats.html">↳ Liste achats <small>(imprimable A4)</small></a>
+        <div class="groupe">Affiches</div>
+        <a href="https://royvanmil.fr/affiches.html">Affiches collées <small>(vitrines &amp; accueils — A4)</small></a>
+        <div class="groupe">Inscriptions &amp; présence</div>
+        <a href="https://royvanmil.fr/comptes.html">Mes comptes <small>(Author Central, Babelio, Goodreads…)</small></a>
+        <a href="https://royvanmil.fr/presence.html">Présence des livres <small>(sites &amp; librairies, par pays)</small></a>
+      </div>
+
+      <!-- ===== LIVRE TECHNIQUE ===== -->
+      <div class="card c-livre">
+        <h2>📘 Livre technique <small>3 langues</small></h2>
+        <a href="https://royvanmil.fr/livretechnique/index.html">Index du livre <small>(début — pour le visiteur)</small></a>
+        <a href="https://royvanmil.fr/livretechnique/arbre.html">Arbre du livre <small>(squelette visuel)</small></a>
+        <a href="https://royvanmil.fr/livretechnique/visuels.html">Visuels <small>(double-page visuelle)</small></a>
+        <a href="https://royvanmil.fr/livretechnique/admin.html">Fiche technique <small>(mise en page &amp; mémoire — privé)</small></a>
+      </div>
+
+      <!-- ===== AUDIO ===== -->
+      <div class="card c-audio">
+        <h2>🔊 Audio <small>aveugles &amp; malvoyants</small></h2>
+        <a href="https://royvanmil.fr/audio-accessible.html">Page audio accessible <small>(annonce / cagnotte)</small></a>
+        <a href="https://royvanmil.fr/Piste-Audio.html">Piste-Audio <small>(16 histoires)</small></a>
+        <a href="https://royvanmil.fr/audio-quatre.html">Audio Quatre <small>(page cachée — 9 histoires)</small></a>
+      </div>
+
+      <!-- ===== NL ===== -->
+      <div class="card c-nl">
+        <h2>🇳🇱 NL <small>Nederlands</small></h2>
+        <a href="https://royvanmil.fr/NL/indexNL.html">Accueil NL</a>
+        <a href="https://royvanmil.fr/NL/tweemoment.html">Tweemoment</a>
+      </div>
+
+      <!-- ===== PHOTOS ===== -->
+      <div class="card c-photos">
+        <h2>📷 Site photos</h2>
+        <a href="https://royvanmil.fr/IndexPhotos.html">Accueil Photos</a>
+        <a href="https://royvanmil.fr/Photos1Portrait.html">Portraits</a>
+        <a href="https://royvanmil.fr/Photos2Mariage.html">Mariages</a>
+        <a href="https://royvanmil.fr/Photos3Divers.html">Divers</a>
+      </div>
+
+      <!-- ===== OÙ VOIR / OUTILS ===== -->
+      <div class="card">
+        <h2>🧭 Outils</h2>
+        <a href="https://dash.cloudflare.com/22c7c8aa39361d3ffb50968a1f4a6a89/workers-and-pages" target="_blank" rel="noopener">Cloudflare — Workers &amp; Pages <small>(compteurs, mises en ligne)</small></a>
+        <a href="https://dash.cloudflare.com/22c7c8aa39361d3ffb50968a1f4a6a89/web-analytics" target="_blank" rel="noopener">Cloudflare Web Analytics</a>
+        <a href="https://github.com/royvanmil/royvanmil-auteur" target="_blank" rel="noopener">GitHub — royvanmil-auteur <small>(les fichiers du site)</small></a>
+        <a href="https://www.amazon.fr/stores/author/B0HH4KJ7HN/allbooks" target="_blank" rel="noopener">Ma page auteur Amazon</a>
+        <a href="https://kdp.amazon.com/" target="_blank" rel="noopener">Amazon KDP</a>
+      </div>
+
     </div>
 
-    <!-- ===== LIVRE TECHNIQUE (3 LANGUES) ===== -->
-    <div class="section livre">
-      <h2>📘 Livre technique <small>(3 langues)</small></h2>
-      <a href="https://royvanmil.fr/livretechnique/index.html">Index du livre <small>(début — pour le visiteur)</small></a>
-      <a href="https://royvanmil.fr/livretechnique/arbre.html">Arbre du livre <small>(squelette visuel du site)</small></a>
-      <a href="https://royvanmil.fr/livretechnique/visuels.html">Visuels <small>(double-page visuelle du livre)</small></a>
-      <a href="https://royvanmil.fr/livretechnique/admin.html">Fiche technique <small>(mise en page & mémoire — admin/privé)</small></a>
+    <!-- ===== PENSE-BÊTE PHOTOS ===== -->
+    <div class="card memo">
+      <h2>📥 Pour déposer des photos</h2>
+      <ul>
+        <li>Photos de <strong>portrait</strong> → dossier <code>img/portrait/</code></li>
+        <li>Photos de <strong>mariage</strong> → dossier <code>img/mariage/</code></li>
+        <li>Photos <strong>diverses</strong> → dossier <code>img/divers/</code></li>
+      </ul>
+      <p class="regle"><strong>Nommer les fichiers simplement</strong> : minuscules, sans accents ni espaces.<br>
+      Exemples : <code>portrait-01.jpg</code> · <code>mariage-05.jpg</code> · <code>divers-03.jpg</code></p>
     </div>
-
-    <!-- ===== NL (NEDERLANDS) ===== -->
-    <div class="section nl">
-      <h2>🇳🇱 NL <small>(Nederlands)</small></h2>
-      <a href="https://royvanmil.fr/NL/indexNL.html">Accueil NL</a>
-      <a href="https://royvanmil.fr/NL/tweemoment.html">Tweemoment</a>
-    </div>
-
-    <!-- ===== AUDIO ACCESSIBLE ===== -->
-    <div class="section audio">
-      <h2>🔊 Audio (aveugles &amp; malvoyants)</h2>
-      <a href="https://royvanmil.fr/audio-accessible.html">Page audio accessible <small>(annonce / cagnotte)</small></a>
-      <a href="https://royvanmil.fr/Piste-Audio.html">Piste-Audio <small>(page d'écoute — 16 histoires)</small></a>
-      <a href="https://royvanmil.fr/audio-quatre.html">Audio Quatre <small>(page cachée — 9 histoires)</small></a>
-    </div>
-
-
-    <!-- ===== SITE PHOTOS ===== -->
-    <div class="section photos">
-      <h2>📷 Site Photos</h2>
-      <a href="https://royvanmil.fr/IndexPhotos.html">Accueil Photos</a>
-      <a href="https://royvanmil.fr/Photos1Portrait.html">Portraits</a>
-      <a href="https://royvanmil.fr/Photos2Mariage.html">Mariages</a>
-      <a href="https://royvanmil.fr/Photos3Divers.html">Divers</a>
-    </div>
-
-
-    <!-- ===== ADMIN ===== -->
-    <div class="section admin">
-      <h2>🔒 Admin</h2>
-      <a href="https://royvanmil.fr/dashboard.html">Compteurs <small>(dashboard)</small></a>
-      <a href="https://royvanmil.fr/avis-admin.html">Avis lecteurs</a>
-      <a href="https://royvanmil.fr/contact-admin.html">Contact &amp; demandes de livre</a>
-
-      <div class="groupe">Listes livres</div>
-      <a href="https://royvanmil.fr/livres-renseignements.html">Renseignements <small>(ajouter / modifier une personne)</small></a>
-      <a class="sub" href="https://royvanmil.fr/livres-dons.html">↳ Liste dons <small>(imprimable A4)</small></a>
-      <a class="sub" href="https://royvanmil.fr/livres-achats.html">↳ Liste achats <small>(imprimable A4)</small></a>
-
-      <div class="groupe">Affiches</div>
-      <a href="https://royvanmil.fr/affiches.html">Affiches collées <small>(vitrines &amp; accueils — imprimable A4)</small></a>
-
-      <div class="groupe">Inscriptions &amp; présence</div>
-      <a href="https://royvanmil.fr/comptes.html">Mes comptes <small>(Author Central, Babelio, Goodreads…)</small></a>
-      <a href="https://royvanmil.fr/presence.html">Présence des livres <small>(sites &amp; librairies, par pays)</small></a>
-    </div>
-
   </div>
-
-  <!-- ===== PENSE-BÊTE PHOTOS ===== -->
-  <div class="memo">
-    <h2>📥 Pour déposer des photos</h2>
-    <ul>
-      <li>Photos de <strong>portrait</strong> → dossier <code>img/portrait/</code></li>
-      <li>Photos de <strong>mariage</strong> → dossier <code>img/mariage/</code></li>
-      <li>Photos <strong>diverses</strong> → dossier <code>img/divers/</code></li>
-    </ul>
-    <p class="regle">
-      <strong>Nommer les fichiers simplement</strong> : minuscules, sans accents ni espaces.<br>
-      Exemples : <code>portrait-01.jpg</code> · <code>mariage-05.jpg</code> · <code>divers-03.jpg</code>
-    </p>
-  </div>
-
 </div>
+
+<script>
+var API = "https://compteurs.royvanmil86.workers.dev";
+// noms lisibles, rangés par groupe
+var GROUPES = [
+  ["Pages principales", {"accueil":"Accueil","temoignages":"Avis des lecteurs","contact":"Contact","videos":"Vidéos","ia-et-moi":"IA et moi ?"}],
+  ["Livres", {"livre1-maison":"Cette maison…","livre":"Un instant, ou Deux…","extraits":"Extraits (Un instant)","un-instant-trois":"Un instant, ou Trois…","histoire-les-vieux":"Histoire : Les vieux","histoire-les-coulisses":"Histoire : Les coulisses","quatre-instants":"Un instant, ou Quatre…","livre3-cloche":"La Cloche des Morts"}],
+  ["Clics Amazon", {"clic-amazon":"Clics Amazon","clic-amazon-trois":"Clics Amazon (Trois…)"}],
+  ["Audio", {"audio-accessible":"Aveugles — pourquoi ?","piste-audio":"Pistes audio Un instant ou Deux","audio-quatre":"Audio Quatre (page cachée)"}],
+  ["NL & Indiana", {"nl-accueil":"Accueil NL","nl-tweemoment":"Tweemoment (NL)","indiana":"Indiana Fraise"}]
+];
+var code = "";
+try{ code = sessionStorage.getItem("rvm-code") || ""; }catch(e){}
+
+function cell(v, cls){ var c=document.createElement("td"); if(cls) c.className=cls; c.textContent=v; return c; }
+function afficher(stats, hist){
+  var tb=document.querySelector("#tStats tbody"); tb.innerHTML="";
+  var n = hist && hist.jours ? hist.jours.length : 0;
+  var tot=[0,0,0,0,0];
+  GROUPES.forEach(function(g){
+    var tr=document.createElement("tr"); tr.className="groupe-ligne";
+    var c=document.createElement("td"); c.colSpan=6; c.textContent=g[0]; tr.appendChild(c); tb.appendChild(tr);
+    Object.keys(g[1]).forEach(function(k){
+      var s=(stats&&stats[k])||{total:0,depuis_reset:0};
+      var serie=(hist&&hist.series&&hist.series[k])||[];
+      var auj=n?(serie[n-1]||0):0, sept=0, trente=0;
+      for(var i=0;i<serie.length;i++){ trente+=serie[i]||0; if(i>=n-7) sept+=serie[i]||0; }
+      var v=[auj,sept,trente,s.depuis_reset,s.total];
+      if(g[0]!=="Clics Amazon") v.forEach(function(x,i){ tot[i]+=x; });
+      var r=document.createElement("tr"); r.appendChild(cell(g[1][k]));
+      v.forEach(function(x){ r.appendChild(cell(x,"n")); }); tb.appendChild(r);
+    });
+  });
+  var rt=document.createElement("tr"); rt.className="tot"; rt.appendChild(cell("Total pages (sans clics Amazon)"));
+  tot.forEach(function(x){ rt.appendChild(cell(x,"n")); }); tb.appendChild(rt);
+}
+function chargerStats(){
+  return Promise.all([
+    fetch(API+"/stats").then(function(r){return r.json();}),
+    fetch(API+"/historique?jours=30").then(function(r){return r.json();})
+  ]).then(function(res){ afficher(res[0], res[1]); });
+}
+function entrer(c, depuisForm){
+  var err=document.getElementById("err"); err.textContent = depuisForm ? "Vérification…" : "";
+  fetch(API+"/verif?code="+encodeURIComponent(c))
+    .then(function(r){ if(r.status===403) throw "mdp"; if(!r.ok) throw "srv"; return r.json(); })
+    .then(function(d){
+      if(!d.ok) throw "mdp";
+      code=c; try{ sessionStorage.setItem("rvm-code", c); }catch(e){}
+      document.getElementById("loginBox").classList.add("hidden");
+      document.getElementById("app").classList.remove("hidden");
+      document.getElementById("logout").classList.remove("hidden");
+      err.textContent="";
+      return chargerStats();
+    })
+    .catch(function(e){
+      try{ sessionStorage.removeItem("rvm-code"); }catch(x){}
+      document.getElementById("loginBox").classList.remove("hidden");
+      document.getElementById("app").classList.add("hidden");
+      err.textContent = e==="mdp" ? "Mot de passe incorrect." : "Serveur indisponible, réessaie dans un instant.";
+    });
+}
+document.getElementById("loginBox").addEventListener("submit", function(e){ e.preventDefault(); entrer(document.getElementById("pw").value.trim(), true); });
+document.getElementById("refresh").addEventListener("click", function(){ chargerStats().catch(function(){}); });
+document.getElementById("logout").addEventListener("click", function(){ try{ sessionStorage.removeItem("rvm-code"); }catch(e){} location.reload(); });
+if(code) entrer(code, false);
+</script>
 </body>
 </html>
