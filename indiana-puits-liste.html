@@ -133,6 +133,18 @@ var PUITS = [
     note: "",
     photos: ["img/puits/puits3-1.jpg","img/puits/puits3-2.jpg","img/puits/puits3-3.jpg","img/puits/puits3-4.jpg"]
   }
+  ,{
+    id: "manoir",
+    nom: "Le puits du Manoir",
+    lieu: "Mourède, Gers (32)",
+    description: "Un puits caché dans le parc d’un vieux manoir, au milieu des arbres. Photos à venir…",
+    diametre: "à mesurer",
+    horsSol: "à mesurer",
+    profondeur: "à mesurer",
+    lat: 43.799768, lon: 0.307781,
+    note: "",
+    photos: []
+  }
   // , { id:"...", nom:"...", ... }   ← le puits suivant
 ];
 
@@ -143,7 +155,7 @@ function vignettes(){
   var h = "";
   PUITS.forEach(function(p, i){
     h += '<button type="button" class="vig" role="tab" aria-selected="false" data-id="' + p.id + '">' +
-         '<span class="n">' + (i+1) + '</span><img src="' + esc(p.photos[0]) + '" alt="" loading="lazy">' +
+         '<span class="n">' + (i+1) + '</span>' + (p.photos.length ? '<img src="' + esc(p.photos[0]) + '" alt="" loading="lazy">' : '<div class="ph" style="height:140px;display:flex;align-items:center;justify-content:center;font-size:2.4rem;background:#1a1410">🔦</div>') +
          '<div class="t"><div class="nom">' + esc(p.nom) + '</div><div class="lieu">' + esc(p.lieu) + '</div></div></button>';
   });
   h += '<div class="vig bientot" aria-hidden="true"><div class="ph">🔦</div><div class="t"><div class="nom">Puits n° ' + (PUITS.length+1) + '</div><div class="lieu">Bientôt…</div></div></div>';
@@ -162,7 +174,8 @@ function montrer(id){
   var earth = "https://earth.google.com/web/search/" + p.lat + "," + p.lon;
   var maps = "https://www.google.com/maps/search/?api=1&query=" + p.lat + "," + p.lon;
   document.getElementById("detail").innerHTML =
-    '<div><div class="grande" id="grande"><img id="big" src="' + esc(p.photos[0]) + '" alt="' + esc(p.nom) + '"></div><div class="minis" id="minis">' + minis + '</div></div>' +
+    (p.photos.length ? '<div><div class="grande" id="grande"><img id="big" src="' + esc(p.photos[0]) + '" alt="' + esc(p.nom) + '"></div><div class="minis" id="minis">' + minis + '</div></div>'
+      : '<div><div class="grande" style="display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.5rem;cursor:default"><div style="font-size:3rem">🔦</div><div style="font-style:italic;color:var(--creme-doux)">Photos à venir…</div></div></div>') +
     '<div class="fiche"><h2>' + esc(p.nom) + '</h2><div class="lieu">' + esc(p.lieu) + '</div>' +
     '<p class="desc">' + esc(p.description) + '</p>' +
     '<div class="mesures"><div class="mesure"><b>' + esc(p.diametre) + '</b><span>diamètre</span></div>' +
