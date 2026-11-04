@@ -60,7 +60,12 @@ tr.tot td{font-weight:700;color:var(--teal);border-top:2px solid var(--teal);}
 tr.groupe-ligne td{background:var(--soft);font-size:.75rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:700;text-align:left;}
 .scroll{overflow-x:auto;}
 .note{color:var(--muted);font-size:.86rem;margin-top:.6rem;}
-.refresh{background:var(--teal);color:white;border:none;border-radius:40px;padding:.4rem 1rem;font:inherit;font-size:.9rem;font-weight:600;cursor:pointer;min-height:40px;}
+.refresh{display:block;margin:.6rem 0 .2rem;background:var(--teal);color:white;border:none;border-radius:40px;padding:.45rem 1.2rem;font-family:Inter,system-ui,sans-serif;font-size:1rem;font-weight:600;cursor:pointer;min-height:44px;}
+th:first-child,td:first-child{position:sticky;left:0;background:var(--paper);z-index:1;min-width:120px;}
+tr.groupe-ligne td{position:static;}
+tr.groupe-ligne td span{position:sticky;left:.55rem;}
+.card{min-width:0;}
+@media(max-width:600px){.grid{grid-template-columns:1fr;}.card{padding:1rem .8rem;}th,td{padding:.5rem .45rem;}table{font-size:.9rem;}}
 
 .memo{margin-top:1.25rem;}
 .memo ul{margin:.4rem 0 .8rem 1.2rem;}
@@ -94,7 +99,8 @@ tr.groupe-ligne td{background:var(--soft);font-size:.75rem;text-transform:upperc
 
       <!-- ===== COMPTEURS ===== -->
       <div class="card big">
-        <h2>Compteurs de visites <button class="refresh" type="button" id="refresh">Actualiser</button></h2>
+        <h2>Compteurs de visites</h2>
+        <button class="refresh" type="button" id="refresh">Actualiser</button>
         <div class="scroll"><table id="tStats"><thead><tr><th>Page</th><th>Aujourd’hui</th><th>7 jours</th><th>30 jours</th><th>Depuis remise à 0</th><th>Total</th></tr></thead><tbody></tbody></table></div>
         <p class="note">Remise à zéro et courbes : page <a href="https://royvanmil.fr/dashboard.html" style="display:inline;border:none;padding:0;color:var(--teal)">Compteurs (dashboard)</a>.</p>
       </div>
@@ -222,7 +228,7 @@ function afficher(stats, hist){
   var tot=[0,0,0,0,0];
   GROUPES.forEach(function(g){
     var tr=document.createElement("tr"); tr.className="groupe-ligne";
-    var c=document.createElement("td"); c.colSpan=6; c.textContent=g[0]; tr.appendChild(c); tb.appendChild(tr);
+    var c=document.createElement("td"); c.colSpan=6; var sp=document.createElement("span"); sp.textContent=g[0]; c.appendChild(sp); tr.appendChild(c); tb.appendChild(tr);
     Object.keys(g[1]).forEach(function(k){
       var s=(stats&&stats[k])||{total:0,depuis_reset:0};
       var serie=(hist&&hist.series&&hist.series[k])||[];
