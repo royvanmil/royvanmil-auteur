@@ -72,6 +72,9 @@ main{max-width:1200px;margin:0 auto;padding:0 1.25rem 3rem}
 .loupe.on{display:flex}
 .loupe img{max-width:94vw;max-height:90vh;object-fit:contain;border-radius:8px}
 .loupe button{position:absolute;top:1rem;right:1rem;width:48px;height:48px;border:none;background:none;color:#fff;font-size:2rem;cursor:pointer}
+.loupe .fl{top:50%;transform:translateY(-50%);width:54px;height:54px;border-radius:50%;background:rgba(255,255,255,.14);font-size:2.2rem;line-height:1;display:flex;align-items:center;justify-content:center}
+.loupe .fl.g{left:.6rem;right:auto}.loupe .fl.d{right:.6rem}
+.loupe .cpt{position:absolute;bottom:1.1rem;left:50%;transform:translateX(-50%);color:#fff;font-size:1rem;opacity:.8}
 </style>
 </head>
 <body>
@@ -92,7 +95,10 @@ main{max-width:1200px;margin:0 auto;padding:0 1.25rem 3rem}
 
 <div class="loupe" id="loupe" role="dialog" aria-label="Photo en grand">
   <button type="button" id="fermerLoupe" aria-label="Fermer">✕</button>
+  <button type="button" class="fl g" id="loupePrec" aria-label="Photo précédente">‹</button>
   <img id="loupeImg" src="" alt="">
+  <button type="button" class="fl d" id="loupeSuiv" aria-label="Photo suivante">›</button>
+  <div class="cpt" id="loupeCpt"></div>
 </div>
 
 <script>
@@ -210,15 +216,38 @@ document.getElementById("detail").addEventListener("click", function(e){
     document.querySelectorAll("#minis button").forEach(function(x){ x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
     return;
   }
-  if (e.target.closest("#grande")){
-    document.getElementById("loupeImg").src = document.getElementById("big").src;
-    document.getElementById("loupe").classList.add("on");
+  if (e.target.closest("#grande") && courant && courant.photos.length){
+    var src = document.getElementById("big").getAttribute("src");
+    var i = courant.photos.indexOf(src); ouvrir(i < 0 ? 0 : i);
   }
+});
+var idxLoupe = 0;
+function ouvrir(i){
+  var L = courant.photos, n = L.length; if (!n) return;
+  idxLoupe = (i + n) % n;
+  document.getElementById("loupeImg").src = L[idxLoupe];
+  document.getElementById("loupeCpt").textContent = n > 1 ? (idxLoupe + 1) + " / " + n : "";
+  document.getElementById("loupePrec").style.display = n > 1 ? "" : "none";
+  document.getElementById("loupeSuiv").style.display = n > 1 ? "" : "none";
+  document.getElementById("loupe").classList.add("on");
+}
+document.getElementById("loupePrec").addEventListener("click", function(){ ouvrir(idxLoupe - 1); });
+document.getElementById("loupeSuiv").addEventListener("click", function(){ ouvrir(idxLoupe + 1); });
+var xDoigt = null;
+document.getElementById("loupe").addEventListener("touchstart", function(e){ xDoigt = e.touches[0].clientX; }, {passive:true});
+document.getElementById("loupe").addEventListener("touchend", function(e){
+  if (xDoigt === null) return; var dx = e.changedTouches[0].clientX - xDoigt; xDoigt = null;
+  if (Math.abs(dx) > 40) ouvrir(idxLoupe + (dx < 0 ? 1 : -1));
 });
 function fermer(){ document.getElementById("loupe").classList.remove("on"); }
 document.getElementById("fermerLoupe").addEventListener("click", fermer);
 document.getElementById("loupe").addEventListener("click", function(e){ if (e.target === this) fermer(); });
-document.addEventListener("keydown", function(e){ if (e.key === "Escape") fermer(); });
+document.addEventListener("keydown", function(e){
+  if (e.key === "Escape") fermer();
+  if (!document.getElementById("loupe").classList.contains("on")) return;
+  if (e.key === "ArrowRight") ouvrir(idxLoupe + 1);
+  if (e.key === "ArrowLeft") ouvrir(idxLoupe - 1);
+});
 
 vignettes();
 montrer((location.hash || "").replace("#", "") || PUITS[0].id);
