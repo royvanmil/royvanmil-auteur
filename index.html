@@ -244,6 +244,29 @@ h2,h3{margin:0;font-family:"Cormorant Garamond",Georgia,serif;line-height:1.05}
   border:1px solid #f0cda8;box-shadow:var(--shadow-soft);
 }
 .support h2{font-size:clamp(2rem,4vw,3rem)}
+/* ===== Bulle concours ===== */
+.bulle-concours{
+  display:grid;grid-template-columns:auto 1fr auto auto;gap:26px;align-items:center;
+  padding:30px 34px;border-radius:26px;color:inherit;text-decoration:none;
+  background:linear-gradient(125deg,#fdecee,#fbfdfe 55%,#eaf4ee);
+  border:1px solid #efc3c9;box-shadow:var(--shadow-soft);
+  transition:transform .25s,box-shadow .25s;
+}
+.bulle-concours:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.bc-sapin{font-size:4rem;line-height:1}
+.bulle-concours .bc-kicker{color:#b3152a}
+.bulle-concours h2{color:#b3152a;font-size:clamp(2.4rem,5vw,3.4rem);line-height:1;margin:0}
+.bc-sous{font-family:"Cormorant Garamond",Georgia,serif;font-style:italic;font-weight:600;font-size:1.4rem;color:var(--ink)!important;margin:.2rem 0 .3rem!important}
+.bulle-concours p{color:#526374;margin:.3rem 0 0}
+.bc-nb{font-weight:700;color:#b3152a!important;min-height:1.2em}
+.bc-livres{display:flex;gap:8px}
+.bc-livres img{width:70px;aspect-ratio:2/3;object-fit:cover;border-radius:4px;box-shadow:0 8px 18px rgba(30,55,75,.22)}
+.bc-livres img:nth-child(1){transform:rotate(-4deg)}
+.bc-livres img:nth-child(3){transform:rotate(4deg)}
+@media(max-width:900px){
+  .bulle-concours{grid-template-columns:1fr;text-align:center;justify-items:center;gap:16px;padding:26px 20px}
+  .bc-sapin{font-size:3rem}
+}
 .support p{color:#526374;margin:.6rem 0 0;max-width:760px}
 .kicker{
   color:#b75d10;font-size:.78rem;font-weight:800;
@@ -519,6 +542,28 @@ Bienvenue sur le site des Microhistoires de Roy Van Mil. Des histoires audio vou
     </div>
   </section>
 
+  <!-- CONCOURS DE NOËL -->
+  <section class="zone">
+    <div class="wrap">
+      <a class="bulle-concours" href="concours.html" onclick="try{compte('concours-bulle')}catch(e){}">
+        <div class="bc-sapin" aria-hidden="true">🎄</div>
+        <div class="bc-texte">
+          <div class="kicker bc-kicker" data-i18n="contestKicker">Concours de Noël</div>
+          <h2 data-i18n="contestTitle">Concours</h2>
+          <p class="bc-sous" data-i18n="contestSub">pour gagner un livre gratuitement</p>
+          <p data-i18n="contestText">3 livres à gagner, envoyés chez vous pour Noël. Participation gratuite, tirage au sort le 19 décembre.</p>
+          <p class="bc-nb" id="bulleNb"></p>
+        </div>
+        <div class="bc-livres" aria-hidden="true">
+          <img src="img/couv-un-instant.png" alt="">
+          <img src="img/couv-trois-instants.png" alt="">
+          <img src="img/Couverture_Un_instant_ou_Quatre.jpg" alt="">
+        </div>
+        <span class="btn btn-noel bc-btn" data-i18n="contestButton">Je participe 🎁</span>
+      </a>
+    </div>
+  </section>
+
   <!-- CAGNOTTE -->
   <section class="zone">
     <div class="wrap">
@@ -635,6 +680,9 @@ const translations = {
     popupSub:"pour gagner un livre gratuitement",
     popupText:"3 livres à gagner, envoyés chez vous pour Noël. Participation gratuite, tirage au sort le 19 décembre.",
     popupButton:"Je participe 🎁",
+    contestKicker:"Concours de Noël", contestTitle:"Concours", contestSub:"pour gagner un livre gratuitement",
+    contestText:"3 livres à gagner, envoyés chez vous pour Noël. Participation gratuite, tirage au sort le 19 décembre.",
+    contestButton:"Je participe 🎁",
     fourLabel:"Bientôt",
     fourText:"Le prochain recueil de microhistoires arrive. De nouvelles histoires pour rire, être surpris… et peut-être laisser couler une larme.",
     fourButton:"Découvrir →",
@@ -667,6 +715,9 @@ const translations = {
     popupSub:"win a free book",
     popupText:"3 books to win, sent to your home for Christmas (France only). Free entry, prize draw on 19 December. The books are in French.",
     popupButton:"Enter now 🎁",
+    contestKicker:"Christmas contest", contestTitle:"Contest", contestSub:"win a free book",
+    contestText:"3 books to win, sent to your home for Christmas (France only). Free entry, prize draw on 19 December. The books are in French.",
+    contestButton:"Enter now 🎁",
     fourLabel:"Coming soon",
     fourText:"The next collection of short stories is on its way. New stories to make you laugh, surprise you… and maybe bring a tear to your eye.",
     fourButton:"Discover →",
@@ -699,6 +750,9 @@ const translations = {
     popupSub:"win gratis een boek",
     popupText:"3 boeken te winnen, voor Kerst bij je thuis bezorgd (alleen in Frankrijk). Gratis meedoen, loting op 19 december. De boeken zijn in het Frans.",
     popupButton:"Ik doe mee 🎁",
+    contestKicker:"Kerstwedstrijd", contestTitle:"Wedstrijd", contestSub:"win gratis een boek",
+    contestText:"3 boeken te winnen, voor Kerst bij je thuis bezorgd (alleen in Frankrijk). Gratis meedoen, loting op 19 december. De boeken zijn in het Frans.",
+    contestButton:"Ik doe mee 🎁",
     fourLabel:"Binnenkort",
     fourText:"De volgende bundel korte verhalen komt eraan. Nieuwe verhalen om te lachen, verrast te worden… en misschien een traantje te laten.",
     fourButton:"Ontdekken →",
@@ -738,7 +792,9 @@ setLanguage(initial);
         if(d && d.inscrits>0){
           const l=document.documentElement.lang||"fr";
           const mots={fr:" inscrits",en:" entries",nl:" deelnemers"};
-          document.getElementById("popupNb").textContent="👥 "+d.inscrits+(mots[l]||mots.fr);
+          const txt="👥 "+d.inscrits+(mots[l]||mots.fr);
+          document.getElementById("popupNb").textContent=txt;
+          const b=document.getElementById("bulleNb"); if(b) b.textContent=txt;
         }
       }).catch(()=>{});
   }catch(e){}
