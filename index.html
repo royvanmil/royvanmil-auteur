@@ -331,6 +331,17 @@ footer{padding:40px 0 120px;color:#56687a;font-size:.9rem}
 .popup h2{font-size:2.5rem;margin-top:6px}
 .popup p{color:var(--muted)}
 .popup .btn{margin-top:8px}
+.popup-noel h2{color:#b3152a;font-size:3.4rem;line-height:1;margin-top:2px}
+.popup-sapin{font-size:2.6rem;line-height:1}
+.popup-sous{font-family:"Cormorant Garamond",Georgia,serif;font-style:italic;font-weight:600;font-size:1.45rem;color:var(--ink)!important;margin:4px 0 14px}
+.popup-livres{display:flex;justify-content:center;gap:12px;margin:0 0 14px}
+.popup-livres img{width:28%;max-width:110px;border-radius:4px;box-shadow:0 10px 22px rgba(30,55,75,.22)}
+.popup-livres img:nth-child(1){transform:rotate(-4deg)}
+.popup-livres img:nth-child(3){transform:rotate(4deg)}
+.popup-nb{font-weight:600;color:#b3152a!important;min-height:1.2em;margin:2px 0}
+.btn-noel{background:#b3152a;color:#fff;box-shadow:0 10px 26px rgba(179,21,42,.25)}
+.btn-noel:hover{background:#8c0f20}
+@media(max-width:520px){.popup{padding:26px 18px}.popup-noel h2{font-size:2.8rem}}
 
 /* ===== Responsive ===== */
 @media(max-width:900px){
@@ -577,17 +588,21 @@ Bienvenue sur le site des Microhistoires de Roy Van Mil. Des histoires audio vou
   </div>
 </footer>
 
-<!-- POPUP CAGNOTTE : affiché à chaque chargement de la page -->
+<!-- POPUP CONCOURS DE NOËL : affiché à chaque chargement de la page -->
 <div class="popup-backdrop" id="supportPopup" role="dialog" aria-modal="true" aria-labelledby="supportPopupTitle">
-  <div class="popup">
+  <div class="popup popup-noel">
     <button class="popup-close" id="popupClose" aria-label="Fermer">×</button>
-    <div class="popup-heart" aria-hidden="true">❤️</div>
-    <h2 id="supportPopupTitle" data-i18n="popupTitle">Un petit coup de pouce ?</h2>
-    <p data-i18n="popupText">La cagnotte aide à financer de nouvelles histoires audio enregistrées par une vraie voix professionnelle et mises gratuitement à disposition.</p>
-    <a class="btn btn-orange"
-       href="https://www.leetchi.com/fr/c/des-histoires-pour-aveugles-1218180"
-       target="_blank" rel="noopener noreferrer"
-       data-i18n="popupButton">Voir la cagnotte →</a>
+    <div class="popup-sapin" aria-hidden="true">🎄</div>
+    <h2 id="supportPopupTitle" data-i18n="popupTitle">Concours</h2>
+    <p class="popup-sous" data-i18n="popupSub">pour gagner un livre gratuitement</p>
+    <div class="popup-livres" aria-hidden="true">
+      <img src="img/couv-un-instant.png" alt="">
+      <img src="img/couv-trois-instants.png" alt="">
+      <img src="img/Couverture_Un_instant_ou_Quatre.jpg" alt="">
+    </div>
+    <p data-i18n="popupText">3 livres à gagner, envoyés chez vous pour Noël. Participation gratuite, tirage au sort le 19 décembre.</p>
+    <p class="popup-nb" id="popupNb"></p>
+    <a class="btn btn-noel" href="concours.html" data-i18n="popupButton">Je participe 🎁</a>
   </div>
 </div>
 
@@ -616,9 +631,10 @@ const translations = {
     whyAudioTitle:"Pourquoi l'audio ?", whyAudioText:"Découvrez pourquoi cette page a été pensée pour les personnes aveugles et malvoyantes.", learnMore:"En savoir plus →",
     reviewsTitle:"Vos avis comptent", reviewsText:"Vous avez lu ou écouté une histoire ? Découvrez les avis et laissez le vôtre.", reviewsLink:"Voir les avis →",
     contactMe:"✒️ Me contacter",
-    popupTitle:"Un petit coup de pouce ?",
-    popupText:"La cagnotte aide à financer de nouvelles histoires audio enregistrées par une vraie voix professionnelle et mises gratuitement à disposition.",
-    popupButton:"Voir la cagnotte →",
+    popupTitle:"Concours",
+    popupSub:"pour gagner un livre gratuitement",
+    popupText:"3 livres à gagner, envoyés chez vous pour Noël. Participation gratuite, tirage au sort le 19 décembre.",
+    popupButton:"Je participe 🎁",
     fourLabel:"Bientôt",
     fourText:"Le prochain recueil de microhistoires arrive. De nouvelles histoires pour rire, être surpris… et peut-être laisser couler une larme.",
     fourButton:"Découvrir →",
@@ -647,9 +663,10 @@ const translations = {
     whyAudioTitle:"Why audio?", whyAudioText:"Discover why this page was designed specifically with blind and visually impaired listeners in mind.", learnMore:"Learn more →",
     reviewsTitle:"Your opinion matters", reviewsText:"Have you read or listened to a story? Read the reviews and leave your own.", reviewsLink:"See the reviews →",
     contactMe:"✒️ Contact me",
-    popupTitle:"Would you like to help?",
-    popupText:"The fundraiser helps finance new audio stories recorded by a professional human voice and made available for free.",
-    popupButton:"View the fundraiser →",
+    popupTitle:"Contest",
+    popupSub:"win a free book",
+    popupText:"3 books to win, sent to your home for Christmas (France only). Free entry, prize draw on 19 December. The books are in French.",
+    popupButton:"Enter now 🎁",
     fourLabel:"Coming soon",
     fourText:"The next collection of short stories is on its way. New stories to make you laugh, surprise you… and maybe bring a tear to your eye.",
     fourButton:"Discover →",
@@ -678,9 +695,10 @@ const translations = {
     whyAudioTitle:"Waarom audio?", whyAudioText:"Ontdek waarom deze pagina speciaal is ontworpen met blinde en slechtziende luisteraars in gedachten.", learnMore:"Meer informatie →",
     reviewsTitle:"Jouw mening telt", reviewsText:"Heb je een verhaal gelezen of beluisterd? Lees de reacties en laat die van jou achter.", reviewsLink:"Bekijk de reacties →",
     contactMe:"✒️ Neem contact op",
-    popupTitle:"Wil je een handje helpen?",
-    popupText:"De inzamelingsactie helpt nieuwe audioverhalen te financieren die door een professionele menselijke stem worden ingesproken en gratis beschikbaar zijn.",
-    popupButton:"Bekijk de inzamelingsactie →",
+    popupTitle:"Wedstrijd",
+    popupSub:"win gratis een boek",
+    popupText:"3 boeken te winnen, voor Kerst bij je thuis bezorgd (alleen in Frankrijk). Gratis meedoen, loting op 19 december. De boeken zijn in het Frans.",
+    popupButton:"Ik doe mee 🎁",
     fourLabel:"Binnenkort",
     fourText:"De volgende bundel korte verhalen komt eraan. Nieuwe verhalen om te lachen, verrast te worden… en misschien een traantje te laten.",
     fourButton:"Ontdekken →",
@@ -712,7 +730,19 @@ try{
 }catch(e){}
 setLanguage(initial);
 
-/* Popup cagnotte : s'affiche à chaque chargement, dans la langue de la page */
+/* Popup concours : s'affiche à chaque chargement, dans la langue de la page */
+(function(){
+  try{
+    fetch("https://concours.royvanmil86.workers.dev/etat",{cache:"no-store"})
+      .then(r=>r.json()).then(d=>{
+        if(d && d.inscrits>0){
+          const l=document.documentElement.lang||"fr";
+          const mots={fr:" inscrits",en:" entries",nl:" deelnemers"};
+          document.getElementById("popupNb").textContent="👥 "+d.inscrits+(mots[l]||mots.fr);
+        }
+      }).catch(()=>{});
+  }catch(e){}
+})();
 (function(){
   const pop=document.getElementById("supportPopup");
   const close=document.getElementById("popupClose");

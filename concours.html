@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Concours de Noël — Roy Van Mil</title>
+<meta name="description" content="Gagnez un livre de Roy Van Mil pour Noël ! 3 livres à gagner, tirage au sort le 19 décembre 2026. Participation gratuite.">
+<meta property="og:title" content="Concours de Noël — Gagnez un livre de Roy Van Mil">
+<meta property="og:description" content="3 livres à gagner, envoyés chez vous pour Noël. Participation gratuite, tirage le 19 décembre.">
+<meta property="og:url" content="https://royvanmil.fr/concours">
+<meta property="og:image" content="https://royvanmil.fr/img/og-image.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script>
+const CONFIG = {
+  // Adresse du Worker « concours »
+  WORKER: "https://concours.royvanmil86.workers.dev",
+  // Date et heure du tirage (heure de Paris)
+  TIRAGE: "2026-12-19T18:00:00+01:00",
+  LIVRES: [
+    { id: "deux",   titre: "Un instant, ou Deux…",   image: "img/couv-un-instant.png" },
+    { id: "trois",  titre: "Un instant, ou Trois…",  image: "img/couv-trois-instants.png" },
+    { id: "quatre", titre: "Un instant, ou Quatre…", image: "img/Couverture_Un_instant_ou_Quatre.jpg" }
+  ]
+};
+</script>
+<style>
+:root{
+  --bg:#f3f7f9;
+  --paper:#fff;
+  --paper-soft:#e9f1f4;
+  --ink:#22364a;
+  --muted:#56687a;
+  --line:#d9e4ea;
+  --rouge:#b3152a;
+  --rouge-fonce:#8c0f20;
+  --vert-sapin:#1d5c3f;
+  --or:#d4a640;
+  --vert-ok:#1f6e4b;
+  --shadow:0 18px 50px rgba(30,55,75,.10);
+  --shadow-soft:0 8px 28px rgba(30,55,75,.07);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  color:var(--ink);
+  background:
+    radial-gradient(circle at 10% 5%,rgba(120,170,205,.14),transparent 26rem),
+    radial-gradient(circle at 90% 10%,rgba(179,21,42,.05),transparent 28rem),
+    var(--bg);
+  font-family:Inter,Arial,sans-serif;
+  font-size:17px;
+  line-height:1.6;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+img{display:block;max-width:100%}
+a{color:inherit}
+.titre-serif{font-family:"Cormorant Garamond",Georgia,serif}
+
+/* ===== Neige ===== */
+.neige{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.flocon{position:absolute;top:-20px;color:#bfd1dc;animation:tombe linear infinite;opacity:.75}
+@keyframes tombe{to{transform:translateY(110vh) translateX(30px) rotate(360deg)}}
+
+.page{position:relative;z-index:1;width:min(calc(100% - 32px),1000px);margin:0 auto;padding:18px 0 60px}
+
+/* ===== En-tête ===== */
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:6px 0 4px}
+header .logo img{height:54px;width:auto}
+.retour{font-size:15px;color:var(--muted);text-decoration:none;border:1px solid var(--line);background:var(--paper);border-radius:30px;padding:7px 14px}
+.retour:hover{color:var(--rouge);border-color:var(--rouge)}
+
+/* ===== Titre ===== */
+.hero{text-align:center;margin-top:10px}
+h1{
+  font-family:"Cormorant Garamond",Georgia,serif;
+  font-weight:700;
+  font-size:clamp(64px,13vw,120px);
+  line-height:.95;
+  color:var(--rouge);
+  letter-spacing:1px;
+  text-shadow:0 2px 0 #fff,0 10px 30px rgba(179,21,42,.18);
+}
+.sous-titre{
+  font-family:"Cormorant Garamond",Georgia,serif;
+  font-style:italic;font-weight:600;
+  font-size:clamp(24px,4.6vw,36px);
+  color:var(--ink);
+  margin-top:6px;
+}
+
+/* ===== Sapin ===== */
+.scene{position:relative;margin:14px auto 0;max-width:820px}
+.sapin{width:min(300px,66vw);margin:0 auto;display:block;overflow:visible}
+.sapin .lum{animation:scintille 1.6s ease-in-out infinite}
+.sapin .lum:nth-of-type(2n){animation-delay:.4s}
+.sapin .lum:nth-of-type(3n){animation-delay:.8s}
+.sapin .lum:nth-of-type(5n){animation-delay:1.2s}
+@keyframes scintille{0%,100%{opacity:1}50%{opacity:.25}}
+.sapin .etoile{transform-origin:150px 32px;animation:brille 3s ease-in-out infinite}
+@keyframes brille{0%,100%{transform:scale(1);filter:drop-shadow(0 0 6px rgba(255,210,90,.9))}50%{transform:scale(1.1);filter:drop-shadow(0 0 16px rgba(255,210,90,1))}}
+
+/* ===== Livres sous le sapin ===== */
+.livres{
+  position:relative;
+  display:grid;grid-template-columns:repeat(3,1fr);gap:22px;
+  margin:-6px auto 0;max-width:760px;padding:0 6px 26px;
+}
+.livres::after{ /* tapis de neige */
+  content:"";position:absolute;left:-4%;right:-4%;bottom:0;height:46px;z-index:-1;
+  background:radial-gradient(ellipse at center,#fff 0%,#fff 45%,rgba(255,255,255,0) 72%);
+}
+.livre{
+  background:none;border:none;cursor:pointer;text-align:center;
+  display:flex;flex-direction:column;align-items:center;
+  font:inherit;color:inherit;
+}
+.livre .couv{
+  position:relative;width:100%;border-radius:6px;overflow:visible;
+  box-shadow:0 14px 30px rgba(30,55,75,.25);
+  transition:transform .3s,box-shadow .3s;
+}
+.livre .couv img{width:100%;aspect-ratio:2/3;object-fit:cover;border-radius:6px}
+.livre .noeud{
+  position:absolute;top:-16px;left:50%;transform:translateX(-50%);
+  font-size:28px;line-height:1;filter:drop-shadow(0 3px 4px rgba(0,0,0,.2));
+}
+.livre:hover .couv,.livre:focus-visible .couv{transform:translateY(-8px) rotate(-1.5deg);box-shadow:0 22px 40px rgba(30,55,75,.32)}
+.livre:focus-visible{outline:none}
+.livre .nom{font-family:"Cormorant Garamond",Georgia,serif;font-weight:700;font-size:22px;line-height:1.15;margin:12px 0 8px}
+.remplace{display:flex;align-items:center;justify-content:center;aspect-ratio:2/3;background:var(--paper-soft);font-family:"Cormorant Garamond",serif;font-size:24px;color:var(--rouge);padding:14px;border-radius:6px}
+
+.btn{
+  display:inline-block;border:none;border-radius:40px;cursor:pointer;
+  font-family:Inter,Arial,sans-serif;font-size:15px;font-weight:600;
+  padding:10px 20px;text-decoration:none;transition:background .2s,transform .2s,border-color .2s;
+}
+.btn-rouge{background:var(--rouge);color:#fff;box-shadow:0 6px 16px rgba(179,21,42,.25)}
+.btn-rouge:hover{background:var(--rouge-fonce)}
+.btn-clair{background:var(--paper);color:var(--ink);border:1px solid var(--line)}
+.btn-clair:hover{border-color:var(--rouge);color:var(--rouge)}
+.btn:active{transform:scale(.97)}
+
+/* ===== Infos ===== */
+.consigne{text-align:center;font-weight:600;margin:14px 0 28px}
+.infos{text-align:center;color:var(--muted);max-width:640px;margin:6px auto 18px}
+.infos strong{color:var(--ink)}
+.bandeau{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin:0 auto 26px}
+.pastille{
+  background:var(--paper);border:1px solid var(--line);border-radius:40px;
+  padding:8px 18px;font-size:15px;box-shadow:var(--shadow-soft);
+  display:flex;align-items:center;gap:8px;
+}
+.pastille b{font-family:"Cormorant Garamond",serif;font-size:26px;color:var(--rouge);line-height:1}
+
+/* ===== Partage ===== */
+.partage{text-align:center;margin:6px 0 30px}
+.partage p{color:var(--muted);font-size:15px;margin-bottom:10px}
+.partage .liens{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.msg-copie{display:block;margin-top:8px;font-size:14px;color:var(--vert-ok);min-height:20px}
+
+/* ===== Cartes / formulaire ===== */
+#etape2{display:none}
+.carte{background:var(--paper);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);padding:26px 22px;margin-bottom:22px}
+.choix-livre{display:flex;align-items:center;gap:16px;margin-bottom:18px}
+.choix-livre img{width:74px;border-radius:4px;box-shadow:0 6px 14px rgba(0,0,0,.18)}
+.choix-livre .petit{font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.choix-livre .t{font-family:"Cormorant Garamond",serif;font-weight:700;font-size:28px;line-height:1.1}
+.choix-livre .chg{font-size:14px;color:var(--muted);background:none;border:none;cursor:pointer;text-decoration:underline;font-family:inherit;margin-top:4px}
+h2{font-family:"Cormorant Garamond",serif;font-weight:700;font-size:32px;color:var(--rouge);margin-bottom:12px;line-height:1.1}
+.grille{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.plein{grid-column:1/-1}
+label{display:block;font-size:14px;font-weight:600;margin-bottom:5px}
+label .fac{font-weight:400;color:var(--muted)}
+input[type=text],input[type=email],input[type=tel],input[type=number],select{
+  width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:10px;
+  font-family:inherit;font-size:16px;background:#fbfdfe;color:var(--ink);
+}
+input:focus,select:focus{outline:2px solid rgba(179,21,42,.25);border-color:var(--rouge)}
+.radios{display:flex;flex-wrap:wrap;gap:8px 20px}
+.radios label,.case label{font-weight:400;font-size:15px;display:flex;align-items:flex-start;gap:8px;cursor:pointer}
+.radios input,.case input{margin-top:4px;width:18px;height:18px;accent-color:var(--rouge);flex-shrink:0}
+#blocAdresse{display:none}
+.piege{position:absolute;left:-9999px}
+
+.reglement{font-size:14px;line-height:1.55;color:#33475a;max-height:320px;overflow-y:auto;border:1px solid var(--line);border-radius:12px;padding:16px;background:#fbfdfe}
+.reglement h3{font-family:"Cormorant Garamond",serif;font-size:20px;color:var(--ink);margin:12px 0 2px}
+.reglement h3:first-child{margin-top:0}
+.reglement p,.reglement li{margin-bottom:6px}
+.reglement ul{padding-left:20px}
+
+.envoi{text-align:center;margin-top:20px}
+.erreur{color:var(--rouge);font-weight:600;margin-top:12px;text-align:center;min-height:24px}
+
+#merci{display:none;text-align:center}
+#merci .grand{font-family:"Cormorant Garamond",serif;font-weight:700;font-size:46px;color:var(--vert-sapin);line-height:1.05;margin-bottom:8px}
+
+#resultats{display:none}
+.gagnants{list-style:none;display:grid;gap:10px;margin-top:12px}
+.gagnants li{background:#fbfdfe;border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.gagnants .n{font-family:"Cormorant Garamond",serif;font-weight:700;font-size:22px;color:var(--rouge)}
+
+footer{text-align:center;color:var(--muted);font-size:14px;margin-top:30px}
+
+@media (max-width:640px){
+  header .logo img{height:44px}
+  .livres{gap:10px;padding-bottom:20px}
+  .livre .nom{font-size:16px;margin:10px 0 6px}
+  .livre .btn{font-size:13px;padding:7px 10px}
+  .livre .noeud{font-size:22px;top:-12px}
+  .grille{grid-template-columns:1fr}
+  .carte{padding:22px 16px}
+}
+@media (prefers-reduced-motion:reduce){
+  .flocon,.sapin .lum,.sapin .etoile{animation:none}
+}
+</style>
+</head>
+<body>
+
+<div class="neige" id="neige" aria-hidden="true"></div>
+
+<div class="page">
+
+  <header>
+    <a class="logo" href="index.html"><img src="img/roy-van-mil.png" alt="Roy Van Mil"></a>
+    <a class="retour" href="index.html">← Retour au site</a>
+  </header>
+
+  <div class="hero">
+    <h1>Concours</h1>
+    <p class="sous-titre">pour gagner un livre gratuitement</p>
+  </div>
+
+  <!-- RÉSULTATS (après le tirage) -->
+  <section id="resultats" class="carte" style="margin-top:20px">
+    <h2>🎁 Les gagnants</h2>
+    <p>Le tirage au sort a eu lieu. Bravo aux gagnants ! Ils sont contactés par mail ou par téléphone.</p>
+    <ul class="gagnants" id="listeGagnants"></ul>
+  </section>
+
+  <!-- ÉTAPE 1 : sapin + livres -->
+  <section id="etape1">
+    <div class="scene">
+      <svg class="sapin" viewBox="0 0 300 330" aria-hidden="true">
+        <!-- tronc -->
+        <rect x="134" y="282" width="32" height="36" rx="4" fill="#7a4b2a"/>
+        <!-- étages du sapin -->
+        <polygon points="150,46 92,128 208,128" fill="#2a7a52"/>
+        <polygon points="150,84 66,196 234,196" fill="#22694a"/>
+        <polygon points="150,140 36,286 264,286" fill="#1d5c3f"/>
+        <!-- reflets -->
+        <polygon points="150,46 150,128 208,128" fill="#1f6b48" opacity=".55"/>
+        <polygon points="150,84 150,196 234,196" fill="#1a5a3f" opacity=".55"/>
+        <polygon points="150,140 150,286 264,286" fill="#154d35" opacity=".55"/>
+        <!-- guirlandes -->
+        <path d="M104 116 Q150 140 196 112" stroke="#e6c98a" stroke-width="3" fill="none"/>
+        <path d="M82 178 Q150 210 220 172" stroke="#e6c98a" stroke-width="3" fill="none"/>
+        <path d="M56 260 Q150 300 246 254" stroke="#e6c98a" stroke-width="3" fill="none"/>
+        <!-- boules -->
+        <circle cx="124" cy="104" r="7" fill="#b3152a"/>
+        <circle cx="178" cy="118" r="6" fill="#d4a640"/>
+        <circle cx="104" cy="168" r="8" fill="#d4a640"/>
+        <circle cx="160" cy="160" r="7" fill="#b3152a"/>
+        <circle cx="206" cy="182" r="8" fill="#2f6fa8"/>
+        <circle cx="82" cy="244" r="9" fill="#b3152a"/>
+        <circle cx="132" cy="232" r="8" fill="#2f6fa8"/>
+        <circle cx="184" cy="246" r="9" fill="#d4a640"/>
+        <circle cx="232" cy="262" r="8" fill="#b3152a"/>
+        <circle cx="120" cy="276" r="7" fill="#d4a640"/>
+        <!-- lumières qui scintillent -->
+        <g>
+          <circle class="lum" cx="114" cy="122" r="3.5" fill="#fff6c8"/>
+          <circle class="lum" cx="140" cy="130" r="3.5" fill="#ffd27a"/>
+          <circle class="lum" cx="168" cy="128" r="3.5" fill="#fff6c8"/>
+          <circle class="lum" cx="190" cy="117" r="3.5" fill="#ffd27a"/>
+          <circle class="lum" cx="92" cy="186" r="3.5" fill="#fff6c8"/>
+          <circle class="lum" cx="122" cy="196" r="3.5" fill="#ffd27a"/>
+          <circle class="lum" cx="152" cy="198" r="3.5" fill="#fff6c8"/>
+          <circle class="lum" cx="184" cy="192" r="3.5" fill="#ffd27a"/>
+          <circle class="lum" cx="212" cy="178" r="3.5" fill="#fff6c8"/>
+          <circle class="lum" cx="70" cy="268" r="3.5" fill="#ffd27a"/>
+          <circle class="lum" cx="104" cy="282" r="3.5" fill="#fff6c8"/>
+          <circle class="lum" cx="140" cy="288" r="3.5" fill="#ffd27a"/>
+          <circle class="lum" cx="176" cy="286" r="3.5" fill="#fff6c8"/>
+          <circle class="lum" cx="212" cy="276" r="3.5" fill="#ffd27a"/>
+          <circle class="lum" cx="238" cy="258" r="3.5" fill="#fff6c8"/>
+        </g>
+        <!-- étoile -->
+        <polygon class="etoile" points="150,10 158,28 178,30 163,43 168,63 150,52 132,63 137,43 122,30 142,28" fill="#f2c14e" stroke="#d4a640" stroke-width="2"/>
+      </svg>
+
+      <p class="consigne">🎁 Choisissez le livre que vous aimeriez trouver sous le sapin :</p>
+      <div class="livres" id="livres"></div>
+    </div>
+
+    <p class="infos"><strong>3 livres à gagner</strong>, envoyés gratuitement chez vous pour Noël.<br>
+    Participation gratuite. Tirage au sort le <strong>19 décembre 2026</strong>.</p>
+
+    <div class="bandeau">
+      <div class="pastille">👥 <b id="nbInscrits">…</b> inscrits</div>
+      <div class="pastille">⏳ <span id="tempsRestant">…</span></div>
+    </div>
+
+    <div class="partage">
+      <p>Faites-en profiter vos proches :</p>
+      <div class="liens">
+        <button class="btn btn-rouge" id="btnPartager" type="button">📤 Partager</button>
+        <a class="btn btn-clair" id="lienFb" target="_blank" rel="noopener">Facebook</a>
+        <a class="btn btn-clair" id="lienWa" target="_blank" rel="noopener">WhatsApp</a>
+        <a class="btn btn-clair" id="lienMail">Mail</a>
+      </div>
+      <span class="msg-copie" id="msgCopie"></span>
+    </div>
+  </section>
+
+  <!-- ÉTAPE 2 : inscription -->
+  <section id="etape2" style="margin-top:22px">
+    <form id="formulaire" class="carte" novalidate>
+      <div class="choix-livre">
+        <img id="miniCouv" src="" alt="">
+        <div>
+          <div class="petit">Votre choix</div>
+          <div class="t" id="titreChoisi"></div>
+          <button type="button" class="chg" id="changerLivre">Changer de livre</button>
+        </div>
+      </div>
+
+      <h2>Vos coordonnées</h2>
+      <div class="grille">
+        <div><label for="prenom">Prénom</label><input type="text" id="prenom" required autocomplete="given-name"></div>
+        <div><label for="nom">Nom</label><input type="text" id="nom" required autocomplete="family-name"></div>
+        <div><label for="age">Âge</label><input type="number" id="age" min="1" max="120" required inputmode="numeric"></div>
+        <div><label for="email">Mail</label><input type="email" id="email" required autocomplete="email"></div>
+        <div class="plein"><label for="tel">Téléphone <span class="fac">(facultatif)</span></label><input type="tel" id="tel" autocomplete="tel"></div>
+
+        <div class="plein">
+          <label>Avez-vous déjà acheté un de mes livres ?</label>
+          <div class="radios">
+            <label><input type="radio" name="achat" value="oui"> Oui</label>
+            <label><input type="radio" name="achat" value="non"> Non</label>
+          </div>
+        </div>
+
+        <div class="plein">
+          <label for="connu">Comment m'avez-vous connu ?</label>
+          <select id="connu" required>
+            <option value="">— Choisir —</option>
+            <option>Facebook</option>
+            <option>Instagram</option>
+            <option>Une affiche</option>
+            <option>Une carte postale</option>
+            <option>Amazon</option>
+            <option>Un livre trouvé dans une boîte à livres</option>
+            <option>Le bouche-à-oreille</option>
+            <option>Une recherche sur Internet</option>
+            <option>Autre</option>
+          </select>
+        </div>
+        <div class="plein" id="blocAutre" style="display:none">
+          <label for="connuAutre">Précisez</label><input type="text" id="connuAutre">
+        </div>
+
+        <div class="plein">
+          <label>Votre adresse postale (en France)</label>
+          <div class="radios">
+            <label><input type="radio" name="adrQuand" value="maintenant"> Je la donne maintenant</label>
+            <label><input type="radio" name="adrQuand" value="plustard" checked> Seulement si je gagne</label>
+          </div>
+        </div>
+        <div class="plein" id="blocAdresse">
+          <div class="grille">
+            <div class="plein"><label for="adresse">Adresse</label><input type="text" id="adresse" autocomplete="street-address"></div>
+            <div><label for="cp">Code postal</label><input type="text" id="cp" inputmode="numeric" maxlength="5" autocomplete="postal-code"></div>
+            <div><label for="ville">Ville</label><input type="text" id="ville" autocomplete="address-level2"></div>
+          </div>
+        </div>
+
+        <div class="plein case">
+          <label><input type="checkbox" id="public"> J'accepte que mon prénom et l'initiale de mon nom soient affichés sur cette page si je gagne.</label>
+        </div>
+
+        <input type="text" id="site" class="piege" tabindex="-1" autocomplete="off" aria-hidden="true">
+      </div>
+
+      <h2 style="margin-top:24px">Règlement</h2>
+      <div class="reglement">
+        <h3>1. Organisateur</h3>
+        <p>Ce jeu est organisé par Roy VAN MIL, auteur, Vic-Fezensac (32), sur le site royvanmil.fr.</p>
+        <h3>2. Dates</h3>
+        <p>Le jeu est ouvert du 6 novembre 2026 au 19 décembre 2026 à 18 h (heure de Paris).</p>
+        <h3>3. Qui peut participer ?</h3>
+        <ul>
+          <li>Toute personne qui habite en France.</li>
+          <li>Une seule participation par personne (une adresse mail = une participation).</li>
+          <li>Plusieurs personnes d'un même foyer peuvent participer, chacune avec sa propre inscription.</li>
+          <li>Les mineurs participent avec l'accord de leurs parents.</li>
+        </ul>
+        <h3>4. Gratuit</h3>
+        <p>La participation est gratuite et sans obligation d'achat.</p>
+        <h3>5. Les lots</h3>
+        <p>3 gagnants. Chaque gagnant reçoit le livre qu'il a choisi parmi : « Un instant, ou Deux… », « Un instant, ou Trois… », « Un instant, ou Quatre… ». Le livre est envoyé gratuitement à une adresse en France. Le lot ne peut pas être échangé contre de l'argent.</p>
+        <h3>6. Le tirage au sort</h3>
+        <p>Le tirage est fait automatiquement par le site le 19 décembre 2026 à 18 h, parmi toutes les inscriptions valides. Le nombre d'inscrits est visible sur cette page. La liste des participants reste privée.</p>
+        <h3>7. Les gagnants</h3>
+        <p>Les gagnants sont contactés par mail ou par téléphone. Sans réponse sous 7 jours, un nouveau gagnant est désigné parmi les suppléants tirés au sort. Le nom d'un gagnant est affiché seulement s'il l'a accepté à l'inscription.</p>
+        <h3>8. Vos données</h3>
+        <p>Vos informations servent seulement à ce jeu (tirage et envoi du livre). Elles ne sont ni vendues ni données à personne. Elles sont effacées après l'envoi des lots. Vous pouvez demander à les voir ou à les effacer en écrivant via la page Contact du site.</p>
+        <h3>9. Acceptation</h3>
+        <p>Participer au jeu veut dire accepter ce règlement.</p>
+      </div>
+
+      <div class="case" style="margin-top:14px">
+        <label><input type="checkbox" id="accepte"> <strong>J'ai lu et j'approuve le règlement.</strong></label>
+      </div>
+
+      <div class="envoi">
+        <button class="btn btn-rouge" type="submit" id="btnEnvoyer" style="font-size:18px;padding:13px 30px">🎁 Je participe</button>
+        <div class="erreur" id="erreur"></div>
+      </div>
+    </form>
+  </section>
+
+  <!-- MERCI -->
+  <section id="merci" class="carte" style="margin-top:22px">
+    <div class="grand">Merci, vous êtes inscrit ! 🎄</div>
+    <p>Tirage au sort le <strong>19 décembre 2026</strong>. Bonne chance ! 🍀</p>
+    <p style="margin:14px 0 10px;color:var(--muted)">Faites-en profiter vos proches : partagez le concours.</p>
+    <button class="btn btn-rouge" type="button" id="btnPartager2">📤 Partager</button>
+    <a class="btn btn-clair" href="index.html" style="margin-left:6px">Retour au site</a>
+    <span class="msg-copie" id="msgCopie2"></span>
+  </section>
+
+  <footer>
+    <p>Roy Van Mil — <a href="index.html">royvanmil.fr</a></p>
+  </footer>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const URL_PAGE = "https://royvanmil.fr/concours";
+const TEXTE_PARTAGE = "🎄 Concours de Noël : 3 livres de Roy Van Mil à gagner ! Gratuit, tirage le 19 décembre.";
+let livreChoisi = null;
+let tirageFait = false;
+
+/* ---------- Neige ---------- */
+(function(){
+  const n = window.innerWidth < 700 ? 16 : 32;
+  for(let i=0;i<n;i++){
+    const f = document.createElement("span");
+    f.className = "flocon"; f.textContent = "❄";
+    f.style.left = Math.random()*100 + "vw";
+    f.style.fontSize = (8 + Math.random()*13) + "px";
+    f.style.animationDuration = (10 + Math.random()*14) + "s";
+    f.style.animationDelay = (-Math.random()*20) + "s";
+    $("neige").appendChild(f);
+  }
+})();
+
+/* ---------- Livres ---------- */
+const NOEUDS = ["🎀","🎀","🎀"];
+function afficherLivres(){
+  const zone = $("livres");
+  CONFIG.LIVRES.forEach((l,i) => {
+    const d = document.createElement("button");
+    d.type = "button"; d.className = "livre";
+    d.setAttribute("aria-label", "Choisir " + l.titre);
+    d.innerHTML = `
+      <div class="couv"><span class="noeud" aria-hidden="true">${NOEUDS[i]}</span><img src="${l.image}" alt="${l.titre}"></div>
+      <div class="nom">${l.titre}</div>
+      <span class="btn btn-rouge">Je choisis ce livre</span>`;
+    d.querySelector("img").onerror = function(){ this.outerHTML = `<div class="remplace">${l.titre}</div>`; };
+    d.onclick = () => choisir(l);
+    zone.appendChild(d);
+  });
+}
+function choisir(l){
+  if(tirageFait) return;
+  livreChoisi = l;
+  $("titreChoisi").textContent = l.titre;
+  $("miniCouv").src = l.image; $("miniCouv").alt = l.titre;
+  $("etape1").style.display = "none";
+  $("etape2").style.display = "block";
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+$("changerLivre").onclick = () => {
+  $("etape2").style.display = "none";
+  $("etape1").style.display = "block";
+};
+
+/* ---------- Champs dynamiques ---------- */
+$("connu").onchange = () => { $("blocAutre").style.display = $("connu").value === "Autre" ? "block" : "none"; };
+document.querySelectorAll("input[name=adrQuand]").forEach(r => r.onchange = () => {
+  $("blocAdresse").style.display = document.querySelector("input[name=adrQuand]:checked").value === "maintenant" ? "block" : "none";
+});
+
+/* ---------- Partage ---------- */
+$("lienFb").href = "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(URL_PAGE);
+$("lienWa").href = "https://wa.me/?text=" + encodeURIComponent(TEXTE_PARTAGE + " " + URL_PAGE);
+$("lienMail").href = "mailto:?subject=" + encodeURIComponent("Un livre à gagner pour Noël") + "&body=" + encodeURIComponent(TEXTE_PARTAGE + "\n" + URL_PAGE);
+async function partager(zoneMsg){
+  if(navigator.share){
+    try{ await navigator.share({title:"Concours de Noël — Roy Van Mil", text:TEXTE_PARTAGE, url:URL_PAGE}); return; }
+    catch(e){ if(e.name === "AbortError") return; }
+  }
+  try{ await navigator.clipboard.writeText(URL_PAGE); $(zoneMsg).textContent = "Lien copié ! Collez-le où vous voulez."; }
+  catch(e){ $(zoneMsg).textContent = URL_PAGE; }
+}
+$("btnPartager").onclick = () => partager("msgCopie");
+$("btnPartager2").onclick = () => partager("msgCopie2");
+
+/* ---------- Compte à rebours ---------- */
+function majTemps(){
+  const reste = new Date(CONFIG.TIRAGE) - new Date();
+  if(reste <= 0){ $("tempsRestant").textContent = "Tirage effectué"; return; }
+  const j = Math.floor(reste/86400000), h = Math.floor(reste/3600000)%24, m = Math.floor(reste/60000)%60;
+  $("tempsRestant").textContent = j > 0 ? `Tirage dans ${j} j ${h} h` : `Tirage dans ${h} h ${m} min`;
+}
+majTemps(); setInterval(majTemps, 30000);
+
+/* ---------- Données du Worker ---------- */
+async function chargerEtat(){
+  try{
+    const r = await fetch(CONFIG.WORKER + "/etat", {cache:"no-store"});
+    const d = await r.json();
+    $("nbInscrits").textContent = d.inscrits ?? "—";
+    if(d.tirage && d.tirage.gagnants){
+      tirageFait = true;
+      $("etape1").style.display = "none";
+      $("etape2").style.display = "none";
+      $("resultats").style.display = "block";
+      const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+      $("listeGagnants").innerHTML = d.tirage.gagnants.map((g,i) =>
+        `<li><span class="n">Gagnant ${i+1}</span><span>${esc(g.nom)}</span><span>📖 ${esc(g.livre)}</span></li>`).join("");
+    } else if(d.ferme){
+      $("etape1").querySelector(".consigne").textContent = "Les inscriptions sont closes. Tirage en cours…";
+    }
+  }catch(e){
+    $("nbInscrits").textContent = "—";
+  }
+}
+
+/* ---------- Envoi ---------- */
+$("formulaire").onsubmit = async e => {
+  e.preventDefault();
+  const err = $("erreur"); err.textContent = "";
+  const val = id => $(id).value.trim();
+  const achat = document.querySelector("input[name=achat]:checked");
+  const adrMaintenant = document.querySelector("input[name=adrQuand]:checked").value === "maintenant";
+
+  if(!val("prenom") || !val("nom")) return err.textContent = "Merci d'indiquer votre prénom et votre nom.";
+  const age = parseInt(val("age"),10);
+  if(!age || age < 1 || age > 120) return err.textContent = "Merci d'indiquer votre âge.";
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val("email"))) return err.textContent = "Merci d'indiquer un mail valide.";
+  if(!achat) return err.textContent = "Merci de dire si vous avez déjà acheté un de mes livres.";
+  if(!val("connu")) return err.textContent = "Merci de dire comment vous m'avez connu.";
+  if(adrMaintenant && (!val("adresse") || !/^\d{5}$/.test(val("cp")) || !val("ville")))
+    return err.textContent = "Merci de compléter l'adresse (code postal à 5 chiffres).";
+  if(!$("accepte").checked) return err.textContent = "Merci de cocher « J'ai lu et j'approuve le règlement ».";
+
+  const donnees = {
+    livre: livreChoisi.titre,
+    prenom: val("prenom"), nom: val("nom"), age,
+    email: val("email").toLowerCase(), tel: val("tel"),
+    achat: achat.value,
+    connu: val("connu") === "Autre" && val("connuAutre") ? "Autre : " + val("connuAutre") : val("connu"),
+    adresse: adrMaintenant ? val("adresse") : "", cp: adrMaintenant ? val("cp") : "", ville: adrMaintenant ? val("ville") : "",
+    public: $("public").checked,
+    site: val("site")
+  };
+
+  const btn = $("btnEnvoyer"); btn.disabled = true; btn.textContent = "Envoi…";
+  try{
+    const r = await fetch(CONFIG.WORKER + "/inscrire", {
+      method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(donnees)
+    });
+    const d = await r.json();
+    if(!r.ok || !d.ok){
+      err.textContent = d.message || "Une erreur est survenue. Réessayez dans un instant.";
+    } else {
+      $("etape2").style.display = "none";
+      $("merci").style.display = "block";
+      if(d.inscrits) $("nbInscrits").textContent = d.inscrits;
+      window.scrollTo({top:0,behavior:"smooth"});
+    }
+  }catch(e2){
+    err.textContent = "Connexion impossible. Réessayez dans un instant.";
+  }
+  btn.disabled = false; btn.textContent = "🎁 Je participe";
+};
+
+afficherLivres();
+chargerEtat();
+</script>
+
+<!-- Compteur de visites -->
+<script>
+try{
+  var u = "https://compteurs.royvanmil86.workers.dev/compte?c=concours";
+  if(!(navigator.sendBeacon && navigator.sendBeacon(u))) fetch(u,{mode:"cors",keepalive:true});
+}catch(e){}
+</script>
+</body>
+</html>

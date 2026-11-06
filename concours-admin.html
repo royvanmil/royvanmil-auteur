@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Concours — Admin</title>
+<script>
+// Même adresse que dans concours.html
+const WORKER = "https://concours.royvanmil86.workers.dev";
+</script>
+<style>
+:root{--fond:#f3f6f8;--carte:#fff;--encre:#1c2329;--doux:#5b6670;--rouge:#9e1b2a;--vert:#1f5e47;--ligne:#d6dee4}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--fond);color:var(--encre);font-family:Georgia,serif;font-size:16px;padding:20px 16px}
+.page{max-width:1200px;margin:0 auto}
+h1{font-size:28px;color:var(--rouge);margin-bottom:4px}
+.info{color:var(--doux);margin-bottom:16px}
+.carte{background:var(--carte);border:1px solid var(--ligne);border-radius:12px;padding:18px;margin-bottom:18px}
+input[type=password]{padding:10px;border:1px solid var(--ligne);border-radius:8px;font-size:16px;width:240px;max-width:100%}
+button{background:var(--rouge);color:#fff;border:none;border-radius:30px;padding:10px 20px;font-size:16px;font-family:inherit;cursor:pointer;margin:4px 4px 4px 0}
+button.clair{background:#fff;color:var(--encre);border:1px solid var(--ligne)}
+#erreur{color:var(--rouge);margin-top:8px;font-weight:bold}
+#contenu{display:none}
+.stats{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px}
+.stat{border:1px solid var(--ligne);border-radius:10px;padding:8px 14px;background:#fff}
+.stat b{font-size:22px;color:var(--rouge)}
+h2{font-size:22px;margin:6px 0 10px}
+.tableau{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{border:1px solid var(--ligne);padding:6px 8px;text-align:left;vertical-align:top}
+th{background:#eef2f5}
+tr.gagnant td{font-weight:bold}
+tr.gagnant td:first-child::before{content:"🏆 "}
+tr.suppleant td:first-child::before{content:"↪ "}
+.vide{color:var(--doux);font-style:italic}
+@media print{
+  body{background:#fff;padding:0;font-size:11px}
+  .noprint{display:none!important}
+  .carte{border:none;padding:0}
+  th{background:none}
+  table{font-size:10px}
+  @page{size:A4 landscape;margin:12mm}
+}
+</style>
+</head>
+<body>
+<div class="page">
+  <h1>Concours de Noël — Admin</h1>
+  <p class="info">Liste privée des inscrits. Tirage automatique le 19 décembre 2026 à 18 h.</p>
+
+  <div class="carte noprint" id="connexion">
+    <input type="password" id="mdp" placeholder="Mot de passe" autocomplete="current-password">
+    <button id="btnCo">Ouvrir</button>
+    <div id="erreur"></div>
+  </div>
+
+  <div id="contenu">
+    <div class="stats" id="stats"></div>
+
+    <div class="carte" id="blocTirage"></div>
+
+    <div class="carte">
+      <h2>Tous les inscrits</h2>
+      <div class="noprint" style="margin-bottom:10px">
+        <button onclick="window.print()">🖨️ Imprimer</button>
+        <button class="clair" onclick="exporter()">📄 Télécharger (CSV)</button>
+        <button class="clair" onclick="charger()">🔄 Actualiser</button>
+      </div>
+      <div class="tableau"><table id="table"></table></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+let donnees = null;
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const dateFr = iso => iso ? new Date(iso).toLocaleString("fr-FR",{day:"2-digit",month:"2-digit",year:"numeric",hour:"2-digit",minute:"2-digit"}) : "";
+
+let mdp = "";
+try{ mdp = sessionStorage.getItem("mdpConcours") || ""; }catch(e){}
+
+$("btnCo").onclick = () => { mdp = $("mdp").value; charger(); };
+$("mdp").onkeydown = e => { if(e.key === "Enter"){ mdp = $("mdp").value; charger(); } };
+
+async function charger(){
+  $("erreur").textContent = "";
+  try{
+    const r = await fetch(WORKER + "/admin", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({mdp})});
+    const d = await r.json();
+    if(!d.ok){ $("erreur").textContent = d.message || "Erreur"; return; }
+    try{ sessionStorage.setItem("mdpConcours", mdp); }catch(e){}
+    donnees = d;
+    $("connexion").style.display = "none";
+    $("contenu").style.display = "block";
+    afficher();
+  }catch(e){ $("erreur").textContent = "Connexion au Worker impossible."; }
+}
+
+function afficher(){
+  const L = donnees.liste, t = donnees.tirage;
+  const par = titre => L.filter(p => p.livre === titre).length;
+  $("stats").innerHTML = `
+    <div class="stat"><b>${L.length}</b> inscrits</div>
+    <div class="stat"><b>${L.filter(p=>p.achat==="oui").length}</b> ont déjà acheté</div>
+    <div class="stat"><b>${par("Un instant, ou Deux…")}</b> Deux</div>
+    <div class="stat"><b>${par("Un instant, ou Trois…")}</b> Trois</div>
+    <div class="stat"><b>${par("Un instant, ou Quatre…")}</b> Quatre</div>`;
+
+  const parMail = Object.fromEntries(L.map(p => [p.email, p]));
+  if(t){
+    const ligne = (e,i,type) => { const p = parMail[e] || {}; return `<tr><td>${type} ${i+1}</td><td>${esc(p.prenom)} ${esc(p.nom)}</td><td>${esc(p.livre)}</td><td>${esc(p.email)}</td><td>${esc(p.tel)}</td><td>${p.adresse ? esc(p.adresse+", "+p.cp+" "+p.ville) : '<span class="vide">à demander</span>'}</td></tr>`; };
+    $("blocTirage").innerHTML = `<h2>🏆 Résultat du tirage (${dateFr(t.date)}, ${t.total} inscrits)</h2>
+      <div class="tableau"><table><tr><th></th><th>Nom</th><th>Livre</th><th>Mail</th><th>Téléphone</th><th>Adresse</th></tr>
+      ${t.gagnants.map((e,i)=>ligne(e,i,"Gagnant")).join("")}
+      ${t.suppleants.map((e,i)=>ligne(e,i,"Suppléant")).join("")}
+      </table></div>`;
+  } else {
+    $("blocTirage").innerHTML = `<h2>Tirage</h2><p>Pas encore fait. Il se fera tout seul le ${dateFr(donnees.dateTirage)}.</p>`;
+  }
+
+  const g = new Set(t ? t.gagnants : []), s = new Set(t ? t.suppleants : []);
+  $("table").innerHTML = `<tr><th>#</th><th>Inscrit le</th><th>Prénom Nom</th><th>Âge</th><th>Livre</th><th>Mail</th><th>Tél.</th><th>Déjà acheté</th><th>Connu par</th><th>Adresse</th><th>Nom public</th></tr>` +
+    L.map((p,i) => `<tr class="${g.has(p.email)?"gagnant":s.has(p.email)?"suppleant":""}">
+      <td>${i+1}</td><td>${dateFr(p.date)}</td><td>${esc(p.prenom)} ${esc(p.nom)}</td><td>${p.age}</td><td>${esc(p.livre)}</td>
+      <td>${esc(p.email)}</td><td>${esc(p.tel)}</td><td>${p.achat}</td><td>${esc(p.connu)}</td>
+      <td>${p.adresse ? esc(p.adresse+", "+p.cp+" "+p.ville) : '<span class="vide">—</span>'}</td><td>${p.public?"oui":"non"}</td></tr>`).join("");
+}
+
+function exporter(){
+  const cols = ["date","prenom","nom","age","livre","email","tel","achat","connu","adresse","cp","ville","public"];
+  const csv = [cols.join(";")].concat(donnees.liste.map(p => cols.map(c => `"${String(p[c] ?? "").replace(/"/g,'""')}"`).join(";"))).join("\n");
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob(["\ufeff"+csv], {type:"text/csv;charset=utf-8"}));
+  a.download = "concours-inscrits.csv"; a.click();
+}
+
+if(mdp) charger();
+</script>
+</body>
+</html>
