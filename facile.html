@@ -142,6 +142,9 @@ tr.groupe-ligne td span{position:sticky;left:.55rem;}
         <a href="https://royvanmil.fr/livres-renseignements.html">Renseignements <small>(ajouter / modifier une personne)</small></a>
         <a class="sub" href="https://royvanmil.fr/livres-dons.html">↳ Liste dons <small>(imprimable A4)</small></a>
         <a class="sub" href="https://royvanmil.fr/livres-achats.html">↳ Liste achats <small>(imprimable A4)</small></a>
+        <div class="groupe">Concours de Noël</div>
+        <a href="https://royvanmil.fr/concours-admin.html">Liste des participants <small>(tirage le 19/12)</small></a>
+        <a class="sub" href="https://royvanmil.fr/concours.html">↳ Page concours <small>(publique)</small></a>
         <div class="groupe">Affiches</div>
         <a href="https://royvanmil.fr/affiches.html">Affiches collées <small>(vitrines &amp; accueils — A4)</small></a>
         <div class="groupe">Inscriptions &amp; présence</div>
@@ -216,7 +219,8 @@ var GROUPES = [
   ["Livres", {"livre1-maison":"Cette maison…","livre":"Un instant, ou Deux…","extraits":"Extraits (Un instant)","un-instant-trois":"Un instant, ou Trois…","histoire-les-vieux":"Histoire : Les vieux","histoire-les-coulisses":"Histoire : Les coulisses","quatre-instants":"Un instant, ou Quatre…","livre3-cloche":"La Cloche des Morts"}],
   ["Clics Amazon", {"clic-amazon":"Clics Amazon","clic-amazon-trois":"Clics Amazon (Trois…)"}],
   ["Audio", {"audio-accessible":"Aveugles — pourquoi ?","piste-audio":"Pistes audio Un instant ou Deux","audio-quatre":"Audio Quatre (page cachée)"}],
-  ["NL & Indiana", {"nl-accueil":"Accueil NL","nl-tweemoment":"Tweemoment (NL)","indiana":"Indiana Fraise"}]
+  ["NL & Indiana", {"nl-accueil":"Accueil NL","nl-tweemoment":"Tweemoment (NL)","indiana":"Indiana Fraise"}],
+  ["Concours de Noël", {"concours":"Visites page concours","concours-popup":"Clics popup accueil","concours-choix":"Clics sur un livre","concours-inscrit":"Inscriptions envoyées","concours-partage":"Clics Partager"}]
 ];
 var code = "";
 try{ code = sessionStorage.getItem("rvm-code") || ""; }catch(e){}
@@ -235,7 +239,7 @@ function afficher(stats, hist){
       var auj=n?(serie[n-1]||0):0, sept=0, trente=0;
       for(var i=0;i<serie.length;i++){ trente+=serie[i]||0; if(i>=n-7) sept+=serie[i]||0; }
       var v=[auj,sept,trente,s.depuis_reset,s.total];
-      if(g[0]!=="Clics Amazon") v.forEach(function(x,i){ tot[i]+=x; });
+      if(g[0]!=="Clics Amazon" && g[0]!=="Concours de Noël") v.forEach(function(x,i){ tot[i]+=x; });
       var r=document.createElement("tr"); r.appendChild(cell(g[1][k]));
       v.forEach(function(x){ r.appendChild(cell(x,"n")); }); tb.appendChild(r);
     });

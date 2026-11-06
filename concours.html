@@ -448,6 +448,12 @@ const $ = id => document.getElementById(id);
 const URL_PAGE = "https://royvanmil.fr/concours";
 const TEXTE_PARTAGE = "🎄 Concours de Noël : 3 livres de Roy Van Mil à gagner ! Gratuit, tirage le 19 décembre.";
 let livreChoisi = null;
+function compte(cle){
+  try{
+    const u = "https://compteurs.royvanmil86.workers.dev/compte?c=" + cle;
+    if(!(navigator.sendBeacon && navigator.sendBeacon(u))) fetch(u,{mode:"cors",keepalive:true});
+  }catch(e){}
+}
 let tirageFait = false;
 
 /* ---------- Neige ---------- */
@@ -484,6 +490,7 @@ function afficherLivres(){
 function choisir(l){
   if(tirageFait) return;
   livreChoisi = l;
+  compte("concours-choix");
   $("titreChoisi").textContent = l.titre;
   $("miniCouv").src = l.image; $("miniCouv").alt = l.titre;
   $("etape1").style.display = "none";
@@ -506,6 +513,7 @@ $("lienFb").href = "https://www.facebook.com/sharer/sharer.php?u=" + encodeURICo
 $("lienWa").href = "https://wa.me/?text=" + encodeURIComponent(TEXTE_PARTAGE + " " + URL_PAGE);
 $("lienMail").href = "mailto:?subject=" + encodeURIComponent("Un livre à gagner pour Noël") + "&body=" + encodeURIComponent(TEXTE_PARTAGE + "\n" + URL_PAGE);
 async function partager(zoneMsg){
+  compte("concours-partage");
   if(navigator.share){
     try{ await navigator.share({title:"Concours de Noël — Roy Van Mil", text:TEXTE_PARTAGE, url:URL_PAGE}); return; }
     catch(e){ if(e.name === "AbortError") return; }
@@ -513,6 +521,7 @@ async function partager(zoneMsg){
   try{ await navigator.clipboard.writeText(URL_PAGE); $(zoneMsg).textContent = "Lien copié ! Collez-le où vous voulez."; }
   catch(e){ $(zoneMsg).textContent = URL_PAGE; }
 }
+["lienFb","lienWa","lienMail"].forEach(id => $(id).addEventListener("click", () => compte("concours-partage")));
 $("btnPartager").onclick = () => partager("msgCopie");
 $("btnPartager2").onclick = () => partager("msgCopie2");
 
@@ -587,6 +596,7 @@ $("formulaire").onsubmit = async e => {
     } else {
       $("etape2").style.display = "none";
       $("merci").style.display = "block";
+      compte("concours-inscrit");
       if(d.inscrits) $("nbInscrits").textContent = d.inscrits;
       window.scrollTo({top:0,behavior:"smooth"});
     }
