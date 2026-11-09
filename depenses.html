@@ -133,6 +133,7 @@
           <select id="dep_cat">
             <option value="isbn">ISBN</option>
             <option value="livres">Livres (exemplaires)</option>
+            <option value="audio">Audio (enregistrements)</option>
             <option value="pub">Pub</option>
             <option value="flyers">Flyers / affiches / cartes</option>
             <option value="autre">Autre</option>
@@ -254,7 +255,7 @@
 
 <script>
   var API = "https://compteurs.royvanmil86.workers.dev";
-  var CATS = { isbn: "ISBN", livres: "Livres", pub: "Pub", flyers: "Flyers", autre: "Autre" };
+  var CATS = { isbn: "ISBN", livres: "Livres", audio: "Audio", pub: "Pub", flyers: "Flyers", autre: "Autre" };
   var MODES = { lettre: "Lettre La Poste", colis: "Colis", relais: "Point relais", main: "Main propre" };
   var PAYE = { perso: "Perso", pro2tec: "Pro2Tec" };
   var compta = { depenses: [], envois: [], recettes: [] };
@@ -285,6 +286,7 @@
       D("i-afnil-1", "2026-04-26", "isbn", "1re demande ISBN + prioritaire + codes-barres", "AFNIL", 115.20, 20, "Facture AFNIL 20260426-005"),
       D("i-afnil-2", "2026-07-20", "isbn", "Liste complémentaire ISBN + urgence", "AFNIL", 84.00, 20, "Facture AFNIL 20260720-002"),
       D("i-afnil-3", "2026-09-30", "isbn", "Liste complémentaire ISBN + prioritaire", "AFNIL", 55.20, 20, "Facture AFNIL 20260930-006"),
+      D("i-herve-709", "2026-09-12", "audio", "Forfait 4 histoires « Un instant, ou Deux… »", "Hervé Carrascosa", 230.00, 0, "Facture n°709 — production audio"),
       D("i-kdp-01", "2026-07-07", "livres", "20 ex. Cette maison… (broché)", "Amazon KDP", 132.20, 0, "Commande 406-6129795-1652330"),
       D("i-kdp-02", "2026-07-07", "livres", "5 ex. Cette maison… (broché)", "Amazon KDP", 33.06, 0, "Commande 406-6129795-1652330"),
       D("i-kdp-03", "2026-07-23", "livres", "30 ex. Un instant, ou Deux… (broché)", "Amazon Business", 111.31, 0, "Commande 406-9909368-5221965 — pas de facture (30 × 1 livre)"),
@@ -350,7 +352,7 @@
       RELEVE[k].forEach(function (x) { if (!ids[x.id]) nb++; });
     });
     if (nb) {
-      $("importTxt").textContent = "3 factures AFNIL, 13 achats de livres Amazon, 33 envois La Poste, 5 versements KDP — " + nb + " ligne(s) à ajouter. Rien n'est supprimé.";
+      $("importTxt").textContent = "3 factures AFNIL, 1 facture Hervé (audio), 13 achats de livres Amazon, 33 envois La Poste, 5 versements KDP — " + nb + " ligne(s) à ajouter. Rien n'est supprimé.";
       $("btnImporter").disabled = false; $("btnImporter").textContent = "Importer";
     } else {
       $("importTxt").textContent = "déjà importé. Tout est dans les listes.";
