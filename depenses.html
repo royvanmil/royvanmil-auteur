@@ -334,7 +334,13 @@
       E("i-lp-32", "2026-10-18", "Nicolas Frezals", "France", 9.29, "Colissimo Z0142869016"),
       E("i-lp-33", "2026-10-27", "BnF", "France", 7.59, "Colissimo Z0143735762")
     ],
-    recettes: []
+    recettes: [
+      { id: "i-kdp-r1", date: "2026-08-31", source: "Amazon KDP", livre: "Cette maison… (ventes de juin, Amazon.fr)", qte: 8, ttc: 17.60, note: "Versé sur compte perso. 8 ex. en juin au total (FR + NL + UK)" },
+      { id: "i-kdp-r2", date: "2026-08-31", source: "Amazon KDP", livre: "Cette maison… (ventes de juin, Amazon.nl)", qte: 0, ttc: 10.05, note: "Versé sur compte perso" },
+      { id: "i-kdp-r3", date: "2026-08-31", source: "Amazon KDP", livre: "Cette maison… (ventes de juin, Amazon.co.uk)", qte: 0, ttc: 3.44, note: "2,95 £ → 3,44 €, motif POP GOODS AND SERVICES. Versé sur compte perso" },
+      { id: "i-kdp-r4", date: "2026-09-29", source: "Amazon KDP", livre: "Cette maison… (ventes de juillet)", qte: 2, ttc: 8.80, note: "Versé sur compte perso" },
+      { id: "i-kdp-r5", date: "2026-10-29", source: "Amazon KDP", livre: "Cette maison… (ventes d'août)", qte: 1, ttc: 4.40, note: "Prévu le 29/10 — à vérifier sur le relevé perso" }
+    ]
   };
 
   function majImport() {
@@ -344,7 +350,7 @@
       RELEVE[k].forEach(function (x) { if (!ids[x.id]) nb++; });
     });
     if (nb) {
-      $("importTxt").textContent = "3 factures AFNIL, 13 achats de livres Amazon, 33 envois La Poste — " + nb + " ligne(s) à ajouter. Rien n'est supprimé.";
+      $("importTxt").textContent = "3 factures AFNIL, 13 achats de livres Amazon, 33 envois La Poste, 5 versements KDP — " + nb + " ligne(s) à ajouter. Rien n'est supprimé.";
       $("btnImporter").disabled = false; $("btnImporter").textContent = "Importer";
     } else {
       $("importTxt").textContent = "déjà importé. Tout est dans les listes.";
