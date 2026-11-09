@@ -74,6 +74,10 @@
   .case.res { border-width: 2.5px; }
   .rouge { color: #b3261e; } .vert { color: #2e7d32; }
 
+  .import { display: flex; align-items: center; gap: 1rem; justify-content: space-between; background: #fff8d6; border: 1px solid #e6d27a; border-radius: 8px; padding: .7rem .9rem; margin-bottom: 4mm; font-size: .98rem; }
+  .import button { font-family: inherit; font-size: 1rem; font-weight: bold; padding: .55rem 1.2rem; border-radius: 6px; border: 1px solid #3d8b3d; background: #3d8b3d; color: #fff; cursor: pointer; white-space: nowrap; }
+  .import button:disabled { background: #fff; color: #6f7a66; border-color: #c9cdc0; cursor: default; }
+  @media print { .import { display: none !important; } }
   footer { text-align: center; margin-top: 6mm; font-style: italic; color: #4d5649; font-size: 10pt; }
   button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, tr:focus-visible { outline: 2px solid #1f3b73; outline-offset: 2px; }
 
@@ -112,6 +116,11 @@
   </header>
 
   <div id="contenu">
+
+  <div class="import" id="importBox">
+    <div><b>📥 Relevé du 09/11/2026</b> : <span id="importTxt"></span></div>
+    <button id="btnImporter">Importer</button>
+  </div>
 
   <!-- ================= DÉPENSES ================= -->
   <section>
@@ -268,6 +277,93 @@
   function deLAnnee(l) { return anneeChoisie === "tout" ? l : l.filter(function (x) { return (x.date || "").slice(0, 4) === anneeChoisie; }); }
   function somme(l) { return l.reduce(function (s, x) { return s + (Number(x.ttc) || 0); }, 0); }
 
+  // ---------- relevé à importer (factures AFNIL, KDP, La Poste) ----------
+  function D(id, date, cat, desc, fourn, ttc, tva, note) { return { id: id, date: date, cat: cat, desc: desc, fourn: fourn, ttc: ttc, tva: tva, paye: "pro2tec", note: note }; }
+  function E(id, date, dest, ville, ttc, note) { return { id: id, date: date, dest: dest, ville: ville, livres: "", mode: "colis", ttc: ttc, paye: "pro2tec", note: note }; }
+  var RELEVE = {
+    depenses: [
+      D("i-afnil-1", "2026-04-26", "isbn", "1re demande ISBN + prioritaire + codes-barres", "AFNIL", 115.20, 20, "Facture AFNIL 20260426-005"),
+      D("i-afnil-2", "2026-07-20", "isbn", "Liste complémentaire ISBN + urgence", "AFNIL", 84.00, 20, "Facture AFNIL 20260720-002"),
+      D("i-afnil-3", "2026-09-30", "isbn", "Liste complémentaire ISBN + prioritaire", "AFNIL", 55.20, 20, "Facture AFNIL 20260930-006"),
+      D("i-kdp-01", "2026-07-07", "livres", "20 ex. Cette maison… (broché)", "Amazon KDP", 132.20, 0, "Commande 406-6129795-1652330"),
+      D("i-kdp-02", "2026-07-07", "livres", "5 ex. Cette maison… (broché)", "Amazon KDP", 33.06, 0, "Commande 406-6129795-1652330"),
+      D("i-kdp-03", "2026-07-23", "livres", "30 ex. Un instant, ou Deux… (broché)", "Amazon Business", 111.31, 0, "Commande 406-9909368-5221965 — pas de facture (30 × 1 livre)"),
+      D("i-kdp-04", "2026-08-09", "livres", "2 ex. Un instant, ou Deux… (broché)", "Amazon KDP", 7.42, 0, "Commande 406-7818223-1629969"),
+      D("i-kdp-05", "2026-08-11", "livres", "28 ex. Un instant, ou Deux… (broché)", "Amazon KDP", 103.89, 0, "Commande 406-7818223-1629969"),
+      D("i-kdp-06", "2026-09-13", "livres", "1 ex. Un instant, ou Deux… (broché)", "Amazon", 4.00, 5.5, "Commande D01-2740651-0373443"),
+      D("i-kdp-07", "2026-09-19", "livres", "1 ex. Un instant, ou Trois… (broché)", "Amazon", 3.99, 5.5, "Commande D01-0345835-8050208"),
+      D("i-kdp-08", "2026-09-22", "livres", "30 ex. Un instant, ou Trois… (broché)", "Amazon KDP", 91.54, 0, "Commande 406-6972389-5691569"),
+      D("i-kdp-09", "2026-09-23", "livres", "5 ex. ÉPREUVE Un instant, ou Trois… (broché)", "Amazon KDP", 17.58, 0, "Commande 406-3864574-9262748"),
+      D("i-kdp-10", "2026-09-23", "livres", "7 ex. Un instant, ou Trois… (relié)", "Amazon KDP", 45.44, 0, "Commande 406-9183985-5957106"),
+      D("i-kdp-11", "2026-09-23", "livres", "7 ex. Un instant, ou Deux… (relié)", "Amazon KDP", 51.81, 0, "Commande 406-3924588-8065115"),
+      D("i-kdp-12", "2026-10-08", "livres", "7 ex. Een moment, of Twee… (relié)", "Amazon KDP", 57.60, 0, "Commande 406-0410211-3484339"),
+      D("i-kdp-13", "2026-10-19", "livres", "20 ex. Cette maison… (broché)", "Amazon KDP", 132.21, 0, "Commande 406-3721965-6625924")
+    ],
+    envois: [
+      E("i-lp-01", "2026-07-31", "Michel Bouchilloux", "France", 9.29, "Colissimo Z0134927300"),
+      E("i-lp-02", "2026-07-31", "Aurélie Rodriguez", "France", 9.29, "Colissimo Z0134927300"),
+      E("i-lp-03", "2026-07-31", "Jérôme Bouchilloux", "France", 9.29, "Colissimo Z0134927300"),
+      E("i-lp-04", "2026-07-31", "Audrey Bouchilloux", "France", 9.29, "Colissimo Z0134927300"),
+      E("i-lp-05", "2026-07-31", "Leire Bouchilloux", "France", 9.29, "Colissimo Z0134927300"),
+      E("i-lp-06", "2026-08-01", "Sonja Van Heel", "Pays-Bas", 14.99, "Colissimo Z0134979828"),
+      E("i-lp-07", "2026-08-02", "Marc Rizzi", "France", 7.59, "Colissimo Z0134998604"),
+      E("i-lp-08", "2026-08-02", "Micha Hierck", "France", 7.59, "Colissimo Z0135030408"),
+      E("i-lp-09", "2026-08-07", "Jean Marc Boulin", "France", 9.29, "Colissimo Z0135549674"),
+      E("i-lp-10", "2026-08-07", "Nastasia Roumat Biglione", "France", 9.29, "Colissimo Z0135549674"),
+      E("i-lp-11", "2026-08-28", "Manu Zarzicky", "France", 9.29, "Colissimo Z0137308315"),
+      E("i-lp-12", "2026-08-29", "Nicolas Frezals", "France", 9.29, "Colissimo Z0137329925"),
+      E("i-lp-13", "2026-08-29", "Bibliothèque nationale de France", "France", 7.59, "Colissimo Z0137360706"),
+      E("i-lp-14", "2026-09-03", "NAOLINK", "France", 9.29, "Colissimo Z0137879215"),
+      E("i-lp-15", "2026-09-03", "Hervé Carrascosa", "France", 9.29, "Colissimo Z0137879215"),
+      E("i-lp-16", "2026-09-24", "Sonja Van Heel", "Pays-Bas", 14.99, "Colissimo Z0140175712"),
+      E("i-lp-17", "2026-09-24", "Nastasia Roumat Biglione", "France", 5.49, "Colissimo Z0140175712"),
+      E("i-lp-18", "2026-09-24", "Micha Hierck", "France", 5.49, "Colissimo Z0140175712"),
+      E("i-lp-19", "2026-09-24", "Jean Marc Boulin", "France", 5.49, "Colissimo Z0140175712"),
+      E("i-lp-20", "2026-09-24", "Céline Lefèvre", "France", 5.49, "Colissimo Z0140175712"),
+      E("i-lp-21", "2026-09-24", "Élisabeth Bouchilloux", "France", 5.49, "Colissimo Z0140175712"),
+      E("i-lp-22", "2026-10-01", "Audrey Bouchilloux", "France", 7.59, "Colissimo Z0140928110"),
+      E("i-lp-23", "2026-10-01", "Audrey Bouchilloux", "France", 7.59, "Colissimo Z0140928285 — doublon (bug La Poste), non envoyé, payé quand même"),
+      E("i-lp-24", "2026-10-02", "NAOLINK", "France", 11.19, "Colissimo Z0141151868"),
+      E("i-lp-25", "2026-10-02", "Céline Lefèvre", "France", 7.59, "Colissimo Z0141151868"),
+      E("i-lp-26", "2026-10-10", "GO FORMATION", "France", 9.59, "Colissimo Z0142004058"),
+      E("i-lp-27", "2026-10-13", "Aranka Aarsman", "Pays-Bas", 19.39, "Colissimo Z0142387544"),
+      E("i-lp-28", "2026-10-13", "Sonja Van Heel", "Pays-Bas", 22.19, "Colissimo Z0142387544"),
+      E("i-lp-29", "2026-10-13", "Fred Van Heel", "Pays-Bas", 22.19, "Colissimo Z0142387544"),
+      E("i-lp-30", "2026-10-17", "Château de Fougeret", "France", 11.19, "Colissimo Z0142802725"),
+      E("i-lp-31", "2026-10-17", "Adrie Van Mil", "Pays-Bas", 14.99, "Colissimo Z0142802725"),
+      E("i-lp-32", "2026-10-18", "Nicolas Frezals", "France", 9.29, "Colissimo Z0142869016"),
+      E("i-lp-33", "2026-10-27", "BnF", "France", 7.59, "Colissimo Z0143735762")
+    ],
+    recettes: []
+  };
+
+  function majImport() {
+    var nb = 0;
+    ["depenses", "envois", "recettes"].forEach(function (k) {
+      var ids = {}; compta[k].forEach(function (x) { ids[x.id] = 1; });
+      RELEVE[k].forEach(function (x) { if (!ids[x.id]) nb++; });
+    });
+    if (nb) {
+      $("importTxt").textContent = "3 factures AFNIL, 13 achats de livres Amazon, 33 envois La Poste — " + nb + " ligne(s) à ajouter. Rien n'est supprimé.";
+      $("btnImporter").disabled = false; $("btnImporter").textContent = "Importer";
+    } else {
+      $("importTxt").textContent = "déjà importé. Tout est dans les listes.";
+      $("btnImporter").disabled = true; $("btnImporter").textContent = "✓ Fait";
+    }
+  }
+
+  $("btnImporter").addEventListener("click", function () {
+    var ajout = 0;
+    ["depenses", "envois", "recettes"].forEach(function (k) {
+      var ids = {}; compta[k].forEach(function (x) { ids[x.id] = 1; });
+      RELEVE[k].forEach(function (x) { if (!ids[x.id]) { compta[k].push(JSON.parse(JSON.stringify(x))); ajout++; } });
+    });
+    if (!ajout) return;
+    anneeChoisie = "2026";
+    $("btnImporter").disabled = true; $("btnImporter").textContent = "…";
+    sauver("dep", ajout + " ligne(s) importée(s).");
+  });
+
   // ---------- années ----------
   function remplirAnnees() {
     var ans = {}; ans[String(new Date().getFullYear())] = 1;
@@ -348,6 +444,7 @@
         $("contenu").style.display = "block";
         remplirAnnees();
         afficher();
+        majImport();
       })
       .catch(function (e) {
         sessionStorage.removeItem("livresCode");
