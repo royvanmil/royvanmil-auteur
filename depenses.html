@@ -286,7 +286,9 @@
       D("i-afnil-1", "2026-04-26", "isbn", "1re demande ISBN + prioritaire + codes-barres", "AFNIL", 115.20, 20, "Facture AFNIL 20260426-005"),
       D("i-afnil-2", "2026-07-20", "isbn", "Liste complémentaire ISBN + urgence", "AFNIL", 84.00, 20, "Facture AFNIL 20260720-002"),
       D("i-afnil-3", "2026-09-30", "isbn", "Liste complémentaire ISBN + prioritaire", "AFNIL", 55.20, 20, "Facture AFNIL 20260930-006"),
-      D("i-herve-709", "2026-09-12", "audio", "Forfait 4 histoires « Un instant, ou Deux… »", "Hervé Carrascosa", 230.00, 0, "Facture n°709 — payé par PayPal : acompte 100 € + solde 130 € (2e facture = le même total)"),
+      D("i-herve-1a", "2026-09-01", "audio", "1re heure audio — acompte", "Hervé Carrascosa", 100.00, 0, "PayPal 01/09/2026 — facture à retrouver"),
+      D("i-herve-1b", "2026-09-02", "audio", "1re heure audio — solde", "Hervé Carrascosa", 150.00, 0, "PayPal 02/09/2026 — facture à retrouver"),
+      D("i-herve-709", "2026-09-12", "audio", "Forfait 4 histoires « Un instant, ou Deux… »", "Hervé Carrascosa", 230.00, 0, "Facture n°709 — 2e heure, PayPal 12/09/2026"),
       D("i-kdp-01", "2026-07-07", "livres", "20 ex. Cette maison… (broché)", "Amazon KDP", 132.20, 0, "Commande 406-6129795-1652330"),
       D("i-kdp-02", "2026-07-07", "livres", "5 ex. Cette maison… (broché)", "Amazon KDP", 33.06, 0, "Commande 406-6129795-1652330"),
       D("i-kdp-03", "2026-07-23", "livres", "30 ex. Un instant, ou Deux… (broché)", "Amazon Business", 111.31, 0, "Commande 406-9909368-5221965 — pas de facture (30 × 1 livre)"),
@@ -352,7 +354,7 @@
       RELEVE[k].forEach(function (x) { if (!ids[x.id]) nb++; });
     });
     if (nb) {
-      $("importTxt").textContent = "3 factures AFNIL, 1 facture Hervé (audio), 13 achats de livres Amazon, 33 envois La Poste, 5 versements KDP — " + nb + " ligne(s) à ajouter. Rien n'est supprimé.";
+      $("importTxt").textContent = "3 factures AFNIL, 3 paiements Hervé (audio), 13 achats de livres Amazon, 33 envois La Poste, 5 versements KDP — " + nb + " ligne(s) à ajouter. Rien n'est supprimé.";
       $("btnImporter").disabled = false; $("btnImporter").textContent = "Importer";
     } else {
       $("importTxt").textContent = "déjà importé. Tout est dans les listes.";
