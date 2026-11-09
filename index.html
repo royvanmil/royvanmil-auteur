@@ -185,6 +185,7 @@ button{font:inherit}
   overflow:hidden;
 }
 .bulle + .bulle{margin-top:28px}
+.bulles .wrap > * + *{margin-top:28px}
 h2,h3{margin:0;font-family:"Cormorant Garamond",Georgia,serif;line-height:1.05}
 .label{
   display:inline-flex;padding:6px 11px;border-radius:999px;
@@ -483,6 +484,24 @@ Bienvenue sur le site des Microhistoires de Roy Van Mil. Des histoires audio vou
         </div>
       </article>
 
+      <!-- CONCOURS DE NOËL -->
+      <a class="bulle-concours" href="concours.html" onclick="try{compte('concours-bulle')}catch(e){}">
+        <div class="bc-sapin" aria-hidden="true">🎄</div>
+        <div class="bc-texte">
+          <div class="kicker bc-kicker" data-i18n="contestKicker">Concours de Noël</div>
+          <h2 data-i18n="contestTitle">Concours</h2>
+          <p class="bc-sous" data-i18n="contestSub">pour gagner un livre gratuitement</p>
+          <p data-i18n="contestText">3 livres à gagner, envoyés chez vous pour Noël. Participation gratuite, tirage au sort le 19 décembre.</p>
+          <p class="bc-nb" id="bulleNb"></p>
+        </div>
+        <div class="bc-livres" aria-hidden="true">
+          <img src="img/couv-un-instant.png" alt="">
+          <img src="img/couv-trois-instants.png" alt="">
+          <img src="img/Couverture_Un_instant_ou_Quatre.jpg" alt="">
+        </div>
+        <span class="btn btn-noel bc-btn" data-i18n="contestButton">Je participe 🎁</span>
+      </a>
+
       <!-- BULLE 2 : MICROHISTOIRES -->
       <article class="bulle bulle-deux">
         <span class="label" data-i18n="microLabel">Microhistoires</span>
@@ -508,6 +527,19 @@ Bienvenue sur le site des Microhistoires de Roy Van Mil. Des histoires audio vou
 
         </div>
       </article>
+
+      <!-- CAGNOTTE (don libre) -->
+      <div class="support">
+        <div>
+          <div class="kicker" data-i18n="supportKicker">Projet audio accessible</div>
+          <h2 data-i18n="supportTitle">Aider les histoires à prendre voix ❤️</h2>
+          <p data-i18n="supportText">Vous aimez mes histoires ? Vous pouvez faire un don libre, sans obligation. Il aide à enregistrer des histoires audio gratuites, notamment pour les personnes aveugles et malvoyantes.</p>
+        </div>
+        <a class="btn btn-orange"
+           href="https://www.leetchi.com/fr/c/des-histoires-pour-aveugles-1218180"
+           target="_blank" rel="noopener noreferrer"
+           data-i18n="supportButton">Faire un don libre →</a>
+      </div>
 
       <!-- BULLE 3 : ROMAN -->
       <article class="bulle bulle-un roman">
@@ -539,45 +571,6 @@ Bienvenue sur le site des Microhistoires de Roy Van Mil. Des histoires audio vou
         </div>
       </article>
 
-    </div>
-  </section>
-
-  <!-- CONCOURS DE NOËL -->
-  <section class="zone">
-    <div class="wrap">
-      <a class="bulle-concours" href="concours.html" onclick="try{compte('concours-bulle')}catch(e){}">
-        <div class="bc-sapin" aria-hidden="true">🎄</div>
-        <div class="bc-texte">
-          <div class="kicker bc-kicker" data-i18n="contestKicker">Concours de Noël</div>
-          <h2 data-i18n="contestTitle">Concours</h2>
-          <p class="bc-sous" data-i18n="contestSub">pour gagner un livre gratuitement</p>
-          <p data-i18n="contestText">3 livres à gagner, envoyés chez vous pour Noël. Participation gratuite, tirage au sort le 19 décembre.</p>
-          <p class="bc-nb" id="bulleNb"></p>
-        </div>
-        <div class="bc-livres" aria-hidden="true">
-          <img src="img/couv-un-instant.png" alt="">
-          <img src="img/couv-trois-instants.png" alt="">
-          <img src="img/Couverture_Un_instant_ou_Quatre.jpg" alt="">
-        </div>
-        <span class="btn btn-noel bc-btn" data-i18n="contestButton">Je participe 🎁</span>
-      </a>
-    </div>
-  </section>
-
-  <!-- CAGNOTTE -->
-  <section class="zone">
-    <div class="wrap">
-      <div class="support">
-        <div>
-          <div class="kicker" data-i18n="supportKicker">Projet audio accessible</div>
-          <h2 data-i18n="supportTitle">Aider les histoires à prendre voix ❤️</h2>
-          <p data-i18n="supportText">J'ai créé une cagnotte pour aider à financer l'enregistrement professionnel d'histoires gratuites destinées notamment aux personnes aveugles et malvoyantes.</p>
-        </div>
-        <a class="btn btn-orange"
-           href="https://www.leetchi.com/fr/c/des-histoires-pour-aveugles-1218180"
-           target="_blank" rel="noopener noreferrer"
-           data-i18n="supportButton">Découvrir la cagnotte →</a>
-      </div>
     </div>
   </section>
 
@@ -670,8 +663,8 @@ const translations = {
     novelText:"Un autre rythme, une autre atmosphère. Un roman où le mystère s'installe doucement et où certaines choses semblent refuser de rester silencieuses.",
     discoverNovel:"Découvrir le roman →",
     supportKicker:"Projet audio accessible", supportTitle:"Aider les histoires à prendre voix ❤️",
-    supportText:"J'ai créé une cagnotte pour aider à financer l'enregistrement professionnel d'histoires gratuites destinées notamment aux personnes aveugles et malvoyantes.",
-    supportButton:"Découvrir la cagnotte →",
+    supportText:"Vous aimez mes histoires ? Vous pouvez faire un don libre, sans obligation. Il aide à enregistrer des histoires audio gratuites, notamment pour les personnes aveugles et malvoyantes.",
+    supportButton:"Faire un don libre →",
     audioCardTitle:"Histoires à écouter", audioCardText:"Retrouvez les histoires déjà disponibles en version audio.", audioCardLink:"Écouter →",
     whyAudioTitle:"Pourquoi l'audio ?", whyAudioText:"Découvrez pourquoi cette page a été pensée pour les personnes aveugles et malvoyantes.", learnMore:"En savoir plus →",
     reviewsTitle:"Vos avis comptent", reviewsText:"Vous avez lu ou écouté une histoire ? Découvrez les avis et laissez le vôtre.", reviewsLink:"Voir les avis →",
@@ -705,8 +698,8 @@ const translations = {
     novelText:"A different pace and atmosphere. A novel in which mystery slowly settles in and some things seem unwilling to remain silent.",
     discoverNovel:"Discover the novel →",
     supportKicker:"Accessible audio project", supportTitle:"Help give the stories a voice ❤️",
-    supportText:"I created a fundraiser to help finance professional recordings of free stories, especially for blind and visually impaired listeners.",
-    supportButton:"Discover the fundraiser →",
+    supportText:"Do you enjoy my stories? You can make a free donation, with no obligation. It helps record free audio stories, especially for blind and visually impaired listeners.",
+    supportButton:"Make a free donation →",
     audioCardTitle:"Listen to the stories", audioCardText:"Find the stories already available in audio.", audioCardLink:"Listen →",
     whyAudioTitle:"Why audio?", whyAudioText:"Discover why this page was designed specifically with blind and visually impaired listeners in mind.", learnMore:"Learn more →",
     reviewsTitle:"Your opinion matters", reviewsText:"Have you read or listened to a story? Read the reviews and leave your own.", reviewsLink:"See the reviews →",
@@ -740,8 +733,8 @@ const translations = {
     novelText:"Een ander tempo en een andere sfeer. Een roman waarin het mysterie langzaam groeit en sommige dingen niet stil lijken te willen blijven.",
     discoverNovel:"Ontdek de roman →",
     supportKicker:"Toegankelijk audioproject", supportTitle:"Help de verhalen een stem te geven ❤️",
-    supportText:"Ik heb een inzamelingsactie gemaakt om professionele opnames van gratis verhalen te helpen financieren, onder andere voor blinde en slechtziende luisteraars.",
-    supportButton:"Bekijk de inzamelingsactie →",
+    supportText:"Houdt u van mijn verhalen? U kunt een vrije gift doen, zonder verplichting. Die helpt om gratis audioverhalen op te nemen, onder andere voor blinde en slechtziende luisteraars.",
+    supportButton:"Doe een vrije gift →",
     audioCardTitle:"Verhalen beluisteren", audioCardText:"Luister naar de verhalen die al als audio beschikbaar zijn.", audioCardLink:"Luisteren →",
     whyAudioTitle:"Waarom audio?", whyAudioText:"Ontdek waarom deze pagina speciaal is ontworpen met blinde en slechtziende luisteraars in gedachten.", learnMore:"Meer informatie →",
     reviewsTitle:"Jouw mening telt", reviewsText:"Heb je een verhaal gelezen of beluisterd? Lees de reacties en laat die van jou achter.", reviewsLink:"Bekijk de reacties →",
