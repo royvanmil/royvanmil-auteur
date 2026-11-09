@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Dépenses et recettes</title>
+<style>
+  @page { size: A4 landscape; margin: 8mm; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #e8e6df; }
+  body { font-family: Georgia, "Times New Roman", serif; color: #1e2320; }
+  .barre { max-width: 297mm; margin: 12px auto; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; padding: 0 8px; }
+  .barre a, .barre button, .barre select { font-family: inherit; font-size: 15px; text-decoration: none; color: #1e2320; background: #fff; border: 1px solid #9ea596; padding: 7px 14px; border-radius: 7px; cursor: pointer; }
+  .barre button.imp { background: #3d8b3d; border-color: #3d8b3d; color: #fff; font-weight: bold; margin-left: auto; }
+  .barre input { font-family: inherit; font-size: 15px; padding: 7px 10px; border: 1px solid #9ea596; border-radius: 7px; }
+  .barre label { font-size: 15px; }
+  #msg { max-width: 297mm; margin: 0 auto 8px; padding: 0 8px; color: #b3261e; }
+  #connexion { display: none; }
+  #contenu { display: none; }
+
+  /* ---- feuille ---- */
+  .page { width: 297mm; max-width: 100%; margin: 0 auto 20px; background: #fbfaf5; padding: 8mm 10mm 6mm; box-shadow: 0 2px 10px rgba(0,0,0,.15); }
+  header { text-align: center; margin-bottom: 4mm; }
+  .orn { display: flex; align-items: center; gap: 5mm; justify-content: center; color: #7d8c6e; }
+  .orn .line { flex: 1; height: 1px; background: #b9c0ae; }
+  h1 { font-size: 22pt; margin-top: 1mm; }
+  .sub { font-style: italic; font-size: 13pt; color: #3a4238; }
+
+  section { margin-top: 6mm; }
+  h2 { font-size: 15pt; border-bottom: 2px solid #1e2320; padding-bottom: 1mm; margin-bottom: 2.5mm; display: flex; justify-content: space-between; align-items: baseline; }
+  h2 .tot { font-size: 12pt; }
+
+  /* ---- formulaires (écran seulement) ---- */
+  .form { background: #fff; border: 1px solid #c9cdc0; border-radius: 8px; padding: .8rem .9rem; margin-bottom: 3mm; }
+  .form .titre { font-weight: bold; margin-bottom: .5rem; }
+  .grille { display: grid; grid-template-columns: repeat(4, 1fr); gap: .55rem .7rem; }
+  .grille .x2 { grid-column: span 2; }
+  .form label { display: block; font-size: .82rem; color: #6f7a66; margin-bottom: .15rem; }
+  .form input, .form select { width: 100%; padding: .5rem .6rem; border: 1px solid #c9cdc0; border-radius: 6px; font-size: .98rem; font-family: inherit; background: #fff; }
+  .radios { display: flex; gap: 1rem; padding-top: .35rem; }
+  .radios label { display: flex; align-items: center; gap: .3rem; font-size: .98rem; color: #1e2320; margin: 0; cursor: pointer; }
+  .radios input { width: 1.1rem; height: 1.1rem; accent-color: #3d8b3d; }
+  .boutons { display: flex; gap: .5rem; margin-top: .7rem; flex-wrap: wrap; align-items: center; }
+  .boutons button { font-family: inherit; font-size: .98rem; padding: .5rem 1rem; border-radius: 6px; border: 1px solid #1e2320; background: #fff; cursor: pointer; }
+  .boutons button.principal { background: #3d8b3d; border-color: #3d8b3d; color: #fff; font-weight: bold; }
+  .boutons button.danger { color: #b3261e; border-color: #b3261e; display: none; }
+  .msgf { font-size: .92rem; margin-left: .5rem; }
+  .msgf.ok { color: #3d8b3d; } .msgf.err { color: #b3261e; }
+  .calc { font-size: .85rem; color: #6f7a66; font-style: italic; margin-top: .35rem; }
+
+  /* ---- tableaux ---- */
+  table { width: 100%; border-collapse: collapse; font-size: 10pt; }
+  th { text-align: left; font-size: 9.5pt; padding: 1.5mm 2mm; border-bottom: 1.5px solid #1e2320; }
+  td { padding: 1.4mm 2mm; border-bottom: 1px solid #d3d6cb; vertical-align: top; }
+  th.n, td.n { text-align: right; white-space: nowrap; }
+  td.d { white-space: nowrap; }
+  tr { page-break-inside: avoid; }
+  tbody tr.ligne { cursor: pointer; }
+  tbody tr.ligne:hover td { background: #f1f2ea; }
+  tbody tr.enedit td { background: #fff8d6; }
+  .petit { font-size: 8.5pt; color: #6f7a66; font-style: italic; }
+  .vide { text-align: center; padding: 5mm; color: #6f7a66; font-style: italic; }
+  tfoot td { border-bottom: none; border-top: 1.5px solid #1e2320; font-weight: bold; }
+  .parcat { display: flex; flex-wrap: wrap; gap: 2mm 6mm; font-size: 9.5pt; margin-top: 2mm; color: #3a4238; }
+  .parcat b { color: #1e2320; }
+
+  /* ---- bilan ---- */
+  .bilan { display: grid; grid-template-columns: 1fr 1fr 1.6fr; gap: 4mm; margin-top: 2mm; }
+  .case { border: 1.5px solid #1e2320; border-radius: 3mm; padding: 3mm 4mm; text-align: center; }
+  .case .lib { font-size: 10pt; color: #3a4238; }
+  .case .val { font-size: 18pt; font-weight: bold; margin-top: 1mm; }
+  .case .det { font-size: 8.5pt; color: #6f7a66; margin-top: 1mm; }
+  .case.res { border-width: 2.5px; }
+  .rouge { color: #b3261e; } .vert { color: #2e7d32; }
+
+  footer { text-align: center; margin-top: 6mm; font-style: italic; color: #4d5649; font-size: 10pt; }
+  button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, tr:focus-visible { outline: 2px solid #1f3b73; outline-offset: 2px; }
+
+  @media (max-width: 700px) {
+    .grille { grid-template-columns: 1fr 1fr; }
+    .bilan { grid-template-columns: 1fr; }
+    .page { padding: 12px; }
+    table { font-size: 9pt; }
+  }
+  @media print {
+    html, body { background: #fff; }
+    .barre, #msg, #connexion, .form { display: none !important; }
+    .page { width: auto; margin: 0; padding: 0; box-shadow: none; background: #fff; }
+    tbody tr.enedit td, tbody tr.ligne:hover td { background: none; }
+    section { page-break-inside: auto; }
+    .bilan { page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<div class="barre">
+  <a href="facile.html">← Facile</a>
+  <label>Année : <select id="annee"></select></label>
+  <span id="connexion"><input type="password" id="mdp" placeholder="Mot de passe" autocomplete="current-password"> <button id="btnEntrer">Entrer</button></span>
+  <button class="imp" onclick="window.print()">Imprimer</button>
+</div>
+<div id="msg"></div>
+
+<div class="page">
+  <header>
+    <div class="orn"><span class="line"></span>
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2c3a33" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M4 5h16v14H4z"/><path d="M4 9h16"/><path d="M8 13h4M8 16h7"/></svg>
+    <span class="line"></span></div>
+    <h1>Dépenses et recettes</h1>
+    <div class="sub">Activité auteur — <span id="sousTitre">…</span></div>
+  </header>
+
+  <div id="contenu">
+
+  <!-- ================= DÉPENSES ================= -->
+  <section>
+    <h2>Dépenses <span class="tot" id="totDep"></span></h2>
+    <div class="form" id="f_dep">
+      <div class="titre" id="dep_titre">Nouvelle dépense</div>
+      <div class="grille">
+        <div><label for="dep_date">Date</label><input type="date" id="dep_date"></div>
+        <div><label for="dep_cat">Catégorie</label>
+          <select id="dep_cat">
+            <option value="isbn">ISBN</option>
+            <option value="livres">Livres (exemplaires)</option>
+            <option value="pub">Pub</option>
+            <option value="flyers">Flyers / affiches / cartes</option>
+            <option value="autre">Autre</option>
+          </select></div>
+        <div class="x2"><label for="dep_desc">Description</label><input type="text" id="dep_desc" placeholder="ex. 20 ex. Un instant, ou Trois…"></div>
+        <div><label for="dep_fourn">Fournisseur</label><input type="text" id="dep_fourn" placeholder="KDP, AFNIL, Papeo…"></div>
+        <div><label for="dep_ttc">Montant TTC (€)</label><input type="text" id="dep_ttc" inputmode="decimal" placeholder="0,00"></div>
+        <div><label for="dep_tva">TVA</label>
+          <select id="dep_tva">
+            <option value="20">20 %</option>
+            <option value="10">10 %</option>
+            <option value="5.5">5,5 % (livres)</option>
+            <option value="2.1">2,1 %</option>
+            <option value="0">0 % (timbres…)</option>
+          </select></div>
+        <div><label>Payé avec</label>
+          <div class="radios"><label><input type="radio" name="dep_paye" value="perso" checked> Perso</label><label><input type="radio" name="dep_paye" value="pro2tec"> Pro2Tec</label></div></div>
+        <div class="x2"><label for="dep_note">Remarque</label><input type="text" id="dep_note"></div>
+      </div>
+      <div class="calc" id="dep_calc"></div>
+      <div class="boutons">
+        <button class="principal" id="dep_ok">Enregistrer</button>
+        <button id="dep_vider">Vider / annuler</button>
+        <button class="danger" id="dep_suppr">Supprimer</button>
+        <span class="msgf" id="dep_msg"></span>
+      </div>
+    </div>
+    <table>
+      <thead><tr><th>Date</th><th>Catégorie</th><th>Description · fournisseur</th><th>Payé</th><th class="n">HT</th><th class="n">TVA</th><th class="n">TTC</th></tr></thead>
+      <tbody id="dep_corps"></tbody>
+      <tfoot id="dep_pied"></tfoot>
+    </table>
+    <div class="parcat" id="dep_parcat"></div>
+  </section>
+
+  <!-- ================= ENVOIS ================= -->
+  <section>
+    <h2>Envois La Poste et colis <span class="tot" id="totEnv"></span></h2>
+    <div class="form" id="f_env">
+      <div class="titre" id="env_titre">Nouvel envoi</div>
+      <div class="grille">
+        <div><label for="env_date">Date</label><input type="date" id="env_date"></div>
+        <div><label for="env_dest">Destinataire</label><input type="text" id="env_dest"></div>
+        <div><label for="env_ville">Ville / pays</label><input type="text" id="env_ville"></div>
+        <div><label for="env_mode">Mode</label>
+          <select id="env_mode">
+            <option value="lettre">Lettre La Poste</option>
+            <option value="colis">Colis</option>
+            <option value="relais">Point relais</option>
+            <option value="main">Main propre</option>
+          </select></div>
+        <div class="x2"><label for="env_livres">Livre(s) envoyé(s)</label><input type="text" id="env_livres" placeholder="ex. Deux + Trois"></div>
+        <div><label for="env_ttc">Coût TTC (€)</label><input type="text" id="env_ttc" inputmode="decimal" placeholder="0,00"></div>
+        <div><label>Payé avec</label>
+          <div class="radios"><label><input type="radio" name="env_paye" value="perso" checked> Perso</label><label><input type="radio" name="env_paye" value="pro2tec"> Pro2Tec</label></div></div>
+        <div class="x2"><label for="env_note">Remarque</label><input type="text" id="env_note" placeholder="n° de suivi, don, vente…"></div>
+      </div>
+      <div class="boutons">
+        <button class="principal" id="env_ok">Enregistrer</button>
+        <button id="env_vider">Vider / annuler</button>
+        <button class="danger" id="env_suppr">Supprimer</button>
+        <span class="msgf" id="env_msg"></span>
+      </div>
+    </div>
+    <table>
+      <thead><tr><th>Date</th><th>Destinataire · ville</th><th>Livre(s)</th><th>Mode</th><th>Payé</th><th class="n">TTC</th></tr></thead>
+      <tbody id="env_corps"></tbody>
+      <tfoot id="env_pied"></tfoot>
+    </table>
+  </section>
+
+  <!-- ================= RECETTES ================= -->
+  <section>
+    <h2>Recettes <span class="tot" id="totRec"></span></h2>
+    <div class="form" id="f_rec">
+      <div class="titre" id="rec_titre">Nouvelle recette</div>
+      <div class="grille">
+        <div><label for="rec_date">Date</label><input type="date" id="rec_date"></div>
+        <div><label for="rec_source">Source</label><input type="text" id="rec_source" list="sources" placeholder="Amazon KDP, vente directe…"></div>
+        <div class="x2"><label for="rec_livre">Livre</label><input type="text" id="rec_livre" list="titres"></div>
+        <div><label for="rec_qte">Quantité</label><input type="number" id="rec_qte" min="0" step="1" value="1"></div>
+        <div><label for="rec_ttc">Montant TTC (€)</label><input type="text" id="rec_ttc" inputmode="decimal" placeholder="0,00"></div>
+        <div class="x2"><label for="rec_note">Remarque</label><input type="text" id="rec_note"></div>
+      </div>
+      <div class="boutons">
+        <button class="principal" id="rec_ok">Enregistrer</button>
+        <button id="rec_vider">Vider / annuler</button>
+        <button class="danger" id="rec_suppr">Supprimer</button>
+        <span class="msgf" id="rec_msg"></span>
+      </div>
+      <datalist id="sources"><option value="Amazon KDP"><option value="Vente directe"><option value="Salon / marché"><option value="Librairie"></datalist>
+      <datalist id="titres"><option value="Cette maison, elle vaut vraiment le prix ?"><option value="Un instant, ou Deux…"><option value="Un instant, ou Trois…"><option value="Un instant, ou Quatre…"><option value="Een moment, of Twee… (NL)"><option value="La Cloche des Morts"><option value="Plusieurs livres"></datalist>
+    </div>
+    <table>
+      <thead><tr><th>Date</th><th>Source</th><th>Livre</th><th class="n">Qté</th><th class="n">TTC</th></tr></thead>
+      <tbody id="rec_corps"></tbody>
+      <tfoot id="rec_pied"></tfoot>
+    </table>
+  </section>
+
+  <!-- ================= BILAN ================= -->
+  <section>
+    <h2>Bilan</h2>
+    <div class="bilan">
+      <div class="case"><div class="lib">Dépenses TTC</div><div class="val" id="bDep">0,00 €</div><div class="det" id="bDepDet"></div></div>
+      <div class="case"><div class="lib">Recettes TTC</div><div class="val" id="bRec">0,00 €</div><div class="det" id="bRecDet"></div></div>
+      <div class="case res"><div class="lib">Rentable ?</div><div class="val" id="bRes">0,00 € TTC</div><div class="det" id="bResDet"></div></div>
+    </div>
+  </section>
+
+  <div class="calc" style="margin-top:4mm" id="astuce">Touche une ligne pour la modifier ou la supprimer.</div>
+  </div>
+
+  <footer>
+    <div class="orn"><span class="line"></span><span>❦</span><span class="line"></span></div>
+    Roy Van Mil
+  </footer>
+</div>
+
+<script>
+  var API = "https://compteurs.royvanmil86.workers.dev";
+  var CATS = { isbn: "ISBN", livres: "Livres", pub: "Pub", flyers: "Flyers", autre: "Autre" };
+  var MODES = { lettre: "Lettre La Poste", colis: "Colis", relais: "Point relais", main: "Main propre" };
+  var PAYE = { perso: "Perso", pro2tec: "Pro2Tec" };
+  var compta = { depenses: [], envois: [], recettes: [] };
+  var enEdition = { dep: null, env: null, rec: null };
+  var code = sessionStorage.getItem("livresCode") || "";
+  var anneeChoisie = String(new Date().getFullYear());
+
+  function $(id) { return document.getElementById(id); }
+  function esc(t) { return String(t == null ? "" : t).replace(/[&<>"']/g, function (c) { return { "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]; }); }
+  function eur(n) { return (Number(n) || 0).toLocaleString("fr-FR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " €"; }
+  function num(v) { var n = parseFloat(String(v || "").replace(/\s/g, "").replace(",", ".")); return isNaN(n) ? 0 : Math.round(n * 100) / 100; }
+  function jourFr(d) { if (!d) return ""; var p = d.split("-"); return p.length === 3 ? p[2] + "/" + p[1] + "/" + p[0] : d; }
+  function aujourdhui() { var d = new Date(); return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); }
+  function nouvelId() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
+  function ht(ttc, tva) { return Math.round(ttc / (1 + (Number(tva) || 0) / 100) * 100) / 100; }
+  function radio(nom) { var r = document.querySelector('input[name="' + nom + '"]:checked'); return r ? r.value : "perso"; }
+  function setRadio(nom, v) { var r = document.querySelector('input[name="' + nom + '"][value="' + v + '"]'); if (r) r.checked = true; }
+  function message(p, txt, ok) { var m = $(p + "_msg"); m.textContent = txt; m.className = "msgf " + (ok ? "ok" : "err"); }
+  function trier(l) { return l.slice().sort(function (a, b) { return (a.date || "") < (b.date || "") ? -1 : ((a.date || "") > (b.date || "") ? 1 : 0); }); }
+  function deLAnnee(l) { return anneeChoisie === "tout" ? l : l.filter(function (x) { return (x.date || "").slice(0, 4) === anneeChoisie; }); }
+  function somme(l) { return l.reduce(function (s, x) { return s + (Number(x.ttc) || 0); }, 0); }
+
+  // ---------- années ----------
+  function remplirAnnees() {
+    var ans = {}; ans[String(new Date().getFullYear())] = 1;
+    ["depenses", "envois", "recettes"].forEach(function (k) { compta[k].forEach(function (x) { if (x.date) ans[x.date.slice(0, 4)] = 1; }); });
+    var liste = Object.keys(ans).sort().reverse();
+    $("annee").innerHTML = liste.map(function (a) { return '<option value="' + a + '">' + a + '</option>'; }).join("") + '<option value="tout">Toutes</option>';
+    $("annee").value = anneeChoisie;
+  }
+
+  // ---------- affichage ----------
+  function afficher() {
+    $("sousTitre").textContent = anneeChoisie === "tout" ? "toutes les années" : "année " + anneeChoisie;
+
+    // dépenses
+    var dep = trier(deLAnnee(compta.depenses));
+    var tHT = 0, tTTC = 0, parCat = {};
+    $("dep_corps").innerHTML = dep.length ? dep.map(function (d) {
+      var h = ht(d.ttc, d.tva); tHT += h; tTTC += d.ttc;
+      parCat[d.cat] = (parCat[d.cat] || 0) + d.ttc;
+      return '<tr class="ligne' + (enEdition.dep === d.id ? " enedit" : "") + '" data-p="dep" data-id="' + esc(d.id) + '" tabindex="0">' +
+        '<td class="d">' + esc(jourFr(d.date)) + '</td><td>' + esc(CATS[d.cat] || d.cat) + '</td>' +
+        '<td>' + esc(d.desc) + (d.fourn ? ' · <i>' + esc(d.fourn) + '</i>' : '') + (d.note ? '<div class="petit">' + esc(d.note) + '</div>' : '') + '</td>' +
+        '<td>' + esc(PAYE[d.paye] || "") + '</td>' +
+        '<td class="n">' + eur(h) + '</td><td class="n">' + eur(d.ttc - h) + '<div class="petit">' + String(d.tva).replace(".", ",") + ' %</div></td><td class="n">' + eur(d.ttc) + '</td></tr>';
+    }).join("") : '<tr><td colspan="7" class="vide">Aucune dépense.</td></tr>';
+    $("dep_pied").innerHTML = dep.length ? '<tr><td colspan="4">Total dépenses</td><td class="n">' + eur(tHT) + '</td><td class="n">' + eur(tTTC - tHT) + '</td><td class="n">' + eur(tTTC) + '</td></tr>' : '';
+    $("dep_parcat").innerHTML = Object.keys(CATS).filter(function (c) { return parCat[c]; }).map(function (c) { return CATS[c] + ' : <b>' + eur(parCat[c]) + '</b>'; }).join("");
+    $("totDep").textContent = eur(tTTC);
+
+    // envois
+    var env = trier(deLAnnee(compta.envois));
+    var tEnv = somme(env);
+    $("env_corps").innerHTML = env.length ? env.map(function (e) {
+      return '<tr class="ligne' + (enEdition.env === e.id ? " enedit" : "") + '" data-p="env" data-id="' + esc(e.id) + '" tabindex="0">' +
+        '<td class="d">' + esc(jourFr(e.date)) + '</td>' +
+        '<td><b>' + esc(e.dest) + '</b>' + (e.ville ? ' · ' + esc(e.ville) : '') + (e.note ? '<div class="petit">' + esc(e.note) + '</div>' : '') + '</td>' +
+        '<td>' + esc(e.livres) + '</td><td>' + esc(MODES[e.mode] || e.mode) + '</td><td>' + esc(PAYE[e.paye] || "") + '</td>' +
+        '<td class="n">' + eur(e.ttc) + '</td></tr>';
+    }).join("") : '<tr><td colspan="6" class="vide">Aucun envoi.</td></tr>';
+    $("env_pied").innerHTML = env.length ? '<tr><td colspan="5">Total envois (' + env.length + ')</td><td class="n">' + eur(tEnv) + '</td></tr>' : '';
+    $("totEnv").textContent = eur(tEnv);
+
+    // recettes
+    var rec = trier(deLAnnee(compta.recettes));
+    var tRec = somme(rec), nbLiv = rec.reduce(function (s, r) { return s + (r.qte || 0); }, 0);
+    $("rec_corps").innerHTML = rec.length ? rec.map(function (r) {
+      return '<tr class="ligne' + (enEdition.rec === r.id ? " enedit" : "") + '" data-p="rec" data-id="' + esc(r.id) + '" tabindex="0">' +
+        '<td class="d">' + esc(jourFr(r.date)) + '</td><td>' + esc(r.source) + '</td>' +
+        '<td>' + esc(r.livre) + (r.note ? '<div class="petit">' + esc(r.note) + '</div>' : '') + '</td>' +
+        '<td class="n">' + (r.qte || 0) + '</td><td class="n">' + eur(r.ttc) + '</td></tr>';
+    }).join("") : '<tr><td colspan="5" class="vide">Aucune recette.</td></tr>';
+    $("rec_pied").innerHTML = rec.length ? '<tr><td colspan="3">Total recettes</td><td class="n">' + nbLiv + '</td><td class="n">' + eur(tRec) + '</td></tr>' : '';
+    $("totRec").textContent = eur(tRec);
+
+    // bilan
+    var depTot = tTTC + tEnv;
+    var perso = 0, pro = 0;
+    dep.concat(env).forEach(function (x) { if (x.paye === "pro2tec") pro += x.ttc; else perso += x.ttc; });
+    $("bDep").textContent = eur(depTot);
+    $("bDepDet").innerHTML = "Dépenses " + eur(tTTC) + " + envois " + eur(tEnv) + "<br>Payé perso " + eur(perso) + " · Pro2Tec " + eur(pro);
+    $("bRec").textContent = eur(tRec);
+    $("bRecDet").textContent = nbLiv + " livre(s) vendu(s)";
+    var res = Math.round((tRec - depTot) * 100) / 100;
+    var signe = res > 0 ? "+" : "";
+    $("bRes").textContent = signe + eur(res) + " TTC";
+    $("bRes").className = "val " + (res < 0 ? "rouge" : (res > 0 ? "vert" : ""));
+    $("bResDet").innerHTML = res < 0 ? '<b class="rouge">Pas rentable</b>' : (res > 0 ? '<b class="vert">Rentable</b>' : '<b>À l\'équilibre</b>');
+  }
+
+  // ---------- serveur ----------
+  function charger() {
+    return fetch(API + "/depenses-liste?code=" + encodeURIComponent(code))
+      .then(function (r) { if (r.status === 403) throw new Error("mdp"); if (!r.ok) throw new Error("reseau"); return r.json(); })
+      .then(function (data) {
+        compta = { depenses: data.depenses || [], envois: data.envois || [], recettes: data.recettes || [] };
+        sessionStorage.setItem("livresCode", code);
+        $("connexion").style.display = "none"; $("msg").textContent = "";
+        $("contenu").style.display = "block";
+        remplirAnnees();
+        afficher();
+      })
+      .catch(function (e) {
+        sessionStorage.removeItem("livresCode");
+        $("connexion").style.display = "inline";
+        $("contenu").style.display = "none";
+        $("msg").textContent = e.message === "mdp" ? (code ? "Mot de passe refusé." : "Entre le mot de passe.") : "Erreur réseau, réessaie.";
+      });
+  }
+
+  function sauver(p, texteOk) {
+    return fetch(API + "/depenses-save?code=" + encodeURIComponent(code), {
+      method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(compta)
+    })
+    .then(function (r) { if (!r.ok) throw new Error(); return r.json(); })
+    .then(function () { message(p, texteOk, true); return charger(); })
+    .catch(function () { message(p, "Erreur : rien n'a été enregistré. Réessaie.", false); return charger(); });
+  }
+
+  // ---------- formulaires ----------
+  var SECTIONS = {
+    dep: { liste: "depenses", nouveau: "Nouvelle dépense",
+      lire: function () { return { date: $("dep_date").value, cat: $("dep_cat").value, desc: $("dep_desc").value.trim(), fourn: $("dep_fourn").value.trim(), ttc: num($("dep_ttc").value), tva: parseFloat($("dep_tva").value), paye: radio("dep_paye"), note: $("dep_note").value.trim() }; },
+      ecrire: function (x) { $("dep_date").value = x.date || aujourdhui(); $("dep_cat").value = x.cat || "isbn"; $("dep_desc").value = x.desc || ""; $("dep_fourn").value = x.fourn || ""; $("dep_ttc").value = x.ttc != null ? String(x.ttc).replace(".", ",") : ""; $("dep_tva").value = x.tva != null ? String(x.tva) : "20"; setRadio("dep_paye", x.paye || "perso"); $("dep_note").value = x.note || ""; calcDep(); },
+      nom: function (x) { return x.desc || CATS[x.cat] || "dépense"; },
+      verif: function (x) { return x.desc || x.fourn ? "" : "Mets au moins une description."; } },
+    env: { liste: "envois", nouveau: "Nouvel envoi",
+      lire: function () { return { date: $("env_date").value, dest: $("env_dest").value.trim(), ville: $("env_ville").value.trim(), mode: $("env_mode").value, livres: $("env_livres").value.trim(), ttc: num($("env_ttc").value), paye: radio("env_paye"), note: $("env_note").value.trim() }; },
+      ecrire: function (x) { $("env_date").value = x.date || aujourdhui(); $("env_dest").value = x.dest || ""; $("env_ville").value = x.ville || ""; $("env_mode").value = x.mode || "lettre"; $("env_livres").value = x.livres || ""; $("env_ttc").value = x.ttc != null ? String(x.ttc).replace(".", ",") : ""; setRadio("env_paye", x.paye || "perso"); $("env_note").value = x.note || ""; },
+      nom: function (x) { return x.dest || "envoi"; },
+      verif: function (x) { return x.dest ? "" : "Mets au moins le destinataire."; } },
+    rec: { liste: "recettes", nouveau: "Nouvelle recette",
+      lire: function () { return { date: $("rec_date").value, source: $("rec_source").value.trim(), livre: $("rec_livre").value.trim(), qte: parseInt($("rec_qte").value, 10) || 0, ttc: num($("rec_ttc").value), note: $("rec_note").value.trim() }; },
+      ecrire: function (x) { $("rec_date").value = x.date || aujourdhui(); $("rec_source").value = x.source || ""; $("rec_livre").value = x.livre || ""; $("rec_qte").value = x.qte != null ? x.qte : 1; $("rec_ttc").value = x.ttc != null ? String(x.ttc).replace(".", ",") : ""; $("rec_note").value = x.note || ""; },
+      nom: function (x) { return x.source || "recette"; },
+      verif: function (x) { return x.source || x.livre ? "" : "Mets au moins la source."; } }
+  };
+
+  function calcDep() {
+    var t = num($("dep_ttc").value), v = parseFloat($("dep_tva").value), h = ht(t, v);
+    $("dep_calc").textContent = t ? "HT " + eur(h) + " · TVA " + eur(t - h) : "";
+  }
+  $("dep_ttc").addEventListener("input", calcDep);
+  $("dep_tva").addEventListener("change", calcDep);
+
+  function vider(p) {
+    var s = SECTIONS[p];
+    enEdition[p] = null;
+    s.ecrire({});
+    $(p + "_titre").textContent = s.nouveau;
+    $(p + "_ok").textContent = "Enregistrer";
+    $(p + "_suppr").style.display = "none";
+    afficher();
+  }
+
+  function editer(p, id) {
+    var s = SECTIONS[p];
+    var x = compta[s.liste].filter(function (y) { return y.id === id; })[0];
+    if (!x) return;
+    enEdition[p] = id;
+    s.ecrire(x);
+    $(p + "_titre").textContent = "Modifier : " + s.nom(x);
+    $(p + "_ok").textContent = "Enregistrer les modifications";
+    $(p + "_suppr").style.display = "inline-block";
+    message(p, "", true);
+    afficher();
+    $("f_" + p).scrollIntoView({ behavior: "smooth" });
+  }
+
+  Object.keys(SECTIONS).forEach(function (p) {
+    var s = SECTIONS[p];
+    $(p + "_ok").addEventListener("click", function () {
+      var x = s.lire();
+      var err = s.verif(x); if (err) { message(p, err, false); return; }
+      x.id = enEdition[p] || nouvelId();
+      if (enEdition[p]) compta[s.liste] = compta[s.liste].map(function (y) { return y.id === x.id ? x : y; });
+      else compta[s.liste].push(x);
+      if (x.date && anneeChoisie !== "tout") anneeChoisie = x.date.slice(0, 4);
+      vider(p);
+      sauver(p, "Enregistré : " + s.nom(x));
+    });
+    $(p + "_vider").addEventListener("click", function () { vider(p); message(p, "", true); });
+    $(p + "_suppr").addEventListener("click", function () {
+      var x = compta[s.liste].filter(function (y) { return y.id === enEdition[p]; })[0];
+      if (x && confirm("Supprimer « " + s.nom(x) + " » (" + jourFr(x.date) + ") ? C'est définitif.")) {
+        compta[s.liste] = compta[s.liste].filter(function (y) { return y.id !== x.id; });
+        vider(p);
+        sauver(p, "Supprimé : " + s.nom(x));
+      }
+    });
+    s.ecrire({});
+  });
+
+  function choisirLigne(e) {
+    var tr = e.target.closest("tr.ligne"); if (!tr) return;
+    editer(tr.getAttribute("data-p"), tr.getAttribute("data-id"));
+  }
+  ["dep_corps", "env_corps", "rec_corps"].forEach(function (id) {
+    $(id).addEventListener("click", choisirLigne);
+    $(id).addEventListener("keydown", function (e) { if (e.key === "Enter") choisirLigne(e); });
+  });
+
+  $("annee").addEventListener("change", function () { anneeChoisie = this.value; afficher(); });
+  $("btnEntrer").addEventListener("click", function () { code = $("mdp").value; charger(); });
+  $("mdp").addEventListener("keydown", function (e) { if (e.key === "Enter") { code = this.value; charger(); } });
+
+  charger();
+</script>
+</body>
+</html>
