@@ -4,68 +4,387 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>Duster</title>
+<title>Duster — sélection</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-body{font-family:Arial,sans-serif;max-width:800px;margin:auto;padding:15px;color:#222;background:#fff}
-.c{border:1px solid #ccc;border-radius:10px;padding:15px;margin:15px 0}
-.c img{width:100%;border-radius:8px;display:block;margin-bottom:10px}
-h2{font-size:1.1em;margin-top:0}
-h3{font-size:1em;margin-bottom:4px}
-ul{margin-top:4px}
-a{display:inline-block;padding:8px 14px;border:1px solid #333;border-radius:6px;text-decoration:none;color:#222}
-.na{color:#777;font-style:italic}
+:root{
+  --bg:#f3f6f8; --card:#ffffff; --ink:#14212b; --muted:#5d6b76; --line:#e2e8ee;
+  --accent:#e8622c; --accent2:#ff8a4c; --green:#1f9d6b; --blue:#2b6cb0;
+  --shadow:0 10px 30px rgba(20,33,43,.08); --shadow2:0 20px 50px rgba(20,33,43,.18);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Outfit,system-ui,Arial,sans-serif;background:var(--bg);color:var(--ink)}
+img{max-width:100%;display:block}
+
+/* ---------- Haut de page ---------- */
+.hero{position:relative;overflow:hidden;background:linear-gradient(135deg,#14212b 0%,#22394a 60%,#2d4c61 100%);color:#fff;padding:56px 20px 90px}
+.hero::after{content:"";position:absolute;right:-120px;top:-120px;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(232,98,44,.55),transparent 65%)}
+.hero-in{position:relative;z-index:1;max-width:1100px;margin:auto}
+.tag{display:inline-block;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);padding:6px 14px;border-radius:99px;font-size:.85rem;letter-spacing:.04em}
+.hero h1{font-size:clamp(2.2rem,6vw,3.6rem);margin:16px 0 8px;font-weight:800;line-height:1.05}
+.hero h1 span{color:var(--accent2)}
+.hero p{margin:0;color:#c9d6df;font-size:1.1rem}
+.crit{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.crit span{background:#fff;color:var(--ink);padding:7px 14px;border-radius:99px;font-weight:600;font-size:.9rem}
+
+/* ---------- Barre ---------- */
+.bar{max-width:1100px;margin:-46px auto 0;padding:0 16px;position:relative;z-index:2}
+.bar-in{background:var(--card);border-radius:18px;box-shadow:var(--shadow);padding:14px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.stats{display:flex;gap:22px;flex-wrap:wrap;padding:4px 8px}
+.stats b{display:block;font-size:1.5rem}
+.stats small{color:var(--muted)}
+.sort{display:flex;gap:6px;flex-wrap:wrap}
+.btn{border:0;cursor:pointer;font:inherit;font-weight:600;padding:10px 16px;border-radius:12px;background:var(--bg);color:var(--ink);transition:.2s}
+.btn:hover{background:#e6ecf1}
+.btn.on{background:var(--ink);color:#fff}
+.btn.orange{background:var(--accent);color:#fff}
+.btn.orange:hover{background:#d4521f}
+
+/* ---------- Cartes ---------- */
+main{max-width:1100px;margin:28px auto 60px;padding:0 16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:22px}
+.card{position:relative;background:var(--card);border-radius:20px;overflow:hidden;box-shadow:var(--shadow);cursor:pointer;transition:transform .25s,box-shadow .25s;animation:up .5s both}
+.card:hover{transform:translateY(-6px);box-shadow:var(--shadow2)}
+@keyframes up{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.ph{position:relative;aspect-ratio:16/10;background:linear-gradient(135deg,#dfe7ee,#c9d5df);overflow:hidden}
+.ph img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.card:hover .ph img{transform:scale(1.06)}
+.nophoto{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#7b8a96;gap:6px;font-weight:600}
+.num{position:absolute;top:14px;left:14px;width:52px;height:52px;border-radius:16px;background:var(--accent);color:#fff;font-size:1.6rem;font-weight:800;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(232,98,44,.5)}
+.badge{position:absolute;top:14px;right:14px;background:rgba(20,33,43,.85);color:#fff;padding:6px 12px;border-radius:99px;font-size:.8rem;font-weight:600;backdrop-filter:blur(4px)}
+.price{position:absolute;bottom:12px;right:14px;background:#fff;color:var(--ink);padding:8px 14px;border-radius:12px;font-size:1.3rem;font-weight:800;box-shadow:var(--shadow)}
+.body{padding:18px 18px 20px}
+.body h2{margin:0 0 4px;font-size:1.15rem}
+.body .where{color:var(--muted);font-size:.95rem}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.chip{background:var(--bg);padding:6px 11px;border-radius:9px;font-size:.85rem;font-weight:600}
+.chip.g{background:#e3f5ed;color:var(--green)}
+.more{margin-top:16px;display:flex;align-items:center;justify-content:space-between;color:var(--accent);font-weight:700}
+.more span{transition:transform .2s}
+.card:hover .more span{transform:translateX(5px)}
+
+/* ---------- Popup ---------- */
+.ov{position:fixed;inset:0;background:rgba(10,18,25,.6);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:16px;z-index:50;opacity:0;pointer-events:none;transition:opacity .25s}
+.ov.open{opacity:1;pointer-events:auto}
+.modal{background:var(--card);border-radius:24px;max-width:720px;width:100%;max-height:92vh;overflow:auto;box-shadow:var(--shadow2);transform:translateY(30px) scale(.97);transition:transform .3s}
+.ov.open .modal{transform:none}
+.m-ph{position:relative;aspect-ratio:16/9;background:linear-gradient(135deg,#dfe7ee,#c9d5df);cursor:zoom-in}
+.m-ph img{width:100%;height:100%;object-fit:cover}
+.x{position:absolute;top:14px;right:14px;width:42px;height:42px;border-radius:50%;border:0;background:#fff;font-size:1.4rem;cursor:pointer;box-shadow:var(--shadow);z-index:3}
+.m-body{padding:22px 24px 26px}
+.m-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.m-top h2{margin:0;font-size:1.45rem}
+.m-price{font-size:1.8rem;font-weight:800;color:var(--accent)}
+.specs{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin:20px 0}
+.spec{background:var(--bg);border-radius:14px;padding:12px}
+.spec small{color:var(--muted);display:block;font-size:.8rem}
+.spec b{font-size:1.05rem}
+.sec{margin-top:18px}
+.sec h3{margin:0 0 10px;font-size:1.05rem;display:flex;align-items:center;gap:8px}
+.list{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+.list li{background:var(--bg);padding:10px 12px;border-radius:12px;display:flex;gap:10px;align-items:flex-start}
+.list li::before{content:"✓";color:var(--green);font-weight:800}
+.list li.q::before{content:"?";color:var(--accent)}
+.note{background:#fff4ee;border-left:4px solid var(--accent);padding:12px 14px;border-radius:10px;margin-top:16px}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.link{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;text-decoration:none;padding:13px 20px;border-radius:14px;font-weight:700}
+.link:hover{background:#d4521f}
+.link.off{background:#cfd8df;color:#5d6b76;pointer-events:none}
+.nav{display:flex;gap:8px;margin-left:auto}
+
+/* ---------- Zoom photo ---------- */
+.zoom{position:fixed;inset:0;background:rgba(0,0,0,.92);display:flex;align-items:center;justify-content:center;z-index:60;opacity:0;pointer-events:none;transition:.25s;cursor:zoom-out;padding:16px}
+.zoom.open{opacity:1;pointer-events:auto}
+.zoom img{max-height:92vh;border-radius:10px}
+
+/* ---------- Comparatif ---------- */
+.comp{margin-top:40px;background:var(--card);border-radius:20px;box-shadow:var(--shadow);padding:20px;overflow-x:auto}
+.comp h2{margin:0 0 14px}
+table{border-collapse:collapse;width:100%;min-width:560px}
+th,td{padding:12px 10px;text-align:left;border-bottom:1px solid var(--line)}
+th{color:var(--muted);font-weight:600;font-size:.9rem}
+td .n{display:inline-flex;width:30px;height:30px;border-radius:9px;background:var(--accent);color:#fff;font-weight:800;align-items:center;justify-content:center}
+tr:hover td{background:#fafbfc}
+.best{color:var(--green);font-weight:700}
+
+footer{text-align:center;color:var(--muted);padding:20px 16px 40px;font-size:.9rem}
+
+/* ---------- Bouton flottant ---------- */
+.fab{position:fixed;right:18px;bottom:18px;z-index:40;box-shadow:0 10px 25px rgba(232,98,44,.45);border-radius:99px;padding:14px 20px}
+
+@media(max-width:560px){
+  .hero{padding:40px 16px 80px}
+  .grid{grid-template-columns:1fr}
+  .m-body{padding:18px}
+  .stats{gap:16px}
+}
 </style>
 </head>
 <body>
-<h1>Dacia Duster — sélection</h1>
-<p>1.5 dCi 110 diesel, boîte manuelle, 4x2, budget environ 10 000 €.</p>
 
-<div class="c">
-<img src="img/duster-auch.jpg" alt="Duster blanc — Auch">
-<h2>Dacia Duster phase 2 — 1.5 dCi 110 Prestige</h2>
-<p><b>Année :</b> 2016 &nbsp; <b>Km :</b> 128 842 km &nbsp; <b>Prix :</b> 9 990 €</p>
-<p><b>Vendeur :</b> L.A Autos Distinxion — Auch (32)</p>
-<p>Garantie 3 mois, 2 propriétaires, Euro 6, Crit'Air 2, historique disponible.</p>
-<h3>Vérification vendeur</h3>
-<ul>
-<li>Type : professionnel</li>
-<li>Adresse : 20 rue Roger Salengro, 32000 Auch</li>
-<li>Réseau Distinxion</li>
-<li>Société créée en 2020 ; site d'Auch ouvert le 12/12/2023</li>
-<li>Avis : 4,5/5</li>
-</ul>
-<a href="https://www.lacentrale.fr/auto-occasion-annonce-69119998547.html" target="_blank">Voir l'annonce</a>
+<header class="hero">
+  <div class="hero-in">
+    <span class="tag">🚙 Recherche voiture — Roy &amp; Amandine</span>
+    <h1>Dacia <span>Duster</span></h1>
+    <p>Les annonces retenues, à comparer tranquillement.</p>
+    <div class="crit">
+      <span>1.5 dCi 110</span><span>Diesel</span><span>Boîte manuelle</span><span>4x2</span><span>≈ 10 000 €</span>
+    </div>
+  </div>
+</header>
+
+<div class="bar">
+  <div class="bar-in">
+    <div class="stats">
+      <div><b id="sN">0</b><small>annonces</small></div>
+      <div><b id="sMin">—</b><small>prix le plus bas</small></div>
+      <div><b id="sKm">—</b><small>km le plus bas</small></div>
+    </div>
+    <div class="sort">
+      <button class="btn on" data-s="num">N°</button>
+      <button class="btn" data-s="prix">Prix</button>
+      <button class="btn" data-s="km">Km</button>
+      <button class="btn" data-s="annee">Année</button>
+    </div>
+  </div>
 </div>
 
-<div class="c">
-<img src="img/duster-lectoure.jpg" alt="Duster blanc — Lectoure">
-<h2>Dacia Duster — 1.5 dCi 110 Prestige 4x2</h2>
-<p><b>Année :</b> 2014 &nbsp; <b>Km :</b> 112 600 km &nbsp; <b>Prix :</b> 10 690 €</p>
-<p><b>Vendeur :</b> professionnel — Lectoure (32)</p>
-<p>Rapport d'historique disponible. Annonce Leboncoin du 01/10/2026.</p>
-<h3>Vérification vendeur</h3>
-<ul>
-<li>Type : professionnel</li>
-<li>Lieu : Lectoure (32700)</li>
-<li>Nom du garage : à confirmer</li>
-</ul>
-<p class="na">Lien de l'annonce à ajouter</p>
+<main>
+  <div class="grid" id="grid"></div>
+
+  <section class="comp">
+    <h2>Comparatif</h2>
+    <table>
+      <thead><tr><th>N°</th><th>Année</th><th>Km</th><th>Prix</th><th>Lieu</th><th>Vendeur</th></tr></thead>
+      <tbody id="tb"></tbody>
+    </table>
+  </section>
+</main>
+
+<footer>Page privée — sélection Duster · royvanmil.fr/duster</footer>
+
+<button class="btn orange fab" id="fab">🔧 À vérifier sur place</button>
+
+<!-- Popup annonce -->
+<div class="ov" id="ov">
+  <div class="modal" id="modal"></div>
 </div>
 
-<div class="c">
-<h2>Dacia Duster phase 2 — 1.5 dCi 110 Prestige</h2>
-<p><b>Année :</b> 2016 &nbsp; <b>Km :</b> 78 750 km &nbsp; <b>Prix :</b> 12 650 €</p>
-<p><b>Vendeur :</b> Garage du Midour — Nogaro (32)</p>
-<h3>Vérification vendeur</h3>
-<ul>
-<li>Type : professionnel — agent Renault / Dacia</li>
-<li>Adresse : Nogaro (32110)</li>
-<li>Société créée en 1964</li>
-<li>Avis : 4,5/5 (54 avis)</li>
-<li>Aucune procédure collective connue</li>
-</ul>
-<a href="https://www.lacentrale.fr/auto-occasion-annonce-87103542678.html" target="_blank">Voir l'annonce</a>
+<!-- Popup check-list -->
+<div class="ov" id="ov2">
+  <div class="modal">
+    <div class="m-body" style="position:relative">
+      <button class="x" data-close="ov2" aria-label="Fermer">×</button>
+      <h2 style="margin:0 0 6px">🔧 À vérifier sur place</h2>
+      <p style="color:var(--muted);margin:0 0 16px">Pour tous les Duster 1.5 dCi 110.</p>
+      <ul class="list">
+        <li>Factures d'entretien et courroie de distribution (environ 120 000 km ou 6 ans)</li>
+        <li>Démarrage à froid facile, sans fumée noire (injecteurs)</li>
+        <li>Pas de trou à l'accélération, pas de voyant moteur (EGR, FAP)</li>
+        <li>Embrayage et volant moteur : pas de claquement au ralenti</li>
+        <li>Rouille sous la caisse, longerons, bas de portes</li>
+        <li>Clim qui souffle froid</li>
+        <li>Train avant : silentblocs et cardans, en braquant</li>
+        <li>Dernier contrôle technique et liste des défauts</li>
+      </ul>
+    </div>
+  </div>
 </div>
 
+<!-- Zoom photo -->
+<div class="zoom" id="zoom"><img id="zimg" alt=""></div>
+
+<script>
+/* ===== LES ANNONCES — ajouter une annonce = copier un bloc ===== */
+const annonces = [
+  {
+    num: 1,
+    titre: "Duster phase 2 — 1.5 dCi 110 Prestige",
+    annee: 2016, km: 128842, prix: 9990,
+    lieu: "Auch (32)",
+    photo: "img/duster-auch.jpg",
+    vendeur: "L.A Autos Distinxion",
+    type: "Pro",
+    site: "La Centrale",
+    lien: "https://www.lacentrale.fr/auto-occasion-annonce-69119998547.html",
+    infos: ["Garantie 3 mois", "2 propriétaires", "Euro 6 — Crit'Air 2", "Historique disponible"],
+    verif: ["Professionnel — réseau Distinxion", "20 rue Roger Salengro, 32000 Auch", "Société créée en 2020 ; site d'Auch ouvert le 12/12/2023", "Avis : 4,5/5"],
+    note: "Le site Distinxion parle d'une garantie 1 an, l'annonce dit 3 mois : à demander."
+  },
+  {
+    num: 2,
+    titre: "Duster — 1.5 dCi 110 Prestige 4x2",
+    annee: 2014, km: 112600, prix: 10690,
+    lieu: "Lectoure (32)",
+    photo: "img/duster-lectoure.jpg",
+    vendeur: "Garage à Lectoure",
+    type: "Pro",
+    site: "Leboncoin",
+    lien: "",
+    infos: ["Rapport d'historique disponible", "Annonce du 01/10/2026"],
+    verif: ["Professionnel", "Lectoure (32700)"],
+    aVoir: ["Nom du garage à confirmer"],
+    note: ""
+  },
+  {
+    num: 3,
+    titre: "Duster phase 2 — 1.5 dCi 110 Prestige",
+    annee: 2016, km: 78750, prix: 12650,
+    lieu: "Nogaro (32)",
+    photo: "",
+    vendeur: "Garage du Midour",
+    type: "Pro",
+    site: "La Centrale",
+    lien: "https://www.lacentrale.fr/auto-occasion-annonce-87103542678.html",
+    infos: ["Kilométrage le plus bas"],
+    verif: ["Professionnel — agent Renault / Dacia", "Nogaro (32110)", "Société créée en 1964", "Avis : 4,5/5 (54 avis)", "Aucune procédure collective connue"],
+    note: ""
+  }
+];
+
+/* ===== Affichage ===== */
+const fmt = n => n.toLocaleString("fr-FR");
+const euro = n => fmt(n) + " €";
+const grid = document.getElementById("grid");
+const tb = document.getElementById("tb");
+let ordre = "num";
+let courant = 0;
+
+function photoHTML(a){
+  return a.photo
+    ? `<img src="${a.photo}" alt="Duster n°${a.num}" loading="lazy">`
+    : `<div class="nophoto"><svg width="64" height="40" viewBox="0 0 64 40" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 28h52v-8l-8-4-6-8H20l-8 8-6 2z"/><circle cx="18" cy="30" r="5" fill="#dfe7ee"/><circle cx="46" cy="30" r="5" fill="#dfe7ee"/></svg>Photo à venir</div>`;
+}
+
+function liste(){
+  const l = [...annonces];
+  if(ordre==="prix") l.sort((a,b)=>a.prix-b.prix);
+  else if(ordre==="km") l.sort((a,b)=>a.km-b.km);
+  else if(ordre==="annee") l.sort((a,b)=>b.annee-a.annee);
+  else l.sort((a,b)=>a.num-b.num);
+  return l;
+}
+
+function rendu(){
+  const l = liste();
+  const minP = Math.min(...annonces.map(a=>a.prix));
+  const minK = Math.min(...annonces.map(a=>a.km));
+  grid.innerHTML = l.map((a,i)=>`
+    <article class="card" style="animation-delay:${i*80}ms" data-num="${a.num}" tabindex="0">
+      <div class="ph">
+        ${photoHTML(a)}
+        <div class="num">${a.num}</div>
+        <div class="badge">${a.type} · ${a.site}</div>
+        <div class="price">${euro(a.prix)}</div>
+      </div>
+      <div class="body">
+        <h2>${a.titre}</h2>
+        <div class="where">📍 ${a.lieu} — ${a.vendeur}</div>
+        <div class="chips">
+          <span class="chip">📅 ${a.annee}</span>
+          <span class="chip ${a.km===minK?'g':''}">🛣️ ${fmt(a.km)} km</span>
+          ${a.prix===minP?'<span class="chip g">💶 Le moins cher</span>':''}
+        </div>
+        <div class="more">Voir le détail <span>→</span></div>
+      </div>
+    </article>`).join("");
+
+  tb.innerHTML = l.map(a=>`
+    <tr data-num="${a.num}" style="cursor:pointer">
+      <td><span class="n">${a.num}</span></td>
+      <td>${a.annee}</td>
+      <td class="${a.km===minK?'best':''}">${fmt(a.km)} km</td>
+      <td class="${a.prix===minP?'best':''}">${euro(a.prix)}</td>
+      <td>${a.lieu}</td>
+      <td>${a.vendeur} (${a.type})</td>
+    </tr>`).join("");
+
+  document.getElementById("sN").textContent = annonces.length;
+  document.getElementById("sMin").textContent = euro(minP);
+  document.getElementById("sKm").textContent = fmt(minK);
+
+  document.querySelectorAll("[data-num]").forEach(el=>{
+    el.onclick = ()=>ouvrir(+el.dataset.num);
+    el.onkeydown = e=>{ if(e.key==="Enter") ouvrir(+el.dataset.num); };
+  });
+}
+
+function ouvrir(num){
+  const l = liste();
+  courant = l.findIndex(a=>a.num===num);
+  const a = l[courant];
+  document.getElementById("modal").innerHTML = `
+    <div class="m-ph" ${a.photo?`data-zoom="${a.photo}"`:''}>
+      ${photoHTML(a)}
+      <div class="num">${a.num}</div>
+      <button class="x" data-close="ov" aria-label="Fermer">×</button>
+    </div>
+    <div class="m-body">
+      <div class="m-top">
+        <div><h2>${a.titre}</h2><div class="where" style="color:var(--muted)">📍 ${a.lieu}</div></div>
+        <div class="m-price">${euro(a.prix)}</div>
+      </div>
+      <div class="specs">
+        <div class="spec"><small>Année</small><b>${a.annee}</b></div>
+        <div class="spec"><small>Kilométrage</small><b>${fmt(a.km)} km</b></div>
+        <div class="spec"><small>Moteur</small><b>1.5 dCi 110</b></div>
+        <div class="spec"><small>Boîte</small><b>Manuelle</b></div>
+        <div class="spec"><small>Vendeur</small><b>${a.type}</b></div>
+        <div class="spec"><small>Annonce</small><b>${a.site}</b></div>
+      </div>
+      ${a.infos&&a.infos.length?`<div class="sec"><h3>📋 Infos de l'annonce</h3><ul class="list">${a.infos.map(x=>`<li>${x}</li>`).join("")}</ul></div>`:''}
+      <div class="sec"><h3>🛡️ Vérification vendeur — ${a.vendeur}</h3>
+        <ul class="list">${a.verif.map(x=>`<li>${x}</li>`).join("")}${(a.aVoir||[]).map(x=>`<li class="q">${x}</li>`).join("")}</ul>
+      </div>
+      ${a.note?`<div class="note">💬 ${a.note}</div>`:''}
+      <div class="actions">
+        ${a.lien?`<a class="link" href="${a.lien}" target="_blank" rel="noopener">Voir l'annonce ↗</a>`:`<span class="link off">Lien à venir</span>`}
+        <div class="nav">
+          <button class="btn" id="prev">← Préc.</button>
+          <button class="btn" id="next">Suiv. →</button>
+        </div>
+      </div>
+    </div>`;
+  document.getElementById("ov").classList.add("open");
+  document.body.style.overflow="hidden";
+  document.getElementById("prev").onclick=()=>ouvrir(l[(courant-1+l.length)%l.length].num);
+  document.getElementById("next").onclick=()=>ouvrir(l[(courant+1)%l.length].num);
+  const z=document.querySelector(".m-ph[data-zoom]");
+  if(z) z.onclick=e=>{ if(e.target.closest(".x")) return; document.getElementById("zimg").src=z.dataset.zoom; document.getElementById("zoom").classList.add("open"); };
+}
+
+function fermer(id){
+  document.getElementById(id).classList.remove("open");
+  if(!document.querySelector(".ov.open")) document.body.style.overflow="";
+}
+
+document.addEventListener("click",e=>{
+  const c=e.target.closest("[data-close]");
+  if(c) fermer(c.dataset.close);
+  if(e.target.classList.contains("ov")) fermer(e.target.id);
+});
+document.getElementById("zoom").onclick=()=>document.getElementById("zoom").classList.remove("open");
+document.getElementById("fab").onclick=()=>{document.getElementById("ov2").classList.add("open");document.body.style.overflow="hidden";};
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape"){
+    const z=document.getElementById("zoom");
+    if(z.classList.contains("open")) z.classList.remove("open");
+    else document.querySelectorAll(".ov.open").forEach(o=>fermer(o.id));
+  }
+  if(document.getElementById("ov").classList.contains("open")){
+    if(e.key==="ArrowRight") document.getElementById("next").click();
+    if(e.key==="ArrowLeft") document.getElementById("prev").click();
+  }
+});
+document.querySelectorAll("[data-s]").forEach(b=>b.onclick=()=>{
+  document.querySelectorAll("[data-s]").forEach(x=>x.classList.remove("on"));
+  b.classList.add("on"); ordre=b.dataset.s; rendu();
+});
+
+rendu();
+</script>
 </body>
 </html>
