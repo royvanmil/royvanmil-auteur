@@ -94,6 +94,11 @@ main{max-width:1100px;margin:28px auto 60px;padding:0 16px}
 .link:hover{background:#d4521f}
 .link.off{background:#cfd8df;color:#5d6b76;pointer-events:none}
 .nav{display:flex;gap:8px;margin-left:auto}
+.thumbs{display:flex;gap:8px;padding:10px 24px 0;overflow-x:auto}
+.thumbs img{width:86px;height:60px;object-fit:cover;border-radius:10px;cursor:pointer;opacity:.55;border:2px solid transparent;transition:.2s;flex:none}
+.thumbs img.on,.thumbs img:hover{opacity:1;border-color:var(--accent)}
+.nb{position:absolute;bottom:12px;left:14px;background:rgba(20,33,43,.85);color:#fff;padding:5px 10px;border-radius:99px;font-size:.8rem;font-weight:600}
+.chip.o{background:#fff1e9;color:var(--accent)}
 
 /* ---------- Zoom photo ---------- */
 .zoom{position:fixed;inset:0;background:rgba(0,0,0,.92);display:flex;align-items:center;justify-content:center;z-index:60;opacity:0;pointer-events:none;transition:.25s;cursor:zoom-out;padding:16px}
@@ -205,10 +210,9 @@ const annonces = [
     titre: "Duster phase 2 — 1.5 dCi 110 Prestige",
     annee: 2016, km: 128842, prix: 9990,
     lieu: "Auch (32)",
-    photo: "img/duster-auch.jpg",
+    photos: ["img/duster-auch.jpg"],
     vendeur: "L.A Autos Distinxion",
-    type: "Pro",
-    site: "La Centrale",
+    type: "Pro", site: "La Centrale",
     lien: "https://www.lacentrale.fr/auto-occasion-annonce-69119998547.html",
     infos: ["Garantie 3 mois", "2 propriétaires", "Euro 6 — Crit'Air 2", "Historique disponible"],
     verif: ["Professionnel — réseau Distinxion", "20 rue Roger Salengro, 32000 Auch", "Société créée en 2020 ; site d'Auch ouvert le 12/12/2023", "Avis : 4,5/5"],
@@ -216,17 +220,16 @@ const annonces = [
   },
   {
     num: 2,
-    titre: "Duster — 1.5 dCi 110 Prestige 4x2",
+    titre: "Duster Prestige — 1.5 dCi 110 4x2",
     annee: 2014, km: 112600, prix: 10690,
     lieu: "Lectoure (32)",
-    photo: "img/duster-lectoure.jpg",
-    vendeur: "Garage à Lectoure",
-    type: "Pro",
-    site: "Leboncoin",
+    photos: ["img/duster-lectoure-2.jpg", "img/duster-lectoure-3.jpg", "img/duster-lectoure.jpg"],
+    vendeur: "SAS Franczak et Fils",
+    type: "Pro", site: "Leboncoin",
     lien: "",
-    infos: ["Rapport d'historique disponible", "Annonce du 01/10/2026"],
-    verif: ["Professionnel", "Lectoure (32700)"],
-    aVoir: ["Nom du garage à confirmer"],
+    infos: ["Rapport d'historique disponible", "Révisé et préparé avant livraison (selon l'annonce)", "GPS (Media Nav), radars de recul", "Régulateur de vitesse, Bluetooth", "5 portes, 5 places", "Annonce du 01/10/2026"],
+    verif: ["Professionnel — concession Renault / Dacia", "Lectoure (32700)", "37 annonces sur Leboncoin", "Avis Leboncoin : environ 4,5/5 (149 avis)"],
+    aVoir: ["Lien de l'annonce à ajouter"],
     note: ""
   },
   {
@@ -234,36 +237,81 @@ const annonces = [
     titre: "Duster phase 2 — 1.5 dCi 110 Prestige",
     annee: 2016, km: 78750, prix: 12650,
     lieu: "Nogaro (32)",
-    photo: "",
+    photos: [],
     vendeur: "Garage du Midour",
-    type: "Pro",
-    site: "La Centrale",
+    type: "Pro", site: "La Centrale",
     lien: "https://www.lacentrale.fr/auto-occasion-annonce-87103542678.html",
     infos: ["Kilométrage le plus bas"],
     verif: ["Professionnel — agent Renault / Dacia", "Nogaro (32110)", "Société créée en 1964", "Avis : 4,5/5 (54 avis)", "Aucune procédure collective connue"],
     note: ""
+  },
+  {
+    num: 4,
+    titre: "Duster — 1.5 dCi 110 Prestige",
+    annee: 2016, km: 138690, prix: 9790,
+    lieu: "Varès (47)",
+    photos: ["img/duster-vares-1.jpg", "img/duster-vares-2.jpg"],
+    vendeur: "Garage Ousty",
+    type: "Pro", site: "Leboncoin",
+    lien: "",
+    infos: ["Garantie 12 mois", "Kit distribution fait", "Révision effectuée", "Contrôle technique fait", "Double de clés", "1re mise en circulation : 22/03/2016", "Clim, GPS, Bluetooth, régulateur et limiteur", "Aide au stationnement, jantes alliage, attelage"],
+    verif: ["Courtage automobile — Garage Ousty", "190 rue de la Mairie, 47400 Varès", "Ouvert du lundi au vendredi, 9 h – 18 h"],
+    aVoir: ["Lien de l'annonce à ajouter"],
+    note: "Courtage : le garage vend la voiture pour quelqu'un d'autre. Demander d'où elle vient, et les factures (distribution, révision)."
+  },
+  {
+    num: 5,
+    titre: "Duster — 1.5 dCi 110",
+    annee: 2014, km: 126000, prix: 9900,
+    lieu: "Preignan (32)",
+    photos: ["img/duster-gris-1.jpg", "img/duster-gris-2.jpg"],
+    vendeur: "À confirmer",
+    type: "?", site: "Leboncoin",
+    lien: "",
+    infos: ["Couleur gris foncé", "Près d'Auch"],
+    verif: [],
+    aVoir: ["Pro ou particulier : à confirmer", "Vérifier que les photos sont bien celles de cette annonce", "Plaque en DZ : souvent début 2016 — l'année 2014 est à vérifier", "Lien de l'annonce à ajouter"],
+    note: ""
+  },
+  {
+    num: 6,
+    titre: "Duster phase 2",
+    annee: null, km: null, prix: 7990,
+    lieu: "Nîmes (30)",
+    photos: ["img/duster-nimes.jpg"],
+    vendeur: "TB Automobile",
+    type: "Pro", site: "La Centrale",
+    moteur: "?", boite: "?",
+    lien: "",
+    infos: ["« Très bonne affaire » selon La Centrale"],
+    verif: ["Professionnel", "Nîmes (30000)", "Avis : 4,2/5 (222 avis)"],
+    aVoir: ["Année, kilométrage, moteur et boîte : à vérifier", "Lien de l'annonce à ajouter"],
+    note: "Loin : environ 4 h de route depuis Vic-Fezensac."
   }
 ];
 
 /* ===== Affichage ===== */
-const fmt = n => n.toLocaleString("fr-FR");
+const fmt = n => n==null ? "?" : n.toLocaleString("fr-FR");
 const euro = n => fmt(n) + " €";
 const grid = document.getElementById("grid");
 const tb = document.getElementById("tb");
 let ordre = "num";
 let courant = 0;
 
-function photoHTML(a){
-  return a.photo
-    ? `<img src="${a.photo}" alt="Duster n°${a.num}" loading="lazy">`
+function img1(a){ return (a.photos && a.photos[0]) || ""; }
+function photoHTML(a, src){
+  src = src || img1(a);
+  return src
+    ? `<img src="${src}" alt="Duster n°${a.num}" loading="lazy">`
     : `<div class="nophoto"><svg width="64" height="40" viewBox="0 0 64 40" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 28h52v-8l-8-4-6-8H20l-8 8-6 2z"/><circle cx="18" cy="30" r="5" fill="#dfe7ee"/><circle cx="46" cy="30" r="5" fill="#dfe7ee"/></svg>Photo à venir</div>`;
 }
 
 function liste(){
   const l = [...annonces];
+  const big = 1e12;
   if(ordre==="prix") l.sort((a,b)=>a.prix-b.prix);
-  else if(ordre==="km") l.sort((a,b)=>a.km-b.km);
-  else if(ordre==="annee") l.sort((a,b)=>b.annee-a.annee);
+  else if(ordre==="km") l.sort((a,b)=>(a.km??big)-(b.km??big));
+  else if(ordre==="annee") l.sort((a,b)=>(b.annee??0)-(a.annee??0));
   else l.sort((a,b)=>a.num-b.num);
   return l;
 }
@@ -271,22 +319,26 @@ function liste(){
 function rendu(){
   const l = liste();
   const minP = Math.min(...annonces.map(a=>a.prix));
-  const minK = Math.min(...annonces.map(a=>a.km));
+  const minK = Math.min(...annonces.filter(a=>a.km!=null).map(a=>a.km));
   grid.innerHTML = l.map((a,i)=>`
-    <article class="card" style="animation-delay:${i*80}ms" data-num="${a.num}" tabindex="0">
+    <article class="card" style="animation-delay:${i*70}ms" data-num="${a.num}" tabindex="0">
       <div class="ph">
         ${photoHTML(a)}
         <div class="num">${a.num}</div>
         <div class="badge">${a.type} · ${a.site}</div>
+        ${a.photos.length>1?`<div class="nb">📷 ${a.photos.length}</div>`:''}
         <div class="price">${euro(a.prix)}</div>
       </div>
       <div class="body">
         <h2>${a.titre}</h2>
         <div class="where">📍 ${a.lieu} — ${a.vendeur}</div>
         <div class="chips">
-          <span class="chip">📅 ${a.annee}</span>
+          <span class="chip">📅 ${fmt(a.annee).replace(/\s/g,'')}</span>
           <span class="chip ${a.km===minK?'g':''}">🛣️ ${fmt(a.km)} km</span>
           ${a.prix===minP?'<span class="chip g">💶 Le moins cher</span>':''}
+          ${a.infos.some(x=>/Garantie 12/.test(x))?'<span class="chip g">🛡️ Garantie 12 mois</span>':''}
+          ${a.infos.some(x=>/distribution fait/i.test(x))?'<span class="chip g">⚙️ Distribution faite</span>':''}
+          ${(a.aVoir||[]).length?`<span class="chip o">❓ ${a.aVoir.length} à vérifier</span>`:''}
         </div>
         <div class="more">Voir le détail <span>→</span></div>
       </div>
@@ -295,11 +347,11 @@ function rendu(){
   tb.innerHTML = l.map(a=>`
     <tr data-num="${a.num}" style="cursor:pointer">
       <td><span class="n">${a.num}</span></td>
-      <td>${a.annee}</td>
+      <td>${a.annee??'?'}</td>
       <td class="${a.km===minK?'best':''}">${fmt(a.km)} km</td>
       <td class="${a.prix===minP?'best':''}">${euro(a.prix)}</td>
       <td>${a.lieu}</td>
-      <td>${a.vendeur} (${a.type})</td>
+      <td>${a.vendeur}${a.type!=='?'?` (${a.type})`:''}</td>
     </tr>`).join("");
 
   document.getElementById("sN").textContent = annonces.length;
@@ -316,23 +368,25 @@ function ouvrir(num){
   const l = liste();
   courant = l.findIndex(a=>a.num===num);
   const a = l[courant];
+  const ph = a.photos || [];
   document.getElementById("modal").innerHTML = `
-    <div class="m-ph" ${a.photo?`data-zoom="${a.photo}"`:''}>
+    <div class="m-ph" id="mph">
       ${photoHTML(a)}
       <div class="num">${a.num}</div>
       <button class="x" data-close="ov" aria-label="Fermer">×</button>
     </div>
+    ${ph.length>1?`<div class="thumbs">${ph.map((p,i)=>`<img src="${p}" data-i="${i}" class="${i?'':'on'}" alt="">`).join("")}</div>`:''}
     <div class="m-body">
       <div class="m-top">
         <div><h2>${a.titre}</h2><div class="where" style="color:var(--muted)">📍 ${a.lieu}</div></div>
         <div class="m-price">${euro(a.prix)}</div>
       </div>
       <div class="specs">
-        <div class="spec"><small>Année</small><b>${a.annee}</b></div>
+        <div class="spec"><small>Année</small><b>${a.annee??'?'}</b></div>
         <div class="spec"><small>Kilométrage</small><b>${fmt(a.km)} km</b></div>
-        <div class="spec"><small>Moteur</small><b>1.5 dCi 110</b></div>
-        <div class="spec"><small>Boîte</small><b>Manuelle</b></div>
-        <div class="spec"><small>Vendeur</small><b>${a.type}</b></div>
+        <div class="spec"><small>Moteur</small><b>${a.moteur||'1.5 dCi 110'}</b></div>
+        <div class="spec"><small>Boîte</small><b>${a.boite||'Manuelle'}</b></div>
+        <div class="spec"><small>Vendeur</small><b>${a.type==='?'?'À confirmer':a.type}</b></div>
         <div class="spec"><small>Annonce</small><b>${a.site}</b></div>
       </div>
       ${a.infos&&a.infos.length?`<div class="sec"><h3>📋 Infos de l'annonce</h3><ul class="list">${a.infos.map(x=>`<li>${x}</li>`).join("")}</ul></div>`:''}
@@ -352,8 +406,19 @@ function ouvrir(num){
   document.body.style.overflow="hidden";
   document.getElementById("prev").onclick=()=>ouvrir(l[(courant-1+l.length)%l.length].num);
   document.getElementById("next").onclick=()=>ouvrir(l[(courant+1)%l.length].num);
-  const z=document.querySelector(".m-ph[data-zoom]");
-  if(z) z.onclick=e=>{ if(e.target.closest(".x")) return; document.getElementById("zimg").src=z.dataset.zoom; document.getElementById("zoom").classList.add("open"); };
+  let cur = img1(a);
+  const mph = document.getElementById("mph");
+  mph.onclick = e=>{
+    if(e.target.closest(".x") || !cur) return;
+    document.getElementById("zimg").src=cur;
+    document.getElementById("zoom").classList.add("open");
+  };
+  document.querySelectorAll(".thumbs img").forEach(t=>t.onclick=()=>{
+    cur = ph[+t.dataset.i];
+    mph.querySelector("img").src = cur;
+    document.querySelectorAll(".thumbs img").forEach(x=>x.classList.remove("on"));
+    t.classList.add("on");
+  });
 }
 
 function fermer(id){
