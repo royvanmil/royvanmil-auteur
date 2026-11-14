@@ -11,7 +11,7 @@
 <style>
 :root{
   --bg:#f3f6f8; --card:#ffffff; --ink:#14212b; --muted:#5d6b76; --line:#e2e8ee;
-  --accent:#e8622c; --accent2:#ff8a4c; --green:#1f9d6b; --blue:#2b6cb0;
+  --accent:#e8622c; --accent2:#ff8a4c; --green:#1f9d6b; --red:#c53030; --blue:#2b6cb0;
   --shadow:0 10px 30px rgba(20,33,43,.08); --shadow2:0 20px 50px rgba(20,33,43,.18);
 }
 *{box-sizing:border-box}
@@ -20,18 +20,21 @@ body{margin:0;font-family:Outfit,system-ui,Arial,sans-serif;background:var(--bg)
 img{max-width:100%;display:block}
 
 /* ---------- Haut de page ---------- */
-.hero{position:relative;overflow:hidden;background:linear-gradient(135deg,#14212b 0%,#22394a 60%,#2d4c61 100%);color:#fff;padding:56px 20px 90px}
+.hero{position:relative;overflow:hidden;background:linear-gradient(135deg,#14212b 0%,#22394a 60%,#2d4c61 100%);color:#fff;padding:50px 20px 96px}
 .hero::after{content:"";position:absolute;right:-120px;top:-120px;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(232,98,44,.55),transparent 65%)}
 .hero-in{position:relative;z-index:1;max-width:1100px;margin:auto}
 .tag{display:inline-block;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);padding:6px 14px;border-radius:99px;font-size:.85rem;letter-spacing:.04em}
 .hero h1{font-size:clamp(2.2rem,6vw,3.6rem);margin:16px 0 8px;font-weight:800;line-height:1.05}
 .hero h1 span{color:var(--accent2)}
-.hero p{margin:0;color:#c9d6df;font-size:1.1rem}
-.crit{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.choix{margin-top:18px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:16px;padding:16px 18px;max-width:820px}
+.choix h3{margin:0 0 8px;font-size:1rem;color:var(--accent2)}
+.choix p{margin:0;color:#dbe5ec;line-height:1.5}
+.crit{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .crit span{background:#fff;color:var(--ink);padding:7px 14px;border-radius:99px;font-weight:600;font-size:.9rem}
+.crit span.no{background:#ffe3e3;color:var(--red)}
 
 /* ---------- Barre ---------- */
-.bar{max-width:1100px;margin:-46px auto 0;padding:0 16px;position:relative;z-index:2}
+.bar{max-width:1100px;margin:-50px auto 0;padding:0 16px;position:relative;z-index:2}
 .bar-in{background:var(--card);border-radius:18px;box-shadow:var(--shadow);padding:14px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
 .stats{display:flex;gap:22px;flex-wrap:wrap;padding:4px 8px}
 .stats b{display:block;font-size:1.5rem}
@@ -45,7 +48,7 @@ img{max-width:100%;display:block}
 
 /* ---------- Cartes ---------- */
 main{max-width:1100px;margin:28px auto 60px;padding:0 16px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:22px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:22px}
 .card{position:relative;background:var(--card);border-radius:20px;overflow:hidden;box-shadow:var(--shadow);cursor:pointer;transition:transform .25s,box-shadow .25s;animation:up .5s both}
 .card:hover{transform:translateY(-6px);box-shadow:var(--shadow2)}
 @keyframes up{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
@@ -53,23 +56,37 @@ main{max-width:1100px;margin:28px auto 60px;padding:0 16px}
 .ph img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
 .card:hover .ph img{transform:scale(1.06)}
 .nophoto{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#7b8a96;gap:6px;font-weight:600}
-.num{position:absolute;top:14px;left:14px;width:52px;height:52px;border-radius:16px;background:var(--accent);color:#fff;font-size:1.6rem;font-weight:800;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(232,98,44,.5)}
-.badge{position:absolute;top:14px;right:14px;background:rgba(20,33,43,.85);color:#fff;padding:6px 12px;border-radius:99px;font-size:.8rem;font-weight:600;backdrop-filter:blur(4px)}
+.num{position:absolute;top:14px;left:14px;width:46px;height:46px;border-radius:14px;background:rgba(20,33,43,.85);color:#fff;font-size:1.3rem;font-weight:800;display:flex;align-items:center;justify-content:center}
+.note{position:absolute;top:14px;right:14px;min-width:70px;padding:6px 10px;border-radius:14px;color:#fff;text-align:center;box-shadow:0 6px 18px rgba(0,0,0,.25)}
+.note b{display:block;font-size:1.5rem;line-height:1}
+.note small{font-size:.7rem;opacity:.9;letter-spacing:.03em}
+.n-hi{background:var(--green)} .n-mid{background:var(--accent)} .n-lo{background:#7b8a96}
 .price{position:absolute;bottom:12px;right:14px;background:#fff;color:var(--ink);padding:8px 14px;border-radius:12px;font-size:1.3rem;font-weight:800;box-shadow:var(--shadow)}
-.body{padding:18px 18px 20px}
-.body h2{margin:0 0 4px;font-size:1.15rem}
-.body .where{color:var(--muted);font-size:.95rem}
-.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
-.chip{background:var(--bg);padding:6px 11px;border-radius:9px;font-size:.85rem;font-weight:600}
-.chip.g{background:#e3f5ed;color:var(--green)}
-.more{margin-top:16px;display:flex;align-items:center;justify-content:space-between;color:var(--accent);font-weight:700}
+.badge{position:absolute;bottom:12px;left:14px;background:rgba(20,33,43,.85);color:#fff;padding:6px 12px;border-radius:99px;font-size:.8rem;font-weight:600}
+.body{padding:16px 18px 18px}
+.body h2{margin:0 0 4px;font-size:1.12rem}
+.where{color:var(--muted);font-size:.95rem}
+
+/* Vignettes : toujours les mêmes, dans le même ordre */
+.vig{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:14px}
+.v{background:var(--bg);border-radius:11px;padding:7px 9px}
+.v small{display:block;color:var(--muted);font-size:.72rem}
+.v b{font-size:.92rem}
+.v.ok{background:#e3f5ed} .v.ok b{color:var(--green)}
+.v.ko{background:#ffe3e3} .v.ko b{color:var(--red)}
+.v.q{background:#fff1e9} .v.q b{color:var(--accent)}
+.modele{position:absolute;top:68px;left:14px;background:#2b6cb0;color:#fff;padding:5px 11px;border-radius:99px;font-size:.78rem;font-weight:700}
+.qcard{margin-top:14px;background:#fff8f3;border:1px solid #ffd9c4;border-radius:12px;padding:10px 12px}
+.qcard h4{margin:0 0 6px;font-size:.88rem;color:var(--accent)}
+.qcard ul{margin:0;padding-left:18px;font-size:.86rem;line-height:1.45}
+.more{margin-top:14px;display:flex;align-items:center;justify-content:space-between;color:var(--accent);font-weight:700}
 .more span{transition:transform .2s}
 .card:hover .more span{transform:translateX(5px)}
 
 /* ---------- Popup ---------- */
 .ov{position:fixed;inset:0;background:rgba(10,18,25,.6);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:16px;z-index:50;opacity:0;pointer-events:none;transition:opacity .25s}
 .ov.open{opacity:1;pointer-events:auto}
-.modal{background:var(--card);border-radius:24px;max-width:720px;width:100%;max-height:92vh;overflow:auto;box-shadow:var(--shadow2);transform:translateY(30px) scale(.97);transition:transform .3s}
+.modal{background:var(--card);border-radius:24px;max-width:740px;width:100%;max-height:92vh;overflow:auto;box-shadow:var(--shadow2);transform:translateY(30px) scale(.97);transition:transform .3s}
 .ov.open .modal{transform:none}
 .m-ph{position:relative;aspect-ratio:16/9;background:linear-gradient(135deg,#dfe7ee,#c9d5df);cursor:zoom-in}
 .m-ph img{width:100%;height:100%;object-fit:cover}
@@ -78,17 +95,14 @@ main{max-width:1100px;margin:28px auto 60px;padding:0 16px}
 .m-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
 .m-top h2{margin:0;font-size:1.45rem}
 .m-price{font-size:1.8rem;font-weight:800;color:var(--accent)}
-.specs{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin:20px 0}
-.spec{background:var(--bg);border-radius:14px;padding:12px}
-.spec small{color:var(--muted);display:block;font-size:.8rem}
-.spec b{font-size:1.05rem}
+.m-body .vig{grid-template-columns:repeat(auto-fill,minmax(130px,1fr));margin:18px 0}
 .sec{margin-top:18px}
-.sec h3{margin:0 0 10px;font-size:1.05rem;display:flex;align-items:center;gap:8px}
+.sec h3{margin:0 0 10px;font-size:1.05rem}
 .list{list-style:none;padding:0;margin:0;display:grid;gap:8px}
 .list li{background:var(--bg);padding:10px 12px;border-radius:12px;display:flex;gap:10px;align-items:flex-start}
 .list li::before{content:"✓";color:var(--green);font-weight:800}
 .list li.q::before{content:"?";color:var(--accent)}
-.note{background:#fff4ee;border-left:4px solid var(--accent);padding:12px 14px;border-radius:10px;margin-top:16px}
+.msg{background:#fff4ee;border-left:4px solid var(--accent);padding:12px 14px;border-radius:10px;margin-top:16px}
 .actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
 .link{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;text-decoration:none;padding:13px 20px;border-radius:14px;font-weight:700}
 .link:hover{background:#d4521f}
@@ -97,8 +111,6 @@ main{max-width:1100px;margin:28px auto 60px;padding:0 16px}
 .thumbs{display:flex;gap:8px;padding:10px 24px 0;overflow-x:auto}
 .thumbs img{width:86px;height:60px;object-fit:cover;border-radius:10px;cursor:pointer;opacity:.55;border:2px solid transparent;transition:.2s;flex:none}
 .thumbs img.on,.thumbs img:hover{opacity:1;border-color:var(--accent)}
-.nb{position:absolute;bottom:12px;left:14px;background:rgba(20,33,43,.85);color:#fff;padding:5px 10px;border-radius:99px;font-size:.8rem;font-weight:600}
-.chip.o{background:#fff1e9;color:var(--accent)}
 
 /* ---------- Zoom photo ---------- */
 .zoom{position:fixed;inset:0;background:rgba(0,0,0,.92);display:flex;align-items:center;justify-content:center;z-index:60;opacity:0;pointer-events:none;transition:.25s;cursor:zoom-out;padding:16px}
@@ -108,20 +120,19 @@ main{max-width:1100px;margin:28px auto 60px;padding:0 16px}
 /* ---------- Comparatif ---------- */
 .comp{margin-top:40px;background:var(--card);border-radius:20px;box-shadow:var(--shadow);padding:20px;overflow-x:auto}
 .comp h2{margin:0 0 14px}
-table{border-collapse:collapse;width:100%;min-width:560px}
-th,td{padding:12px 10px;text-align:left;border-bottom:1px solid var(--line)}
-th{color:var(--muted);font-weight:600;font-size:.9rem}
-td .n{display:inline-flex;width:30px;height:30px;border-radius:9px;background:var(--accent);color:#fff;font-weight:800;align-items:center;justify-content:center}
+table{border-collapse:collapse;width:100%;min-width:760px}
+th,td{padding:11px 9px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}
+th{color:var(--muted);font-weight:600;font-size:.88rem}
+td .n{display:inline-flex;width:30px;height:30px;border-radius:9px;background:var(--ink);color:#fff;font-weight:800;align-items:center;justify-content:center}
 tr:hover td{background:#fafbfc}
 .best{color:var(--green);font-weight:700}
+.vide{text-align:center;color:var(--muted);padding:40px 10px}
 
 footer{text-align:center;color:var(--muted);padding:20px 16px 40px;font-size:.9rem}
-
-/* ---------- Bouton flottant ---------- */
 .fab{position:fixed;right:18px;bottom:18px;z-index:40;box-shadow:0 10px 25px rgba(232,98,44,.45);border-radius:99px;padding:14px 20px}
 
 @media(max-width:560px){
-  .hero{padding:40px 16px 80px}
+  .hero{padding:36px 16px 90px}
   .grid{grid-template-columns:1fr}
   .m-body{padding:18px}
   .stats{gap:16px}
@@ -134,9 +145,15 @@ footer{text-align:center;color:var(--muted);padding:20px 16px 40px;font-size:.9r
   <div class="hero-in">
     <span class="tag">🚙 Recherche voiture — Roy &amp; Amandine</span>
     <h1>Dacia <span>Duster</span></h1>
-    <p>Les annonces retenues, à comparer tranquillement.</p>
+    <div class="choix">
+      <h3>Quel Duster on cherche ?</h3>
+      <p>Diesel <b>1.5 dCi 110 ch (6 CV)</b>, boîte manuelle, <b>4x2</b>, 5 places.
+      Un <b>Duster 1 phase 2</b> (fin 2013 à 2017) ou un <b>Duster 2 dCi 110</b> (2018 – 2019).
+      <b>Pas d'AdBlue</b> : donc pas de Blue dCi 115.
+      Distribution faite si possible. Budget 10 000 à 12 000 € si la voiture le vaut.</p>
+    </div>
     <div class="crit">
-      <span>1.5 dCi 110</span><span>Diesel</span><span>Boîte manuelle</span><span>4x2</span><span>≈ 10 000 €</span>
+      <span>1.5 dCi 110</span><span>Diesel</span><span>Manuelle</span><span>4x2</span><span>5 places</span><span>10 000 – 12 000 €</span><span class="no">🚫 AdBlue</span><span class="no">🚫 4x4</span>
     </div>
   </div>
 </header>
@@ -149,7 +166,7 @@ footer{text-align:center;color:var(--muted);padding:20px 16px 40px;font-size:.9r
       <div><b id="sKm">—</b><small>km le plus bas</small></div>
     </div>
     <div class="sort">
-      <button class="btn on" data-s="num">N°</button>
+      <button class="btn on" data-s="note">⭐ Note</button>
       <button class="btn" data-s="prix">Prix</button>
       <button class="btn" data-s="km">Km</button>
       <button class="btn" data-s="annee">Année</button>
@@ -163,7 +180,7 @@ footer{text-align:center;color:var(--muted);padding:20px 16px 40px;font-size:.9r
   <section class="comp">
     <h2>Comparatif</h2>
     <table>
-      <thead><tr><th>N°</th><th>Année</th><th>Km</th><th>Prix</th><th>Lieu</th><th>Vendeur</th></tr></thead>
+      <thead><tr><th>N°</th><th>Note</th><th>Phase</th><th>Moteur</th><th>Année</th><th>Km</th><th>Distrib.</th><th>Prix</th><th>Lieu</th><th>Vendeur</th></tr></thead>
       <tbody id="tb"></tbody>
     </table>
   </section>
@@ -173,12 +190,8 @@ footer{text-align:center;color:var(--muted);padding:20px 16px 40px;font-size:.9r
 
 <button class="btn orange fab" id="fab">🔧 À vérifier sur place</button>
 
-<!-- Popup annonce -->
-<div class="ov" id="ov">
-  <div class="modal" id="modal"></div>
-</div>
+<div class="ov" id="ov"><div class="modal" id="modal"></div></div>
 
-<!-- Popup check-list -->
 <div class="ov" id="ov2">
   <div class="modal">
     <div class="m-body" style="position:relative">
@@ -194,99 +207,133 @@ footer{text-align:center;color:var(--muted);padding:20px 16px 40px;font-size:.9r
         <li>Clim qui souffle froid</li>
         <li>Train avant : silentblocs et cardans, en braquant</li>
         <li>Dernier contrôle technique et liste des défauts</li>
+        <li>Pas d'AdBlue (pas de bouchon bleu à côté du gasoil)</li>
       </ul>
     </div>
   </div>
 </div>
 
-<!-- Zoom photo -->
 <div class="zoom" id="zoom"><img id="zimg" alt=""></div>
 
 <script>
-/* ===== LES ANNONCES — ajouter une annonce = copier un bloc ===== */
+/* =====================================================================
+   LES ANNONCES — ajouter une annonce = copier un bloc
+   note       : intéressé sur 10 (la page met les meilleures notes en premier)
+   phase      : "Phase 1", "Phase 2", "Duster 2" ou "?"
+   distrib    : "oui", "non" ou "?"
+   transmission : "4x2", "4x4" ou "?"
+   ===================================================================== */
 const annonces = [
   {
     num: 1,
-    titre: "Duster phase 2 — 1.5 dCi 110 Prestige",
-    annee: 2016, km: 128842, prix: 9990,
-    lieu: "Auch (32)",
-    photos: ["img/duster-auch.jpg"],
-    vendeur: "L.A Autos Distinxion",
-    type: "Pro", site: "La Centrale",
-    lien: "https://www.lacentrale.fr/auto-occasion-annonce-69119998547.html",
-    infos: ["Garantie 3 mois", "2 propriétaires", "Euro 6 — Crit'Air 2", "Historique disponible"],
-    verif: ["Professionnel — réseau Distinxion", "20 rue Roger Salengro, 32000 Auch", "Société créée en 2020 ; site d'Auch ouvert le 12/12/2023", "Avis : 4,5/5"],
-    note: "Le site Distinxion parle d'une garantie 1 an, l'annonce dit 3 mois : à demander."
-  },
-  {
-    num: 2,
-    titre: "Duster Prestige — 1.5 dCi 110 4x2",
-    annee: 2014, km: 112600, prix: 10690,
-    lieu: "Lectoure (32)",
-    photos: ["img/duster-lectoure-2.jpg", "img/duster-lectoure-3.jpg", "img/duster-lectoure.jpg"],
-    vendeur: "SAS Franczak et Fils",
-    type: "Pro", site: "Leboncoin",
-    lien: "",
-    infos: ["Rapport d'historique disponible", "Révisé et préparé avant livraison (selon l'annonce)", "GPS (Media Nav), radars de recul", "Régulateur de vitesse, Bluetooth", "5 portes, 5 places", "Annonce du 01/10/2026"],
-    verif: ["Professionnel — concession Renault / Dacia", "Lectoure (32700)", "37 annonces sur Leboncoin", "Avis Leboncoin : environ 4,5/5 (149 avis)"],
-    aVoir: ["Lien de l'annonce à ajouter"],
-    note: ""
+    note: 8,
+    titre: "Duster Prestige — 1.5 dCi 110",
+    phase: "Phase 2",
+    carburant: "Diesel",
+    moteur: "1.5 dCi 110 ch",
+    cv: 6,
+    transmission: "?",
+    places: 5,
+    annee: 2014, km: 76000, prix: 11000,
+    distrib: "?",
+    lieu: "Castandet (40)",
+    photos: ["img/duster-castandet-1.jpg", "img/duster-castandet-2.jpg", "img/duster-castandet-3.jpg"],
+    vendeur: "Manold",
+    type: "Particulier", site: "Leboncoin",
+    lien: "https://www.leboncoin.fr/ad/voitures/3251685914",
+    infos: [
+      "1re main, achat neuf",
+      "1re mise en circulation : 08/2014",
+      "Boîte manuelle 6 vitesses",
+      "Gris comète, intérieur cuir, jantes alu, vitres teintées",
+      "Attache remorque, vraie roue de secours, extincteur",
+      "Carnet d'entretien, entretien normal",
+      "Dernière révision chez Dacia : 08/2026",
+      "Contrôle technique du 11/2026 (selon la description)",
+      "Crit'Air 2",
+      "Annonce mise en ligne le 11/11/2026"
+    ],
+    aVoir: [
+      "Distribution : faite ou non ? (12 ans)",
+      "4x2 ou 4x4 : à confirmer",
+      "Contrôle technique : la fiche dit « non valide », la description dit fait en 11/2026",
+      "Le vendeur l'appelle « Duster 2 » : en 2014 c'est un Duster 1 phase 2"
+    ],
+    remarque: "Particulier, membre Leboncoin depuis 2017. Très petit kilométrage pour l'année."
   },
   {
     num: 3,
-    titre: "Duster phase 2 — 1.5 dCi 110 Prestige",
-    annee: 2016, km: 78750, prix: 12650,
-    lieu: "Nogaro (32)",
-    photos: [],
-    vendeur: "Garage du Midour",
-    type: "Pro", site: "La Centrale",
-    lien: "https://www.lacentrale.fr/auto-occasion-annonce-87103542678.html",
-    infos: ["Kilométrage le plus bas"],
-    verif: ["Professionnel — agent Renault / Dacia", "Nogaro (32110)", "Société créée en 1964", "Avis : 4,5/5 (54 avis)", "Aucune procédure collective connue"],
-    note: ""
-  },
-  {
-    num: 4,
-    titre: "Duster — 1.5 dCi 110 Prestige",
-    annee: 2016, km: 138690, prix: 9790,
-    lieu: "Varès (47)",
-    photos: ["img/duster-vares-1.jpg", "img/duster-vares-2.jpg"],
-    vendeur: "Garage Ousty",
+    note: 9,
+    titre: "Duster Black Touch — 1.5 dCi 110",
+    phase: "Phase 2",
+    carburant: "Diesel",
+    moteur: "1.5 dCi 110 ch",
+    cv: 6,
+    transmission: "4x2",
+    places: 5,
+    annee: 2018, km: 92000, prix: 12490,
+    distrib: "?",
+    lieu: "Lectoure (32)",
+    photos: ["img/duster-lectoure-bt-1.jpg", "img/duster-lectoure-bt-2.jpg", "img/duster-lectoure-bt-3.jpg", "img/duster-lectoure-bt-4.jpg", "img/duster-lectoure-bt-5.jpg"],
+    vendeur: "SAS Franczak et Fils",
     type: "Pro", site: "Leboncoin",
-    lien: "",
-    infos: ["Garantie 12 mois", "Kit distribution fait", "Révision effectuée", "Contrôle technique fait", "Double de clés", "1re mise en circulation : 22/03/2016", "Clim, GPS, Bluetooth, régulateur et limiteur", "Aide au stationnement, jantes alliage, attelage"],
-    verif: ["Courtage automobile — Garage Ousty", "190 rue de la Mairie, 47400 Varès", "Ouvert du lundi au vendredi, 9 h – 18 h"],
-    aVoir: ["Lien de l'annonce à ajouter"],
-    note: "Courtage : le garage vend la voiture pour quelqu'un d'autre. Demander d'où elle vient, et les factures (distribution, révision)."
+    lien: "https://www.leboncoin.fr/ad/voitures/3265693298",
+    infos: [
+      "Série Black Touch 2017, 1re mise en circulation : 01/2018",
+      "Boîte manuelle, gris, sellerie cuir partiel / tissu",
+      "Clim manuelle, Media Nav Evolution (GPS, USB, Bluetooth)",
+      "Caméra + radars de recul, régulateur / limiteur",
+      "Jantes 16\" diamantées, vitres arrière surteintées, Stop & Start",
+      "Vendu révisé et garanti",
+      "En cours de préparation mécanique et carrosserie",
+      "Annonce mise en ligne le 09/11/2026"
+    ],
+    aVoir: [
+      "Distribution : faite ou non ? (8 ans, 92 000 km)",
+      "Durée de la garantie",
+      "Contrôle technique : la fiche dit « non valide », fait avant livraison ?",
+      "Prix : 12 490 € — négociable ?"
+    ],
+    remarque: "Concession Renault / Dacia de Lectoure : 4,7/5 (149 avis), 35 annonces."
   },
   {
-    num: 5,
-    titre: "Duster — 1.5 dCi 110",
-    annee: 2014, km: 126000, prix: 9900,
-    lieu: "Preignan (32)",
-    photos: ["img/duster-gris-1.jpg", "img/duster-gris-2.jpg"],
-    vendeur: "À confirmer",
-    type: "?", site: "Leboncoin",
-    lien: "",
-    infos: ["Couleur gris foncé", "Près d'Auch"],
-    verif: [],
-    aVoir: ["Pro ou particulier : à confirmer", "Vérifier que les photos sont bien celles de cette annonce", "Plaque en DZ : souvent début 2016 — l'année 2014 est à vérifier", "Lien de l'annonce à ajouter"],
-    note: ""
-  },
-  {
-    num: 6,
-    titre: "Duster phase 2",
-    annee: null, km: null, prix: 7990,
-    lieu: "Nîmes (30)",
-    photos: ["img/duster-nimes.jpg"],
-    vendeur: "TB Automobile",
-    type: "Pro", site: "La Centrale",
-    moteur: "?", boite: "?",
-    lien: "",
-    infos: ["« Très bonne affaire » selon La Centrale"],
-    verif: ["Professionnel", "Nîmes (30000)", "Avis : 4,2/5 (222 avis)"],
-    aVoir: ["Année, kilométrage, moteur et boîte : à vérifier", "Lien de l'annonce à ajouter"],
-    note: "Loin : environ 4 h de route depuis Vic-Fezensac."
+    num: 2,
+    note: 6,
+    modele: "Logan MCV",
+    titre: "Logan MCV Ambiance — 1.5 dCi 70",
+    phase: "Logan 1",
+    carburant: "Diesel",
+    moteur: "1.5 dCi 70 ch",
+    cv: 5,
+    transmission: "4x2",
+    places: 5,
+    annee: 2007, km: 87500, prix: 6490,
+    distrib: "prevue",
+    lieu: "Lesparre-Médoc (33)",
+    photos: ["img/logan-lesparre-1.jpg", "img/logan-lesparre-2.jpg", "img/logan-lesparre-3.jpg", "img/logan-lesparre-4.jpg", "img/logan-lesparre-5.jpg", "img/logan-lesparre-6.jpg"],
+    vendeur: "SARL Captiv'Auto",
+    type: "Pro", site: "Leboncoin",
+    lien: "https://www.leboncoin.fr/ad/voitures/3288897824",
+    infos: [
+      "1re mise en circulation : 02/05/2007",
+      "Break 5 portes, 5 places, bleu",
+      "Boîte manuelle 5 vitesses",
+      "Crit'Air 3 — Euro 4",
+      "Avant livraison, le garage fait : kit distribution + pompe à eau + courroie accessoire, vidange + filtres huile et air, contrôle technique",
+      "Pneus avant 7 mm, arrière 7,5 mm",
+      "Freins avant : disques et plaquettes environ 5 % d'usure ; arrière : tambours",
+      "Clim, radio CD, banquette 2/3 – 1/3, roue de secours",
+      "Carnet d'entretien + guide, double des clés",
+      "Garantie 3 mois (extension possible jusqu'à 60 mois)",
+      "Annonce en ligne depuis environ le 15/10/2026"
+    ],
+    aVoir: [
+      "Factures de la distribution et de la révision faites avant livraison",
+      "Carnet d'entretien : voir les tampons",
+      "Rouille dessous (voiture de 2007)",
+      "Prix de l'extension de garantie"
+    ],
+    remarque: "Pas un Duster, mais peut-être intéressant. Garage pro : 4,4/5 (58 avis), 21 annonces. Dans le Médoc, au nord de Bordeaux."
   }
 ];
 
@@ -295,7 +342,7 @@ const fmt = n => n==null ? "?" : n.toLocaleString("fr-FR");
 const euro = n => fmt(n) + " €";
 const grid = document.getElementById("grid");
 const tb = document.getElementById("tb");
-let ordre = "num";
+let ordre = "note";
 let courant = 0;
 
 function img1(a){ return (a.photos && a.photos[0]) || ""; }
@@ -305,6 +352,24 @@ function photoHTML(a, src){
     ? `<img src="${src}" alt="Duster n°${a.num}" loading="lazy">`
     : `<div class="nophoto"><svg width="64" height="40" viewBox="0 0 64 40" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 28h52v-8l-8-4-6-8H20l-8 8-6 2z"/><circle cx="18" cy="30" r="5" fill="#dfe7ee"/><circle cx="46" cy="30" r="5" fill="#dfe7ee"/></svg>Photo à venir</div>`;
 }
+function classeNote(n){ return n>=8?'n-hi':n>=5?'n-mid':'n-lo'; }
+function distribTxt(d){ return d==="oui"?"✅ Faite":d==="prevue"?"🔧 Prévue":d==="non"?"❌ Non":"❓ À voir"; }
+function distribCls(d){ return (d==="oui"||d==="prevue")?"ok":d==="non"?"ko":"q"; }
+function q(v){ return (v==null||v==="?")?"q":""; }
+
+function vignettes(a){
+  return `<div class="vig">
+    <div class="v ${q(a.phase)}"><small>Phase</small><b>${a.phase||'?'}</b></div>
+    <div class="v ${q(a.carburant)}"><small>Carburant</small><b>${a.carburant||'?'}</b></div>
+    <div class="v ${q(a.moteur)}"><small>Moteur</small><b>${a.moteur||'?'}</b></div>
+    <div class="v ${q(a.cv)}"><small>Puiss. fiscale</small><b>${a.cv?a.cv+' CV':'?'}</b></div>
+    <div class="v ${a.transmission==='4x4'?'ko':q(a.transmission)}"><small>Transmission</small><b>${a.transmission||'?'}</b></div>
+    <div class="v ${q(a.places)}"><small>Places</small><b>${a.places||'?'}</b></div>
+    <div class="v ${q(a.annee)}"><small>Année</small><b>${a.annee??'?'}</b></div>
+    <div class="v ${q(a.km)}"><small>Kilométrage</small><b>${fmt(a.km)} km</b></div>
+    <div class="v ${distribCls(a.distrib)}"><small>Distribution</small><b>${distribTxt(a.distrib)}</b></div>
+  </div>`;
+}
 
 function liste(){
   const l = [...annonces];
@@ -312,34 +377,35 @@ function liste(){
   if(ordre==="prix") l.sort((a,b)=>a.prix-b.prix);
   else if(ordre==="km") l.sort((a,b)=>(a.km??big)-(b.km??big));
   else if(ordre==="annee") l.sort((a,b)=>(b.annee??0)-(a.annee??0));
-  else l.sort((a,b)=>a.num-b.num);
+  else l.sort((a,b)=>(b.note??0)-(a.note??0) || a.prix-b.prix);
   return l;
 }
 
 function rendu(){
   const l = liste();
+  if(!l.length){
+    grid.innerHTML = `<div class="vide">Pas encore d'annonce.</div>`;
+    tb.innerHTML = ""; return;
+  }
   const minP = Math.min(...annonces.map(a=>a.prix));
-  const minK = Math.min(...annonces.filter(a=>a.km!=null).map(a=>a.km));
+  const ks = annonces.filter(a=>a.km!=null).map(a=>a.km);
+  const minK = ks.length?Math.min(...ks):null;
+
   grid.innerHTML = l.map((a,i)=>`
     <article class="card" style="animation-delay:${i*70}ms" data-num="${a.num}" tabindex="0">
       <div class="ph">
         ${photoHTML(a)}
         <div class="num">${a.num}</div>
+        <div class="note ${classeNote(a.note)}"><b>${a.note??'?'}/10</b><small>INTÉRESSÉ</small></div>
+        ${a.modele?`<div class="modele">${a.modele}</div>`:''}
         <div class="badge">${a.type} · ${a.site}</div>
-        ${a.photos.length>1?`<div class="nb">📷 ${a.photos.length}</div>`:''}
         <div class="price">${euro(a.prix)}</div>
       </div>
       <div class="body">
         <h2>${a.titre}</h2>
         <div class="where">📍 ${a.lieu} — ${a.vendeur}</div>
-        <div class="chips">
-          <span class="chip">📅 ${fmt(a.annee).replace(/\s/g,'')}</span>
-          <span class="chip ${a.km===minK?'g':''}">🛣️ ${fmt(a.km)} km</span>
-          ${a.prix===minP?'<span class="chip g">💶 Le moins cher</span>':''}
-          ${a.infos.some(x=>/Garantie 12/.test(x))?'<span class="chip g">🛡️ Garantie 12 mois</span>':''}
-          ${a.infos.some(x=>/distribution fait/i.test(x))?'<span class="chip g">⚙️ Distribution faite</span>':''}
-          ${(a.aVoir||[]).length?`<span class="chip o">❓ ${a.aVoir.length} à vérifier</span>`:''}
-        </div>
+        ${vignettes(a)}
+        ${(a.aVoir||[]).length?`<div class="qcard"><h4>❓ À vérifier / demander</h4><ul>${a.aVoir.map(x=>`<li>${x}</li>`).join("")}</ul></div>`:''}
         <div class="more">Voir le détail <span>→</span></div>
       </div>
     </article>`).join("");
@@ -347,11 +413,15 @@ function rendu(){
   tb.innerHTML = l.map(a=>`
     <tr data-num="${a.num}" style="cursor:pointer">
       <td><span class="n">${a.num}</span></td>
+      <td><b>${a.note??'?'}/10</b></td>
+      <td>${a.phase||'?'}</td>
+      <td>${a.moteur||'?'}</td>
       <td>${a.annee??'?'}</td>
       <td class="${a.km===minK?'best':''}">${fmt(a.km)} km</td>
+      <td>${distribTxt(a.distrib)}</td>
       <td class="${a.prix===minP?'best':''}">${euro(a.prix)}</td>
       <td>${a.lieu}</td>
-      <td>${a.vendeur}${a.type!=='?'?` (${a.type})`:''}</td>
+      <td>${a.vendeur} (${a.type})</td>
     </tr>`).join("");
 
   document.getElementById("sN").textContent = annonces.length;
@@ -378,22 +448,13 @@ function ouvrir(num){
     ${ph.length>1?`<div class="thumbs">${ph.map((p,i)=>`<img src="${p}" data-i="${i}" class="${i?'':'on'}" alt="">`).join("")}</div>`:''}
     <div class="m-body">
       <div class="m-top">
-        <div><h2>${a.titre}</h2><div class="where" style="color:var(--muted)">📍 ${a.lieu}</div></div>
-        <div class="m-price">${euro(a.prix)}</div>
+        <div><h2>${a.titre}</h2><div class="where">📍 ${a.lieu} — ${a.vendeur} (${a.type}, ${a.site})</div></div>
+        <div style="text-align:right"><div class="m-price">${euro(a.prix)}</div><b>⭐ Intéressé : ${a.note??'?'}/10</b></div>
       </div>
-      <div class="specs">
-        <div class="spec"><small>Année</small><b>${a.annee??'?'}</b></div>
-        <div class="spec"><small>Kilométrage</small><b>${fmt(a.km)} km</b></div>
-        <div class="spec"><small>Moteur</small><b>${a.moteur||'1.5 dCi 110'}</b></div>
-        <div class="spec"><small>Boîte</small><b>${a.boite||'Manuelle'}</b></div>
-        <div class="spec"><small>Vendeur</small><b>${a.type==='?'?'À confirmer':a.type}</b></div>
-        <div class="spec"><small>Annonce</small><b>${a.site}</b></div>
-      </div>
+      ${vignettes(a)}
       ${a.infos&&a.infos.length?`<div class="sec"><h3>📋 Infos de l'annonce</h3><ul class="list">${a.infos.map(x=>`<li>${x}</li>`).join("")}</ul></div>`:''}
-      <div class="sec"><h3>🛡️ Vérification vendeur — ${a.vendeur}</h3>
-        <ul class="list">${a.verif.map(x=>`<li>${x}</li>`).join("")}${(a.aVoir||[]).map(x=>`<li class="q">${x}</li>`).join("")}</ul>
-      </div>
-      ${a.note?`<div class="note">💬 ${a.note}</div>`:''}
+      ${(a.aVoir||[]).length?`<div class="sec"><h3>❓ À demander / vérifier</h3><ul class="list">${a.aVoir.map(x=>`<li class="q">${x}</li>`).join("")}</ul></div>`:''}
+      ${a.remarque?`<div class="msg">💬 ${a.remarque}</div>`:''}
       <div class="actions">
         ${a.lien?`<a class="link" href="${a.lien}" target="_blank" rel="noopener">Voir l'annonce ↗</a>`:`<span class="link off">Lien à venir</span>`}
         <div class="nav">
