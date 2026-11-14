@@ -79,6 +79,8 @@ main{max-width:1100px;margin:28px auto 60px;padding:0 16px}
 .qcard{margin-top:14px;background:#fff8f3;border:1px solid #ffd9c4;border-radius:12px;padding:10px 12px}
 .qcard h4{margin:0 0 6px;font-size:.88rem;color:var(--accent)}
 .qcard ul{margin:0;padding-left:18px;font-size:.86rem;line-height:1.45}
+.cardlink{display:block;margin-top:12px;text-align:center;background:var(--accent);color:#fff;text-decoration:none;padding:10px 12px;border-radius:12px;font-weight:700}
+.cardlink:hover{background:#d4521f}
 .more{margin-top:14px;display:flex;align-items:center;justify-content:space-between;color:var(--accent);font-weight:700}
 .more span{transition:transform .2s}
 .card:hover .more span{transform:translateX(5px)}
@@ -224,6 +226,41 @@ footer{text-align:center;color:var(--muted);padding:20px 16px 40px;font-size:.9r
    transmission : "4x2", "4x4" ou "?"
    ===================================================================== */
 const annonces = [
+  {
+    num: 7,
+    note: 5,
+    titre: "Duster Prestige — 1.5 dCi 110",
+    phase: "Phase 2",
+    carburant: "Diesel",
+    moteur: "1.5 dCi 110 ch",
+    cv: 6,
+    transmission: "?",
+    places: 5,
+    annee: 2017, km: 207749, prix: 6200,
+    distrib: "?",
+    lieu: "Hontanx (40)",
+    photos: ["img/duster-hontanx-1.jpg", "img/duster-hontanx-2.jpg", "img/duster-hontanx-3.jpg"],
+    vendeur: "Vandenburie",
+    type: "Particulier", site: "Leboncoin",
+    lien: "https://www.leboncoin.fr/ad/voitures/3237233814",
+    infos: [
+      "1re mise en circulation : 02/2017",
+      "Noir, boîte manuelle, finition Prestige",
+      "Bon état général, roule parfaitement (selon le vendeur)",
+      "Quelques impacts sur l'aile avant gauche",
+      "Prix à débattre devant le véhicule",
+      "« Bonne affaire » selon Leboncoin",
+      "Membre Leboncoin depuis 2019"
+    ],
+    aVoir: [
+      "Distribution : faite ou non ? (207 749 km)",
+      "4x2 ou 4x4 ?",
+      "Factures d'entretien",
+      "Dernier contrôle technique",
+      "Impacts sur l'aile avant gauche"
+    ],
+    remarque: "207 749 km : au-dessus du maximum de 200 000 km."
+  },
   {
     num: 6,
     note: 5,
@@ -512,6 +549,7 @@ function rendu(){
         <div class="where">📍 ${a.lieu} — ${a.vendeur}</div>
         ${vignettes(a)}
         ${(a.aVoir||[]).length?`<div class="qcard"><h4>❓ À vérifier / demander</h4><ul>${a.aVoir.map(x=>`<li>${x}</li>`).join("")}</ul></div>`:''}
+        ${a.lien?`<a class="cardlink" href="${a.lien}" target="_blank" rel="noopener" onclick="event.stopPropagation()">🔗 Voir l'annonce sur ${a.site} ↗</a>`:''}
         <div class="more">Voir le détail <span>→</span></div>
       </div>
     </article>`).join("");
