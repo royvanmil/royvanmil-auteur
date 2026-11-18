@@ -23,6 +23,12 @@ const NUMERO = 6;
 const TITRE  = "Rencontre nocturne";
 const DOSSIER_AUDIO = "audio/un-instant-ou-quatre";
 const SECOURS = ["/audio/un-instant-ou-quatre/06-V1-64k-Rencontre_nocturne.mp3"];
+
+/* Le petit extraterrestre regarde à la fenêtre à ces moments de l'écoute
+   (en secondes : 300 = 5 min). Il reste RESTE secondes puis redescend.
+   Pour tester : ajouter ?test à l'adresse → il monte au bout de 5 s. */
+const ALIEN_MOMENTS = [300, 900];
+const ALIEN_RESTE   = 20;
 </script>
 
 <style>
@@ -53,6 +59,14 @@ button{font:inherit}
 @keyframes rayon{0%,100%{opacity:.05}50%{opacity:.45}}
 .lampe{animation:halo 5s ease-in-out infinite}
 @keyframes halo{0%,100%{opacity:.55}50%{opacity:.8}}
+/* petit extraterrestre : caché sous la fenêtre, monte quand .vu */
+#alien{transform:translateY(190px);transition:transform 2.5s ease-in-out}
+#alien.vu{transform:translateY(0)}
+#alien .paupiere{animation:cligne 4s infinite}
+@keyframes cligne{0%,92%,100%{ry:0}95%{ry:20px}}
+#alien.vu .main-d{transform-box:fill-box;transform-origin:center;animation:coucou 1.2s ease-in-out 3s 3}
+@keyframes coucou{0%,100%{transform:translateY(0)}50%{transform:translateY(-26px) rotate(-12deg)}}
+#alien .antenne{animation:brille 1.6s ease-in-out infinite}
 @media(prefers-reduced-motion:reduce){.etoile,.ufo,.faisceau,.lampe{animation:none}}
 
 /* Carte */
@@ -134,6 +148,25 @@ audio{width:100%}
           <circle cx="22" cy="34" r="4" fill="#ffd56b"/><circle cx="48" cy="38" r="4" fill="#ff9bb5"/>
           <circle cx="74" cy="38" r="4" fill="#ffd56b"/><circle cx="98" cy="34" r="4" fill="#ff9bb5"/>
         </g>
+      </g>
+    </g>
+    <!-- petit extraterrestre (dessin original) qui vient regarder -->
+    <g id="alien">
+      <g filter="url(#pinceau)">
+        <path d="M448 262 C 440 236, 432 222, 426 214" stroke="#8fd9b0" stroke-width="5" fill="none" stroke-linecap="round"/>
+        <path d="M492 262 C 500 236, 508 222, 514 214" stroke="#8fd9b0" stroke-width="5" fill="none" stroke-linecap="round"/>
+        <circle class="antenne" cx="425" cy="211" r="8" fill="#ffe36b"/>
+        <circle class="antenne" cx="515" cy="211" r="8" fill="#ffe36b"/>
+        <ellipse cx="470" cy="312" rx="56" ry="52" fill="#8fd9b0"/>
+        <ellipse cx="447" cy="306" rx="15" ry="19" fill="#1f2547"/>
+        <ellipse cx="493" cy="306" rx="15" ry="19" fill="#1f2547"/>
+        <circle cx="452" cy="299" r="5" fill="#fff"/><circle cx="498" cy="299" r="5" fill="#fff"/>
+        <ellipse class="paupiere" cx="447" cy="306" rx="16" ry="0" fill="#8fd9b0"/>
+        <ellipse class="paupiere" cx="493" cy="306" rx="16" ry="0" fill="#8fd9b0"/>
+        <path d="M456 336 C 464 344, 476 344, 484 336" stroke="#2c6b4c" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <circle cx="430" cy="328" r="7" fill="#ffb3c6" opacity=".7"/><circle cx="510" cy="328" r="7" fill="#ffb3c6" opacity=".7"/>
+        <g class="main-g"><ellipse cx="415" cy="352" rx="16" ry="11" fill="#8fd9b0"/></g>
+        <g class="main-d"><ellipse cx="525" cy="352" rx="16" ry="11" fill="#8fd9b0"/></g>
       </g>
     </g>
   </svg>
@@ -243,6 +276,13 @@ const translations={
       loading:"Laden…",soonAudio:"De audio komt binnenkort…",part:"Deel"}
 };
 let T=translations.fr,PISTES=null;
+const vusAlien={};
+function montreAlien(){
+  const al=document.getElementById("alien");
+  al.classList.add("vu");
+  setTimeout(()=>al.classList.remove("vu"),ALIEN_RESTE*1000);
+}
+if(/[?&]test/.test(location.search)) setTimeout(montreAlien,5000);
 
 function dessinePistes(){
   const box=document.getElementById("pistes");
@@ -257,6 +297,9 @@ function dessinePistes(){
     d.appendChild(a);box.appendChild(d);
   });
   const tous=[...box.querySelectorAll("audio")];
+  tous.forEach(a=>a.addEventListener("timeupdate",()=>{
+    ALIEN_MOMENTS.forEach(m=>{if(!vusAlien[m]&&a.currentTime>=m&&a.currentTime<m+ALIEN_RESTE){vusAlien[m]=1;montreAlien();}});
+  }));
   tous.forEach((a,i)=>{
     a.addEventListener("play",()=>tous.forEach(x=>{if(x!==a)x.pause()}));
     a.addEventListener("ended",()=>{if(tous[i+1])tous[i+1].play()});
