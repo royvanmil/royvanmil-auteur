@@ -221,7 +221,7 @@ const translations={
   nl:{all:"Alle verhalen",fr:"Verhaal in het Frans.",others:"De andere verhalen",contact:"Neem contact op",
       loading:"Laden…",soonAudio:"De audio komt binnenkort…",part:"Deel"}
 };
-let T=translations.fr,PISTES=null;
+let T=translations.fr,PISTES=null,dejaEcoute=0;
 
 function dessinePistes(){
   const box=document.getElementById("pistes");
@@ -236,6 +236,7 @@ function dessinePistes(){
     d.appendChild(a);box.appendChild(d);
   });
   const tous=[...box.querySelectorAll("audio")];
+  tous.forEach(a=>a.addEventListener("play",()=>{if(!dejaEcoute){dejaEcoute=1;compte("audio4-ecoute");}}));
   tous.forEach((a,i)=>{
     a.addEventListener("play",()=>tous.forEach(x=>{if(x!==a)x.pause()}));
     a.addEventListener("ended",()=>{if(tous[i+1])tous[i+1].play()});
@@ -277,7 +278,7 @@ try{
 }catch(e){}
 setLanguage(initial);
 chargePistes();
-compte("audio-quatre");
+compte("audio4h9");
 </script>
 <script src="avis-bouton.js" defer></script>
 </body>
