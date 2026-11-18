@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Un instant, ou Quatre… — Les histoires en audio — Roy Van Mil</title>
+<!-- Page à partager avec les copains : pas sur Google -->
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Un instant, ou Quatre… — les histoires en audio">
+<meta property="og:description" content="Avant-première : écoutez les premières histoires du prochain livre de Roy Van Mil.">
+<meta property="og:image" content="https://royvanmil.fr/img/Couverture_Un_instant_ou_Quatre.jpg">
+<meta property="og:url" content="https://royvanmil.fr/audio4">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+<script>
+/* =========================================================
+   RÉGLAGES (à modifier ici seulement)
+   ---------------------------------------------------------
+   PAGES : une histoire avec sa page prête = « Écouter ».
+   Quand un nouvel audio arrive : on fait sa page
+   (ex. audio4h2.html) et on l'ajoute ici.
+   ========================================================= */
+const HISTOIRES = [
+  "La maison des partages",
+  "Le distributeur",
+  "L'observateur silencieux",
+  "Je suis différent…",
+  "L'horloge d'entre-vous",
+  "Rencontre nocturne",
+  "La famille robot",
+  "Immersif",
+  "Le bout du monde"
+];
+
+const PAGES = {
+  6: "audio4h6.html",
+  9: "audio4h9.html"
+};
+
+const LIEN_LIVRE = "";   /* lien Amazon du livre (vide = bientôt) */
+</script>
+
+<style>
+:root{
+  --ink:#3b3a4a; --muted:#7a7788;
+  --rose:#f4a7b9; --jaune:#ffd56b; --ciel:#9fd3f0; --vert:#9ed59a; --lilas:#c9b3f0; --peche:#ffbf8f;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;color:var(--ink);background:#fffdf9;
+  font-family:Inter,Arial,sans-serif;line-height:1.55;overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+
+/* Fleurs et coups de pinceau du décor */
+.decor{position:fixed;inset:0;pointer-events:none;z-index:0}
+.decor svg{position:absolute}
+.page{position:relative;z-index:1;max-width:1120px;margin:auto;padding:18px 22px 120px}
+
+/* Haut */
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:999px;background:#fff;border:2px solid #efe6da;font-weight:700;cursor:pointer}
+.pill:hover{border-color:var(--rose)}
+.langs{display:flex;gap:2px;padding:4px;border-radius:999px;background:#fff;border:2px solid #efe6da}
+.lang-btn{border:0;background:none;border-radius:999px;padding:5px 9px;cursor:pointer;font-size:.78rem;font-weight:800;color:var(--muted)}
+.lang-btn.active{background:var(--rose);color:#fff}
+
+/* Titre */
+.entete{display:flex;align-items:center;gap:34px;margin:34px 0 10px}
+.couv{width:150px;flex:none;border-radius:6px;box-shadow:0 10px 30px rgba(60,50,80,.18);transform:rotate(-4deg)}
+.titres{flex:1}
+.kicker{font-weight:800;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase;color:#d06a86}
+h1{
+  margin:2px 0 6px;font-family:Caveat,cursive;font-weight:700;
+  font-size:clamp(3rem,7vw,5rem);line-height:.95;position:relative;display:inline-block;
+}
+h1 .trait{position:absolute;left:-4%;bottom:-6px;width:108%;height:30px;z-index:-1}
+.sous{font-size:1.1rem;color:var(--muted);margin:10px 0 0;max-width:560px}
+
+/* Consigne bien visible */
+.consigne{
+  display:flex;align-items:center;gap:12px;margin:26px 0 22px;
+  font-family:Caveat,cursive;font-size:clamp(1.7rem,3.4vw,2.2rem);font-weight:700;color:#2f7a5a;
+}
+.consigne svg{width:70px;height:46px;flex:none}
+
+/* Cartes */
+.grille{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.carte{
+  position:relative;min-height:150px;padding:22px 22px 18px;border-radius:22px;
+  display:flex;flex-direction:column;justify-content:space-between;gap:14px;
+  isolation:isolate;overflow:hidden;
+}
+.carte .fond{position:absolute;inset:-10px;width:calc(100% + 20px);height:calc(100% + 20px);z-index:-1}
+.num{font-family:Caveat,cursive;font-weight:700;font-size:2.2rem;line-height:1}
+.titre{font-family:Caveat,cursive;font-weight:700;font-size:2rem;line-height:1.05}
+
+/* Histoire disponible */
+.carte.ok{background:#fff;box-shadow:0 10px 28px rgba(80,60,90,.13);cursor:pointer;transition:transform .2s ease}
+.carte.ok:hover,.carte.ok:focus-visible{transform:rotate(-1.2deg) scale(1.03)}
+.carte.ok:focus-visible{outline:3px solid #2f7a5a;outline-offset:3px}
+.ecouter{
+  align-self:flex-start;display:inline-flex;align-items:center;gap:9px;
+  padding:10px 20px 10px 14px;border-radius:999px;background:#2f7a5a;color:#fff;font-weight:800;font-size:1.05rem;
+  box-shadow:0 4px 0 #1f5a40;
+}
+.ecouter i{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:#fff;color:#2f7a5a;font-style:normal;font-size:.85rem}
+.carte.ok:hover .ecouter{background:#25694b}
+.badge{position:absolute;top:14px;right:16px;font-size:.75rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;background:#fff;padding:3px 10px;border-radius:999px;color:#d06a86;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+
+/* Pas encore disponible */
+.carte.non{background:rgba(255,255,255,.75);border:2px dashed #e3dccf;color:#a9a3b0}
+.carte.non .num{color:#d4cdd9}
+.attente{font-size:.92rem;font-weight:600;color:#b3abb8}
+
+/* Bas */
+.bas{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:44px}
+.btn{display:inline-flex;align-items:center;gap:9px;padding:13px 22px;border-radius:999px;font-weight:800;border:0;cursor:pointer}
+.btn-livre{background:#ffd814;color:#111}
+.btn-livre.off{background:#f1eee9;color:#9a95a0;cursor:default}
+.btn-partage{background:var(--rose);color:#fff}
+.btn-contact{background:#3b3a4a;color:#fff}
+.note{text-align:center;color:var(--muted);font-size:.9rem;margin-top:26px}
+.copie{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#3b3a4a;color:#fff;padding:10px 18px;border-radius:999px;font-weight:700;opacity:0;transition:.3s;pointer-events:none;z-index:9}
+.copie.vu{opacity:1}
+
+@media(max-width:900px){.grille{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){
+  .page{padding:14px 14px 110px}
+  .entete{flex-direction:column;text-align:center;gap:18px;margin-top:22px}
+  .couv{width:120px}
+  .sous{margin:10px auto 0}
+  .consigne{justify-content:center;text-align:center}
+  .consigne svg{display:none}
+  .grille{grid-template-columns:1fr;gap:14px}
+  .carte{min-height:0}
+  .carte.ok{order:-1}          /* sur téléphone : les histoires à écouter en premier */
+  .decor{position:absolute;height:100vh}
+}
+@media(prefers-reduced-motion:reduce){.carte.ok:hover{transform:none}}
+</style>
+</head>
+
+<body>
+
+<!-- Filtre « pinceau » : bords tremblés, comme dessiné à la main -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="pinceau" filterUnits="userSpaceOnUse" x="-1000" y="-1000" width="4000" height="4000">
+      <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="7"/>
+      <feDisplacementMap in="SourceGraphic" scale="7"/>
+    </filter>
+    <filter id="pinceau-fort" filterUnits="userSpaceOnUse" x="-1000" y="-1000" width="4000" height="4000">
+      <feTurbulence type="fractalNoise" baseFrequency="0.02 0.09" numOctaves="3" seed="2"/>
+      <feDisplacementMap in="SourceGraphic" scale="14"/>
+    </filter>
+    <!-- Fleur d'enfant : les pétales prennent la couleur « color » -->
+    <symbol id="fleur" viewBox="0 0 100 160">
+      <g filter="url(#pinceau)" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M50 70 C 46 100, 56 125, 49 158" stroke="#6fb26a" stroke-width="5" fill="none"/>
+        <path d="M50 118 C 30 102, 18 112, 14 104 C 30 96, 44 104, 50 116" fill="#9ed59a"/>
+        <path d="M51 132 C 70 118, 82 126, 87 118 C 70 110, 58 120, 51 130" fill="#9ed59a"/>
+        <g fill="currentColor">
+          <ellipse cx="50" cy="40" rx="13" ry="20"/>
+          <ellipse cx="50" cy="40" rx="13" ry="20" transform="rotate(72 50 58)"/>
+          <ellipse cx="50" cy="40" rx="13" ry="20" transform="rotate(144 50 58)"/>
+          <ellipse cx="50" cy="40" rx="13" ry="20" transform="rotate(216 50 58)"/>
+          <ellipse cx="50" cy="40" rx="13" ry="20" transform="rotate(288 50 58)"/>
+        </g>
+        <circle cx="50" cy="58" r="11" fill="#ffd56b"/>
+        <circle cx="46" cy="55" r="2.5" fill="#e8a93a"/>
+      </g>
+    </symbol>
+    <!-- Petite fleur ronde sans tige -->
+    <symbol id="pastille" viewBox="0 0 60 60">
+      <g filter="url(#pinceau)" fill="currentColor">
+        <circle cx="30" cy="14" r="11"/><circle cx="46" cy="26" r="11"/><circle cx="40" cy="44" r="11"/>
+        <circle cx="20" cy="44" r="11"/><circle cx="14" cy="26" r="11"/>
+        <circle cx="30" cy="30" r="9" fill="#fff6d6"/>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- Décor : fleurs et traits de pinceau autour de la page -->
+<div class="decor" aria-hidden="true">
+  <svg style="left:-40px;top:-30px;width:420px;height:200px" viewBox="0 0 420 200"><path d="M20 120 C 120 40, 260 160, 400 70" stroke="#ffe3a3" stroke-width="60" fill="none" stroke-linecap="round" filter="url(#pinceau-fort)" opacity=".7"/></svg>
+  <svg style="right:-60px;top:120px;width:360px;height:180px" viewBox="0 0 360 180"><path d="M20 100 C 110 30, 230 150, 340 60" stroke="#cfe9f8" stroke-width="54" fill="none" stroke-linecap="round" filter="url(#pinceau-fort)" opacity=".8"/></svg>
+  <svg style="left:-50px;bottom:40px;width:380px;height:170px" viewBox="0 0 380 170"><path d="M20 90 C 120 150, 240 20, 360 100" stroke="#fbd3dd" stroke-width="56" fill="none" stroke-linecap="round" filter="url(#pinceau-fort)" opacity=".75"/></svg>
+  <svg style="right:-30px;bottom:-20px;width:320px;height:160px" viewBox="0 0 320 160"><path d="M20 110 C 100 40, 200 140, 300 60" stroke="#d6efcf" stroke-width="52" fill="none" stroke-linecap="round" filter="url(#pinceau-fort)" opacity=".8"/></svg>
+
+  <svg style="left:12px;bottom:0;width:70px;height:112px;color:#f4a7b9"><use href="#fleur"/></svg>
+  <svg style="left:62px;bottom:0;width:52px;height:84px;color:#c9b3f0"><use href="#fleur"/></svg>
+  <svg style="right:20px;bottom:0;width:76px;height:122px;color:#9fd3f0"><use href="#fleur"/></svg>
+  <svg style="right:84px;bottom:0;width:50px;height:80px;color:#ffbf8f"><use href="#fleur"/></svg>
+  <svg style="left:46%;top:8px;width:30px;height:30px;color:#ffd56b"><use href="#pastille"/></svg>
+  <svg style="right:7%;top:46px;width:38px;height:38px;color:#f4a7b9"><use href="#pastille"/></svg>
+  <svg style="left:4%;top:40%;width:28px;height:28px;color:#9ed59a"><use href="#pastille"/></svg>
+  <svg style="right:3%;top:58%;width:32px;height:32px;color:#c9b3f0"><use href="#pastille"/></svg>
+</div>
+
+<div class="page">
+
+  <div class="top">
+    <a href="quatre-instants.html" class="pill"><span aria-hidden="true">←</span><span data-i18n="back">Le livre</span></a>
+    <div class="langs" aria-label="Langue">
+      <button type="button" class="lang-btn active" data-lang="fr">FR</button>
+      <button type="button" class="lang-btn" data-lang="en">EN</button>
+      <button type="button" class="lang-btn" data-lang="nl">NL</button>
+    </div>
+  </div>
+
+  <header class="entete">
+    <img class="couv" src="img/Couverture_Un_instant_ou_Quatre.jpg" alt="Couverture du livre Un instant, ou Quatre…">
+    <div class="titres">
+      <div class="kicker" data-i18n="kicker">Avant-première audio</div>
+      <h1 lang="fr">Un instant, ou Quatre…
+        <svg class="trait" viewBox="0 0 400 30" preserveAspectRatio="none" aria-hidden="true"><path d="M6 18 C 100 6, 260 28, 394 12" stroke="#ffd56b" stroke-width="16" fill="none" stroke-linecap="round" filter="url(#pinceau)"/></svg>
+      </h1>
+      <p class="sous" data-i18n="intro">Le livre arrive bientôt. En attendant, voici les premières histoires à écouter. Les autres arrivent petit à petit…</p>
+    </div>
+  </header>
+
+  <div class="consigne">
+    <svg viewBox="0 0 70 46" aria-hidden="true"><path d="M4 8 C 20 40, 40 40, 60 30 M48 24 L61 30 L54 42" stroke="#2f7a5a" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round" filter="url(#pinceau)"/></svg>
+    <span data-i18n="hint">Cliquez sur une histoire pour l'écouter</span>
+  </div>
+
+  <main class="grille" id="grille"></main>
+
+  <div class="bas">
+    <a id="btnLivre" class="btn btn-livre"><span aria-hidden="true">🛒</span><span id="btnLivreTxt"></span></a>
+    <button type="button" class="btn btn-partage" id="partager"><span aria-hidden="true">💌</span><span data-i18n="share">Partager avec un ami</span></button>
+    <a class="btn btn-contact" href="contact.html"><span aria-hidden="true">✉️</span><span data-i18n="contact">Contactez-moi</span></a>
+  </div>
+  <p class="note"><span data-i18n="note">Histoires en français.</span> · © 2026 Roy Van Mil</p>
+</div>
+
+<div class="copie" id="copie" data-i18n="copied">Lien copié !</div>
+
+<script>
+const translations={
+  fr:{back:"Le livre",kicker:"Avant-première audio",
+      intro:"Le livre arrive bientôt. En attendant, voici les premières histoires à écouter. Les autres arrivent petit à petit…",
+      hint:"Cliquez sur une histoire pour l'écouter",listen:"Écouter",soon:"Pas encore disponible",isnew:"Nouveau",
+      buy:"Acheter le livre",buySoon:"Le livre — bientôt",share:"Partager avec un ami",contact:"Contactez-moi",
+      note:"Histoires en français.",copied:"Lien copié !"},
+  en:{back:"The book",kicker:"Audio preview",
+      intro:"The book is coming soon. Meanwhile, here are the first stories to listen to. More are on the way…",
+      hint:"Click on a story to listen to it",listen:"Listen",soon:"Not available yet",isnew:"New",
+      buy:"Buy the book",buySoon:"The book — coming soon",share:"Share with a friend",contact:"Contact me",
+      note:"Stories in French.",copied:"Link copied!"},
+  nl:{back:"Het boek",kicker:"Audio-voorpremière",
+      intro:"Het boek komt binnenkort. Ondertussen kun je al naar de eerste verhalen luisteren. De rest volgt beetje bij beetje…",
+      hint:"Klik op een verhaal om te luisteren",listen:"Luisteren",soon:"Nog niet beschikbaar",isnew:"Nieuw",
+      buy:"Boek kopen",buySoon:"Het boek — binnenkort",share:"Delen met een vriend",contact:"Neem contact op",
+      note:"Verhalen in het Frans.",copied:"Link gekopieerd!"}
+};
+let T=translations.fr;
+
+/* Une couleur de pinceau par carte */
+const COULEURS=["#f4a7b9","#ffd56b","#9fd3f0","#9ed59a","#c9b3f0","#ffbf8f","#f4a7b9","#9fd3f0","#ffd56b"];
+
+function dessineCartes(){
+  const g=document.getElementById("grille");g.innerHTML="";
+  HISTOIRES.forEach((titre,i)=>{
+    const n=i+1,page=PAGES[n],c=COULEURS[i%COULEURS.length];
+    const el=document.createElement(page?"a":"div");
+    el.className="carte "+(page?"ok":"non");
+    if(page){
+      el.href=page;
+      el.setAttribute("aria-label",T.listen+" : "+titre);
+      el.innerHTML=
+        '<svg class="fond" viewBox="0 0 300 160" preserveAspectRatio="none" aria-hidden="true">'+
+          '<path d="M-10 120 C 70 60, 170 150, 310 70" stroke="'+c+'" stroke-width="95" fill="none" stroke-linecap="round" filter="url(#pinceau-fort)" opacity=".55"/>'+
+        '</svg>'+
+        '<span class="badge">'+T.isnew+'</span>'+
+        '<div><div class="num">'+n+'.</div><div class="titre" lang="fr"></div></div>'+
+        '<span class="ecouter"><i aria-hidden="true">▶</i>'+T.listen+'</span>';
+    }else{
+      el.innerHTML='<div><div class="num">'+n+'.</div><div class="titre" lang="fr"></div></div>'+
+                   '<span class="attente">🌱 '+T.soon+'</span>';
+    }
+    el.querySelector(".titre").textContent=titre;
+    g.appendChild(el);
+  });
+}
+
+function dessineLivre(){
+  const b=document.getElementById("btnLivre"),t=document.getElementById("btnLivreTxt");
+  if(LIEN_LIVRE){b.href=LIEN_LIVRE;b.target="_blank";b.rel="noopener noreferrer";b.classList.remove("off");t.textContent=T.buy;}
+  else{b.removeAttribute("href");b.classList.add("off");t.textContent=T.buySoon;}
+}
+
+/* Partager : menu du téléphone, sinon on copie le lien */
+document.getElementById("partager").addEventListener("click",()=>{
+  const url="https://royvanmil.fr/audio4";
+  if(navigator.share){navigator.share({title:"Un instant, ou Quatre…",text:T.intro,url}).catch(()=>{});return;}
+  try{navigator.clipboard.writeText(url).then(()=>{const c=document.getElementById("copie");c.classList.add("vu");setTimeout(()=>c.classList.remove("vu"),1800);});}catch(e){}
+});
+
+function setLanguage(lang){
+  T=translations[lang]||translations.fr;
+  document.documentElement.lang=lang;
+  document.querySelectorAll("[data-i18n]").forEach(el=>{const k=el.dataset.i18n;if(T[k]!==undefined)el.textContent=T[k];});
+  document.querySelectorAll(".lang-btn").forEach(b=>b.classList.toggle("active",b.dataset.lang===lang));
+  try{localStorage.setItem("royvanmil-lang",lang)}catch(e){}
+  dessineCartes();dessineLivre();
+}
+document.querySelectorAll(".lang-btn").forEach(b=>b.addEventListener("click",()=>setLanguage(b.dataset.lang)));
+
+/* Compteur (même clé que l'ancienne page) */
+var API="https://compteurs.royvanmil86.workers.dev";
+function compte(cle){var url=API+"/compte?c="+cle;try{if(navigator.sendBeacon&&navigator.sendBeacon(url))return;}catch(e){}try{fetch(url,{mode:"cors",keepalive:true});}catch(e){}}
+
+let initial="fr";
+try{
+  const s=localStorage.getItem("royvanmil-lang");
+  if(s&&translations[s])initial=s;
+  else{const l=(navigator.language||"fr").toLowerCase();if(l.startsWith("nl"))initial="nl";else if(l.startsWith("en"))initial="en";}
+}catch(e){}
+setLanguage(initial);
+compte("audio-quatre");
+</script>
+
+<script src="avis-bouton.js" defer></script>
+</body>
+</html>

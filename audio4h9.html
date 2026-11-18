@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Le bout du monde — Un instant, ou Quatre… — Roy Van Mil</title>
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Le bout du monde — Un instant, ou Quatre…">
+<meta property="og:description" content="Une histoire à écouter, en avant-première.">
+<meta property="og:image" content="https://royvanmil.fr/img/Couverture_Un_instant_ou_Quatre.jpg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+<script>
+/* =========================================================
+   RÉGLAGES
+   La page cherche toute seule les MP3 qui commencent par
+   « 09 » dans audio/un-instant-ou-quatre/ (V1, V2… peu importe).
+   ========================================================= */
+const NUMERO = 9;
+const TITRE  = "Le bout du monde";
+const DOSSIER_AUDIO = "audio/un-instant-ou-quatre";
+const SECOURS = ["/audio/un-instant-ou-quatre/09-V1-64k-Le_bout_du_monde_—_partie_1.mp3","/audio/un-instant-ou-quatre/09-V1-64k-Le_bout_du_monde_—_partie_2.mp3"];
+</script>
+
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#2f5a3a;color:#f3fff0;font-family:Inter,Arial,sans-serif;line-height:1.55;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+
+.top{position:absolute;top:0;left:0;right:0;z-index:5;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:16px 20px}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:999px;background:rgba(255,255,255,.92);color:#2f5a3a;font-weight:800}
+.langs{display:flex;gap:2px;padding:4px;border-radius:999px;background:rgba(255,255,255,.92)}
+.lang-btn{border:0;background:none;border-radius:999px;padding:5px 9px;cursor:pointer;font-size:.78rem;font-weight:800;color:#6a6f95}
+.lang-btn.active{background:#d9573b;color:#fff}
+
+/* Scène */
+.scene{position:relative;height:min(68vh,620px);min-height:380px;overflow:hidden}
+.scene svg.dessin{width:100%;height:100%;display:block}
+.flamme{transform-origin:600px 520px;animation:feu .7s ease-in-out infinite alternate}
+.flamme2{transform-origin:600px 520px;animation:feu .5s ease-in-out infinite alternate-reverse}
+@keyframes feu{0%{transform:scale(1,1) skewX(0)}100%{transform:scale(1.06,.9) skewX(4deg)}}
+.braise{animation:monte 3s linear infinite}
+@keyframes monte{0%{transform:translateY(0);opacity:1}100%{transform:translateY(-160px);opacity:0}}
+.halo{animation:halo 1.4s ease-in-out infinite alternate}
+@keyframes halo{0%{opacity:.45}100%{opacity:.7}}
+.feuille{transform-box:fill-box;transform-origin:bottom center;animation:vent 6s ease-in-out infinite alternate}
+@keyframes vent{0%{transform:rotate(-2deg)}100%{transform:rotate(3deg)}}
+.fl{transform-box:fill-box;transform-origin:bottom center;animation:vent 4s ease-in-out infinite alternate}
+@media(prefers-reduced-motion:reduce){.flamme,.flamme2,.braise,.halo,.feuille,.fl{animation:none}}
+
+/* Carte */
+.carte{
+  position:relative;z-index:2;max-width:760px;margin:-70px auto 0;padding:28px 28px 24px;
+  background:#fffdf9;color:#2f3050;border-radius:26px;box-shadow:0 20px 60px rgba(0,0,0,.35);
+}
+.livre{font-family:Caveat,cursive;font-size:1.4rem;color:#8b86b0}
+h1{margin:0 0 4px;font-family:Caveat,cursive;font-weight:700;font-size:clamp(2.8rem,7vw,4.2rem);line-height:1;color:#2f6a3f}
+.fr{color:#8a88a0;font-size:.9rem;margin:0 0 18px}
+.piste{margin-bottom:14px}
+.piste-titre{font-weight:800;font-size:.92rem;margin-bottom:6px}
+audio{width:100%}
+.attente{padding:20px;border-radius:16px;background:#eef7ea;color:#4d7a55;text-align:center;font-family:Caveat,cursive;font-size:1.6rem}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.btn{display:inline-flex;align-items:center;gap:9px;padding:12px 20px;border-radius:999px;font-weight:800}
+.btn-som{background:#d9573b;color:#fff}
+.btn-contact{background:#2f3050;color:#fff}
+.note{text-align:center;color:#bfe0c3;font-size:.9rem;padding:26px 0 120px}
+
+@media(max-width:600px){
+  .scene{height:auto;min-height:0;aspect-ratio:1200/720}
+  .carte{margin:-16px 12px 0;padding:22px 18px}
+}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <a href="audio4.html" class="pill"><span aria-hidden="true">←</span><span data-i18n="all">Toutes les histoires</span></a>
+  <div class="langs" aria-label="Langue">
+    <button type="button" class="lang-btn active" data-lang="fr">FR</button>
+    <button type="button" class="lang-btn" data-lang="en">EN</button>
+    <button type="button" class="lang-btn" data-lang="nl">NL</button>
+  </div>
+</div>
+
+<!-- ===== Scène : jungle, maisons en bois, feu de camp, boue, talons, fleurs partout ===== -->
+<div class="scene" aria-hidden="true">
+<svg class="dessin" viewBox="0 0 1200 620" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <filter id="pinceau" filterUnits="userSpaceOnUse" x="-200" y="-200" width="1600" height="1100">
+      <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="9"/>
+      <feDisplacementMap in="SourceGraphic" scale="7"/>
+    </filter>
+    <linearGradient id="ciel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffd9a0"/><stop offset=".6" stop-color="#ffb08a"/><stop offset="1" stop-color="#f7a3a8"/>
+    </linearGradient>
+    <radialGradient id="glow" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#ffcf6b" stop-opacity=".9"/><stop offset="1" stop-color="#ffcf6b" stop-opacity="0"/>
+    </radialGradient>
+    <symbol id="fleur" viewBox="0 0 60 90">
+      <g filter="url(#pinceau)">
+        <path d="M30 40 C 28 60, 33 75, 30 90" stroke="#4f9a4a" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <g fill="currentColor">
+          <circle cx="30" cy="14" r="10"/><circle cx="44" cy="25" r="10"/><circle cx="38" cy="41" r="10"/>
+          <circle cx="22" cy="41" r="10"/><circle cx="16" cy="25" r="10"/>
+        </g>
+        <circle cx="30" cy="29" r="8" fill="#ffe27a"/>
+      </g>
+    </symbol>
+  </defs>
+
+  <!-- ciel du soir -->
+  <rect width="1200" height="620" fill="url(#ciel)"/>
+  <circle cx="900" cy="170" r="60" fill="#fff1c2" filter="url(#pinceau)" opacity=".9"/>
+
+  <!-- collines de jungle au loin -->
+  <g filter="url(#pinceau)">
+    <path d="M0 330 C 150 250, 300 300, 450 260 C 600 220, 750 300, 900 250 C 1050 210, 1150 260, 1200 250 V 620 H 0 Z" fill="#6fae6a"/>
+    <path d="M0 390 C 200 330, 380 380, 600 350 C 820 320, 1000 380, 1200 340 V 620 H 0 Z" fill="#4f9152"/>
+  </g>
+
+  <!-- maisons en bois sur pilotis -->
+  <g filter="url(#pinceau)">
+    <rect x="300" y="300" width="10" height="90" fill="#7a4e30"/><rect x="420" y="300" width="10" height="90" fill="#7a4e30"/>
+    <rect x="290" y="250" width="150" height="70" fill="#b07b4f"/>
+    <path d="M275 255 L 365 195 L 455 255 Z" fill="#d9b15f"/>
+    <rect x="350" y="275" width="30" height="45" fill="#6a412a"/>
+    <path d="M300 268 H 340 M300 290 H 340 M390 268 H 432 M390 290 H 432" stroke="#8f5f3b" stroke-width="4"/>
+
+    <rect x="780" y="320" width="10" height="80" fill="#7a4e30"/><rect x="880" y="320" width="10" height="80" fill="#7a4e30"/>
+    <rect x="770" y="275" width="130" height="60" fill="#a46f45"/>
+    <path d="M755 280 L 835 225 L 915 280 Z" fill="#d9b15f"/>
+    <rect x="800" y="292" width="26" height="22" fill="#ffd88a"/>
+  </g>
+
+  <!-- grandes feuilles de jungle sur les côtés -->
+  <g filter="url(#pinceau)">
+    <path class="feuille" d="M-20 620 C 40 420, 120 300, 220 240 C 170 360, 120 470, 80 620 Z" fill="#2f7a3a"/>
+    <path class="feuille" d="M30 620 C 120 470, 230 400, 330 380 C 250 460, 190 540, 170 620 Z" fill="#3e8f45"/>
+    <path class="feuille" d="M-30 300 C 60 260, 150 270, 220 320 C 130 330, 50 340, -30 380 Z" fill="#2a6b33"/>
+    <path class="feuille" d="M1220 620 C 1160 420, 1080 300, 980 240 C 1030 360, 1080 470, 1120 620 Z" fill="#2f7a3a"/>
+    <path class="feuille" d="M1170 620 C 1080 470, 970 400, 870 380 C 950 460, 1010 540, 1030 620 Z" fill="#3e8f45"/>
+    <path class="feuille" d="M1230 280 C 1140 240, 1050 250, 980 300 C 1070 310, 1150 320, 1230 360 Z" fill="#2a6b33"/>
+  </g>
+
+  <!-- sol -->
+  <path d="M0 460 C 300 430, 900 440, 1200 455 V 620 H 0 Z" fill="#7cbf6e" filter="url(#pinceau)"/>
+
+  <!-- boue + talons aiguilles -->
+  <g filter="url(#pinceau)" transform="translate(190,-80)">
+    <path d="M150 560 C 180 520, 330 515, 380 545 C 400 580, 300 600, 220 595 C 170 590, 140 580, 150 560 Z" fill="#7a5233"/>
+    <path d="M185 560 C 220 545, 300 545, 340 560" stroke="#94693f" stroke-width="7" fill="none" stroke-linecap="round"/>
+    <!-- talon 1, à moitié enfoncé -->
+    <path d="M215 562 C 225 520, 265 515, 290 535 L 292 552 L 240 558 Z" fill="#d6283f"/>
+    <path d="M222 555 L 214 575" stroke="#d6283f" stroke-width="5" stroke-linecap="round"/>
+    <!-- talon 2, couché -->
+    <path d="M300 572 C 315 548, 350 548, 368 560 L 364 576 Z" fill="#d6283f"/>
+    <path d="M305 568 L 288 556" stroke="#d6283f" stroke-width="5" stroke-linecap="round"/>
+  </g>
+
+  <!-- feu de camp -->
+  <g transform="translate(110,-45)">
+  <circle class="halo" cx="600" cy="510" r="190" fill="url(#glow)"/>
+  <g filter="url(#pinceau)">
+    <path d="M530 540 L 670 505 M535 505 L 665 545" stroke="#6a412a" stroke-width="18" stroke-linecap="round"/>
+    <g class="flamme"><path d="M600 520 C 555 500, 560 450, 590 410 C 590 445, 615 440, 610 400 C 650 440, 655 500, 600 520 Z" fill="#ff8a3d"/></g>
+    <g class="flamme2"><path d="M600 518 C 575 505, 578 470, 597 448 C 600 470, 615 468, 612 445 C 632 470, 630 505, 600 518 Z" fill="#ffd24d"/></g>
+    <path d="M520 550 C 560 535, 640 535, 680 550" stroke="#9a9a9a" stroke-width="12" stroke-linecap="round" fill="none" stroke-dasharray="1 22"/>
+  </g>
+  <g fill="#ffb340">
+    <circle class="braise" cx="590" cy="420" r="3" style="animation-delay:0s"/>
+    <circle class="braise" cx="612" cy="430" r="2.5" style="animation-delay:1s"/>
+    <circle class="braise" cx="600" cy="410" r="2" style="animation-delay:2s"/>
+  </g>
+  </g>
+
+  <!-- fleurs paaaaartout -->
+  <g id="fleurs"></g>
+</svg>
+</div>
+
+<main class="carte">
+  <div class="livre">Un instant, ou Quatre… — 9</div>
+  <h1 lang="fr">Le bout du monde</h1>
+  <p class="fr" data-i18n="fr">Histoire en français.</p>
+  <div id="pistes"></div>
+  <div class="actions">
+    <a class="btn btn-som" href="audio4.html"><span aria-hidden="true">🌺</span><span data-i18n="others">Les autres histoires</span></a>
+    <a class="btn btn-contact" href="contact.html"><span aria-hidden="true">✉️</span><span data-i18n="contact">Contactez-moi</span></a>
+  </div>
+</main>
+<p class="note">© 2026 Roy Van Mil</p>
+
+<script>
+/* fleurs partout, au hasard (mais pas sur le feu ni la boue) */
+(function(){
+  const g=document.getElementById("fleurs"),ns="http://www.w3.org/2000/svg";
+  const coul=["#f4a7b9","#ffffff","#c9b3f0","#ff9bb5","#9fd3f0","#ffd56b","#ff7a7a","#ffbf8f"];
+  const pos=[];let essais=0;
+  while(pos.length<70&&essais<600){
+    essais++;
+    const x=Math.random()*1180,y=400+Math.random()*200;
+    if(Math.abs(x-710)<115&&y>385) continue;
+    if(x>320&&x<600&&y>425) continue;
+    pos.push([x,y]);
+  }
+  pos.sort((a,b)=>a[1]-b[1]).forEach(([x,y],n)=>{
+    const t=18+((y-400)/200)*30+Math.random()*10;
+    const u=document.createElementNS(ns,"use");
+    u.setAttribute("href","#fleur");u.setAttribute("x",x);u.setAttribute("y",y-t*1.5);
+    u.setAttribute("width",t);u.setAttribute("height",t*1.5);
+    u.setAttribute("color",coul[n%coul.length]);
+    u.setAttribute("class","fl");u.style.animationDelay=(Math.random()*4).toFixed(2)+"s";
+    g.appendChild(u);
+  });
+})();
+
+const translations={
+  fr:{all:"Toutes les histoires",fr:"Histoire en français.",others:"Les autres histoires",contact:"Contactez-moi",
+      loading:"Chargement…",soonAudio:"L'audio arrive bientôt…",part:"Partie"},
+  en:{all:"All the stories",fr:"Story in French.",others:"The other stories",contact:"Contact me",
+      loading:"Loading…",soonAudio:"The audio is coming soon…",part:"Part"},
+  nl:{all:"Alle verhalen",fr:"Verhaal in het Frans.",others:"De andere verhalen",contact:"Neem contact op",
+      loading:"Laden…",soonAudio:"De audio komt binnenkort…",part:"Deel"}
+};
+let T=translations.fr,PISTES=null;
+
+function dessinePistes(){
+  const box=document.getElementById("pistes");
+  if(PISTES===null){box.innerHTML='<div class="attente">'+T.loading+'</div>';return;}
+  if(!PISTES.length){box.innerHTML='<div class="attente">'+T.soonAudio+'</div>';return;}
+  box.innerHTML="";
+  PISTES.forEach((f,i)=>{
+    const d=document.createElement("div");d.className="piste";
+    if(PISTES.length>1){const t=document.createElement("div");t.className="piste-titre";t.textContent=T.part+" "+(i+1);d.appendChild(t);}
+    const a=document.createElement("audio");a.controls=true;a.preload="metadata";a.src=f;
+    a.setAttribute("aria-label",TITRE+(PISTES.length>1?" — "+T.part+" "+(i+1):""));
+    d.appendChild(a);box.appendChild(d);
+  });
+  const tous=[...box.querySelectorAll("audio")];
+  tous.forEach((a,i)=>{
+    a.addEventListener("play",()=>tous.forEach(x=>{if(x!==a)x.pause()}));
+    a.addEventListener("ended",()=>{if(tous[i+1])tous[i+1].play()});
+  });
+}
+
+function chargePistes(){
+  fetch("https://api.github.com/repos/royvanmil/royvanmil-auteur/contents/"+DOSSIER_AUDIO+"?ref=main")
+    .then(r=>r.ok?r.json():Promise.reject())
+    .then(liste=>{
+      PISTES=(Array.isArray(liste)?liste:[])
+        .filter(f=>f.type==="file"&&/\.mp3$/i.test(f.name)&&parseInt(f.name,10)===NUMERO)
+        .sort((a,b)=>a.name.localeCompare(b.name,"fr",{numeric:true}))
+        .map(f=>"/"+f.path.split("/").map(encodeURIComponent).join("/"));
+      if(!PISTES.length)PISTES=SECOURS.map(p=>p.split("/").map(encodeURIComponent).join("/"));
+      dessinePistes();
+    })
+    .catch(()=>{PISTES=SECOURS.map(p=>p.split("/").map(encodeURIComponent).join("/"));dessinePistes();});
+}
+
+function setLanguage(lang){
+  T=translations[lang]||translations.fr;
+  document.documentElement.lang=lang;
+  document.querySelectorAll("[data-i18n]").forEach(el=>{const k=el.dataset.i18n;if(T[k]!==undefined)el.textContent=T[k];});
+  document.querySelectorAll(".lang-btn").forEach(b=>b.classList.toggle("active",b.dataset.lang===lang));
+  try{localStorage.setItem("royvanmil-lang",lang)}catch(e){}
+  dessinePistes();
+}
+document.querySelectorAll(".lang-btn").forEach(b=>b.addEventListener("click",()=>setLanguage(b.dataset.lang)));
+
+var API="https://compteurs.royvanmil86.workers.dev";
+function compte(cle){var url=API+"/compte?c="+cle;try{if(navigator.sendBeacon&&navigator.sendBeacon(url))return;}catch(e){}try{fetch(url,{mode:"cors",keepalive:true});}catch(e){}}
+
+let initial="fr";
+try{
+  const s=localStorage.getItem("royvanmil-lang");
+  if(s&&translations[s])initial=s;
+  else{const l=(navigator.language||"fr").toLowerCase();if(l.startsWith("nl"))initial="nl";else if(l.startsWith("en"))initial="en";}
+}catch(e){}
+setLanguage(initial);
+chargePistes();
+compte("audio-quatre");
+</script>
+<script src="avis-bouton.js" defer></script>
+</body>
+</html>

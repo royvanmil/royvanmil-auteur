@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rencontre nocturne — Un instant, ou Quatre… — Roy Van Mil</title>
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Rencontre nocturne — Un instant, ou Quatre…">
+<meta property="og:description" content="Une histoire à écouter, en avant-première.">
+<meta property="og:image" content="https://royvanmil.fr/img/Couverture_Un_instant_ou_Quatre.jpg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+<script>
+/* =========================================================
+   RÉGLAGES
+   La page cherche toute seule les MP3 qui commencent par
+   « 06 » dans audio/un-instant-ou-quatre/ (V1, V2… peu importe).
+   ========================================================= */
+const NUMERO = 6;
+const TITRE  = "Rencontre nocturne";
+const DOSSIER_AUDIO = "audio/un-instant-ou-quatre";
+const SECOURS = ["/audio/un-instant-ou-quatre/06-V1-64k-Rencontre_nocturne.mp3"];
+</script>
+
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#1a1f40;color:#f3f0ff;font-family:Inter,Arial,sans-serif;line-height:1.55;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+
+.top{position:absolute;top:0;left:0;right:0;z-index:5;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:16px 20px}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:999px;background:rgba(255,255,255,.92);color:#2a2f5a;font-weight:800}
+.langs{display:flex;gap:2px;padding:4px;border-radius:999px;background:rgba(255,255,255,.92)}
+.lang-btn{border:0;background:none;border-radius:999px;padding:5px 9px;cursor:pointer;font-size:.78rem;font-weight:800;color:#6a6f95}
+.lang-btn.active{background:#6b62c9;color:#fff}
+
+/* Scène */
+.scene{position:relative;height:min(68vh,620px);min-height:380px;overflow:hidden}
+.scene svg.dessin{width:100%;height:100%;display:block}
+.etoile{animation:brille 3s ease-in-out infinite}
+@keyframes brille{0%,100%{opacity:.25}50%{opacity:1}}
+.ufo{animation:vole 26s ease-in-out infinite}
+@keyframes vole{
+  0%{transform:translate(-160px,40px)}
+  45%{transform:translate(520px,-10px)}
+  55%{transform:translate(560px,0)}
+  100%{transform:translate(1100px,30px)}
+}
+.faisceau{animation:rayon 4s ease-in-out infinite}
+@keyframes rayon{0%,100%{opacity:.05}50%{opacity:.45}}
+.lampe{animation:halo 5s ease-in-out infinite}
+@keyframes halo{0%,100%{opacity:.55}50%{opacity:.8}}
+@media(prefers-reduced-motion:reduce){.etoile,.ufo,.faisceau,.lampe{animation:none}}
+
+/* Carte */
+.carte{
+  position:relative;z-index:2;max-width:760px;margin:-70px auto 0;padding:28px 28px 24px;
+  background:#fffdf9;color:#2f3050;border-radius:26px;box-shadow:0 20px 60px rgba(0,0,0,.35);
+}
+.livre{font-family:Caveat,cursive;font-size:1.4rem;color:#8b86b0}
+h1{margin:0 0 4px;font-family:Caveat,cursive;font-weight:700;font-size:clamp(2.8rem,7vw,4.2rem);line-height:1;color:#3d3585}
+.fr{color:#8a88a0;font-size:.9rem;margin:0 0 18px}
+.piste{margin-bottom:14px}
+.piste-titre{font-weight:800;font-size:.92rem;margin-bottom:6px}
+audio{width:100%}
+.attente{padding:20px;border-radius:16px;background:#f1effa;color:#6a6390;text-align:center;font-family:Caveat,cursive;font-size:1.6rem}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.btn{display:inline-flex;align-items:center;gap:9px;padding:12px 20px;border-radius:999px;font-weight:800}
+.btn-som{background:#6b62c9;color:#fff}
+.btn-contact{background:#2f3050;color:#fff}
+.note{text-align:center;color:#a9a6cc;font-size:.9rem;padding:26px 0 120px}
+
+@media(max-width:600px){
+  .scene{height:auto;min-height:0;aspect-ratio:1200/720}
+  .carte{margin:-16px 12px 0;padding:22px 18px}
+}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <a href="audio4.html" class="pill"><span aria-hidden="true">←</span><span data-i18n="all">Toutes les histoires</span></a>
+  <div class="langs" aria-label="Langue">
+    <button type="button" class="lang-btn active" data-lang="fr">FR</button>
+    <button type="button" class="lang-btn" data-lang="en">EN</button>
+    <button type="button" class="lang-btn" data-lang="nl">NL</button>
+  </div>
+</div>
+
+<!-- ===== Scène : chambre la nuit, fenêtre étoilée, petit OVNI ===== -->
+<div class="scene" aria-hidden="true">
+<svg class="dessin" viewBox="0 0 1200 620" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <filter id="pinceau" filterUnits="userSpaceOnUse" x="-200" y="-200" width="1600" height="1100">
+      <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="5"/>
+      <feDisplacementMap in="SourceGraphic" scale="7"/>
+    </filter>
+    <linearGradient id="ciel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#151a3d"/><stop offset="1" stop-color="#3d3f86"/>
+    </linearGradient>
+    <radialGradient id="glow" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#ffe7a8" stop-opacity=".9"/><stop offset="1" stop-color="#ffe7a8" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="rayonG" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#b9ffcf" stop-opacity=".9"/><stop offset="1" stop-color="#b9ffcf" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- mur de la chambre -->
+  <rect width="1200" height="620" fill="#232a55"/>
+  <path d="M0 90 C 300 70, 700 110, 1200 80" stroke="#2c3466" stroke-width="80" fill="none" filter="url(#pinceau)" opacity=".7"/>
+
+  <!-- grande fenêtre -->
+  <g filter="url(#pinceau)">
+    <rect x="300" y="40" width="600" height="360" rx="10" fill="url(#ciel)"/>
+  </g>
+  <g id="etoiles"></g>
+  <!-- lune -->
+  <g filter="url(#pinceau)">
+    <circle cx="800" cy="110" r="34" fill="#fff4c9"/>
+    <circle cx="815" cy="100" r="30" fill="#2a2f68"/>
+  </g>
+  <!-- petit OVNI qui passe -->
+  <svg x="300" y="40" width="600" height="360" viewBox="0 0 600 360" overflow="hidden">
+    <g class="ufo">
+      <g transform="translate(0,90)">
+        <path class="faisceau" d="M50 40 L10 260 L110 260 Z" fill="url(#rayonG)"/>
+        <g filter="url(#pinceau)">
+          <ellipse cx="60" cy="32" rx="58" ry="16" fill="#b8c2d9"/>
+          <path d="M28 28 C 30 2, 90 2, 92 28 Z" fill="#9fe7c4" opacity=".9"/>
+          <circle cx="22" cy="34" r="4" fill="#ffd56b"/><circle cx="48" cy="38" r="4" fill="#ff9bb5"/>
+          <circle cx="74" cy="38" r="4" fill="#ffd56b"/><circle cx="98" cy="34" r="4" fill="#ff9bb5"/>
+        </g>
+      </g>
+    </g>
+  </svg>
+  <!-- cadre et croisillon de la fenêtre -->
+  <g filter="url(#pinceau)" stroke="#8a5a3a" stroke-linecap="round" fill="none">
+    <rect x="300" y="40" width="600" height="360" rx="10" stroke-width="16"/>
+    <path d="M600 44 V 396 M304 220 H 896" stroke-width="10"/>
+  </g>
+  <!-- rideaux -->
+  <g filter="url(#pinceau)" opacity=".9">
+    <path d="M250 20 C 290 140, 260 300, 300 430 L 230 430 C 220 300, 240 140, 210 20 Z" fill="#6b62c9"/>
+    <path d="M950 20 C 910 140, 940 300, 900 430 L 970 430 C 980 300, 960 140, 990 20 Z" fill="#6b62c9"/>
+  </g>
+
+  <!-- sol en bois -->
+  <g filter="url(#pinceau)">
+    <rect x="0" y="430" width="1200" height="190" fill="#6e4a33"/>
+    <path d="M0 470 H1200 M0 520 H1200 M0 575 H1200" stroke="#5a3b28" stroke-width="5"/>
+  </g>
+
+  <!-- halo de la petite lampe -->
+  <circle class="lampe" cx="505" cy="345" r="190" fill="url(#glow)"/>
+
+  <!-- lit -->
+  <g filter="url(#pinceau)">
+    <rect x="20" y="250" width="26" height="250" rx="6" fill="#9a6a45"/>
+    <rect x="20" y="330" width="420" height="110" rx="14" fill="#9a6a45"/>
+    <path d="M30 320 C 140 290, 300 300, 440 320 L 440 420 L 30 420 Z" fill="#f4a7b9"/>
+    <path d="M60 345 C 130 330, 220 360, 300 340 M90 385 C 180 370, 280 400, 420 380" stroke="#fbd3dd" stroke-width="10" fill="none" stroke-linecap="round"/>
+    <ellipse cx="100" cy="305" rx="62" ry="26" fill="#fffaf0"/>
+    <rect x="418" y="360" width="26" height="140" rx="6" fill="#9a6a45"/>
+  </g>
+  <!-- table de nuit + lampe -->
+  <g filter="url(#pinceau)">
+    <rect x="462" y="400" width="86" height="90" rx="6" fill="#a8774f"/>
+    <rect x="470" y="430" width="70" height="8" fill="#8a5a3a"/>
+    <rect x="500" y="360" width="10" height="42" fill="#e8dcc4"/>
+    <path d="M474 362 L 536 362 L 522 320 L 488 320 Z" fill="#ffd56b"/>
+  </g>
+
+  <!-- siège en bois avec vêtements -->
+  <g filter="url(#pinceau)" stroke-linecap="round">
+    <rect x="930" y="260" width="16" height="200" fill="#a8774f"/>
+    <rect x="1050" y="260" width="16" height="200" fill="#a8774f"/>
+    <rect x="922" y="250" width="152" height="18" rx="6" fill="#a8774f"/>
+    <rect x="930" y="290" width="136" height="12" fill="#a8774f"/>
+    <rect x="915" y="370" width="170" height="20" rx="6" fill="#b98557"/>
+    <rect x="930" y="390" width="14" height="120" fill="#a8774f"/>
+    <rect x="1066" y="390" width="14" height="120" fill="#a8774f"/>
+    <!-- chemise posée sur le dossier -->
+    <path d="M935 245 C 980 230, 1030 240, 1070 248 L 1080 330 C 1050 320, 1010 340, 990 320 C 970 340, 950 330, 930 330 Z" fill="#9fd3f0"/>
+  </g>
+
+  <!-- vêtements par terre -->
+  <g filter="url(#pinceau)" transform="translate(0,-60)">
+    <path d="M560 560 C 600 520, 700 530, 730 560 C 700 590, 620 600, 560 560 Z" fill="#c9b3f0"/>
+    <path d="M760 540 L 800 520 L 860 545 L 850 575 L 775 580 Z" fill="#3f6fa8"/>
+    <path d="M490 525 C 505 510, 530 512, 540 528 C 528 540, 505 540, 490 525 Z" fill="#ffd56b"/>
+  </g>
+
+  <!-- bol de pistaches + coques -->
+  <g filter="url(#pinceau)">
+    <path d="M1010 540 C 1015 590, 1115 590, 1120 540 Z" fill="#e8f1f6"/>
+    <ellipse cx="1065" cy="540" rx="56" ry="10" fill="#cfe0ea"/>
+    <ellipse cx="1045" cy="533" rx="10" ry="6" fill="#d9c79a"/><ellipse cx="1068" cy="530" rx="10" ry="6" fill="#cdbb8b"/>
+    <ellipse cx="1088" cy="534" rx="10" ry="6" fill="#d9c79a"/>
+    <path d="M960 585 c6 -8 16 -8 20 0" stroke="#d9c79a" stroke-width="6" fill="none"/>
+    <path d="M995 600 c6 -8 16 -8 20 0" stroke="#cdbb8b" stroke-width="6" fill="none"/>
+    <path d="M1140 590 c6 -8 16 -8 20 0" stroke="#d9c79a" stroke-width="6" fill="none"/>
+    <path d="M920 560 c6 -8 16 -8 20 0" stroke="#cdbb8b" stroke-width="6" fill="none"/>
+    <ellipse cx="1155" cy="560" rx="5" ry="4" fill="#9ccf6a"/>
+  </g>
+</svg>
+</div>
+
+<main class="carte">
+  <div class="livre">Un instant, ou Quatre… — 6</div>
+  <h1 lang="fr">Rencontre nocturne</h1>
+  <p class="fr" data-i18n="fr">Histoire en français.</p>
+  <div id="pistes"></div>
+  <div class="actions">
+    <a class="btn btn-som" href="audio4.html"><span aria-hidden="true">🌸</span><span data-i18n="others">Les autres histoires</span></a>
+    <a class="btn btn-contact" href="contact.html"><span aria-hidden="true">✉️</span><span data-i18n="contact">Contactez-moi</span></a>
+  </div>
+</main>
+<p class="note">© 2026 Roy Van Mil</p>
+
+<script>
+/* étoiles qui scintillent dans la fenêtre */
+(function(){
+  const g=document.getElementById("etoiles"),ns="http://www.w3.org/2000/svg";
+  for(let i=0;i<46;i++){
+    const c=document.createElementNS(ns,"circle");
+    c.setAttribute("cx",310+Math.random()*580);c.setAttribute("cy",50+Math.random()*340);
+    c.setAttribute("r",(Math.random()*2.2+0.8).toFixed(1));c.setAttribute("fill","#fffbe6");
+    c.setAttribute("class","etoile");c.style.animationDelay=(Math.random()*3).toFixed(2)+"s";
+    g.appendChild(c);
+  }
+})();
+
+const translations={
+  fr:{all:"Toutes les histoires",fr:"Histoire en français.",others:"Les autres histoires",contact:"Contactez-moi",
+      loading:"Chargement…",soonAudio:"L'audio arrive bientôt…",part:"Partie"},
+  en:{all:"All the stories",fr:"Story in French.",others:"The other stories",contact:"Contact me",
+      loading:"Loading…",soonAudio:"The audio is coming soon…",part:"Part"},
+  nl:{all:"Alle verhalen",fr:"Verhaal in het Frans.",others:"De andere verhalen",contact:"Neem contact op",
+      loading:"Laden…",soonAudio:"De audio komt binnenkort…",part:"Deel"}
+};
+let T=translations.fr,PISTES=null;
+
+function dessinePistes(){
+  const box=document.getElementById("pistes");
+  if(PISTES===null){box.innerHTML='<div class="attente">'+T.loading+'</div>';return;}
+  if(!PISTES.length){box.innerHTML='<div class="attente">'+T.soonAudio+'</div>';return;}
+  box.innerHTML="";
+  PISTES.forEach((f,i)=>{
+    const d=document.createElement("div");d.className="piste";
+    if(PISTES.length>1){const t=document.createElement("div");t.className="piste-titre";t.textContent=T.part+" "+(i+1);d.appendChild(t);}
+    const a=document.createElement("audio");a.controls=true;a.preload="metadata";a.src=f;
+    a.setAttribute("aria-label",TITRE+(PISTES.length>1?" — "+T.part+" "+(i+1):""));
+    d.appendChild(a);box.appendChild(d);
+  });
+  const tous=[...box.querySelectorAll("audio")];
+  tous.forEach((a,i)=>{
+    a.addEventListener("play",()=>tous.forEach(x=>{if(x!==a)x.pause()}));
+    a.addEventListener("ended",()=>{if(tous[i+1])tous[i+1].play()});
+  });
+}
+
+function chargePistes(){
+  fetch("https://api.github.com/repos/royvanmil/royvanmil-auteur/contents/"+DOSSIER_AUDIO+"?ref=main")
+    .then(r=>r.ok?r.json():Promise.reject())
+    .then(liste=>{
+      PISTES=(Array.isArray(liste)?liste:[])
+        .filter(f=>f.type==="file"&&/\.mp3$/i.test(f.name)&&parseInt(f.name,10)===NUMERO)
+        .sort((a,b)=>a.name.localeCompare(b.name,"fr",{numeric:true}))
+        .map(f=>"/"+f.path.split("/").map(encodeURIComponent).join("/"));
+      if(!PISTES.length)PISTES=SECOURS.map(p=>p.split("/").map(encodeURIComponent).join("/"));
+      dessinePistes();
+    })
+    .catch(()=>{PISTES=SECOURS.map(p=>p.split("/").map(encodeURIComponent).join("/"));dessinePistes();});
+}
+
+function setLanguage(lang){
+  T=translations[lang]||translations.fr;
+  document.documentElement.lang=lang;
+  document.querySelectorAll("[data-i18n]").forEach(el=>{const k=el.dataset.i18n;if(T[k]!==undefined)el.textContent=T[k];});
+  document.querySelectorAll(".lang-btn").forEach(b=>b.classList.toggle("active",b.dataset.lang===lang));
+  try{localStorage.setItem("royvanmil-lang",lang)}catch(e){}
+  dessinePistes();
+}
+document.querySelectorAll(".lang-btn").forEach(b=>b.addEventListener("click",()=>setLanguage(b.dataset.lang)));
+
+var API="https://compteurs.royvanmil86.workers.dev";
+function compte(cle){var url=API+"/compte?c="+cle;try{if(navigator.sendBeacon&&navigator.sendBeacon(url))return;}catch(e){}try{fetch(url,{mode:"cors",keepalive:true});}catch(e){}}
+
+let initial="fr";
+try{
+  const s=localStorage.getItem("royvanmil-lang");
+  if(s&&translations[s])initial=s;
+  else{const l=(navigator.language||"fr").toLowerCase();if(l.startsWith("nl"))initial="nl";else if(l.startsWith("en"))initial="en";}
+}catch(e){}
+setLanguage(initial);
+chargePistes();
+compte("audio-quatre");
+</script>
+<script src="avis-bouton.js" defer></script>
+</body>
+</html>
