@@ -280,3 +280,6 @@ main:has(.annonce){max-width:1200px}
 .popup li{background:var(--fond);border-radius:14px;padding:.7rem .9rem;margin:.45rem 0;font-size:.95rem}
 .popup-boutons{display:flex;gap:.7rem;flex-wrap:wrap}
 .popup-boutons .bouton{flex:1;min-width:180px}
+.lieu{margin-top:1.1rem;padding-top:1rem;border-top:1px solid var(--ligne)}
+.lieu .carte{height:170px;margin-top:.6rem}
+.lieu .bouton.inline{margin-top:.6rem;padding:.6rem 1rem;font-size:.92rem}
