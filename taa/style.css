@@ -226,3 +226,32 @@ details.article ul.sous{columns:2;column-gap:2rem}
   .yt b{font-size:.92rem}
   .yt small{font-size:.78rem}
 }
+
+/* Coffre-fort */
+.sous-titre{font-size:1rem;margin:.3rem 0 .4rem;color:var(--bleu)}
+
+/* Ventes */
+.consignes{border:2px solid var(--rouge)}
+.annonce{display:flex;gap:1.2rem;align-items:flex-start;padding:1rem}
+.annonce.vendu{opacity:.65}
+.annonce-photos{position:relative;flex:0 0 200px;display:block!important;margin:0!important}
+.annonce-photos img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:12px;display:none}
+.annonce-photos img:first-child{display:block}
+.nb-photos{position:absolute;right:8px;bottom:8px;background:rgba(0,0,0,.65);color:#fff;font-size:.75rem;padding:.15rem .5rem;border-radius:999px}
+.annonce-corps{flex:1;min-width:0}
+.annonce-ref{font-size:.75rem;font-weight:700;color:var(--gris);letter-spacing:.05em}
+.annonce-haut{display:flex;justify-content:space-between;gap:1rem;align-items:flex-start;margin:.1rem 0 .4rem}
+.annonce-haut h3{font-size:1.1rem;line-height:1.25}
+.annonce-cat{font-size:.82rem;color:var(--rouge);font-weight:700}
+.annonce-prix{text-align:right;white-space:nowrap}
+.annonce-prix b{display:block;font-size:1.35rem;margin-top:.2rem}
+.statut{display:inline-block;font-size:.7rem;font-weight:800;padding:.2rem .6rem;border-radius:999px;letter-spacing:.04em}
+.statut.envente{background:#e6f4ea;color:#1e7b34}
+.statut.vendu{background:#eceff3;color:var(--gris)}
+.annonce-bas{display:flex;justify-content:space-between;align-items:center;gap:.8rem;flex-wrap:wrap;margin-top:.6rem}
+.annonce-boutons{display:flex;gap:.5rem}
+.annonce-boutons .bouton{padding:.5rem .9rem;font-size:.88rem;box-shadow:none}
+@media (max-width:560px){
+  .annonce{flex-direction:column}
+  .annonce-photos{flex-basis:auto;width:100%}
+}
