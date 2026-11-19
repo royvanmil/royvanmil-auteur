@@ -28,6 +28,18 @@
     '<footer class="pied">Tireurs et Arquebusiers de l\'Armagnac — Eauze / Bascous (Gers)<br>' +
     'Site de démonstration · réalisé par Roy VAN MIL</footer>');
 
+
+  /* Compteur de visites (même Worker que royvanmil.fr) */
+  var CLES = {'index.html':'taa-accueil','stands.html':'taa-stands','devenir-membre.html':'taa-devenir-membre',
+    'reglementation.html':'taa-armes-demarches','divers.html':'taa-divers','comment-ca-marche.html':'taa-comment',
+    'espace-membres.html':'taa-espace-membres','membres-accueil.html':'taa-membres-accueil','tirs-controle.html':'taa-tirs-controle',
+    'membres.html':'taa-qui-est-qui','reglement-interieur.html':'taa-reglement','ventes.html':'taa-ventes'};
+  var cle = CLES[ici];
+  if (cle) {
+    var url = 'https://compteurs.royvanmil86.workers.dev/compte?c=' + cle;
+    try { if (!(navigator.sendBeacon && navigator.sendBeacon(url))) fetch(url, {mode:'cors', keepalive:true}); } catch (e) {}
+  }
+
   function ouvrir() { document.body.classList.add('menu-ouvert'); }
   function fermer() { document.body.classList.remove('menu-ouvert'); }
   document.querySelector('.burger').onclick = ouvrir;
