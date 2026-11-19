@@ -302,3 +302,6 @@ main:has(.annonce){max-width:1200px}
 .prochaine-journee{background:var(--blanc);border:1px solid var(--ligne);border-radius:12px;padding:.6rem .9rem;display:inline-block}
 .prochaine-journee:empty{display:none}
 @media (max-width:700px){.decouvrir{grid-template-columns:1fr}.decouvrir-photo{min-height:180px;max-height:220px;order:-1}}
+.regles-secu{list-style:none;padding:0!important;counter-reset:r;display:grid;gap:.5rem}
+.regles-secu li{counter-increment:r;position:relative;padding:.7rem .9rem .7rem 3rem;background:#fdecec;border-radius:12px;margin:0!important}
+.regles-secu li::before{content:counter(r);position:absolute;left:.8rem;top:50%;transform:translateY(-50%);width:1.6rem;height:1.6rem;border-radius:50%;background:var(--rouge);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:.9rem}
