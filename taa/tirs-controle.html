@@ -11,14 +11,14 @@
 <body>
 <main>
 <h1 class="titre-page">Tirs de contrôle</h1>
-<p class="intro">Les prochaines dates. Les tirs sont notés dans votre carnet de tir.</p>
+<p class="intro">Journées club / tirs de contrôle — saison 2026/2027.</p>
 
 <div class="bulles deux">
   <div class="bulle">
-    <h2><span class="ico">📅</span> Prochaines dates</h2>
-    <div class="horaires-ligne"><span>Date 1</span><b class="a-completer">à compléter</b></div>
-    <div class="horaires-ligne"><span>Date 2</span><b class="a-completer">à compléter</b></div>
-    <div class="horaires-ligne"><span>Date 3</span><b class="a-completer">à compléter</b></div>
+    <h2><span class="ico">📅</span> Les dates</h2>
+    <div id="dates"><div class="horaires-ligne date" data-d="2026-10-04"><span>Dimanche</span><b>4 octobre 2026</b></div><div class="horaires-ligne date" data-d="2026-11-07"><span>Samedi</span><b>7 novembre 2026</b></div><div class="horaires-ligne date" data-d="2026-12-06"><span>Dimanche</span><b>6 décembre 2026</b></div><div class="horaires-ligne date" data-d="2027-01-02"><span>Samedi</span><b>2 janvier 2027</b></div><div class="horaires-ligne date" data-d="2027-02-07"><span>Dimanche</span><b>7 février 2027</b></div><div class="horaires-ligne date" data-d="2027-03-06"><span>Samedi</span><b>6 mars 2027</b></div><div class="horaires-ligne date" data-d="2027-04-04"><span>Dimanche</span><b>4 avril 2027</b></div><div class="horaires-ligne date" data-d="2027-05-01"><span>Samedi</span><b>1er mai 2027</b></div><div class="horaires-ligne date" data-d="2027-06-06"><span>Dimanche</span><b>6 juin 2027</b></div><div class="horaires-ligne date" data-d="2027-07-03"><span>Samedi</span><b>3 juillet 2027</b></div><div class="horaires-ligne date" data-d="2027-08-01"><span>Dimanche</span><b>1er août 2027</b></div></div>
+    <p class="gris petit" style="margin-top:.8rem">Sauf changement en raison de manifestations hippiques. — Le Président, F. FOUREL</p>
+    <a class="bouton inline" href="docs/tirs-controle-2026-2027.pdf" target="_blank">📄 Calendrier PDF</a>
   </div>
 
   <div class="bulle">
@@ -30,6 +30,16 @@
   </div>
 </div>
 <div class="boutons"><a class="bouton" href="membres-accueil.html">← Espace membres</a></div>
+<script>
+(function(){
+  var auj = new Date(); auj.setHours(0,0,0,0); var prochaine = null;
+  document.querySelectorAll('.date').forEach(function(el){
+    var d = new Date(el.dataset.d + 'T00:00:00');
+    if (d < auj) el.classList.add('passee');
+    else if (!prochaine) { prochaine = el; el.classList.add('prochaine'); }
+  });
+})();
+</script>
 </main>
 <script src="taa.js"></script>
 </body>

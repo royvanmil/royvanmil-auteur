@@ -152,3 +152,25 @@ main{max-width:980px;margin:0 auto;padding:1.6rem 1.2rem 3rem}
   .bulle{padding:1.2rem}
   .fiche .photo{flex-basis:76px;height:76px}
 }
+
+/* Tirs de contrôle */
+.date.passee{opacity:.4}
+.date.passee b{text-decoration:line-through;font-weight:600}
+.date.prochaine{background:#fdecec;margin:0 -1.5rem;padding-left:1.5rem;padding-right:1.5rem}
+.date.prochaine span::after{content:" · prochaine";color:var(--rouge);font-weight:700}
+
+/* Règlement intérieur */
+details.article{padding:0}
+details.article summary{cursor:pointer;list-style:none;padding:1.1rem 1.5rem;font-weight:700;display:flex;gap:.7rem;align-items:baseline}
+details.article summary::-webkit-details-marker{display:none}
+details.article summary::after{content:"+";margin-left:auto;font-size:1.4rem;color:var(--gris);line-height:1}
+details.article[open] summary::after{content:"–"}
+details.article .num{color:var(--rouge);white-space:nowrap}
+details.article>*:not(summary){margin:0 1.5rem .8rem}
+details.article>*:last-child{margin-bottom:1.4rem}
+details.article ul.sous{columns:2;column-gap:2rem}
+.rappel{background:#fdecec;border-radius:14px;padding:.9rem 1.1rem;font-weight:700;color:var(--rouge-fonce);text-align:center}
+@media (max-width:560px){details.article ul.sous{columns:1}.date.prochaine{margin:0 -1.2rem;padding-left:1.2rem;padding-right:1.2rem}}
+.date b{font-size:1.2rem}
+.date.prochaine span::after{content:"";}
+.date.prochaine b::before{content:"Prochaine";display:inline-block;font-size:.72rem;background:var(--rouge);color:#fff;border-radius:999px;padding:.15rem .6rem;margin-right:.6rem;vertical-align:middle;text-transform:uppercase;letter-spacing:.04em}
