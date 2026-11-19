@@ -267,3 +267,16 @@ main:has(.annonce){max-width:1200px}
   .annonce-prix .statut{justify-self:start;align-self:center}
   .annonce-prix b{text-align:right}
 }
+
+/* Popup démonstration (index) */
+.popup-fond{position:fixed;inset:0;z-index:100;background:rgba(22,34,58,.55);display:flex;align-items:center;justify-content:center;padding:1rem;animation:apparait .3s ease}
+@keyframes apparait{from{opacity:0}to{opacity:1}}
+.popup{position:relative;background:var(--blanc);border-radius:24px;max-width:560px;width:100%;max-height:92vh;overflow:auto;padding:1.8rem 1.8rem 1.5rem;box-shadow:0 20px 60px rgba(0,0,0,.25)}
+.popup-x{position:absolute;top:.6rem;right:.8rem;border:0;background:none;font-size:2rem;color:var(--gris);cursor:pointer;line-height:1}
+.popup-tag{display:inline-block;background:#fdecec;color:var(--rouge);font-weight:800;font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;padding:.25rem .7rem;border-radius:999px;margin-bottom:.6rem}
+.popup h2{font-size:1.4rem;line-height:1.2;margin-bottom:.8rem}
+.popup p{margin-bottom:.6rem}
+.popup ul{list-style:none;padding:0;margin:.8rem 0 1.2rem}
+.popup li{background:var(--fond);border-radius:14px;padding:.7rem .9rem;margin:.45rem 0;font-size:.95rem}
+.popup-boutons{display:flex;gap:.7rem;flex-wrap:wrap}
+.popup-boutons .bouton{flex:1;min-width:180px}
