@@ -1,0 +1,154 @@
+/* T.A.A. — style commun, moderne et épuré */
+:root{
+  --fond:#f4f6f9;
+  --blanc:#ffffff;
+  --encre:#16223a;
+  --gris:#6b7486;
+  --ligne:#e3e7ee;
+  --rouge:#c62828;
+  --rouge-fonce:#a51f1f;
+  --bleu:#1f3a64;
+  --rayon:22px;
+  --ombre:0 6px 24px rgba(22,34,58,.07);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  background:var(--fond);color:var(--encre);line-height:1.55;font-size:17px;
+}
+a{color:var(--bleu)}
+img{max-width:100%;display:block}
+
+/* ---------- En-tête ---------- */
+.entete{
+  position:sticky;top:0;z-index:50;
+  background:rgba(255,255,255,.92);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--ligne);
+}
+.entete-in{max-width:980px;margin:0 auto;padding:.7rem 1.2rem;display:flex;align-items:center;gap:.8rem}
+.entete a.marque{display:flex;align-items:center;gap:.7rem;text-decoration:none;color:var(--encre)}
+.entete .marque img{width:42px;height:42px;object-fit:contain}
+.entete .marque b{font-size:1.05rem;letter-spacing:.02em}
+.entete .marque small{display:block;color:var(--gris);font-size:.78rem;font-weight:400}
+.burger{
+  margin-left:auto;width:46px;height:46px;border-radius:14px;border:1px solid var(--ligne);
+  background:var(--blanc);cursor:pointer;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;
+}
+.burger span{display:block;width:20px;height:2px;background:var(--encre);border-radius:2px}
+
+/* ---------- Menu ☰ (une seule liste, pas de sous-menu) ---------- */
+.voile{position:fixed;inset:0;background:rgba(22,34,58,.35);opacity:0;pointer-events:none;transition:opacity .2s;z-index:60}
+.menu{
+  position:fixed;top:0;right:0;height:100%;width:min(320px,86vw);background:var(--blanc);
+  transform:translateX(100%);transition:transform .25s ease;z-index:70;padding:1.2rem;
+  box-shadow:-10px 0 30px rgba(22,34,58,.12);display:flex;flex-direction:column;gap:.35rem;
+}
+.menu-ouvert .voile{opacity:1;pointer-events:auto}
+.menu-ouvert .menu{transform:none}
+.menu .fermer{align-self:flex-end;border:0;background:none;font-size:1.8rem;cursor:pointer;color:var(--gris);line-height:1}
+.menu a{
+  display:block;padding:.8rem 1rem;border-radius:14px;text-decoration:none;color:var(--encre);font-weight:600;
+}
+.menu a:hover,.menu a.actif{background:var(--fond)}
+.menu a.membres{margin-top:auto;background:var(--rouge);color:#fff;text-align:center}
+
+/* ---------- Contenu ---------- */
+main{max-width:980px;margin:0 auto;padding:1.6rem 1.2rem 3rem}
+.titre-page{font-size:clamp(1.7rem,4.5vw,2.4rem);line-height:1.15;margin:.4rem 0 .4rem}
+.intro{color:var(--gris);margin-bottom:1.4rem}
+
+.hero{text-align:center;padding:1.6rem 0 1.8rem}
+.hero img{width:120px;height:120px;object-fit:contain;margin:0 auto 1rem}
+.hero h1{font-size:clamp(1.6rem,4.5vw,2.3rem);line-height:1.15}
+.hero p{color:var(--gris);margin-top:.4rem}
+
+/* Bulles */
+.bulles{display:grid;gap:1.1rem}
+.bulles.deux{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.bulle{
+  background:var(--blanc);border-radius:var(--rayon);box-shadow:var(--ombre);
+  padding:1.4rem 1.5rem;border:1px solid var(--ligne);
+}
+.bulle h2{font-size:1.2rem;margin-bottom:.7rem;display:flex;align-items:center;gap:.55rem}
+.bulle h2 .ico{font-size:1.3rem}
+.bulle p+p{margin-top:.5rem}
+.bulle ul{padding-left:1.1rem}
+.bulle li{margin:.25rem 0}
+.gris{color:var(--gris)}
+.petit{font-size:.88rem}
+.a-completer{color:var(--rouge);font-style:italic}
+
+.chiffre{font-size:2.6rem;font-weight:800;color:var(--bleu);line-height:1}
+
+/* Horaires en grand */
+.horaires-jours{font-size:clamp(1.5rem,4.5vw,2.1rem);font-weight:800;line-height:1.2;margin:.2rem 0 1rem}
+.horaires-ligne{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;padding:.8rem 0;border-top:1px solid var(--ligne)}
+.horaires-ligne span{color:var(--gris)}
+.horaires-ligne b{font-size:clamp(1.3rem,4vw,1.8rem)}
+
+.carte{width:100%;height:260px;border:0;border-radius:16px;margin-top:1rem}
+
+/* Boutons */
+.boutons{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.9rem;margin:1.6rem 0}
+.bouton{
+  display:flex;align-items:center;justify-content:center;gap:.5rem;text-align:center;
+  padding:1rem 1.2rem;border-radius:999px;text-decoration:none;font-weight:700;
+  background:var(--blanc);color:var(--encre);border:1px solid var(--ligne);box-shadow:var(--ombre);
+  transition:transform .15s;cursor:pointer;font-size:1rem;font-family:inherit;
+}
+.bouton:hover{transform:translateY(-2px)}
+.bouton.rouge{background:var(--rouge);color:#fff;border-color:var(--rouge)}
+.bouton.rouge:hover{background:var(--rouge-fonce)}
+.bouton.inline{display:inline-flex;margin-top:.9rem}
+
+/* Photos */
+.photos{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:.6rem;margin-top:1rem}
+.photos img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:12px;cursor:zoom-in}
+.visio{position:fixed;inset:0;background:rgba(10,14,22,.92);display:none;align-items:center;justify-content:center;z-index:90;padding:1rem}
+.visio.ouvert{display:flex}
+.visio img{max-width:96vw;max-height:90vh;border-radius:10px}
+.visio button{position:absolute;background:none;border:0;color:#fff;font-size:2.4rem;cursor:pointer;padding:.5rem 1rem}
+.visio .x{top:.5rem;right:.5rem}
+.visio .g{left:.3rem;top:50%;transform:translateY(-50%)}
+.visio .d{right:.3rem;top:50%;transform:translateY(-50%)}
+
+/* Étapes */
+.etapes{counter-reset:e;list-style:none;padding:0!important}
+.etapes li{counter-increment:e;position:relative;padding-left:2.6rem;margin:.8rem 0!important}
+.etapes li::before{
+  content:counter(e);position:absolute;left:0;top:-.1rem;width:1.9rem;height:1.9rem;border-radius:50%;
+  background:var(--bleu);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:.95rem;
+}
+
+/* Catégories d'armes */
+.cats{display:grid;gap:.6rem}
+.cat{display:flex;gap:.9rem;align-items:flex-start}
+.cat b.l{flex:0 0 2.2rem;height:2.2rem;border-radius:10px;background:var(--fond);display:flex;align-items:center;justify-content:center;font-size:1.1rem}
+
+/* Connexion */
+.connexion{max-width:420px;margin:2rem auto;text-align:center}
+.connexion input{
+  width:100%;padding:.95rem 1.1rem;border-radius:14px;border:1px solid var(--ligne);font-size:1rem;margin:1rem 0 .2rem;font-family:inherit;
+}
+
+/* Fiches membres */
+.groupe{margin-top:2rem}
+.groupe>h2{font-size:1.25rem;margin-bottom:.8rem}
+.fiche{display:flex;gap:1.1rem;align-items:center}
+.fiche .photo{flex:0 0 96px;height:96px;border-radius:18px;background:var(--fond);overflow:hidden;display:flex;align-items:center;justify-content:center}
+.fiche .photo img{width:100%;height:100%;object-fit:cover}
+.fiche .photo svg{width:60%;height:60%;fill:#c3cad6}
+.fiche h3{font-size:1.1rem}
+.fiche .role{color:var(--rouge);font-weight:700;font-size:.85rem;text-transform:uppercase;letter-spacing:.04em}
+.fiche .liens{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:.35rem}
+.fiche .liens a{font-size:.88rem;text-decoration:none;padding:.25rem .7rem;border-radius:999px;background:var(--fond)}
+
+/* Pied */
+.pied{text-align:center;color:var(--gris);font-size:.85rem;padding:2rem 1rem 2.5rem;border-top:1px solid var(--ligne)}
+
+@media (max-width:560px){
+  body{font-size:16px}
+  .bulle{padding:1.2rem}
+  .fiche .photo{flex-basis:76px;height:76px}
+}
