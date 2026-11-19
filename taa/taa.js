@@ -7,7 +7,9 @@
     ['reglementation.html', 'Armes & démarches'],
     ['divers.html', 'Divers']
   ];
+  // Cloudflare enlève le « .html » des adresses (/taa/stands au lieu de /taa/stands.html) : on le remet
   var ici = location.pathname.split('/').pop() || 'index.html';
+  if (ici.indexOf('.') === -1) ici += '.html';
 
   var liens = pages.map(function (p) {
     return '<a href="' + p[0] + '"' + (p[0] === ici ? ' class="actif"' : '') + '>' + p[1] + '</a>';
