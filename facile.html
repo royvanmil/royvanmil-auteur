@@ -252,10 +252,22 @@ function afficher(stats, hist){
   var rt=document.createElement("tr"); rt.className="tot"; rt.appendChild(cell("Total pages (sans clics Amazon)"));
   tot.forEach(function(x){ rt.appendChild(cell(x,"n")); }); tb.appendChild(rt);
 }
+// historique lu par morceaux de 20 compteurs (Cloudflare limite à 1000 lectures par appel)
+function chargerHistorique(){
+  var cles=[]; GROUPES.forEach(function(g){ cles=cles.concat(Object.keys(g[1])); });
+  var morceaux=[]; for(var i=0;i<cles.length;i+=20) morceaux.push(cles.slice(i,i+20));
+  return Promise.all(morceaux.map(function(m){
+    return fetch(API+"/historique?jours=30&cles="+encodeURIComponent(m.join(","))).then(function(r){return r.json();});
+  })).then(function(lst){
+    var res={jours:(lst[0]&&lst[0].jours)||[], series:{}};
+    lst.forEach(function(h){ if(h&&h.series) Object.keys(h.series).forEach(function(k){ res.series[k]=h.series[k]; }); });
+    return res;
+  });
+}
 function chargerStats(){
   return Promise.all([
     fetch(API+"/stats").then(function(r){return r.json();}),
-    fetch(API+"/historique?jours=30").then(function(r){return r.json();})
+    chargerHistorique()
   ]).then(function(res){ afficher(res[0], res[1]); });
 }
 function entrer(c, depuisForm){
