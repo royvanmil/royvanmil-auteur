@@ -211,3 +211,9 @@ details.article ul.sous{columns:2;column-gap:2rem}
 .yt{aspect-ratio:auto;min-height:150px;justify-content:flex-start}
 .yt small{overflow-wrap:anywhere}
 @media (max-width:560px){.yt{min-height:0;padding:.9rem .5rem}.yt-grille{gap:.6rem}}
+
+/* Recherche membres */
+.recherche{position:sticky;top:72px;z-index:20;display:flex;align-items:center;gap:1rem;margin-top:1.4rem;background:var(--fond);padding:.5rem 0}
+.recherche input{flex:1;padding:.85rem 1.1rem;border-radius:999px;border:1px solid var(--ligne);font-size:1rem;font-family:inherit;background:var(--blanc);box-shadow:var(--ombre)}
+.recherche input:focus{outline:2px solid var(--bleu);outline-offset:1px}
+@media (max-width:560px){.recherche{top:64px}.recherche #compte{display:none}}
