@@ -207,3 +207,7 @@ details.article ul.sous{columns:2;column-gap:2rem}
 @media (max-width:560px){.yt-grille{grid-template-columns:repeat(2,1fr)}}
 .yt-logo.img{background:#fff;border:1px solid var(--ligne)}
 .yt-logo.img img{width:100%;height:100%;border-radius:50%;object-fit:cover}
+/* YouTube : pas de carré forcé, la hauteur suit le texte */
+.yt{aspect-ratio:auto;min-height:150px;justify-content:flex-start}
+.yt small{overflow-wrap:anywhere}
+@media (max-width:560px){.yt{min-height:0;padding:.9rem .5rem}.yt-grille{gap:.6rem}}
