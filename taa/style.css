@@ -283,3 +283,13 @@ main:has(.annonce){max-width:1200px}
 .lieu{margin-top:1.1rem;padding-top:1rem;border-top:1px solid var(--ligne)}
 .lieu .carte{height:170px;margin-top:.6rem}
 .lieu .bouton.inline{margin-top:.6rem;padding:.6rem 1rem;font-size:.92rem}
+
+/* Comment ça marche */
+.tarifs{width:100%;border-collapse:collapse;font-size:.95rem}
+.tarifs th{text-align:left;color:var(--gris);font-weight:600;font-size:.8rem;text-transform:uppercase;letter-spacing:.04em;padding:.5rem .6rem;border-bottom:2px solid var(--ligne)}
+.tarifs td{padding:.75rem .6rem;border-bottom:1px solid var(--ligne);vertical-align:top}
+.tarifs td:last-child{white-space:nowrap}
+.tarifs small{color:var(--gris)}
+.affiches{grid-template-columns:repeat(auto-fill,minmax(200px,1fr))!important;gap:1rem!important}
+.affiches img{aspect-ratio:auto!important;object-fit:contain!important;background:#fff;border:1px solid var(--ligne)}
+@media (max-width:560px){.tarifs th:nth-child(2),.tarifs td:nth-child(2){display:none}.tarifs td:last-child{white-space:normal}}
