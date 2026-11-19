@@ -249,8 +249,21 @@ function afficher(stats, hist){
       v.forEach(function(x){ r.appendChild(cell(x,"n")); }); tb.appendChild(r);
     });
   });
-  var rt=document.createElement("tr"); rt.className="tot"; rt.appendChild(cell("Total pages (sans clics Amazon)"));
+  var rt=document.createElement("tr"); rt.className="tot"; rt.appendChild(cell("Total pages livres (sans clics Amazon, concours ni club de tir)"));
   tot.forEach(function(x){ rt.appendChild(cell(x,"n")); }); tb.appendChild(rt);
+  // total séparé du club de tir
+  var totTaa=[0,0,0,0,0];
+  GROUPES.forEach(function(g){ if(g[0]!=="Club de tir T.A.A.") return;
+    Object.keys(g[1]).forEach(function(k){
+      var s2=(stats&&stats[k])||{total:0,depuis_reset:0};
+      var serie=(hist&&hist.series&&hist.series[k])||[];
+      var auj=n?(serie[n-1]||0):0, sept=0, trente=0;
+      for(var i=0;i<serie.length;i++){ trente+=serie[i]||0; if(i>=n-7) sept+=serie[i]||0; }
+      [auj,sept,trente,s2.depuis_reset,s2.total].forEach(function(x,i){ totTaa[i]+=x; });
+    });
+  });
+  var rt2=document.createElement("tr"); rt2.className="tot"; rt2.appendChild(cell("Total club de tir T.A.A."));
+  totTaa.forEach(function(x){ rt2.appendChild(cell(x,"n")); }); tb.appendChild(rt2);
 }
 // historique lu par morceaux de 20 compteurs (Cloudflare limite à 1000 lectures par appel)
 function chargerHistorique(){
