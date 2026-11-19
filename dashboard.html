@@ -165,10 +165,18 @@
   }
 
   function charger(){
-    Promise.all([
-      fetch(API + "/stats").then(function(r){return r.json();}),
-      fetch(API + "/historique?jours=30").then(function(r){return r.json();})
-    ]).then(function(res){
+    // historique lu par morceaux de 20 compteurs (Cloudflare limite à 1000 lectures par appel)
+    fetch(API + "/stats").then(function(r){return r.json();}).then(function(stats){
+      var cles = Object.keys(stats || {}), morceaux = [];
+      for (var i = 0; i < cles.length; i += 20) morceaux.push(cles.slice(i, i + 20));
+      return Promise.all(morceaux.map(function(m){
+        return fetch(API + "/historique?jours=30&cles=" + encodeURIComponent(m.join(","))).then(function(r){return r.json();});
+      })).then(function(lst){
+        var h = {jours: (lst[0] && lst[0].jours) || [], series: {}};
+        lst.forEach(function(x){ if (x && x.series) Object.keys(x.series).forEach(function(k){ h.series[k] = x.series[k]; }); });
+        return [stats, h];
+      });
+    }).then(function(res){
       dessinerTableau(res[0]);
       dessinerCourbes(res[1]);
       var d = new Date();
