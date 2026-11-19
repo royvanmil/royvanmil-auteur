@@ -4,7 +4,7 @@
     ['index.html', 'Accueil'],
     ['stands.html', 'Les stands'],
     ['devenir-membre.html', 'Devenir membre'],
-    ['reglementation.html', 'Réglementation'],
+    ['reglementation.html', 'Armes & démarches'],
     ['divers.html', 'Divers']
   ];
   var ici = location.pathname.split('/').pop() || 'index.html';
@@ -35,7 +35,7 @@
   document.querySelector('.voile').onclick = fermer;
 
   /* Visionneuse photos */
-  var imgs = [].slice.call(document.querySelectorAll('.photos img'));
+  var imgs = [].slice.call(document.querySelectorAll('.photos img, .zoom img'));
   if (!imgs.length) return;
   document.body.insertAdjacentHTML('beforeend',
     '<div class="visio"><button class="x">×</button><button class="g">❮</button>' +
@@ -44,7 +44,7 @@
   function montrer() { vi.src = groupe[n].src; vi.alt = groupe[n].alt; }
   imgs.forEach(function (im) {
     im.onclick = function () {
-      groupe = [].slice.call(im.closest('.photos').querySelectorAll('img'));
+      var g = im.closest('.photos'); groupe = g ? [].slice.call(g.querySelectorAll('img')) : [im];
       n = groupe.indexOf(im); montrer(); v.classList.add('ouvert');
     };
   });

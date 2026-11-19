@@ -175,23 +175,23 @@ details.article ul.sous{columns:2;column-gap:2rem}
 .date.prochaine span::after{content:"";}
 .date.prochaine b::before{content:"Prochaine";display:inline-block;font-size:.72rem;background:var(--rouge);color:#fff;border-radius:999px;padding:.15rem .6rem;margin-right:.6rem;vertical-align:middle;text-transform:uppercase;letter-spacing:.04em}
 
-/* Qui est qui : cartes rectangles, une par ligne */
+/* Qui est qui : cartes rectangles compactes (≈ 4-5 cm) */
 .bienvenue p+p{margin-top:.6rem}
-.carte-membre{display:flex;gap:1.4rem;align-items:flex-start}
-.carte-membre .photo{flex:0 0 130px;height:160px;border-radius:16px;background:var(--fond);overflow:hidden;display:flex;align-items:center;justify-content:center}
-.carte-membre .photo img{width:100%;height:100%;object-fit:cover}
+.carte-membre{display:flex;gap:1.1rem;align-items:center;padding:.8rem;min-height:150px}
+.carte-membre .photo{flex:0 0 112px;height:140px;border-radius:12px;background:var(--fond);overflow:hidden;display:flex;align-items:center;justify-content:center}
+.carte-membre .photo img{width:100%;height:100%;object-fit:cover;cursor:zoom-in}
 .carte-membre .photo svg{width:60%;height:60%;fill:#c3cad6}
 .carte-membre .infos{flex:1;min-width:0}
-.carte-membre .role{color:var(--rouge);font-weight:700;font-size:.8rem;text-transform:uppercase;letter-spacing:.05em}
-.carte-membre h3{font-size:1.45rem;font-weight:800;line-height:1.2;margin:.1rem 0 .15rem}
-.carte-membre .depuis{font-size:.88rem;font-weight:700;color:var(--gris);margin-bottom:.8rem}
-.carte-membre dl{display:grid;grid-template-columns:max-content 1fr;gap:.35rem 1rem;font-size:.95rem}
+.carte-membre .role{color:var(--rouge);font-weight:700;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em}
+.carte-membre h3{font-size:1.1rem;font-weight:800;line-height:1.2}
+.carte-membre .depuis{font-size:.8rem;font-weight:700;color:var(--gris);margin:.1rem 0 .5rem}
+.carte-membre dl{display:grid;grid-template-columns:max-content 1fr max-content 1fr;gap:.2rem .8rem;font-size:.88rem}
 .carte-membre dt{color:var(--gris)}
-.carte-membre dd{margin:0}
+.carte-membre dd{margin:0;overflow:hidden;text-overflow:ellipsis}
+.groupe .bulles{gap:.7rem}
+@media (max-width:700px){.carte-membre dl{grid-template-columns:max-content 1fr}}
 @media (max-width:560px){
-  .carte-membre{gap:1rem}
-  .carte-membre .photo{flex-basis:88px;height:110px}
-  .carte-membre h3{font-size:1.2rem}
-  .carte-membre dl{grid-template-columns:1fr;gap:0}
-  .carte-membre dt{font-size:.8rem;margin-top:.4rem}
+  .carte-membre{gap:.8rem}
+  .carte-membre .photo{flex-basis:90px;height:115px}
+  .carte-membre dl{font-size:.82rem;gap:.1rem .6rem}
 }
