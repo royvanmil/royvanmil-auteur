@@ -205,3 +205,5 @@ details.article ul.sous{columns:2;column-gap:2rem}
 .yt b{font-size:.9rem;line-height:1.2}
 .yt small{font-size:.76rem;color:var(--gris);line-height:1.3}
 @media (max-width:560px){.yt-grille{grid-template-columns:repeat(2,1fr)}}
+.yt-logo.img{background:#fff;border:1px solid var(--ligne)}
+.yt-logo.img img{width:100%;height:100%;border-radius:50%;object-fit:cover}
