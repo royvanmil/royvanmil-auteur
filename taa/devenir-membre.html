@@ -11,21 +11,42 @@
 <meta property="og:site_name" content="T.A.A. Eauze">
 <meta property="og:title" content="Devenir membre — T.A.A. Eauze">
 <meta property="og:description" content="Tireurs et Arquebusiers de l'Armagnac — club de tir sportif à Eauze (Gers). Stands 10 à 200 m, école de tir dès 9 ans.">
-<meta property="og:image" content="https://royvanmil.fr/taa/images/og-taa.jpg?v=202611191255">
+<meta property="og:image" content="https://royvanmil.fr/taa/images/og-taa.jpg?v=202611191301">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:url" content="https://royvanmil.fr/taa/devenir-membre.html">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="stylesheet" href="style.css?v=202611191255">
+<link rel="stylesheet" href="style.css?v=202611191301">
 </head>
 <body>
 <main>
 <h1 class="titre-page">Devenir membre</h1>
 <p class="intro">Le club compte 180 licenciés, pour 200 places au maximum. Au-delà : liste d'attente.</p>
 
-<div class="bulles deux">
+<div class="bulle decouvrir">
+  <div class="decouvrir-txt">
+    <h2><span class="ico">🎯</span> Venir découvrir</h2>
+    <p class="accroche">Envie de découvrir le tir sportif ?</p>
+    <p>Venez nous voir lors d'une <b>journée « tir de contrôle »</b> ! Vous pourrez visiter le stand, discuter avec les membres, poser vos questions… et peut-être tirer quelques cartouches.</p>
+    <p class="gris">Il suffit de nous <b>contacter à l'avance</b> en donnant votre <b>identité</b> (nom, prénom). Nous vous dirons quand venir.</p>
+    <p id="prochaine-journee" class="prochaine-journee"></p>
+    <a class="bouton rouge inline" href="mailto:taa32cat@bbox.fr?subject=Venir%20d%C3%A9couvrir%20le%20club&body=Bonjour%2C%0A%0AJ'aimerais%20venir%20d%C3%A9couvrir%20le%20club%20lors%20d'une%20journ%C3%A9e%20tir%20de%20contr%C3%B4le.%0A%0ANom%20%3A%0APr%C3%A9nom%20%3A%0AT%C3%A9l%C3%A9phone%20%3A%0A%0AMerci%20!">✉️ Je veux venir découvrir</a>
+  </div>
+  <img src="images/stand25m2.avif" alt="Le stand 25 m" class="decouvrir-photo" loading="lazy">
+</div>
+<script>
+(function(){
+  var d=['2026-12-06','2027-01-02','2027-02-07','2027-03-06','2027-04-04','2027-05-01','2027-06-06','2027-07-03','2027-08-01'];
+  var a=new Date(); a.setHours(0,0,0,0);
+  for(var i=0;i<d.length;i++){ var x=new Date(d[i]+'T00:00:00'); if(x>=a){
+    document.getElementById('prochaine-journee').innerHTML='📅 Prochaine journée : <b>'+x.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric'})+'</b>';
+    break; } }
+})();
+</script>
+
+<div class="bulles deux" style="margin-top:1.1rem">
   <div class="bulle">
-    <h2><span class="ico">📝</span> Comment faire ?</h2>
+    <h2><span class="ico">📝</span> Devenir membre : comment faire ?</h2>
     <ol class="etapes">
       <li>Écrivez au secrétariat. Toute visite se demande à l'avance.</li>
       <li>Entretien avec le Président.</li>
@@ -51,6 +72,6 @@
   </div>
 </div>
 </main>
-<script src="taa.js?v=202611191255"></script>
+<script src="taa.js?v=202611191301"></script>
 </body>
 </html>

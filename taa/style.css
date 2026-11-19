@@ -293,3 +293,12 @@ main:has(.annonce){max-width:1200px}
 .affiches{grid-template-columns:repeat(auto-fill,minmax(200px,1fr))!important;gap:1rem!important}
 .affiches img{aspect-ratio:auto!important;object-fit:contain!important;background:#fff;border:1px solid var(--ligne)}
 @media (max-width:560px){.tarifs th:nth-child(2),.tarifs td:nth-child(2){display:none}.tarifs td:last-child{white-space:normal}}
+
+/* Venir découvrir */
+.decouvrir{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:1.5rem;align-items:center;background:linear-gradient(135deg,#fff 60%,#fdecec)}
+.decouvrir .accroche{font-size:1.35rem;font-weight:800;color:var(--rouge);margin-bottom:.4rem}
+.decouvrir p+p{margin-top:.5rem}
+.decouvrir-photo{width:100%;height:100%;min-height:220px;object-fit:cover;border-radius:16px}
+.prochaine-journee{background:var(--blanc);border:1px solid var(--ligne);border-radius:12px;padding:.6rem .9rem;display:inline-block}
+.prochaine-journee:empty{display:none}
+@media (max-width:700px){.decouvrir{grid-template-columns:1fr}.decouvrir-photo{min-height:180px;max-height:220px;order:-1}}
