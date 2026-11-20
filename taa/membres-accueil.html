@@ -11,17 +11,57 @@
 <meta property="og:site_name" content="T.A.A. Eauze">
 <meta property="og:title" content="Espace membres — T.A.A. Eauze">
 <meta property="og:description" content="Tireurs et Arquebusiers de l'Armagnac — club de tir sportif à Eauze (Gers). Stands 10 à 200 m, école de tir dès 9 ans.">
-<meta property="og:image" content="https://royvanmil.fr/taa/images/og-taa.jpg?v=202611191325">
+<meta property="og:image" content="https://royvanmil.fr/taa/images/og-taa.jpg?v=202611201628">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:url" content="https://royvanmil.fr/taa/membres-accueil.html">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="stylesheet" href="style.css?v=202611191325">
+<link rel="stylesheet" href="style.css?v=202611201628">
 </head>
 <body>
 <main>
 <h1 class="titre-page">Espace membres</h1>
 <p class="intro">Bienvenue ! Choisissez une rubrique.</p>
+
+<div class="bulle codes">
+  <h2><span class="ico">🔐</span> Codes des cadenas</h2>
+  <div class="code-ligne">
+    <div><b>Accès stand longue distance</b><br><span class="gris petit">Porte du 100 / 200 m</span></div>
+    <button class="bouton rouge" onclick="montrerCode('Accès stand longue distance','1234')">Code porte oublié ?</button>
+  </div>
+  <p class="a-completer petit" style="margin-top:.6rem">Démo : code fictif.</p>
+</div>
+
+<div class="popup-fond" id="popup-code" style="display:none">
+  <div class="popup code-popup">
+    <button class="popup-x" aria-label="Fermer" onclick="cacherCode()">×</button>
+    <div class="popup-tag" id="code-titre"></div>
+    <div class="code-chiffres" id="code-valeur"></div>
+    <div class="code-barre"><span id="code-barre"></span></div>
+    <p class="gris petit">Le code disparaît dans <b id="code-sec">15</b> s.</p>
+  </div>
+</div>
+<script>
+var codeMinuteur = null;
+function montrerCode(titre, code) {{
+  document.getElementById('code-titre').textContent = titre;
+  document.getElementById('code-valeur').textContent = code;
+  document.getElementById('popup-code').style.display = 'flex';
+  var b = document.getElementById('code-barre'); b.style.transition = 'none'; b.style.width = '100%';
+  setTimeout(function(){{ b.style.transition = 'width 15s linear'; b.style.width = '0%'; }}, 30);
+  var reste = 15; document.getElementById('code-sec').textContent = reste;
+  clearInterval(codeMinuteur);
+  codeMinuteur = setInterval(function(){{
+    reste--; document.getElementById('code-sec').textContent = reste;
+    if (reste <= 0) cacherCode();
+  }}, 1000);
+}}
+function cacherCode() {{
+  clearInterval(codeMinuteur);
+  document.getElementById('code-valeur').textContent = '';
+  document.getElementById('popup-code').style.display = 'none';
+}}
+</script>
 <div class="boutons">
   <a class="bouton rouge" href="tirs-controle.html">🎯 Tirs de contrôle</a>
   <a class="bouton" href="membres.html">👥 Qui est qui ?</a>
@@ -29,6 +69,6 @@
   <a class="bouton" href="ventes.html">🏷️ Ventes entre membres</a>
 </div>
 </main>
-<script src="taa.js?v=202611191325"></script>
+<script src="taa.js?v=202611201628"></script>
 </body>
 </html>

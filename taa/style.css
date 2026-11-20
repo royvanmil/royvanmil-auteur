@@ -305,3 +305,12 @@ main:has(.annonce){max-width:1200px}
 .regles-secu{list-style:none;padding:0!important;counter-reset:r;display:grid;gap:.5rem}
 .regles-secu li{counter-increment:r;position:relative;padding:.7rem .9rem .7rem 3rem;background:#fdecec;border-radius:12px;margin:0!important}
 .regles-secu li::before{content:counter(r);position:absolute;left:.8rem;top:50%;transform:translateY(-50%);width:1.6rem;height:1.6rem;border-radius:50%;background:var(--rouge);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:.9rem}
+
+/* Codes des cadenas */
+.codes{margin-bottom:1.1rem}
+.code-ligne{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;padding:.8rem 0;border-top:1px solid var(--ligne)}
+.code-ligne .bouton{padding:.7rem 1.2rem}
+.code-popup{max-width:380px;text-align:center}
+.code-chiffres{font-size:3.4rem;font-weight:800;letter-spacing:.35em;margin:.6rem 0 1rem;padding-left:.35em;color:var(--encre);font-variant-numeric:tabular-nums}
+.code-barre{height:6px;background:var(--fond);border-radius:999px;overflow:hidden;margin-bottom:.7rem}
+.code-barre span{display:block;height:100%;width:100%;background:var(--rouge)}
