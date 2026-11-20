@@ -454,3 +454,4 @@ html.splash body{overflow:hidden}
 .adresses h3:first-child{margin-top:.3rem}
 .adresses p{margin:0}
 .adresses a{color:var(--rouge-fonce);font-weight:600;text-decoration:underline}
+.adresses .proposer{margin-top:.9rem;font-size:.85rem;color:var(--gris,#667)}
