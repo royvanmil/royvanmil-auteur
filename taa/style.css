@@ -325,3 +325,4 @@ main:has(.annonce){max-width:1200px}
 .codes.mini .bouton{padding:.45rem .9rem;font-size:.85rem}
 .codes.mini .licence-form input{padding:.45rem .8rem;font-size:.85rem;width:140px}
 .codes.mini p{margin:0}
+.codes-note{font-size:.85rem;color:var(--gris);margin-top:.8rem;line-height:1.6}
