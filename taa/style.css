@@ -441,3 +441,8 @@ html.splash body{overflow:hidden}
 
 /* Pas de popup démonstration dans l’appli installée */
 @media (display-mode: standalone){#popup{display:none!important}}
+
+/* Couleurs des titres de bulles (Nouvelles) */
+.titre-violet{color:#7b3fbf;font-weight:700}
+.titre-rouge{color:#c0392b;font-weight:700}
+.nouvelle-num{color:#e67e22!important}
