@@ -422,3 +422,4 @@ main:has(.annonce){max-width:1200px}
 .decouvrir:has(.decouvrir-bd){grid-template-columns:1fr}
 .decouvrir-bd{width:100%;border-radius:14px;display:block}
 @media (max-width:700px){.decouvrir-bd{order:0}}
+.jeu-roi{width:100%;max-width:420px;border-radius:14px;margin:.6rem auto 1rem;display:block}
