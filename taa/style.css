@@ -446,3 +446,5 @@ html.splash body{overflow:hidden}
 .titre-violet{color:#7b3fbf;font-weight:700}
 .titre-rouge{color:#c0392b;font-weight:700}
 .nouvelle-num{color:#e67e22!important}
+/* Bulle « Stand fermé » : tout en rouge */
+.nouvelle.fermee,.nouvelle.fermee *{color:var(--rouge-fonce)!important}
