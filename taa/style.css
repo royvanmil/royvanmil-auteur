@@ -457,3 +457,5 @@ html.splash body{overflow:hidden}
 .adresses .proposer{margin-top:.9rem;font-size:.85rem;color:var(--gris,#667)}
 .adresses .adr{margin:.15rem 0}
 .adresses .adr b{font-weight:600}
+/* Bonnes adresses : sous-titres différents des lignes */
+.adresses h3{color:var(--bleu);font-size:.78rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;border-bottom:1px solid var(--ligne);padding-bottom:.2rem;margin-top:1rem}
