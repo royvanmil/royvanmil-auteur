@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Roy Van Mil — l'appli</title>
+<meta name="description" content="L'appli de Roy Van Mil : les livres, les histoires audio à écouter et à garder hors connexion.">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="img/icon-192.png">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Roy Van Mil">
+<meta property="og:title" content="Roy Van Mil — l'appli">
+<meta property="og:description" content="Les livres et les histoires audio de Roy Van Mil, dans votre téléphone.">
+<meta property="og:image" content="https://royvanmil.fr/app/img/icon-512.png">
+<script>
+(function(){try{var a=matchMedia('(display-mode: standalone)').matches||navigator.standalone;
+document.documentElement.classList.add(a?'dans-appli':'navigateur');
+if(a&&!sessionStorage.getItem('rvm-splash')){document.documentElement.classList.add('splash');sessionStorage.setItem('rvm-splash','1');}}catch(e){}})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--encre:#1b1b1f;--gris:#6b6b74;--ligne:#ececf0;--or:#b8913f;--bleu:#2b8fe6;--bleu-clair:#e8f3fd;--rouge:#c62828;--rayon:20px}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:#fff;color:var(--encre);line-height:1.55;font-size:16px}
+img{max-width:100%;display:block}
+a{color:inherit}
+.wrap{max-width:760px;margin:0 auto;padding:0 1.2rem}
+
+/* Écran d'ouverture */
+html.splash body{overflow:hidden}
+.ouverture{position:fixed;inset:0;z-index:999;background:#fff;display:none;flex-direction:column;align-items:center;justify-content:center;gap:1.4rem;padding:2rem;text-align:center;transition:opacity .35s}
+html.splash .ouverture{display:flex}
+.ouverture img{width:min(78vw,340px)}
+.ouverture p{font-family:"Cormorant Garamond",serif;font-size:1.3rem;font-style:italic;color:var(--gris)}
+.ouverture .signature{position:absolute;bottom:max(1.4rem,env(safe-area-inset-bottom));left:0;right:0;font-size:.85rem;color:var(--gris);letter-spacing:.04em}
+.ouverture.fin{opacity:0}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;padding:.85rem 1.4rem;border-radius:999px;border:1px solid var(--ligne);background:#fff;color:var(--encre);font:600 .95rem Inter,sans-serif;text-decoration:none;cursor:pointer;transition:transform .15s}
+.btn:active{transform:scale(.97)}
+.btn.or{background:var(--or);border-color:var(--or);color:#fff}
+.btn.bleu{background:var(--bleu);border-color:var(--bleu);color:#fff}
+.btn.petit{padding:.5rem .9rem;font-size:.85rem}
+.btn.grand{padding:1rem 2.4rem;font-size:1.1rem}
+
+/* Bandeau appli */
+.bandeau{display:none;background:var(--encre);color:#fff;padding:.9rem 1.2rem;font-size:.92rem}
+html.dans-appli .bandeau{display:flex;gap:1rem;align-items:center}
+.bandeau div{flex:1}
+.bandeau button{background:none;border:0;color:#fff;font-size:1.7rem;line-height:1;cursor:pointer}
+
+header{padding:1.6rem 0 .6rem;text-align:center}
+header img{width:min(70vw,300px);margin:0 auto}
+header p{color:var(--gris);font-family:"Cormorant Garamond",serif;font-size:1.2rem;font-style:italic;margin-top:.3rem}
+
+/* Installer (dans le navigateur seulement) */
+.installer{display:none;background:var(--bleu-clair);border-radius:var(--rayon);padding:1.2rem;margin:1rem 0;text-align:center}
+html.navigateur .installer{display:block}
+.installer h2{font-size:1.1rem;margin-bottom:.3rem}
+.installer p{font-size:.92rem;color:#2b4a66}
+
+h2.section{font-family:"Cormorant Garamond",serif;font-size:1.9rem;font-weight:700;margin:2.2rem 0 1rem;line-height:1.1}
+h2.section small{display:block;font-family:Inter,sans-serif;font-size:.85rem;font-weight:500;color:var(--gris);margin-top:.3rem}
+
+/* Exclusif */
+.exclu{border:1px solid var(--ligne);border-radius:var(--rayon);padding:1.2rem;background:linear-gradient(160deg,#fff 55%,#fbf6ec)}
+.exclu .tag{display:inline-block;background:var(--or);color:#fff;font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.25rem .7rem;border-radius:999px;margin-bottom:.6rem}
+
+/* Pistes audio */
+.piste{padding:.9rem 0;border-top:1px solid var(--ligne)}
+.piste:first-of-type{border-top:0}
+.piste-titre{display:flex;justify-content:space-between;gap:.8rem;align-items:baseline;margin-bottom:.4rem}
+.piste-titre b{font-size:1rem}
+.piste-titre span{font-size:.8rem;color:var(--gris);white-space:nowrap}
+.piste audio{width:100%;height:40px}
+.piste-actions{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;margin-top:.5rem;font-size:.85rem}
+.etat-ok{color:#1e7b34;font-weight:600}
+.barre{flex:1;min-width:120px;height:6px;background:var(--ligne);border-radius:999px;overflow:hidden}
+.barre span{display:block;height:100%;width:0;background:var(--bleu);transition:width .2s}
+
+/* Livres */
+.livre{display:grid;grid-template-columns:130px minmax(0,1fr);gap:1.2rem;padding:1.4rem 0;border-top:1px solid var(--ligne)}
+.livre:first-of-type{border-top:0}
+.livre img{width:130px;border-radius:6px;box-shadow:0 8px 22px -8px rgba(0,0,0,.35)}
+.livre h3{font-family:"Cormorant Garamond",serif;font-size:1.55rem;line-height:1.1;margin-bottom:.3rem}
+.livre .genre{font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--or)}
+.livre p{font-size:.93rem;color:#3d3d45;margin:.35rem 0 .7rem}
+.livre .actions{display:flex;flex-wrap:wrap;gap:.5rem}
+details.audios{margin-top:.9rem;border:1px solid var(--ligne);border-radius:16px;padding:.2rem 1rem}
+details.audios summary{cursor:pointer;font-weight:600;padding:.7rem 0;list-style:none}
+details.audios summary::-webkit-details-marker{display:none}
+details.audios summary::after{content:" ▾";color:var(--gris)}
+details.audios[open] summary::after{content:" ▴"}
+.tout{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;padding:.4rem 0 .8rem;font-size:.85rem;color:var(--gris)}
+
+footer{text-align:center;color:var(--gris);font-size:.85rem;padding:2.5rem 1rem calc(2rem + env(safe-area-inset-bottom))}
+footer a{color:var(--gris)}
+
+/* Fenêtre d'avertissement */
+.dialogue{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:center;justify-content:center;padding:1.2rem;z-index:900}
+.dialogue.ouvert{display:flex}
+.dialogue > div{background:#fff;border-radius:22px;padding:1.5rem;max-width:400px;width:100%}
+.dialogue h3{font-size:1.15rem;margin-bottom:.6rem}
+.dialogue p{font-size:.93rem;color:#3d3d45;margin-bottom:.6rem}
+.dialogue .actions{display:flex;gap:.6rem;justify-content:flex-end;margin-top:1rem;flex-wrap:wrap}
+
+@media (max-width:520px){.livre{grid-template-columns:96px minmax(0,1fr);gap:.9rem}.livre img{width:96px}.livre h3{font-size:1.3rem}}
+</style>
+</head>
+<body>
+
+<div class="ouverture" id="ouverture">
+  <img src="img/logo.png" alt="Roy Van Mil">
+  <p>Des histoires à lire et à écouter</p>
+  <button class="btn or grand" id="entrer" type="button">Entrer dans l'appli</button>
+  <div class="signature">Roy VAN MIL · Création</div>
+</div>
+
+<div class="bandeau" id="bandeau">
+  <div><b>📱 Bienvenue dans l'application mobile !</b><br>Les livres et les histoires audio de Roy Van Mil, dans votre téléphone. L'application se met à jour automatiquement.</div>
+  <button aria-label="Fermer" id="bandeau-x">×</button>
+</div>
+
+<div class="wrap">
+  <header>
+    <img src="img/logo.png" alt="Roy Van Mil">
+    <p>Auteur · microhistoires, romans et guides</p>
+  </header>
+
+  <div class="installer">
+    <h2>📱 Installez l'appli</h2>
+    <p>Gratuit, sans publicité. Les histoires audio de « Un instant, ou Quatre… » sont <b>disponibles seulement dans l'appli</b>.</p>
+    <button class="btn bleu" id="btn-installer" style="display:none;margin-top:.8rem">📱 Installer l'appli</button>
+    <p id="aide-ios" style="display:none;margin-top:.6rem">Sur iPhone : touchez <b>Partager</b> ⬆️ en bas de Safari, puis <b>« Sur l'écran d'accueil »</b>.</p>
+    <p id="aide-android" style="display:none;margin-top:.6rem">Menu ⋮ du navigateur, puis <b>« Installer l'application »</b> ou <b>« Ajouter à l'écran d'accueil »</b>.</p>
+  </div>
+
+  <h2 class="section">🎧 En exclusivité<small>Un instant, ou Quatre… — avant la sortie du livre</small></h2>
+  <div class="exclu" id="exclu"></div>
+
+  <h2 class="section">📚 Mes livres</h2>
+  <div id="livres"></div>
+
+  <footer>
+    <a href="../index.html">Le site complet</a> · <a href="../contact.html">Contact</a> · <a href="https://www.amazon.fr/stores/author/B0HH4KJ7HN/allbooks" target="_blank" rel="noopener">Tous les livres sur Amazon</a>
+    <p style="margin-top:.8rem">Roy VAN MIL · Création</p>
+  </footer>
+</div>
+
+<div class="dialogue" id="dialogue">
+  <div>
+    <h3>⚠️ Fichier lourd</h3>
+    <p id="dlg-texte"></p>
+    <p>Conseil : faites-le en <b>Wi-Fi</b>, pour ne pas consommer votre forfait mobile.</p>
+    <div class="actions">
+      <button class="btn" id="dlg-non" type="button">Annuler</button>
+      <button class="btn bleu" id="dlg-oui" type="button">Télécharger</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var AMAZON = 'https://www.amazon.fr/stores/author/B0HH4KJ7HN/allbooks';
+  var EXCLU = [
+    { t: 'Rencontre nocturne', u: '../audio/un-instant-ou-quatre/06-V1-64k-Rencontre_nocturne.mp3', o: 10511163 },
+    { t: 'Le bout du monde — partie 1', u: '../audio/un-instant-ou-quatre/09-V1-64k-Le_bout_du_monde_—_partie_1.mp3', o: 22979952 },
+    { t: 'Le bout du monde — partie 2', u: '../audio/un-instant-ou-quatre/09-V1-64k-Le_bout_du_monde_—_partie_2.mp3', o: 21120243 }
+  ];
+  var DEUX = [
+    { t: 'Bienvenue', u: '../audio/un-instant-ou-deux/00-bienvenue.mp3', o: 189814 },
+    { t: '1. Le bouton rouge', u: '../audio/un-instant-ou-deux/01-le-bouton-rouge.mp3', o: 15520975 },
+    { t: '2. Les Deux', u: '../audio/un-instant-ou-deux/02-les-deux.mp3', o: 15488792 },
+    { t: '3. La main qui fait du bien', u: '../audio/un-instant-ou-deux/03-la-main-qui-fait-du-bien.mp3', o: 19290549 },
+    { t: '4. Les Dormeurs', u: '../audio/un-instant-ou-deux/04-les-dormeurs.mp3', o: 11385687 },
+    { t: '9. La Bouteille d’Armagnac', u: '../audio/un-instant-ou-deux/09-la-bouteille-d-armagnac.mp3', o: 15773373 },
+    { t: '10. Le Banquet invisible', u: '../audio/un-instant-ou-deux/10-le-banquet-invisible.mp3', o: 18799815 },
+    { t: '13. La vidéo savait', u: '../audio/un-instant-ou-deux/13-la-video-savait.mp3', o: 7079822 },
+    { t: '15. Ma Tante', u: '../audio/un-instant-ou-deux/15-ma-tante.mp3', o: 18691982 }
+  ];
+  var LIVRES = [
+    { img: 'img/maison.jpg', genre: 'Guide', t: 'Cette maison, elle vaut vraiment le prix ?', p: 'Le guide pour bien regarder une maison avant de l’acheter, écrit par un artisan du bâtiment.', page: '../cette-maison.html' },
+    { img: 'img/deux.jpg', genre: 'Microhistoires', t: 'Un instant, ou Deux…', p: 'Des histoires courtes, entre rires, larmes et surprises. Plusieurs sont à écouter gratuitement.', page: '../un-instant.html', audios: DEUX },
+    { img: 'img/trois.jpg', genre: 'Microhistoires', t: 'Un instant, ou Trois…', p: '13 microhistoires, et Les coulisses.', page: '../trois-instants.html' },
+    { img: 'img/quatre.jpg', genre: 'Microhistoires · bientôt', t: 'Un instant, ou Quatre…', p: 'Le prochain recueil. Ses premières histoires sont déjà à écouter ici, en exclusivité.', page: '../quatre-instants.html', bientot: true },
+    { img: 'img/cloche.jpg', genre: 'Roman gothique · en préparation', t: 'La Cloche des Morts', p: 'Un roman gothique en préparation.', page: '../la-cloche-des-morts.html', bientot: true }
+  ];
+
+  function mo(o) { return o < 1048576 ? Math.max(1, Math.round(o / 1024)) + ' Ko' : Math.round(o / 1048576) + ' Mo'; }
+  var CACHE = 'rvm-audios';
+  var pret = 'caches' in window;
+
+  /* ---- Pistes audio : écouter, garder hors connexion, supprimer ---- */
+  function piste(a) {
+    var d = document.createElement('div'); d.className = 'piste';
+    d.innerHTML = '<div class="piste-titre"><b></b><span>' + mo(a.o) + '</span></div>' +
+      '<audio controls preload="none"></audio><div class="piste-actions"></div>';
+    d.querySelector('b').textContent = a.t;
+    var au = d.querySelector('audio'), act = d.querySelector('.piste-actions');
+    au.src = a.u;
+    function dessiner(ok) {
+      act.innerHTML = '';
+      if (!pret) return;
+      if (ok) {
+        act.innerHTML = '<span class="etat-ok">✓ Disponible hors connexion</span>';
+        var s = document.createElement('button'); s.className = 'btn petit'; s.textContent = 'Supprimer';
+        s.onclick = function () { caches.open(CACHE).then(function (c) { return c.delete(a.u); }).then(function () { au.src = a.u; dessiner(false); }); };
+        act.appendChild(s);
+      } else {
+        var b = document.createElement('button'); b.className = 'btn petit'; b.textContent = '⬇ Télécharger (' + mo(a.o) + ')';
+        b.onclick = function () { demander(a, function () { telecharger(a, act, function () { brancher(); }); }); };
+        act.appendChild(b);
+      }
+    }
+    function brancher() {
+      if (!pret) return;
+      caches.open(CACHE).then(function (c) { return c.match(a.u); }).then(function (r) {
+        if (r) return r.blob().then(function (bl) { au.src = URL.createObjectURL(bl); dessiner(true); });
+        dessiner(false);
+      });
+    }
+    brancher();
+    a.brancher = brancher;
+    return d;
+  }
+
+  function demander(a, suite, total) {
+    var o = total || a.o;
+    document.getElementById('dlg-texte').innerHTML = (total ? 'Toutes les histoires pèsent' : '« ' + a.t + ' » pèse') +
+      ' <b>' + mo(o) + '</b>. Elle' + (total ? 's seront gardées' : ' sera gardée') + ' dans votre téléphone pour l’écouter <b>sans réseau</b>.';
+    var dl = document.getElementById('dialogue'); dl.classList.add('ouvert');
+    document.getElementById('dlg-non').onclick = function () { dl.classList.remove('ouvert'); };
+    document.getElementById('dlg-oui').onclick = function () { dl.classList.remove('ouvert'); suite(); };
+  }
+
+  function telecharger(a, zone, fin) {
+    zone.innerHTML = '<div class="barre"><span></span></div><span class="pct">0 %</span>';
+    var barre = zone.querySelector('.barre span'), pct = zone.querySelector('.pct');
+    return fetch(a.u).then(function (r) {
+      if (!r.ok || !r.body) throw new Error('réseau');
+      var total = +r.headers.get('Content-Length') || a.o, recu = 0, lecteur = r.body.getReader(), morceaux = [];
+      function lire() {
+        return lecteur.read().then(function (x) {
+          if (x.done) return;
+          morceaux.push(x.value); recu += x.value.length;
+          var p = Math.min(100, Math.round(recu * 100 / total)); barre.style.width = p + '%'; pct.textContent = p + ' %';
+          return lire();
+        });
+      }
+      return lire().then(function () {
+        var bl = new Blob(morceaux, { type: 'audio/mpeg' });
+        return caches.open(CACHE).then(function (c) { return c.put(a.u, new Response(bl, { headers: { 'Content-Type': 'audio/mpeg' } })); });
+      });
+    }).then(fin).catch(function () { zone.innerHTML = '<span style="color:var(--rouge)">Téléchargement impossible. Réessayez avec du réseau.</span>'; });
+  }
+
+  var exclu = document.getElementById('exclu');
+  exclu.innerHTML = '<span class="tag">Seulement dans l’appli</span><p style="font-size:.93rem;color:#3d3d45;margin-bottom:.4rem">Des histoires du prochain recueil, à écouter avant tout le monde.</p>';
+  if (document.documentElement.classList.contains('dans-appli')) EXCLU.forEach(function (a) { exclu.appendChild(piste(a)); });
+  else exclu.insertAdjacentHTML('beforeend', '<p style="padding:.8rem 0 .2rem;font-weight:600">🔒 ' + EXCLU.length + ' histoires à écouter, seulement dans l\u2019appli.</p><p style="font-size:.9rem;color:var(--gris)">Installez l\u2019appli (en haut de la page), puis ouvrez-la depuis l\u2019écran d\u2019accueil.</p>');
+
+  var zl = document.getElementById('livres');
+  LIVRES.forEach(function (l) {
+    var d = document.createElement('div'); d.className = 'livre';
+    d.innerHTML = '<img loading="lazy" alt=""><div><div class="genre"></div><h3></h3><p></p><div class="actions"></div></div>';
+    d.querySelector('img').src = l.img; d.querySelector('img').alt = 'Couverture : ' + l.t;
+    d.querySelector('.genre').textContent = l.genre; d.querySelector('h3').textContent = l.t; d.querySelector('p').textContent = l.p;
+    var act = d.querySelector('.actions');
+    var dec = document.createElement('a'); dec.className = 'btn petit'; dec.href = l.page; dec.textContent = 'Découvrir'; act.appendChild(dec);
+    if (!l.bientot) { var am = document.createElement('a'); am.className = 'btn petit or'; am.href = AMAZON; am.target = '_blank'; am.rel = 'noopener'; am.textContent = 'Acheter'; act.appendChild(am); }
+    if (l.audios) {
+      var tot = l.audios.reduce(function (s, a) { return s + a.o; }, 0);
+      var det = document.createElement('details'); det.className = 'audios';
+      det.innerHTML = '<summary>🎧 Écouter les histoires (' + l.audios.length + ')</summary><div class="tout"></div>';
+      var tout = det.querySelector('.tout');
+      if (pret) {
+        var bt = document.createElement('button'); bt.className = 'btn petit bleu'; bt.textContent = '⬇ Tout télécharger (' + mo(tot) + ')';
+        bt.onclick = function () {
+          demander(null, function () {
+            var i = 0; bt.disabled = true;
+            (function suivant() {
+              if (i >= l.audios.length) { tout.innerHTML = '<span class="etat-ok">✓ Toutes les histoires sont disponibles hors connexion</span>'; return; }
+              var a = l.audios[i++];
+              caches.open(CACHE).then(function (c) { return c.match(a.u); }).then(function (r) {
+                if (r) return suivant();
+                var z = document.createElement('div'); z.className = 'piste-actions'; tout.innerHTML = '<span>' + a.t + '</span>'; tout.appendChild(z);
+                telecharger(a, z, function () { if (a.brancher) a.brancher(); suivant(); });
+              });
+            })();
+          }, tot);
+        };
+        tout.appendChild(bt);
+      }
+      l.audios.forEach(function (a) { det.appendChild(piste(a)); });
+      d.lastElementChild.appendChild(det);
+    }
+    zl.appendChild(d);
+  });
+
+  /* ---- Ouverture, bandeau, installation ---- */
+  var ouv = document.getElementById('ouverture');
+  document.getElementById('entrer').onclick = function () {
+    ouv.classList.add('fin');
+    setTimeout(function () { document.documentElement.classList.remove('splash'); ouv.style.display = 'none'; }, 350);
+  };
+  document.getElementById('bandeau-x').onclick = function () { document.getElementById('bandeau').style.display = 'none'; };
+
+  var ios = /iphone|ipad|ipod/i.test(navigator.userAgent), evt = null, bi = document.getElementById('btn-installer');
+  document.getElementById(ios ? 'aide-ios' : 'aide-android').style.display = 'block';
+  window.addEventListener('beforeinstallprompt', function (e) { e.preventDefault(); evt = e; bi.style.display = 'inline-flex'; document.getElementById('aide-android').style.display = 'none'; });
+  bi.onclick = function () { if (evt) { evt.prompt(); evt.userChoice.then(function () { bi.style.display = 'none'; }); } };
+
+  if ('serviceWorker' in navigator) { try { navigator.serviceWorker.register('/sw-app.js', { scope: '/' }); } catch (e) {} }
+
+  /* compteur */
+  try { var u = 'https://compteurs.royvanmil86.workers.dev/compte?c=' + (document.documentElement.classList.contains('dans-appli') ? 'app-ouverture' : 'app-page');
+    if (!(navigator.sendBeacon && navigator.sendBeacon(u))) fetch(u, { mode: 'cors', keepalive: true }); } catch (e) {}
+})();
+</script>
+</body>
+</html>
