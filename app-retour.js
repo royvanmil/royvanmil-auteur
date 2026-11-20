@@ -3,6 +3,10 @@
   var appli = false;
   try { appli = matchMedia('(display-mode: standalone)').matches || navigator.standalone; } catch (e) {}
   if (!appli) return;
+  /* pas de popups du site dans l'appli */
+  var st = document.createElement('style');
+  st.textContent = '.pop-fond,.popup-backdrop{display:none!important}';
+  (document.head || document.documentElement).appendChild(st);
   function accueil(h) {
     try { var u = new URL(h, location.href); return u.origin === location.origin && /^\/(index(\.html)?)?$/.test(u.pathname); } catch (e) { return false; }
   }
