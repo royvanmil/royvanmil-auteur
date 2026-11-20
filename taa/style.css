@@ -465,3 +465,8 @@ html.splash body{overflow:hidden}
 .lexique dd{margin:.1rem 0 0;line-height:1.4}
 .lexique .dessin{margin:.3rem 0 .2rem}
 .lexique .dessin img{display:block;width:100%;max-width:420px;height:auto}
+/* Apprendre : chaque mot bien séparé, titres en couleur */
+.lexique dt{color:#b35c12;font-size:1.05rem;font-weight:800;margin-top:1.3rem;padding-top:1.1rem;border-top:1px dashed #d5dbe5}
+.lexique dt:first-child{margin-top:.4rem;padding-top:0;border-top:0}
+.lexique dd{color:#2c3d5c}
+.lexique .dessin{margin:.4rem 0 .5rem}
