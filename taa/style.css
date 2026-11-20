@@ -326,3 +326,4 @@ main:has(.annonce){max-width:1200px}
 .codes.mini .licence-form input{padding:.45rem .8rem;font-size:.85rem;width:140px}
 .codes.mini p{margin:0}
 .codes-note{font-size:.85rem;color:var(--gris);margin-top:.8rem;line-height:1.6}
+.codes-note{font-size:1rem;color:var(--encre);background:var(--blanc);border:1px solid var(--ligne);border-radius:16px;padding:1rem 1.2rem;margin-top:1rem;line-height:1.6}
