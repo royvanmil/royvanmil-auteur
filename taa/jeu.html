@@ -11,12 +11,12 @@
 <meta property="og:site_name" content="T.A.A. Eauze">
 <meta property="og:title" content="Teste ta précision — T.A.A. Eauze">
 <meta property="og:description" content="Tireurs et Arquebusiers de l'Armagnac — club de tir sportif à Eauze (Gers). Stands 10 à 200 m, école de tir dès 9 ans.">
-<meta property="og:image" content="https://royvanmil.fr/taa/images/og-taa.jpg?v=202611201733">
+<meta property="og:image" content="https://royvanmil.fr/taa/images/og-taa.jpg?v=202611201734">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:url" content="https://royvanmil.fr/taa/jeu.html">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="stylesheet" href="style.css?v=202611201733">
+<link rel="stylesheet" href="style.css?v=202611201734">
 </head>
 <body>
 <main>
@@ -32,7 +32,6 @@
     <div id="j-fin" class="jeu-fin" style="display:none">
       <p class="jeu-total">Total : <b id="j-total">0</b> / 50</p>
       <p id="j-mot"></p>
-      <img id="j-roi" src="images/roi-des-tirs.jpg" alt="Un tireur fier de sa cible trouée partout sauf au centre" class="jeu-roi" style="display:none">
       <form id="j-form" class="licence-form" style="justify-content:center">
         <input id="j-nom" maxlength="30" placeholder="Votre prénom ou pseudo" required>
         <button class="bouton rouge" type="submit">Enregistrer mon score</button>
@@ -45,6 +44,7 @@
   <div class="bulle">
     <h2><span class="ico">🏆</span> Meilleurs scores</h2>
     <ol id="j-classement" class="classement"><li class="gris">Chargement…</li></ol>
+    <img src="images/roi-des-tirs.jpg" alt="Un tireur fier de sa cible trouée partout sauf au centre" class="jeu-roi">
     <p class="gris petit">Le jeu ne remplace pas le vrai tir… venez essayer au stand !</p>
   </div>
 </div>
@@ -88,7 +88,6 @@
     document.getElementById('j-total').textContent=score;
     document.getElementById('j-mot').textContent = score>=45?'🏅 Tireur d’élite !': score>=38?'👏 Très beau groupement !': score>=28?'👍 Pas mal, continuez !':'😅 Le stand vous attend pour progresser !';
     document.getElementById('j-tir').style.display='none';
-    document.getElementById('j-roi').style.display = score<28 ? 'block' : 'none';
     document.getElementById('j-fin').style.display='block';
   }
   document.getElementById('j-tir').onclick=tirer;
@@ -120,6 +119,6 @@
 })();
 </script>
 </main>
-<script src="taa.js?v=202611201733"></script>
+<script src="taa.js?v=202611201734"></script>
 </body>
 </html>
