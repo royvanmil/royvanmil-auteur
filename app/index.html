@@ -323,7 +323,9 @@ footer a{color:var(--gris)}
   if ('serviceWorker' in navigator) { try { navigator.serviceWorker.register('/sw-app.js', { scope: '/' }); } catch (e) {} }
 
   /* compteur */
-  try { var u = 'https://compteurs.royvanmil86.workers.dev/compte?c=' + (document.documentElement.classList.contains('dans-appli') ? 'app-ouverture' : 'app-page');
+  try { var dansAppli = document.documentElement.classList.contains('dans-appli');
+    if (sessionStorage.getItem('rvm-compte')) throw 0; sessionStorage.setItem('rvm-compte', '1');
+    var u = 'https://compteurs.royvanmil86.workers.dev/compte?c=' + (dansAppli ? 'app-ouverture' : 'app-page');
     if (!(navigator.sendBeacon && navigator.sendBeacon(u))) fetch(u, { mode: 'cors', keepalive: true }); } catch (e) {}
 })();
 </script>
