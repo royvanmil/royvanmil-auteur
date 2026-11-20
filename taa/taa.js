@@ -2,7 +2,10 @@
 (function () {
   var pages = [
     ['index.html', 'Accueil'],
+    ['nouvelles.html', 'Nouvelles'],
     ['stands.html', 'Les stands'],
+    ['disciplines.html', 'Disciplines & compétitions'],
+    ['le-club.html', 'Le club'],
     ['devenir-membre.html', 'Devenir membre'],
     ['reglementation.html', 'Armes & démarches'],
     ['divers.html', 'Divers']
@@ -28,14 +31,15 @@
   document.body.insertAdjacentHTML('afterbegin', entete);
   document.body.insertAdjacentHTML('beforeend',
     '<footer class="pied">Tireurs et Arquebusiers de l\'Armagnac — Eauze / Bascous (Gers)<br>' +
-    'Site de démonstration · réalisé par Roy VAN MIL</footer>');
+    'Site de démonstration · réalisé par Roy VAN MIL · <a href="mentions-legales.html">Mentions légales</a></footer>');
 
 
   /* Compteur de visites (même Worker que royvanmil.fr) */
   var CLES = {'index.html':'taa-accueil','stands.html':'taa-stands','devenir-membre.html':'taa-devenir-membre',
     'reglementation.html':'taa-armes-demarches','divers.html':'taa-divers','comment-ca-marche.html':'taa-comment',
     'espace-membres.html':'taa-espace-membres','membres-accueil.html':'taa-membres-accueil','tirs-controle.html':'taa-tirs-controle',
-    'membres.html':'taa-qui-est-qui','reglement-interieur.html':'taa-reglement','ventes.html':'taa-ventes'};
+    'membres.html':'taa-qui-est-qui','reglement-interieur.html':'taa-reglement','ventes.html':'taa-ventes',
+    'le-club.html':'taa-club','disciplines.html':'taa-disciplines','nouvelles.html':'taa-nouvelles','mentions-legales.html':'taa-mentions'};
   var cle = CLES[ici];
   if (cle) {
     var url = 'https://compteurs.royvanmil86.workers.dev/compte?c=' + cle;

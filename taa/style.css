@@ -327,3 +327,54 @@ main:has(.annonce){max-width:1200px}
 .codes.mini p{margin:0}
 .codes-note{font-size:.85rem;color:var(--gris);margin-top:.8rem;line-height:1.6}
 .codes-note{font-size:1rem;color:var(--encre);background:var(--blanc);border:1px solid var(--ligne);border-radius:16px;padding:1rem 1.2rem;margin-top:1rem;line-height:1.6}
+
+/* Accueil : logo à gauche, nom à droite */
+.hero-ligne{display:flex;align-items:center;gap:1.4rem;padding:.6rem 0 .4rem}
+.hero-ligne img{width:110px;height:110px;object-fit:contain;flex:0 0 auto}
+.hero-ligne h1{font-size:clamp(1.5rem,4.2vw,2.3rem);line-height:1.15}
+.hero-ligne p{color:var(--gris);margin-top:.3rem}
+@media (max-width:560px){.hero-ligne{gap:.9rem}.hero-ligne img{width:72px;height:72px}}
+
+/* Au stand : même largeur, moins haut */
+.au-stand.compact{padding:1rem 1.3rem;margin-top:1.1rem}
+.au-stand.compact h2{margin-bottom:.6rem;font-size:1.05rem}
+.au-stand.compact .pictos{gap:.5rem}
+.au-stand.compact .pictos div{display:flex;align-items:center;justify-content:center;gap:.5rem;padding:.5rem .6rem;text-align:left}
+.au-stand.compact .pictos span{font-size:1.4rem}
+.au-stand.compact .pictos b{margin:0;font-size:.92rem}
+.au-stand.compact .regles-secu{grid-template-columns:repeat(3,1fr);margin-top:.5rem;gap:.5rem}
+.au-stand.compact .regles-secu li{font-size:.88rem;padding:.5rem .7rem .5rem 2.5rem}
+@media (max-width:700px){.au-stand.compact .regles-secu{grid-template-columns:1fr}.au-stand.compact .pictos div{flex-direction:column;text-align:center;gap:.2rem}}
+
+/* Références tout en bas */
+.references{margin-top:1.6rem;padding:1rem 0 0;border-top:1px solid var(--ligne);display:flex;flex-wrap:wrap;gap:.3rem 1.2rem;font-size:.85rem;color:var(--encre)}
+.references b{width:100%;font-size:.9rem}
+
+/* Le club */
+.titre-section{font-size:1.25rem;margin:1rem 0 .7rem}
+.bureau-grille{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.membre-bureau{text-align:center;padding:1.1rem}
+.membre-bureau .role{color:var(--rouge);font-weight:700;font-size:.78rem;text-transform:uppercase;letter-spacing:.04em;margin-bottom:.3rem}
+.membre-bureau b{font-size:1.1rem}
+.codir{list-style:none;padding:0!important;columns:2;column-gap:2rem;margin-top:.8rem}
+.codir li{break-inside:avoid;padding:.5rem 0;border-bottom:1px solid var(--ligne);margin:0!important}
+.codir li b{display:block}
+.codir li span{color:var(--gris);font-size:.88rem}
+@media (max-width:700px){.codir{columns:1}}
+
+/* Disciplines */
+.competitions{border:2px solid var(--rouge)}
+.competitions .accroche{font-size:1.3rem;font-weight:800;color:var(--rouge);margin-bottom:.4rem}
+
+/* Nouvelles */
+.infos-cles{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.cle{display:flex;flex-direction:column;gap:.2rem;padding:1rem 1.2rem}
+.cle b{font-size:1.25rem}
+.cle.rouge{background:var(--rouge);color:#fff;border-color:var(--rouge)}
+.cle.rouge span{font-size:.85rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+.nouvelle-haut{display:flex;justify-content:space-between;gap:1rem;font-size:.8rem;color:var(--gris);margin-bottom:.3rem}
+.nouvelle-num{font-weight:700;letter-spacing:.05em}
+.nouvelle h3{font-size:1.15rem;margin-bottom:.3rem}
+.nouvelle.fermee{background:#fdecec;border:2px solid var(--rouge)}
+.nouvelle.fermee h3{color:var(--rouge-fonce)}
+.pied a{color:var(--gris)}
