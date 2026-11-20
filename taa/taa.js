@@ -50,6 +50,20 @@
   /* Appli (PWA) */
   if ('serviceWorker' in navigator) { try { navigator.serviceWorker.register('sw.js'); } catch (e) {} }
 
+  /* Bandeau de bienvenue, seulement dans l'appli installée */
+  var dansAppli = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone;
+  var vu = false; try { vu = localStorage.getItem('taa-bienvenue') === '1'; } catch (e) {}
+  if (dansAppli && !vu) {
+    document.querySelector('.entete').insertAdjacentHTML('afterend',
+      '<div class="bienvenue-appli"><div><b>📱 Bienvenue dans l\'application mobile du T.A.A. !</b><br>' +
+      'Tout le site est disponible, même hors connexion. L\'application se met à jour automatiquement.</div>' +
+      '<button aria-label="Fermer">×</button></div>');
+    document.querySelector('.bienvenue-appli button').onclick = function () {
+      try { localStorage.setItem('taa-bienvenue', '1'); } catch (e) {}
+      this.parentNode.remove();
+    };
+  }
+
   function ouvrir() { document.body.classList.add('menu-ouvert'); }
   function fermer() { document.body.classList.remove('menu-ouvert'); }
   document.querySelector('.burger').onclick = ouvrir;
