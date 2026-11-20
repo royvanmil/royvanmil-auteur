@@ -419,3 +419,6 @@ main:has(.annonce){max-width:1200px}
 .classement .nom{flex:1}
 @media (max-width:800px){.jeu-grille{grid-template-columns:1fr}}
 .boutons .bouton.rouge:last-child:nth-child(9){grid-column:1/-1}
+.decouvrir:has(.decouvrir-bd){grid-template-columns:1fr}
+.decouvrir-bd{width:100%;border-radius:14px;display:block}
+@media (max-width:700px){.decouvrir-bd{order:0}}
