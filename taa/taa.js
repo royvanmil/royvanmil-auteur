@@ -47,6 +47,12 @@
     try { if (!(navigator.sendBeacon && navigator.sendBeacon(url))) fetch(url, {mode:'cors', keepalive:true}); } catch (e) {}
   }
 
+  /* Cartes Google : seulement sur ordinateur (sur téléphone, certains navigateurs ouvrent l'appli Maps tout seuls) */
+  var ordi = window.matchMedia('(pointer: fine)').matches && window.innerWidth > 800;
+  [].forEach.call(document.querySelectorAll('iframe.carte[data-src]'), function (f) {
+    if (ordi) f.src = f.getAttribute('data-src'); else f.style.display = 'none';
+  });
+
   /* Appli (PWA) */
   if ('serviceWorker' in navigator) { try { navigator.serviceWorker.register('sw.js'); } catch (e) {} }
 
