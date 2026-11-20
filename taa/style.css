@@ -423,3 +423,5 @@ main:has(.annonce){max-width:1200px}
 .decouvrir-bd{width:100%;border-radius:14px;display:block}
 @media (max-width:700px){.decouvrir-bd{order:0}}
 .jeu-roi{width:100%;max-width:420px;border-radius:14px;margin:.6rem auto 1rem;display:block}
+/* Téléphone : la carte ne capte plus le doigt (on fait défiler la page sans ouvrir Maps) */
+@media (hover:none){.carte{pointer-events:none}}
