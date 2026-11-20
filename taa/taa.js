@@ -56,10 +56,18 @@
   /* Appli (PWA) */
   if ('serviceWorker' in navigator) { try { navigator.serviceWorker.register('sw.js'); } catch (e) {} }
 
-  /* Écran d'ouverture : 1 seconde puis fondu */
+  /* Écran d'ouverture de l'appli : logo + bouton « Entrer » */
   if (document.documentElement.classList.contains('splash')) {
-    setTimeout(function () { document.documentElement.classList.add('fin'); }, 1000);
-    setTimeout(function () { document.documentElement.classList.remove('splash', 'fin'); }, 1400);
+    document.body.insertAdjacentHTML('beforeend',
+      '<div class="ecran-ouverture"><img src="images/app/icon-512.png" alt="Logo T.A.A.">' +
+      '<h1>Tireurs et Arquebusiers<br>de l\'Armagnac</h1>' +
+      '<button class="bouton rouge" type="button">Entrer dans l\'appli</button>' +
+      '<div class="signature">Roy VAN MIL · Création</div></div>');
+    var eo = document.querySelector('.ecran-ouverture');
+    eo.querySelector('button').onclick = function () {
+      eo.classList.add('fin');
+      setTimeout(function () { eo.remove(); document.documentElement.classList.remove('splash'); }, 350);
+    };
   }
 
   /* Bandeau de bienvenue, seulement dans l'appli installée (à chaque ouverture) */

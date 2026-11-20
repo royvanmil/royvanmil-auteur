@@ -431,6 +431,11 @@ main:has(.annonce){max-width:1200px}
 .bienvenue-appli button{background:none;border:0;color:#fff;font-size:1.8rem;cursor:pointer;line-height:1}
 
 /* Appli : écran d'ouverture */
-html.splash body::before{content:"";position:fixed;inset:0;z-index:999;background:#fff url(images/app/icon-512.png) center 42%/150px no-repeat;transition:opacity .35s}
-html.splash body::after{content:"Tireurs et Arquebusiers de l'Armagnac";position:fixed;left:0;right:0;top:calc(42% + 100px);z-index:1000;text-align:center;font-weight:800;font-size:1.15rem;color:var(--encre);transition:opacity .35s}
-html.splash.fin body::before,html.splash.fin body::after{opacity:0}
+html.splash body::before{content:"";position:fixed;inset:0;z-index:998;background:#fff}
+html.splash body{overflow:hidden}
+.ecran-ouverture{position:fixed;inset:0;z-index:999;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;padding:2rem;text-align:center;transition:opacity .35s}
+.ecran-ouverture img{width:150px;height:150px;object-fit:contain}
+.ecran-ouverture h1{font-size:1.35rem;line-height:1.25;color:var(--encre)}
+.ecran-ouverture .bouton{margin-top:.8rem;padding:1rem 2.2rem;font-size:1.1rem}
+.ecran-ouverture .signature{position:absolute;bottom:max(1.4rem, env(safe-area-inset-bottom));left:0;right:0;font-size:.85rem;color:var(--gris);letter-spacing:.03em}
+.ecran-ouverture.fin{opacity:0}
