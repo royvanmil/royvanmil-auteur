@@ -314,3 +314,6 @@ main:has(.annonce){max-width:1200px}
 .code-chiffres{font-size:3.4rem;font-weight:800;letter-spacing:.35em;margin:.6rem 0 1rem;padding-left:.35em;color:var(--encre);font-variant-numeric:tabular-nums}
 .code-barre{height:6px;background:var(--fond);border-radius:999px;overflow:hidden;margin-bottom:.7rem}
 .code-barre span{display:block;height:100%;width:100%;background:var(--rouge)}
+.licence-form{display:flex;gap:.5rem;flex-wrap:wrap}
+.licence-form input{padding:.7rem 1rem;border-radius:999px;border:1px solid var(--ligne);font-size:1rem;font-family:inherit;width:170px}
+.licence-form .bouton{padding:.7rem 1.2rem}

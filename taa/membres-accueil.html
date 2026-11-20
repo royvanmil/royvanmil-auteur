@@ -11,12 +11,12 @@
 <meta property="og:site_name" content="T.A.A. Eauze">
 <meta property="og:title" content="Espace membres — T.A.A. Eauze">
 <meta property="og:description" content="Tireurs et Arquebusiers de l'Armagnac — club de tir sportif à Eauze (Gers). Stands 10 à 200 m, école de tir dès 9 ans.">
-<meta property="og:image" content="https://royvanmil.fr/taa/images/og-taa.jpg?v=202611201628">
+<meta property="og:image" content="https://royvanmil.fr/taa/images/og-taa.jpg?v=202611201630">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:url" content="https://royvanmil.fr/taa/membres-accueil.html">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="stylesheet" href="style.css?v=202611201628">
+<link rel="stylesheet" href="style.css?v=202611201630">
 </head>
 <body>
 <main>
@@ -30,6 +30,19 @@
     <button class="bouton rouge" onclick="montrerCode('Accès stand longue distance','1234')">Code porte oublié ?</button>
   </div>
   <p class="a-completer petit" style="margin-top:.6rem">Démo : code fictif.</p>
+</div>
+
+<div class="bulle codes">
+  <h2><span class="ico">🪪</span> Autre option : avec votre n° de licence</h2>
+  <div class="code-ligne">
+    <div><b>Accès stand longue distance</b><br><span class="gris petit">Code porte oublié ? Entrez votre numéro de licence FFTir.</span></div>
+    <form class="licence-form" onsubmit="verifLicence(event)">
+      <input id="licence" inputmode="numeric" autocomplete="off" placeholder="N° de licence" aria-label="Numéro de licence">
+      <button class="bouton rouge" type="submit">Voir le code</button>
+    </form>
+  </div>
+  <p id="licence-msg" class="petit" style="color:var(--rouge);min-height:1.2em"></p>
+  <p class="a-completer petit">Démo : n° de licence d'essai 1234567, code fictif.</p>
 </div>
 
 <div class="popup-fond" id="popup-code" style="display:none">
@@ -56,6 +69,13 @@ function montrerCode(titre, code) {{
     if (reste <= 0) cacherCode();
   }}, 1000);
 }}
+function verifLicence(e) {{
+  e.preventDefault();
+  var n = document.getElementById('licence').value.replace(/\s/g, '');
+  var msg = document.getElementById('licence-msg');
+  if (n === '1234567') {{ msg.textContent = ''; document.getElementById('licence').value = ''; montrerCode('Accès stand longue distance', '1234'); }}
+  else {{ msg.textContent = 'Numéro de licence inconnu.'; }}
+}}
 function cacherCode() {{
   clearInterval(codeMinuteur);
   document.getElementById('code-valeur').textContent = '';
@@ -69,6 +89,6 @@ function cacherCode() {{
   <a class="bouton" href="ventes.html">🏷️ Ventes entre membres</a>
 </div>
 </main>
-<script src="taa.js?v=202611201628"></script>
+<script src="taa.js?v=202611201630"></script>
 </body>
 </html>
