@@ -378,3 +378,4 @@ main:has(.annonce){max-width:1200px}
 .nouvelle.fermee{background:#fdecec;border:2px solid var(--rouge)}
 .nouvelle.fermee h3{color:var(--rouge-fonce)}
 .pied a{color:var(--gris)}
+.lien-gouv{display:inline-block;margin-top:.25rem;font-size:.88rem;font-weight:600;color:var(--bleu)}
