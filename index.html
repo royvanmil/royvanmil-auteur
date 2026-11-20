@@ -404,6 +404,8 @@ footer{padding:40px 0 120px;color:#56687a;font-size:.9rem}
   .footer-inner{justify-content:center;text-align:center}
 }
 </style>
+<link rel="manifest" href="/app/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/app/img/apple-touch-icon.png">
 </head>
 
 <body>
@@ -818,6 +820,17 @@ compte("accueil");
 
 <!-- Bouton « Installez l'App » -->
 <a href="app/" class="btn-appli" id="btn-appli">📱 Installez l'App</a>
+<script>
+(function(){
+  var evt=null, b=document.getElementById('btn-appli');
+  if('serviceWorker' in navigator){try{navigator.serviceWorker.register('/sw-app.js',{scope:'/'});}catch(e){}}
+  window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();evt=e;});
+  window.addEventListener('appinstalled',function(){b.style.display='none';});
+  b.addEventListener('click',function(e){
+    if(evt){e.preventDefault();evt.prompt();evt.userChoice.then(function(r){evt=null;if(r.outcome==='accepted')b.style.display='none';});}
+  });
+})();
+</script>
 <style>
 .btn-appli{position:fixed;left:20px;bottom:20px;z-index:9998;display:inline-flex;align-items:center;gap:.4rem;
 padding:.85rem 1.3rem;border-radius:999px;background:#4fc3f7;color:#fff;font:700 1rem Inter,system-ui,sans-serif;
