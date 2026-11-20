@@ -314,7 +314,7 @@ footer a{color:var(--gris)}
 
   var ios = /iphone|ipad|ipod/i.test(navigator.userAgent), evt = null, bi = document.getElementById('btn-installer');
   window.addEventListener('beforeinstallprompt', function (e) { e.preventDefault(); evt = e; });
-  window.addEventListener('appinstalled', function () { bi.textContent = '✓ Appli installée — ouvrez-la depuis l\u2019écran d\u2019accueil'; bi.disabled = true; });
+  window.addEventListener('appinstalled', function () { try { fetch('https://compteurs.royvanmil86.workers.dev/compte?c=app-installe', { mode: 'cors', keepalive: true }); } catch (e) {} bi.textContent = '✓ Appli installée — ouvrez-la depuis l\u2019écran d\u2019accueil'; bi.disabled = true; });
   bi.onclick = function () {
     if (evt) { evt.prompt(); evt.userChoice.then(function () { evt = null; }); return; }
     document.getElementById(ios ? 'aide-ios' : 'aide-android').style.display = 'block';
