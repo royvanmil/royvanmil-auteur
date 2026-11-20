@@ -459,3 +459,7 @@ html.splash body{overflow:hidden}
 .adresses .adr b{font-weight:600}
 /* Bonnes adresses : sous-titres différents des lignes */
 .adresses h3{color:var(--bleu);font-size:.78rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;border-bottom:1px solid var(--ligne);padding-bottom:.2rem;margin-top:1rem}
+/* Page Apprendre : lexique */
+.lexique{margin:.4rem 0 0;font-size:.92rem}
+.lexique dt{font-weight:700;color:var(--bleu);margin-top:.6rem}
+.lexique dd{margin:.1rem 0 0;line-height:1.4}
