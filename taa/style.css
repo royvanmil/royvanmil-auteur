@@ -439,3 +439,6 @@ html.splash body{overflow:hidden}
 .ecran-ouverture .bouton{margin-top:.8rem;padding:1rem 2.2rem;font-size:1.1rem}
 .ecran-ouverture .signature{position:absolute;bottom:max(1.4rem, env(safe-area-inset-bottom));left:0;right:0;font-size:.85rem;color:var(--gris);letter-spacing:.03em}
 .ecran-ouverture.fin{opacity:0}
+
+/* Pas de popup démonstration dans l’appli installée */
+@media (display-mode: standalone){#popup{display:none!important}}
