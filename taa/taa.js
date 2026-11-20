@@ -50,16 +50,22 @@
   /* Appli (PWA) */
   if ('serviceWorker' in navigator) { try { navigator.serviceWorker.register('sw.js'); } catch (e) {} }
 
-  /* Bandeau de bienvenue, seulement dans l'appli installée */
+  /* Écran d'ouverture : 1 seconde puis fondu */
+  if (document.documentElement.classList.contains('splash')) {
+    setTimeout(function () { document.documentElement.classList.add('fin'); }, 1000);
+    setTimeout(function () { document.documentElement.classList.remove('splash', 'fin'); }, 1400);
+  }
+
+  /* Bandeau de bienvenue, seulement dans l'appli installée (à chaque ouverture) */
   var dansAppli = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone;
-  var vu = false; try { vu = localStorage.getItem('taa-bienvenue') === '1'; } catch (e) {}
+  var vu = false; try { vu = sessionStorage.getItem('taa-bienvenue') === '1'; } catch (e) {}
   if (dansAppli && !vu) {
     document.querySelector('.entete').insertAdjacentHTML('afterend',
       '<div class="bienvenue-appli"><div><b>📱 Bienvenue dans l\'application mobile du T.A.A. !</b><br>' +
       'Tout le site est disponible, même hors connexion. L\'application se met à jour automatiquement.</div>' +
       '<button aria-label="Fermer">×</button></div>');
     document.querySelector('.bienvenue-appli button').onclick = function () {
-      try { localStorage.setItem('taa-bienvenue', '1'); } catch (e) {}
+      try { sessionStorage.setItem('taa-bienvenue', '1'); } catch (e) {}
       this.parentNode.remove();
     };
   }

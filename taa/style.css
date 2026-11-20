@@ -429,3 +429,8 @@ main:has(.annonce){max-width:1200px}
 .bienvenue-appli{display:flex;align-items:center;gap:1rem;background:var(--encre);color:#fff;padding:.9rem 1.2rem;font-size:.95rem;line-height:1.45}
 .bienvenue-appli div{flex:1;max-width:980px;margin:0 auto}
 .bienvenue-appli button{background:none;border:0;color:#fff;font-size:1.8rem;cursor:pointer;line-height:1}
+
+/* Appli : écran d'ouverture */
+html.splash body::before{content:"";position:fixed;inset:0;z-index:999;background:#fff url(images/app/icon-512.png) center 42%/150px no-repeat;transition:opacity .35s}
+html.splash body::after{content:"Tireurs et Arquebusiers de l'Armagnac";position:fixed;left:0;right:0;top:calc(42% + 100px);z-index:1000;text-align:center;font-weight:800;font-size:1.15rem;color:var(--encre);transition:opacity .35s}
+html.splash.fin body::before,html.splash.fin body::after{opacity:0}
