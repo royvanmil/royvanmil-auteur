@@ -426,9 +426,8 @@ main:has(.annonce){max-width:1200px}
 /* Téléphone : la carte ne capte plus le doigt (on fait défiler la page sans ouvrir Maps) */
 .carte{pointer-events:none}
 .appli{margin-top:1.1rem;background:linear-gradient(135deg,#fff 60%,#eef3fb)}
-.bienvenue-appli{display:flex;align-items:center;gap:1rem;background:var(--encre);color:#fff;padding:.9rem 1.2rem;font-size:.95rem;line-height:1.45}
-.bienvenue-appli div{flex:1;max-width:980px;margin:0 auto}
-.bienvenue-appli button{background:none;border:0;color:#fff;font-size:1.8rem;cursor:pointer;line-height:1}
+.bienvenue-appli{background:var(--encre);color:#fff;padding:.5rem 1rem;font-size:.8rem;line-height:1.4;text-align:center}
+.bienvenue-appli div{max-width:980px;margin:0 auto}
 
 /* Appli : écran d'ouverture */
 html.splash body::before{content:"";position:fixed;inset:0;z-index:998;background:#fff}
