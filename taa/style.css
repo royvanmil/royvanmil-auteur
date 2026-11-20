@@ -448,3 +448,9 @@ html.splash body{overflow:hidden}
 .nouvelle-num{color:#e67e22!important}
 /* Bulle « Stand fermé » : tout en rouge */
 .nouvelle.fermee,.nouvelle.fermee *{color:var(--rouge-fonce)!important}
+/* Bonnes adresses : petit et compact */
+.adresses{font-size:.9rem}
+.adresses h3{font-size:.95rem;margin:.8rem 0 .2rem}
+.adresses h3:first-child{margin-top:.3rem}
+.adresses p{margin:0}
+.adresses a{color:var(--rouge-fonce);font-weight:600;text-decoration:underline}
