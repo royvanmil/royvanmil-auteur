@@ -8,7 +8,8 @@
     ['le-club.html', 'Le club'],
     ['devenir-membre.html', 'Devenir membre'],
     ['reglementation.html', 'Armes & démarches'],
-    ['divers.html', 'Divers']
+    ['divers.html', 'Divers'],
+    ['jeu.html', 'Teste ta précision']
   ];
   // Cloudflare enlève le « .html » des adresses (/taa/stands au lieu de /taa/stands.html) : on le remet
   var ici = location.pathname.split('/').pop() || 'index.html';
@@ -39,7 +40,7 @@
     'reglementation.html':'taa-armes-demarches','divers.html':'taa-divers','comment-ca-marche.html':'taa-comment',
     'espace-membres.html':'taa-espace-membres','membres-accueil.html':'taa-membres-accueil','tirs-controle.html':'taa-tirs-controle',
     'membres.html':'taa-qui-est-qui','reglement-interieur.html':'taa-reglement','ventes.html':'taa-ventes',
-    'le-club.html':'taa-club','disciplines.html':'taa-disciplines','nouvelles.html':'taa-nouvelles','mentions-legales.html':'taa-mentions'};
+    'le-club.html':'taa-club','disciplines.html':'taa-disciplines','nouvelles.html':'taa-nouvelles','mentions-legales.html':'taa-mentions','jeu.html':'taa-jeu'};
   var cle = CLES[ici];
   if (cle) {
     var url = 'https://compteurs.royvanmil86.workers.dev/compte?c=' + cle;

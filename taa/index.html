@@ -11,12 +11,12 @@
 <meta property="og:site_name" content="T.A.A. Eauze">
 <meta property="og:title" content="Accueil — T.A.A. Eauze">
 <meta property="og:description" content="Tireurs et Arquebusiers de l'Armagnac — club de tir sportif à Eauze (Gers). Stands 10 à 200 m, école de tir dès 9 ans.">
-<meta property="og:image" content="https://royvanmil.fr/taa/images/og-taa.jpg?v=202611201709">
+<meta property="og:image" content="https://royvanmil.fr/taa/images/og-taa.jpg?v=202611201715">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:url" content="https://royvanmil.fr/taa/index.html">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="stylesheet" href="style.css?v=202611201709">
+<link rel="stylesheet" href="style.css?v=202611201715">
 </head>
 <body>
 <main>
@@ -48,6 +48,35 @@
   </div>
 </section>
 
+<div id="etat-stand" class="etat-stand"></div>
+<script>
+// Dates de fermeture exceptionnelle (AAAA-MM-JJ) — mêmes que la page Nouvelles
+var FERMETURES = [];
+(function(){
+  var J=['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'];
+  function iso(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+  function hiver(d){var m=d.getMonth()+1, j=d.getDate(); return m>=10 || m===1 || (m===2 && j<=10);}
+  function plage(d){ // [ouverture, fermeture] en heures, ou null
+    var w=d.getDay(); if(w!==0 && w!==3 && w!==6) return null;
+    if(FERMETURES.indexOf(iso(d))>-1) return null;
+    return hiver(d)?[15,18]:[9,18];
+  }
+  var now=new Date(), h=now.getHours()+now.getMinutes()/60, p=plage(now), el=document.getElementById('etat-stand');
+  if(p && h>=p[0] && h<p[1]){
+    el.className='etat-stand ouvert'; el.innerHTML='<span class="pastille"></span> Stand ouvert <b>jusqu’à '+p[1]+'h00</b>';
+    return;
+  }
+  for(var i=0;i<30;i++){
+    var d=new Date(now.getFullYear(),now.getMonth(),now.getDate()+i), q=plage(d);
+    if(!q) continue;
+    if(i===0 && h>=q[0]) continue;
+    var quand = i===0 ? 'aujourd’hui' : (i===1 ? 'demain' : J[d.getDay()]+' '+d.getDate()+'/'+(d.getMonth()+1));
+    el.className='etat-stand ferme'; el.innerHTML='<span class="pastille"></span> Stand fermé — ouvre <b>'+quand+' à '+q[0]+'h00</b>';
+    return;
+  }
+})();
+</script>
+
 <div class="boutons">
   <a class="bouton" href="nouvelles.html">📰 Nouvelles</a>
   <a class="bouton" href="stands.html">🎯 Les stands</a>
@@ -56,6 +85,7 @@
   <a class="bouton" href="devenir-membre.html">📝 Devenir membre</a>
   <a class="bouton" href="reglementation.html">📋 Armes &amp; démarches</a>
   <a class="bouton" href="divers.html">🔗 Divers</a>
+  <a class="bouton" href="jeu.html">🎯 Teste ta précision</a>
   <a class="bouton rouge" href="espace-membres.html">🔒 Espace membres</a>
 </div>
 
@@ -90,6 +120,40 @@
   </div>
 </div>
 
+<div class="bulle meteo" id="meteo">
+  <h2><span class="ico">🌬️</span> Météo au stand <span class="gris petit" style="font-weight:400">— Bascous, en direct</span></h2>
+  <div class="meteo-corps"><p class="gris">Chargement de la météo…</p></div>
+</div>
+<script>
+(function(){
+  var url='https://api.open-meteo.com/v1/forecast?latitude=43.875&longitude=0.125'+
+    '&current=temperature_2m,wind_speed_10m,wind_direction_10m,wind_gusts_10m,precipitation,weather_code'+
+    '&hourly=temperature_2m,wind_speed_10m,wind_direction_10m,precipitation_probability,weather_code'+
+    '&timezone=Europe%2FParis&forecast_hours=12&wind_speed_unit=kmh';
+  var DIR=['Nord','Nord-Est','Est','Sud-Est','Sud','Sud-Ouest','Ouest','Nord-Ouest'];
+  function dir(d){return DIR[Math.round(d/45)%8];}
+  function ciel(c){ if(c===0)return'☀️'; if(c<=2)return'🌤️'; if(c===3)return'☁️'; if(c<=48)return'🌫️'; if(c<=67)return'🌧️'; if(c<=77)return'🌨️'; if(c<=82)return'🌦️'; return'⛈️'; }
+  function fleche(d,t){return '<span class="fleche" style="transform:rotate('+((d+180)%360)+'deg);font-size:'+t+'">↑</span>';}
+  function avis(v,r){ if(r>=40) return ['rouge','Vent fort : tir longue distance difficile']; if(v>=20||r>=30) return ['orange','Vent sensible : pensez aux corrections']; return ['vert','Bonnes conditions de tir']; }
+  fetch(url).then(function(r){return r.json();}).then(function(m){
+    var c=m.current, a=avis(c.wind_speed_10m,c.wind_gusts_10m);
+    var heures=''; 
+    for(var i=1;i<m.hourly.time.length && i<=8;i++){
+      var t=m.hourly.time[i].slice(11,13)+'h';
+      heures+='<div class="heure"><span>'+t+'</span><b>'+ciel(m.hourly.weather_code[i])+'</b><span>'+Math.round(m.hourly.temperature_2m[i])+'°</span>'+
+        fleche(m.hourly.wind_direction_10m[i],'1rem')+'<small>'+Math.round(m.hourly.wind_speed_10m[i])+' km/h</small><small class="gris">💧'+m.hourly.precipitation_probability[i]+'%</small></div>';
+    }
+    document.querySelector('#meteo .meteo-corps').innerHTML=
+      '<div class="meteo-maintenant">'+
+        '<div class="m-bloc"><span class="m-gros">'+ciel(c.weather_code)+' '+Math.round(c.temperature_2m)+'°C</span><small class="gris">Pluie : '+c.precipitation+' mm</small></div>'+
+        '<div class="m-bloc m-vent">'+fleche(c.wind_direction_10m,'2.4rem')+'<div><span class="m-gros">'+Math.round(c.wind_speed_10m)+' km/h</span><small class="gris">vient du '+dir(c.wind_direction_10m)+' · rafales '+Math.round(c.wind_gusts_10m)+' km/h</small></div></div>'+
+        '<div class="m-avis '+a[0]+'">'+a[1]+'</div>'+
+      '</div><div class="heures">'+heures+'</div>'+
+      '<p class="gris petit" style="margin-top:.5rem">Source : Open-Meteo — mise à jour à chaque visite.</p>';
+  }).catch(function(){ document.querySelector('#meteo .meteo-corps').innerHTML='<p class="gris">Météo indisponible pour le moment.</p>'; });
+})();
+</script>
+
 <div class="bulle au-stand compact">
   <h2><span class="ico">🦺</span> Au stand, obligatoire</h2>
   <div class="pictos">
@@ -122,6 +186,6 @@
   <span>Ligue Occitanie (ex-Midi-Pyrénées)</span>
 </div>
 </main>
-<script src="taa.js?v=202611201709"></script>
+<script src="taa.js?v=202611201715"></script>
 </body>
 </html>

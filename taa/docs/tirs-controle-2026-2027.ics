@@ -1,0 +1,161 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//TAA Eauze//Tirs de controle//FR
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:T.A.A. — Tirs de contrôle
+BEGIN:VEVENT
+UID:taa-tir-2026-10-04@royvanmil.fr
+DTSTAMP:20261120T120000Z
+DTSTART;VALUE=DATE:20261004
+DTEND;VALUE=DATE:20261005
+SUMMARY:T.A.A. — Tir de contrôle / journée club
+LOCATION:Stand T.A.A.\, Hippodrome de la Bergeyre\, route de Bascous\, 32800 Eauze
+DESCRIPTION:Journée club / tir de contrôle. Repas du midi sur réservation. Sauf changement (manifestations hippiques).
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Demain : tir de contrôle au T.A.A.
+TRIGGER:-PT12H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:taa-tir-2026-11-07@royvanmil.fr
+DTSTAMP:20261120T120000Z
+DTSTART;VALUE=DATE:20261107
+DTEND;VALUE=DATE:20261108
+SUMMARY:T.A.A. — Tir de contrôle / journée club
+LOCATION:Stand T.A.A.\, Hippodrome de la Bergeyre\, route de Bascous\, 32800 Eauze
+DESCRIPTION:Journée club / tir de contrôle. Repas du midi sur réservation. Sauf changement (manifestations hippiques).
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Demain : tir de contrôle au T.A.A.
+TRIGGER:-PT12H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:taa-tir-2026-12-06@royvanmil.fr
+DTSTAMP:20261120T120000Z
+DTSTART;VALUE=DATE:20261206
+DTEND;VALUE=DATE:20261207
+SUMMARY:T.A.A. — Tir de contrôle / journée club
+LOCATION:Stand T.A.A.\, Hippodrome de la Bergeyre\, route de Bascous\, 32800 Eauze
+DESCRIPTION:Journée club / tir de contrôle. Repas du midi sur réservation. Sauf changement (manifestations hippiques).
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Demain : tir de contrôle au T.A.A.
+TRIGGER:-PT12H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:taa-tir-2027-01-02@royvanmil.fr
+DTSTAMP:20261120T120000Z
+DTSTART;VALUE=DATE:20270102
+DTEND;VALUE=DATE:20270103
+SUMMARY:T.A.A. — Tir de contrôle / journée club
+LOCATION:Stand T.A.A.\, Hippodrome de la Bergeyre\, route de Bascous\, 32800 Eauze
+DESCRIPTION:Journée club / tir de contrôle. Repas du midi sur réservation. Sauf changement (manifestations hippiques).
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Demain : tir de contrôle au T.A.A.
+TRIGGER:-PT12H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:taa-tir-2027-02-07@royvanmil.fr
+DTSTAMP:20261120T120000Z
+DTSTART;VALUE=DATE:20270207
+DTEND;VALUE=DATE:20270208
+SUMMARY:T.A.A. — Tir de contrôle / journée club
+LOCATION:Stand T.A.A.\, Hippodrome de la Bergeyre\, route de Bascous\, 32800 Eauze
+DESCRIPTION:Journée club / tir de contrôle. Repas du midi sur réservation. Sauf changement (manifestations hippiques).
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Demain : tir de contrôle au T.A.A.
+TRIGGER:-PT12H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:taa-tir-2027-03-06@royvanmil.fr
+DTSTAMP:20261120T120000Z
+DTSTART;VALUE=DATE:20270306
+DTEND;VALUE=DATE:20270307
+SUMMARY:T.A.A. — Tir de contrôle / journée club
+LOCATION:Stand T.A.A.\, Hippodrome de la Bergeyre\, route de Bascous\, 32800 Eauze
+DESCRIPTION:Journée club / tir de contrôle. Repas du midi sur réservation. Sauf changement (manifestations hippiques).
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Demain : tir de contrôle au T.A.A.
+TRIGGER:-PT12H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:taa-tir-2027-04-04@royvanmil.fr
+DTSTAMP:20261120T120000Z
+DTSTART;VALUE=DATE:20270404
+DTEND;VALUE=DATE:20270405
+SUMMARY:T.A.A. — Tir de contrôle / journée club
+LOCATION:Stand T.A.A.\, Hippodrome de la Bergeyre\, route de Bascous\, 32800 Eauze
+DESCRIPTION:Journée club / tir de contrôle. Repas du midi sur réservation. Sauf changement (manifestations hippiques).
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Demain : tir de contrôle au T.A.A.
+TRIGGER:-PT12H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:taa-tir-2027-05-01@royvanmil.fr
+DTSTAMP:20261120T120000Z
+DTSTART;VALUE=DATE:20270501
+DTEND;VALUE=DATE:20270502
+SUMMARY:T.A.A. — Tir de contrôle / journée club
+LOCATION:Stand T.A.A.\, Hippodrome de la Bergeyre\, route de Bascous\, 32800 Eauze
+DESCRIPTION:Journée club / tir de contrôle. Repas du midi sur réservation. Sauf changement (manifestations hippiques).
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Demain : tir de contrôle au T.A.A.
+TRIGGER:-PT12H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:taa-tir-2027-06-06@royvanmil.fr
+DTSTAMP:20261120T120000Z
+DTSTART;VALUE=DATE:20270606
+DTEND;VALUE=DATE:20270607
+SUMMARY:T.A.A. — Tir de contrôle / journée club
+LOCATION:Stand T.A.A.\, Hippodrome de la Bergeyre\, route de Bascous\, 32800 Eauze
+DESCRIPTION:Journée club / tir de contrôle. Repas du midi sur réservation. Sauf changement (manifestations hippiques).
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Demain : tir de contrôle au T.A.A.
+TRIGGER:-PT12H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:taa-tir-2027-07-03@royvanmil.fr
+DTSTAMP:20261120T120000Z
+DTSTART;VALUE=DATE:20270703
+DTEND;VALUE=DATE:20270704
+SUMMARY:T.A.A. — Tir de contrôle / journée club
+LOCATION:Stand T.A.A.\, Hippodrome de la Bergeyre\, route de Bascous\, 32800 Eauze
+DESCRIPTION:Journée club / tir de contrôle. Repas du midi sur réservation. Sauf changement (manifestations hippiques).
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Demain : tir de contrôle au T.A.A.
+TRIGGER:-PT12H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:taa-tir-2027-08-01@royvanmil.fr
+DTSTAMP:20261120T120000Z
+DTSTART;VALUE=DATE:20270801
+DTEND;VALUE=DATE:20270802
+SUMMARY:T.A.A. — Tir de contrôle / journée club
+LOCATION:Stand T.A.A.\, Hippodrome de la Bergeyre\, route de Bascous\, 32800 Eauze
+DESCRIPTION:Journée club / tir de contrôle. Repas du midi sur réservation. Sauf changement (manifestations hippiques).
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Demain : tir de contrôle au T.A.A.
+TRIGGER:-PT12H
+END:VALARM
+END:VEVENT
+END:VCALENDAR

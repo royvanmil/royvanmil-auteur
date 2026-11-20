@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Teste ta précision — T.A.A. Eauze</title>
+<link rel="icon" href="images/logo-taa.gif">
+<meta name="description" content="T.A.A. — Tireurs et Arquebusiers de l'Armagnac. Club de tir sportif à Eauze (Gers) : stands 10, 25, 50, 100 et 200 m, école de tir dès 9 ans.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="T.A.A. Eauze">
+<meta property="og:title" content="Teste ta précision — T.A.A. Eauze">
+<meta property="og:description" content="Tireurs et Arquebusiers de l'Armagnac — club de tir sportif à Eauze (Gers). Stands 10 à 200 m, école de tir dès 9 ans.">
+<meta property="og:image" content="https://royvanmil.fr/taa/images/og-taa.jpg?v=202611201715">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://royvanmil.fr/taa/jeu.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="style.css?v=202611201715">
+</head>
+<body>
+<main>
+<h1 class="titre-page">🎯 Teste ta précision</h1>
+<p class="intro">5 coups, comme au stand. Le viseur bouge un peu, comme une vraie main : tirez au bon moment !</p>
+
+<div class="jeu-grille">
+  <div class="bulle jeu-zone">
+    <div class="jeu-haut"><span>Coup <b id="j-coup">1</b> / 5</span><span>Score : <b id="j-score">0</b> / 50</span></div>
+    <canvas id="cible" width="500" height="500"></canvas>
+    <button class="bouton rouge jeu-tir" id="j-tir">💥 TIRER</button>
+    <p class="gris petit" style="text-align:center;margin-top:.4rem">Ou touchez la cible / appuyez sur Espace.</p>
+    <div id="j-fin" class="jeu-fin" style="display:none">
+      <p class="jeu-total">Total : <b id="j-total">0</b> / 50</p>
+      <p id="j-mot"></p>
+      <form id="j-form" class="licence-form" style="justify-content:center">
+        <input id="j-nom" maxlength="30" placeholder="Votre prénom ou pseudo" required>
+        <button class="bouton rouge" type="submit">Enregistrer mon score</button>
+      </form>
+      <p id="j-msg" class="petit" style="min-height:1.2em"></p>
+      <button class="bouton" id="j-rejouer" type="button">🔄 Rejouer</button>
+    </div>
+  </div>
+
+  <div class="bulle">
+    <h2><span class="ico">🏆</span> Meilleurs scores</h2>
+    <ol id="j-classement" class="classement"><li class="gris">Chargement…</li></ol>
+    <p class="gris petit">Le jeu ne remplace pas le vrai tir… venez essayer au stand !</p>
+  </div>
+</div>
+
+<script>
+(function(){
+  var API='https://compteurs.royvanmil86.workers.dev';
+  var c=document.getElementById('cible'), x=c.getContext('2d'), W=c.width, R=W/2-12, CX=W/2, CY=W/2;
+  var coups=[], score=0, t0=performance.now(), fini=false;
+  var ph=[Math.random()*9,Math.random()*9,Math.random()*9,Math.random()*9];
+  function viseur(t){ // tremblement façon main humaine
+    var s=t/1000*1.35, a=R*0.42;
+    return [CX + a*(0.55*Math.sin(s*1.3+ph[0]) + 0.3*Math.sin(s*3.7+ph[1]) + 0.15*Math.sin(s*8.1)),
+            CY + a*(0.55*Math.cos(s*1.1+ph[2]) + 0.3*Math.sin(s*4.3+ph[3]) + 0.15*Math.cos(s*7.3))];
+  }
+  function points(px,py){ var d=Math.hypot(px-CX,py-CY); var p=10-Math.floor(d/(R/10)); return p<0?0:p; }
+  function dessin(t){
+    x.clearRect(0,0,W,W);
+    for(var k=10;k>=1;k--){
+      var r=R*k/10; x.beginPath(); x.arc(CX,CY,r,0,7);
+      x.fillStyle = k<=4 ? '#111' : '#f4f1e8'; x.fill();
+      x.lineWidth=1.2; x.strokeStyle = k<=4 ? '#eee' : '#333'; x.stroke();
+      if(k>1){ x.fillStyle = k<=4 ? '#eee' : '#333'; x.font=(R/16)+'px sans-serif'; x.textAlign='center'; x.textBaseline='middle';
+        x.fillText(11-k, CX+r-R/20, CY); }
+    }
+    coups.forEach(function(p){ x.beginPath(); x.arc(p[0],p[1],7,0,7); x.fillStyle='#c62828'; x.fill(); x.lineWidth=2; x.strokeStyle='#fff'; x.stroke(); });
+    if(!fini){ var v=viseur(t); x.strokeStyle='#c62828'; x.lineWidth=2.5;
+      x.beginPath(); x.arc(v[0],v[1],26,0,7); x.stroke();
+      x.beginPath(); x.moveTo(v[0]-40,v[1]); x.lineTo(v[0]-10,v[1]); x.moveTo(v[0]+10,v[1]); x.lineTo(v[0]+40,v[1]);
+      x.moveTo(v[0],v[1]-40); x.lineTo(v[0],v[1]-10); x.moveTo(v[0],v[1]+10); x.lineTo(v[0],v[1]+40); x.stroke(); }
+    requestAnimationFrame(dessin);
+  }
+  requestAnimationFrame(dessin);
+  function tirer(){
+    if(fini) return;
+    var v=viseur(performance.now()); coups.push(v); score+=points(v[0],v[1]);
+    document.getElementById('j-score').textContent=score;
+    if(coups.length>=5){ fini=true; finir(); } else document.getElementById('j-coup').textContent=coups.length+1;
+  }
+  function finir(){
+    document.getElementById('j-total').textContent=score;
+    document.getElementById('j-mot').textContent = score>=45?'🏅 Tireur d’élite !': score>=38?'👏 Très beau groupement !': score>=28?'👍 Pas mal, continuez !':'😅 Le stand vous attend pour progresser !';
+    document.getElementById('j-tir').style.display='none';
+    document.getElementById('j-fin').style.display='block';
+  }
+  document.getElementById('j-tir').onclick=tirer;
+  c.onclick=tirer;
+  document.addEventListener('keydown',function(e){ if(e.code==='Space'){ e.preventDefault(); tirer(); }});
+  document.getElementById('j-rejouer').onclick=function(){
+    coups=[]; score=0; fini=false; document.getElementById('j-score').textContent=0; document.getElementById('j-coup').textContent=1;
+    document.getElementById('j-tir').style.display=''; document.getElementById('j-fin').style.display='none';
+    document.getElementById('j-form').style.display=''; document.getElementById('j-msg').textContent='';
+  };
+  function classement(){
+    fetch(API+'/taa-scores').then(function(r){return r.json();}).then(function(l){
+      var ol=document.getElementById('j-classement'); ol.innerHTML='';
+      if(!l.length){ ol.innerHTML='<li class="gris">Aucun score pour l’instant. Soyez le premier !</li>'; return; }
+      l.slice(0,10).forEach(function(e,i){ var li=document.createElement('li');
+        li.innerHTML='<span class="rang">'+(['🥇','🥈','🥉'][i]||(i+1))+'</span><span class="nom"></span><b>'+e.score+'</b>';
+        li.querySelector('.nom').textContent=e.nom; ol.appendChild(li); });
+    }).catch(function(){ document.getElementById('j-classement').innerHTML='<li class="gris">Classement indisponible.</li>'; });
+  }
+  classement();
+  document.getElementById('j-form').onsubmit=function(e){
+    e.preventDefault(); var nom=document.getElementById('j-nom').value.trim(), m=document.getElementById('j-msg');
+    fetch(API+'/taa-score',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nom:nom,score:score})})
+      .then(function(r){return r.json();}).then(function(r){
+        if(r.ok){ m.style.color='#1e7b34'; m.textContent='Score enregistré !'; document.getElementById('j-form').style.display='none'; classement(); }
+        else { m.style.color='#c62828'; m.textContent = r.erreur==='trop_rapide'?'Attendez quelques secondes avant de réessayer.':'Score non enregistré.'; }
+      }).catch(function(){ m.style.color='#c62828'; m.textContent='Score non enregistré (serveur indisponible).'; });
+  };
+})();
+</script>
+</main>
+<script src="taa.js?v=202611201715"></script>
+</body>
+</html>
