@@ -1,5 +1,5 @@
 /* T.A.A. — service worker : pages lisibles hors connexion, mises à jour automatiques */
-const CACHE = 'taa-v1';
+const CACHE = 'taa-v2';
 const BASE = ['./', './index.html', './style.css', './taa.js', './images/logo-taa.gif', './tirs-controle.html', './reglement-interieur.html'];
 
 self.addEventListener('install', e => {
