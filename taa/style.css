@@ -317,3 +317,11 @@ main:has(.annonce){max-width:1200px}
 .licence-form{display:flex;gap:.5rem;flex-wrap:wrap}
 .licence-form input{padding:.7rem 1rem;border-radius:999px;border:1px solid var(--ligne);font-size:1rem;font-family:inherit;width:170px}
 .licence-form .bouton{padding:.7rem 1.2rem}
+/* codes : petit, en bas de page */
+.codes-bas{margin-top:2rem}
+.codes.mini{padding:.9rem 1.1rem;margin:0;box-shadow:none;font-size:.88rem}
+.codes.mini h2{font-size:.95rem;margin-bottom:.4rem}
+.codes.mini .code-ligne{padding:.5rem 0;gap:.6rem}
+.codes.mini .bouton{padding:.45rem .9rem;font-size:.85rem}
+.codes.mini .licence-form input{padding:.45rem .8rem;font-size:.85rem;width:140px}
+.codes.mini p{margin:0}
