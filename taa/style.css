@@ -470,3 +470,5 @@ html.splash body{overflow:hidden}
 .lexique dt:first-child{margin-top:.4rem;padding-top:0;border-top:0}
 .lexique dd{color:#2c3d5c}
 .lexique .dessin{margin:.4rem 0 .5rem}
+.dessin-haut{margin:.5rem 0 .3rem}
+.dessin-haut img{display:block;width:100%;max-width:420px;height:auto}
