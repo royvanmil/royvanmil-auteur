@@ -47,6 +47,9 @@
     try { if (!(navigator.sendBeacon && navigator.sendBeacon(url))) fetch(url, {mode:'cors', keepalive:true}); } catch (e) {}
   }
 
+  /* Appli (PWA) */
+  if ('serviceWorker' in navigator) { try { navigator.serviceWorker.register('sw.js'); } catch (e) {} }
+
   function ouvrir() { document.body.classList.add('menu-ouvert'); }
   function fermer() { document.body.classList.remove('menu-ouvert'); }
   document.querySelector('.burger').onclick = ouvrir;

@@ -6,17 +6,23 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Accueil — T.A.A. Eauze</title>
 <link rel="icon" href="images/logo-taa.gif">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#16223a">
+<link rel="apple-touch-icon" href="images/app/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="T.A.A.">
 <meta name="description" content="T.A.A. — Tireurs et Arquebusiers de l'Armagnac. Club de tir sportif à Eauze (Gers) : stands 10, 25, 50, 100 et 200 m, école de tir dès 9 ans.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="T.A.A. Eauze">
 <meta property="og:title" content="Accueil — T.A.A. Eauze">
 <meta property="og:description" content="Tireurs et Arquebusiers de l'Armagnac — club de tir sportif à Eauze (Gers). Stands 10 à 200 m, école de tir dès 9 ans.">
-<meta property="og:image" content="https://royvanmil.fr/taa/images/og-taa.jpg?v=202611201736">
+<meta property="og:image" content="https://royvanmil.fr/taa/images/og-taa.jpg?v=202611201744">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:url" content="https://royvanmil.fr/taa/index.html">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="stylesheet" href="style.css?v=202611201736">
+<link rel="stylesheet" href="style.css?v=202611201744">
 </head>
 <body>
 <main>
@@ -175,6 +181,26 @@ var FERMETURES = [];
   <a class="bouton rouge inline" href="mailto:taa32cat@bbox.fr">✉️ Écrire au club</a>
 </div>
 
+<div class="bulle appli" id="appli">
+  <h2><span class="ico">📱</span> L'appli du T.A.A.</h2>
+  <p>Installez le site sur l'écran de votre téléphone, comme une vraie application : plein écran, et les pages déjà vues restent lisibles sans réseau.</p>
+  <button class="bouton rouge inline" id="btn-installer" style="display:none">📱 Installer l'appli</button>
+  <p id="appli-ios" class="petit" style="display:none;margin-top:.6rem">Sur iPhone : touchez <b>Partager</b> ⬆️ en bas de Safari, puis <b>« Sur l'écran d'accueil »</b>.</p>
+  <p id="appli-autre" class="petit gris" style="display:none;margin-top:.6rem">Sur Android : menu ⋮ du navigateur, puis <b>« Installer l'application »</b> ou <b>« Ajouter à l'écran d'accueil »</b>.</p>
+  <p class="a-completer petit" style="margin-top:.6rem">Version démo : à supprimer et réinstaller quand le vrai site du club sera en ligne.</p>
+</div>
+<script>
+(function(){
+  var appli=document.getElementById('appli');
+  if (window.matchMedia('(display-mode: standalone)').matches || navigator.standalone) { appli.style.display='none'; return; }
+  var ios=/iphone|ipad|ipod/i.test(navigator.userAgent), evt=null, btn=document.getElementById('btn-installer');
+  if (ios) document.getElementById('appli-ios').style.display='block';
+  else document.getElementById('appli-autre').style.display='block';
+  window.addEventListener('beforeinstallprompt', function(e){ e.preventDefault(); evt=e; btn.style.display='inline-flex'; document.getElementById('appli-autre').style.display='none'; });
+  btn.onclick=function(){ if(evt){ evt.prompt(); evt.userChoice.then(function(){ btn.style.display='none'; }); } };
+})();
+</script>
+
 <div class="references">
   <b>Références du club</b>
   <span>Agrément DDJS 98010</span>
@@ -186,6 +212,6 @@ var FERMETURES = [];
   <span>Ligue Occitanie (ex-Midi-Pyrénées)</span>
 </div>
 </main>
-<script src="taa.js?v=202611201736"></script>
+<script src="taa.js?v=202611201744"></script>
 </body>
 </html>
