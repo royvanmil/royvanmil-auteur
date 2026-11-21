@@ -49,10 +49,8 @@ html.splash .ouverture{display:flex}
 .btn.grand{padding:1rem 2.4rem;font-size:1.1rem}
 
 /* Bandeau appli */
-.bandeau{display:none;background:var(--encre);color:#fff;padding:.9rem 1.2rem;font-size:.92rem}
-html.dans-appli .bandeau{display:flex;gap:1rem;align-items:center}
-.bandeau div{flex:1}
-.bandeau button{background:none;border:0;color:#fff;font-size:1.7rem;line-height:1;cursor:pointer}
+.bandeau{display:none;background:var(--encre);color:#fff;padding:.45rem 1rem;font-size:.8rem;line-height:1.4;text-align:center;letter-spacing:.02em}
+html.dans-appli .bandeau{display:block}
 
 header{padding:1.6rem 0 .6rem;text-align:center}
 header img{width:min(70vw,300px);margin:0 auto}
@@ -121,10 +119,7 @@ footer a{color:var(--gris)}
   <div class="signature">Roy VAN MIL · Création</div>
 </div>
 
-<div class="bandeau" id="bandeau">
-  <div><b>📱 Bienvenue dans l'application mobile !</b><br>Les livres et les histoires audio de Roy Van Mil, dans votre téléphone. L'application se met à jour automatiquement.</div>
-  <button aria-label="Fermer" id="bandeau-x">×</button>
-</div>
+<div class="bandeau">Bienvenue sur l'application</div>
 
 <div class="wrap">
   <header>
@@ -310,7 +305,6 @@ footer a{color:var(--gris)}
     ouv.classList.add('fin');
     setTimeout(function () { document.documentElement.classList.remove('splash'); ouv.style.display = 'none'; }, 350);
   };
-  document.getElementById('bandeau-x').onclick = function () { document.getElementById('bandeau').style.display = 'none'; };
 
   var ios = /iphone|ipad|ipod/i.test(navigator.userAgent), evt = null, bi = document.getElementById('btn-installer');
   window.addEventListener('beforeinstallprompt', function (e) { e.preventDefault(); evt = e; });
