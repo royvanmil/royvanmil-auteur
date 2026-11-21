@@ -203,6 +203,7 @@ var FERMETURES = [];
   if (ios) document.getElementById('appli-ios').style.display='block';
   else document.getElementById('appli-autre').style.display='block';
   window.addEventListener('beforeinstallprompt', function(e){ e.preventDefault(); evt=e; btn.style.display='inline-flex'; document.getElementById('appli-autre').style.display='none'; });
+  window.addEventListener('appinstalled', function(){ try{ fetch('https://compteurs.royvanmil86.workers.dev/compte?c=taa-app-installe',{mode:'cors',keepalive:true}); }catch(e){} });
   btn.onclick=function(){ if(evt){ evt.prompt(); evt.userChoice.then(function(){ btn.style.display='none'; }); } };
 })();
 </script>

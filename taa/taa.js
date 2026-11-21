@@ -74,6 +74,10 @@
   /* Bandeau de bienvenue : appli installée, page d'accueil seulement */
   var dansAppli = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone;
   var accueil = /(\/|index\.html)$/.test(location.pathname);
+  /* Compteur : ouverture de l'appli installée (une fois par session) */
+  if (dansAppli) { try { if (!sessionStorage.getItem('taa-app-compte')) { sessionStorage.setItem('taa-app-compte','1');
+    var ua='https://compteurs.royvanmil86.workers.dev/compte?c=taa-app-ouverture';
+    if (!(navigator.sendBeacon && navigator.sendBeacon(ua))) fetch(ua,{mode:'cors',keepalive:true}); } } catch (e) {} }
   if (dansAppli && accueil) {
     document.querySelector('.entete').insertAdjacentHTML('afterend',
       '<div class="bienvenue-appli"><div><b>📱 Bienvenue dans l\'appli du T.A.A. !</b><br>' +
