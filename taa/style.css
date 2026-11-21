@@ -472,3 +472,15 @@ html.splash body{overflow:hidden}
 .lexique .dessin{margin:.4rem 0 .5rem}
 .dessin-haut{margin:.5rem 0 .3rem}
 .dessin-haut img{display:block;width:100%;max-width:420px;height:auto}
+
+/* Divers : FFTir + Facebook à gauche, bonnes adresses en grand à droite */
+.divers-haut{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:1.1rem;align-items:start}
+.divers-gauche{display:grid;gap:1.1rem}
+.bulle.compacte{padding:1.1rem 1.3rem}
+.bulle.compacte h2{font-size:1.1rem;margin-bottom:.3rem}
+.bulle.compacte p{font-size:.9rem;margin-bottom:.6rem}
+.adresses .adr{display:grid;grid-template-columns:11rem minmax(0,1fr);gap:.8rem;align-items:baseline;padding:.3rem 0;border-bottom:1px solid #eef0f4;margin:0}
+.adresses .adr:last-of-type{border-bottom:0}
+.adresses .adr a{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media (max-width:760px){.divers-haut{grid-template-columns:1fr}.adresses .adr{grid-template-columns:9rem minmax(0,1fr)}}
+@media (max-width:520px){.adresses .adr{grid-template-columns:1fr;gap:0}.adresses .adr a{white-space:normal}}
