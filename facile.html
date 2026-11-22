@@ -88,6 +88,10 @@ tr.esp td:first-child{background:transparent;}
 #tTotal th:first-child{background:var(--ink);}
 #tTotal td{font-weight:800;font-size:1.15rem;color:var(--ink);background:#fff8e6;border-bottom:none;}
 #tTotal td:first-child{background:#fff8e6;}
+.boutons-cpt{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;}
+.raz{margin:.6rem 0 .2rem;background:none;border:2px solid var(--red);color:var(--red);border-radius:40px;padding:.45rem 1.2rem;font-family:Inter,system-ui,sans-serif;font-size:1rem;font-weight:600;cursor:pointer;min-height:44px;}
+.raz:hover{background:var(--red);color:#fff;}
+.raz:disabled{opacity:.5;cursor:wait;}
 .memo{margin-top:1.25rem;}
 .memo ul{margin:.4rem 0 .8rem 1.2rem;}
 .memo li{padding:.15rem 0;}
@@ -121,7 +125,9 @@ tr.esp td:first-child{background:transparent;}
       <!-- ===== COMPTEURS ===== -->
       <div class="card big">
         <h2>Compteurs de visites</h2>
-        <button class="refresh" type="button" id="refresh">Actualiser</button>
+        <div class="boutons-cpt"><button class="refresh" type="button" id="refresh">Actualiser</button>
+        <button class="raz" type="button" id="raz">Remettre à 0 : aujourd’hui, hier, 7 jours</button></div>
+        <p class="note" id="razInfo"></p>
         <div class="scroll"><table id="tStats"><thead><tr><th>Page</th><th>Aujourd’hui</th><th>Hier</th><th>7 jours</th><th>1 mois</th><th>Toujours</th></tr></thead><tbody></tbody></table></div>
         <div class="scroll totgen"><table id="tTotal"><thead><tr><th>Total de tout</th><th>Aujourd’hui</th><th>Hier</th><th>7 jours</th><th>1 mois</th><th>Toujours</th></tr></thead><tbody></tbody></table></div>
         <p class="note">Le total de tout additionne les visites de pages. Les clics (achats, concours, boutons) ont leur propre total et ne sont pas ajoutés.</p>
@@ -351,6 +357,15 @@ function entrer(c, depuisForm){
 }
 document.getElementById("loginBox").addEventListener("submit", function(e){ e.preventDefault(); entrer(document.getElementById("pw").value.trim(), true); });
 document.getElementById("refresh").addEventListener("click", function(){ chargerStats().catch(function(){}); });
+document.getElementById("raz").addEventListener("click", function(){
+  if(!confirm("Remettre à 0 TOUS les compteurs pour aujourd’hui, hier et les 7 derniers jours ?\n\n« 1 mois » baissera aussi (ces 7 jours en sont retirés).\n« Toujours » ne change pas.\n\nOn ne peut pas revenir en arrière.")) return;
+  var bt=this, info=document.getElementById("razInfo"); bt.disabled=true; info.textContent="Remise à 0 en cours…";
+  fetch(API+"/reset-jours?code="+encodeURIComponent(code))
+    .then(function(r){ if(!r.ok) throw r.status; return r.json(); })
+    .then(function(d){ info.textContent="Fait : "+d.effaces+" compteurs du jour remis à 0."; return chargerStats(); })
+    .catch(function(e){ info.textContent = e===403 ? "Mot de passe refusé." : "Échec. As-tu bien collé le nouveau Worker dans Cloudflare ?"; })
+    .then(function(){ bt.disabled=false; });
+});
 document.getElementById("logout").addEventListener("click", function(){ try{ sessionStorage.removeItem("rvm-code"); }catch(e){} location.reload(); });
 if(code) entrer(code, false);
 </script>
