@@ -142,7 +142,7 @@ footer a{color:var(--gris)}
   <div id="livres"></div>
 
   <footer>
-    <a href="https://royvanmil.fr/" target="_blank" rel="noopener">Le site complet (navigateur)</a> · <a href="../contact.html">Contact</a> · <a href="https://www.amazon.fr/stores/author/B0HH4KJ7HN/allbooks" target="_blank" rel="noopener">Tous les livres sur Amazon</a>
+    <a href="https://royvanmil.fr/" target="_blank" rel="noopener">Le site complet (navigateur)</a> · <a href="../contact.html">Contact</a> · <a href="https://www.amazon.fr/stores/author/B0HH4KJ7HN/allbooks" target="_blank" rel="noopener" id="amazon-bas">Tous les livres sur Amazon</a>
     <p style="margin-top:.8rem">Roy VAN MIL · Création</p>
   </footer>
 </div>
@@ -186,6 +186,13 @@ footer a{color:var(--gris)}
     { img: 'img/cloche.jpg', genre: 'Roman gothique · en préparation', t: 'La Cloche des Morts', p: 'Un roman gothique en préparation.', page: '../la-cloche-des-morts.html', bientot: true }
   ];
 
+  /* compteurs des actions dans l'appli (Découvrir, Acheter, écoutes, téléchargements) */
+  function compteApp(cle) {
+    var u = 'https://compteurs.royvanmil86.workers.dev/compte?c=' + cle;
+    try { if (navigator.sendBeacon && navigator.sendBeacon(u)) return; } catch (e) {}
+    try { fetch(u, { mode: 'cors', keepalive: true }); } catch (e) {}
+  }
+
   function mo(o) { return o < 1048576 ? Math.max(1, Math.round(o / 1024)) + ' Ko' : Math.round(o / 1048576) + ' Mo'; }
   var CACHE = 'rvm-audios';
   var pret = 'caches' in window;
@@ -198,6 +205,7 @@ footer a{color:var(--gris)}
     d.querySelector('b').textContent = a.t;
     var au = d.querySelector('audio'), act = d.querySelector('.piste-actions');
     au.src = a.u;
+    au.addEventListener('play', function () { if (au.dataset.compte) return; au.dataset.compte = '1'; compteApp('app-ecoute'); });
     function dessiner(ok) {
       act.innerHTML = '';
       if (!pret) return;
@@ -251,7 +259,7 @@ footer a{color:var(--gris)}
         var bl = new Blob(morceaux, { type: 'audio/mpeg' });
         return caches.open(CACHE).then(function (c) { return c.put(a.u, new Response(bl, { headers: { 'Content-Type': 'audio/mpeg' } })); });
       });
-    }).then(fin).catch(function () { zone.innerHTML = '<span style="color:var(--rouge)">Téléchargement impossible. Réessayez avec du réseau.</span>'; });
+    }).then(function () { compteApp('app-telecharge'); }).then(fin).catch(function () { zone.innerHTML = '<span style="color:var(--rouge)">Téléchargement impossible. Réessayez avec du réseau.</span>'; });
   }
 
   var exclu = document.getElementById('exclu');
@@ -266,8 +274,8 @@ footer a{color:var(--gris)}
     d.querySelector('img').src = l.img; d.querySelector('img').alt = 'Couverture : ' + l.t;
     d.querySelector('.genre').textContent = l.genre; d.querySelector('h3').textContent = l.t; d.querySelector('p').textContent = l.p;
     var act = d.querySelector('.actions');
-    var dec = document.createElement('a'); dec.className = 'btn petit'; dec.href = l.page; dec.textContent = 'Découvrir'; act.appendChild(dec);
-    if (!l.bientot) { var am = document.createElement('a'); am.className = 'btn petit or'; am.href = AMAZON; am.target = '_blank'; am.rel = 'noopener'; am.textContent = 'Acheter'; act.appendChild(am); }
+    var dec = document.createElement('a'); dec.className = 'btn petit'; dec.href = l.page; dec.textContent = 'Découvrir'; dec.addEventListener('click', function () { compteApp('app-decouvrir'); }); act.appendChild(dec);
+    if (!l.bientot) { var am = document.createElement('a'); am.className = 'btn petit or'; am.href = AMAZON; am.target = '_blank'; am.rel = 'noopener'; am.textContent = 'Acheter'; am.addEventListener('click', function () { compteApp('app-acheter'); }); act.appendChild(am); }
     if (l.exclu && !document.documentElement.classList.contains('dans-appli')) l.audios = null;
     if (l.exclu && l.audios) l.audios = l.audios.map(function (a) { return { t: a.t, u: a.u, o: a.o }; });
     if (l.audios) {
@@ -315,6 +323,9 @@ footer a{color:var(--gris)}
   };
 
   if ('serviceWorker' in navigator) { try { navigator.serviceWorker.register('/sw-app.js', { scope: '/' }); } catch (e) {} }
+
+  var amb = document.getElementById('amazon-bas');
+  if (amb) amb.addEventListener('click', function () { compteApp('app-acheter'); });
 
   /* compteur */
   try { var dansAppli = document.documentElement.classList.contains('dans-appli');
