@@ -112,6 +112,13 @@ a{color:inherit;text-decoration:none}
   },{passive:true});
 })();
 </script>
+<script>
+  (function(){
+    var url = "https://compteurs.royvanmil86.workers.dev/compte?c=photos-portrait";
+    try{ if(sessionStorage.getItem("vu-photos-portrait")) return; sessionStorage.setItem("vu-photos-portrait","1"); }catch(e){}
+    try{ if(!(navigator.sendBeacon && navigator.sendBeacon(url))) fetch(url,{mode:"cors",keepalive:true}); }catch(e){}
+  })();
+</script>
 <script src="/app-retour.js" defer></script>
 </body>
 </html>

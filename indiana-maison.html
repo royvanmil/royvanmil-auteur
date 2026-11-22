@@ -113,7 +113,7 @@
     function compte(cle){ try{ fetch(API+"/compte?c="+cle,{mode:"cors",keepalive:true}); }catch(e){} }
     if(!sessionStorage.getItem("vu-ind-maison")){
       sessionStorage.setItem("vu-ind-maison","1");
-      compte("indiana");
+      compte("indiana-maison");
     }
   </script>
 <script src="/app-retour.js" defer></script>

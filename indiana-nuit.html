@@ -372,7 +372,7 @@
     var API="https://compteurs.royvanmil86.workers.dev";
     function compte(cle){ try{ fetch(API+"/compte?c="+cle,{mode:"cors",keepalive:true}); }catch(e){} }
     if(!sessionStorage.getItem("vu-ind-nuit")){
-      sessionStorage.setItem("vu-ind-nuit","1"); compte("indiana");
+      sessionStorage.setItem("vu-ind-nuit","1"); compte("indiana-nuit");
     }
   </script>
 <script src="/app-retour.js" defer></script>

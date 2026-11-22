@@ -75,6 +75,19 @@ tr.sous td:first-child{background:var(--soft);}
 .card{min-width:0;}
 @media(max-width:600px){.grid{grid-template-columns:1fr;}.card{padding:1rem .8rem;}th,td{padding:.5rem .45rem;}table{font-size:.9rem;}}
 
+/* sections colorées du tableau des compteurs */
+tr.sec td{background:var(--sc);color:#fff;font-size:1rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;text-align:left;position:static;padding:.75rem .55rem;border-bottom:none;}
+tr.sec td span{position:sticky;left:.55rem;}
+tr.ligne td:first-child{border-left:5px solid var(--sc);}
+tr.stot td{font-weight:800;color:var(--sc);background:var(--st);border-top:2px solid var(--sc);border-bottom:none;}
+tr.stot td:first-child{background:var(--st);border-left:5px solid var(--sc);}
+tr.esp td{height:1.4rem;border:none;background:transparent;position:static;}
+tr.esp td:first-child{background:transparent;}
+.totgen{margin-top:1.2rem;}
+#tTotal th{background:var(--ink);color:#fff;}
+#tTotal th:first-child{background:var(--ink);}
+#tTotal td{font-weight:800;font-size:1.15rem;color:var(--ink);background:#fff8e6;border-bottom:none;}
+#tTotal td:first-child{background:#fff8e6;}
 .memo{margin-top:1.25rem;}
 .memo ul{margin:.4rem 0 .8rem 1.2rem;}
 .memo li{padding:.15rem 0;}
@@ -109,7 +122,9 @@ tr.sous td:first-child{background:var(--soft);}
       <div class="card big">
         <h2>Compteurs de visites</h2>
         <button class="refresh" type="button" id="refresh">Actualiser</button>
-        <div class="scroll"><table id="tStats"><thead><tr><th>Page</th><th>Aujourd’hui</th><th>7 jours</th><th>30 jours</th><th>Depuis remise à 0</th><th>Total</th></tr></thead><tbody></tbody></table></div>
+        <div class="scroll"><table id="tStats"><thead><tr><th>Page</th><th>Aujourd’hui</th><th>Hier</th><th>7 jours</th><th>1 mois</th><th>Toujours</th></tr></thead><tbody></tbody></table></div>
+        <div class="scroll totgen"><table id="tTotal"><thead><tr><th>Total de tout</th><th>Aujourd’hui</th><th>Hier</th><th>7 jours</th><th>1 mois</th><th>Toujours</th></tr></thead><tbody></tbody></table></div>
+        <p class="note">Le total de tout additionne les visites de pages. Les clics (achats, concours, boutons) ont leur propre total et ne sont pas ajoutés.</p>
         <p class="note">Remise à zéro et courbes : page <a href="https://royvanmil.fr/dashboard.html" style="display:inline;border:none;padding:0;color:var(--teal)">Compteurs (dashboard)</a>.</p>
       </div>
 
@@ -137,6 +152,8 @@ tr.sous td:first-child{background:var(--soft);}
           <a href="https://royvanmil.fr/indiana-indices.html">Indiana — Indices</a>
           <a href="https://royvanmil.fr/indiana-maison.html">Indiana — Maison</a>
           <a href="https://royvanmil.fr/indiana-nuit.html">Indiana — Nuit</a>
+          <a href="https://royvanmil.fr/indiana-puits.html">Indiana — Puits <small>(descente)</small></a>
+          <a href="https://royvanmil.fr/indiana-puits-liste.html">Indiana — Liste des puits</a>
         </div>
       </div>
 
@@ -225,78 +242,91 @@ tr.sous td:first-child{background:var(--soft);}
 
 <script>
 var API = "https://compteurs.royvanmil86.workers.dev";
-// Structure : grandes parties > blocs > lignes. Ligne [null,"Titre"] = petit intertitre.
-var PARTIES = [
-  { titre:"royvanmil.fr", blocs:[
-    { titre:"Livres", lignes:[["livre1-maison","Cette maison…"],["livre","Un instant, ou Deux…"],["extraits","Extraits (Un instant)"],["un-instant-trois","Un instant, ou Trois…"],["histoire-les-vieux","Histoire : Les vieux"],["histoire-les-coulisses","Histoire : Les coulisses"],["quatre-instants","Un instant, ou Quatre…"],["livre3-cloche","La Cloche des Morts"]] },
-    { titre:"Site", lignes:[[null,"Pages"],["accueil","Accueil"],["temoignages","Avis des lecteurs"],["contact","Contact"],["videos","Vidéos"],["ia-et-moi","IA et moi ?"],
-      [null,"Audio"],["audio-accessible","Aveugles — pourquoi ?"],["piste-audio","Pistes audio Un instant ou Deux"],["audio-quatre","Audio Quatre — toutes les pages"],["audio4h6","↳ Rencontre nocturne"],["audio4h9","↳ Le bout du monde"],["audio4-ecoute","↳ Lectures lancées (Quatre)"],
-      [null,"NL & Indiana"],["nl-accueil","Accueil NL"],["nl-tweemoment","Tweemoment (NL)"],["indiana","Indiana Fraise"],
-      [null,"Concours"],["concours","Page concours"]] },
-    { titre:"App royvanmil", lignes:[["app-ouverture","Ouvertures de l'appli installée"],["app-page","Page de l'appli vue dans le navigateur"],["app-installe","Installations (bouton)"]] },
-    { titre:"Clics (pas comptés dans les totaux)", horsTotal:true, lignes:[["clic-amazon","Clics Amazon"],["clic-amazon-trois","Clics Amazon (Trois…)"],["concours-popup","Concours : clics popup accueil"],["concours-bulle","Concours : clics bulle accueil"],["concours-choix","Concours : clics sur un livre"],["concours-inscrit","Concours : inscriptions envoyées"],["concours-partage","Concours : clics Partager"],["app-bouton","Clics bouton « Installez l'App »"]] }
-  ]},
-  { titre:"Club de tir T.A.A.", blocs:[
-    { titre:"Site T.A.A.", lignes:[["taa-accueil","Accueil"],["taa-nouvelles","Nouvelles"],["taa-club","Le club"],["taa-disciplines","Disciplines & compétitions"],["taa-mentions","Mentions légales"],["taa-jeu","Jeu : teste ta précision"],["taa-stands","Les stands"],["taa-devenir-membre","Devenir membre"],["taa-armes-demarches","Armes & démarches"],["taa-divers","Divers"],["taa-comment","Comment ça marche"],["taa-espace-membres","Espace membres (connexion)"],["taa-membres-accueil","↳ Accueil membres"],["taa-tirs-controle","↳ Tirs de contrôle"],["taa-qui-est-qui","↳ Qui est qui"],["taa-reglement","↳ Règlement intérieur"],["taa-ventes","↳ Ventes"]] },
-    { titre:"App T.A.A.", lignes:[["taa-app-ouverture","Ouvertures de l'appli installée"],["taa-app-installe","Installations (bouton)"]] }
-  ]}
+// Sections : couleur, lignes. Ligne [null,"Titre"] = petit intertitre. horsTotal = pas ajouté au total de tout.
+var SECTIONS = [
+  { titre:"🌐 Site web Roy Van Mil", c:"#9a7322", t:"#f7f0e1", lignes:[
+    [null,"Pages"],["accueil","Accueil"],["temoignages","Avis des lecteurs"],["contact","Contact"],["videos","Vidéos"],["ia-et-moi","IA et moi ?"],["concours","Page concours"],
+    [null,"Livres"],["livre1-maison","Cette maison…"],["livre","Un instant, ou Deux…"],["extraits","↳ Extraits (Un instant)"],["un-instant-trois","Un instant, ou Trois…"],["histoire-les-vieux","↳ Histoire : Les vieux"],["histoire-les-coulisses","↳ Histoire : Les coulisses"],["quatre-instants","Un instant, ou Quatre…"],["livre3-cloche","La Cloche des Morts"],
+    [null,"Néerlandais"],["nl-accueil","Accueil NL"],["nl-tweemoment","Tweemoment (NL)"]] },
+  { titre:"📱 App Roy Van Mil", c:"#c76a00", t:"#fdf0e2", lignes:[
+    ["app-ouverture","Ouvertures de l'appli installée"],["app-page","Page de l'appli vue dans le navigateur"],["app-installe","Installations"]] },
+  { titre:"🎯 Tir sportif — site T.A.A.", c:"#2f6b2a", t:"#e9f2e6", lignes:[
+    ["taa-accueil","Accueil"],["taa-nouvelles","Nouvelles"],["taa-club","Le club"],["taa-disciplines","Disciplines & compétitions"],["taa-stands","Les stands"],["taa-devenir-membre","Devenir membre"],["taa-armes-demarches","Armes & démarches"],["taa-apprendre","Apprendre"],["taa-comment","Comment ça marche"],["taa-divers","Divers"],["taa-jeu","Jeu : teste ta précision"],["taa-mentions","Mentions légales"],
+    [null,"Espace membres"],["taa-espace-membres","Connexion"],["taa-membres-accueil","↳ Accueil membres"],["taa-tirs-controle","↳ Tirs de contrôle"],["taa-qui-est-qui","↳ Qui est qui"],["taa-reglement","↳ Règlement intérieur"],["taa-ventes","↳ Ventes"]] },
+  { titre:"📱 App T.A.A.", c:"#5b8c2a", t:"#eef5e4", lignes:[
+    ["taa-app-ouverture","Ouvertures de l'appli installée"],["taa-app-installe","Installations"]] },
+  { titre:"📷 Photos", c:"#2a6fa5", t:"#e6f0f8", lignes:[
+    ["photos-index","Accueil photos"],["photos-portrait","Portraits"],["photos-mariage","Mariages"],["photos-divers","Divers"]] },
+  { titre:"🛒 Clics achats & boutons", c:"#b3261e", t:"#fbeaea", horsTotal:true, lignes:[
+    [null,"Achats"],["clic-amazon","Clics Amazon"],["clic-amazon-trois","Clics Amazon (Trois…)"],
+    [null,"Concours"],["concours-popup","Clics popup accueil"],["concours-bulle","Clics bulle accueil"],["concours-choix","Clics sur un livre"],["concours-inscrit","Inscriptions envoyées"],["concours-partage","Clics Partager"],
+    [null,"Appli"],["app-bouton","Clics « Installez l'App »"]] },
+  { titre:"🔊 Audio (avec clics)", c:"#6b35a8", t:"#f1eaf8", lignes:[
+    ["audio-accessible","Aveugles — pourquoi ?"],["piste-audio","Pistes audio Un instant ou Deux"],["audio-quatre","Audio Quatre — toutes les pages"],["audio4h6","↳ Rencontre nocturne"],["audio4h9","↳ Le bout du monde"],["audio4-ecoute","↳ Clics lecture (Quatre)"]] },
+  { titre:"🔦 Indiana Fraise", c:"#8a4b14", t:"#f6ece2", lignes:[
+    ["indiana","Accueil Indiana"],["indiana-maison","Livraison à la maison"],["indiana-nuit","Lieu abandonné (nuit)"],["indiana-indices","Indices"],["indiana-infos","En savoir plus"],["indiana-puits","Le puits (descente)"],["indiana-puits-liste","Liste des puits"]] }
 ];
-function toutesCles(){ var c=[]; PARTIES.forEach(function(p){ p.blocs.forEach(function(b){ b.lignes.forEach(function(l){ if(l[0]) c.push(l[0]); }); }); }); return c; }
+function toutesCles(){ var c=[]; SECTIONS.forEach(function(s){ s.lignes.forEach(function(l){ if(l[0]) c.push(l[0]); }); }); return c; }
 var code = "";
 try{ code = sessionStorage.getItem("rvm-code") || ""; }catch(e){}
 
 function cell(v, cls){ var c=document.createElement("td"); if(cls) c.className=cls; c.textContent=v; return c; }
-function ligne(tb, cls, texte, vals, col){
+function ligne(tb, cls, texte, vals, sec){
   var r=document.createElement("tr"); if(cls) r.className=cls;
+  if(sec){ r.style.setProperty("--sc",sec.c); r.style.setProperty("--st",sec.t); }
   if(!vals){ var c=document.createElement("td"); c.colSpan=6; var sp=document.createElement("span"); sp.textContent=texte; c.appendChild(sp); r.appendChild(c); }
   else { r.appendChild(cell(texte)); vals.forEach(function(x){ r.appendChild(cell(x,"n")); }); }
   tb.appendChild(r);
 }
 function ajoute(t, v){ v.forEach(function(x,i){ t[i]+=x; }); }
-function afficher(stats, hist){
+// donnees[cle] = [aujourd'hui, hier, 7 jours, 1 mois, toujours]
+function afficher(donnees){
   var tb=document.querySelector("#tStats tbody"); tb.innerHTML="";
-  var n = hist && hist.jours ? hist.jours.length : 0;
-  function valeurs(k){
-    var s=(stats&&stats[k])||{total:0,depuis_reset:0};
-    var serie=(hist&&hist.series&&hist.series[k])||[];
-    var auj=n?(serie[n-1]||0):0, sept=0, trente=0;
-    for(var i=0;i<serie.length;i++){ trente+=serie[i]||0; if(i>=n-7) sept+=serie[i]||0; }
-    return [auj,sept,trente,s.depuis_reset||0,s.total||0];
-  }
   var totTout=[0,0,0,0,0];
-  PARTIES.forEach(function(p){
-    var totP=[0,0,0,0,0];
-    ligne(tb,"partie",p.titre);
-    p.blocs.forEach(function(b){
-      var totB=[0,0,0,0,0];
-      ligne(tb,"groupe-ligne",b.titre);
-      b.lignes.forEach(function(l){
-        if(!l[0]){ ligne(tb,"inter",l[1]); return; }
-        var v=valeurs(l[0]); ajoute(totB,v); ligne(tb,"",l[1],v);
-      });
-      if(!b.horsTotal){ ligne(tb,"sous","Total "+b.titre,totB); ajoute(totP,totB); }
+  SECTIONS.forEach(function(s, i){
+    var totS=[0,0,0,0,0];
+    if(i>0) ligne(tb,"esp","",null);
+    ligne(tb,"sec",s.titre,null,s);
+    s.lignes.forEach(function(l){
+      if(!l[0]){ ligne(tb,"inter",l[1]); return; }
+      var v=donnees[l[0]]||[0,0,0,0,0]; ajoute(totS,v); ligne(tb,"ligne",l[1],v,s);
     });
-    ligne(tb,"tot","TOTAL "+p.titre,totP); ajoute(totTout,totP);
+    ligne(tb,"stot","Total "+s.titre.replace(/^\S+\s/,""),totS,s);
+    if(!s.horsTotal) ajoute(totTout,totS);
   });
-  ligne(tb,"general","TOTAL DE TOUT",totTout);
+  var tt=document.querySelector("#tTotal tbody"); tt.innerHTML="";
+  ligne(tt,"","Toutes les pages",totTout);
 }
-// historique lu par morceaux de 20 compteurs (Cloudflare limite à 1000 lectures par appel)
-function chargerHistorique(){
-  var cles=toutesCles();
-  var morceaux=[]; for(var i=0;i<cles.length;i+=20) morceaux.push(cles.slice(i,i+20));
-  return Promise.all(morceaux.map(function(m){
-    return fetch(API+"/historique?jours=30&cles="+encodeURIComponent(m.join(","))).then(function(r){return r.json();});
+function enMorceaux(cles, taille){ var m=[]; for(var i=0;i<cles.length;i+=taille) m.push(cles.slice(i,i+taille)); return m; }
+// 1) nouvelle méthode : /periodes (25 compteurs par appel)
+function chargerPeriodes(){
+  return Promise.all(enMorceaux(toutesCles(),25).map(function(m){
+    return fetch(API+"/periodes?cles="+encodeURIComponent(m.join(","))).then(function(r){ if(!r.ok) throw "srv"; return r.json(); });
   })).then(function(lst){
-    var res={jours:(lst[0]&&lst[0].jours)||[], series:{}};
-    lst.forEach(function(h){ if(h&&h.series) Object.keys(h.series).forEach(function(k){ res.series[k]=h.series[k]; }); });
-    return res;
+    var d={};
+    lst.forEach(function(o){ Object.keys(o).forEach(function(k){ var x=o[k]; d[k]=[x.jour,x.hier,x.j7,x.j30,x.total]; }); });
+    return d;
+  });
+}
+// 2) secours (ancien Worker) : /stats + /historique
+function chargerAncien(){
+  return Promise.all([
+    fetch(API+"/stats").then(function(r){return r.json();}),
+    Promise.all(enMorceaux(toutesCles(),20).map(function(m){
+      return fetch(API+"/historique?jours=30&cles="+encodeURIComponent(m.join(","))).then(function(r){return r.json();});
+    }))
+  ]).then(function(res){
+    var stats=res[0], d={};
+    res[1].forEach(function(h){ if(!h||!h.series) return; Object.keys(h.series).forEach(function(k){
+      var s=h.series[k], n=s.length, j7=0, j30=0;
+      for(var i=0;i<n;i++){ j30+=s[i]||0; if(i>=n-7) j7+=s[i]||0; }
+      d[k]=[s[n-1]||0, s[n-2]||0, j7, j30, (stats[k]&&stats[k].total)||0];
+    }); });
+    return d;
   });
 }
 function chargerStats(){
-  return Promise.all([
-    fetch(API+"/stats").then(function(r){return r.json();}),
-    chargerHistorique()
-  ]).then(function(res){ afficher(res[0], res[1]); });
+  return chargerPeriodes().catch(chargerAncien).then(afficher);
 }
 function entrer(c, depuisForm){
   var err=document.getElementById("err"); err.textContent = depuisForm ? "Vérification…" : "";

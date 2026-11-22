@@ -80,6 +80,13 @@ h1{font-family:Georgia,'Times New Roman',serif;font-size:clamp(56px,6.5vw,104px)
     <div class="frame f3" data-label="D&eacute;tail 03"></div>
   </section>
 </main>
+<script>
+  (function(){
+    var url = "https://compteurs.royvanmil86.workers.dev/compte?c=photos-index";
+    try{ if(sessionStorage.getItem("vu-photos-index")) return; sessionStorage.setItem("vu-photos-index","1"); }catch(e){}
+    try{ if(!(navigator.sendBeacon && navigator.sendBeacon(url))) fetch(url,{mode:"cors",keepalive:true}); }catch(e){}
+  })();
+</script>
 <script src="/app-retour.js" defer></script>
 </body>
 </html>
