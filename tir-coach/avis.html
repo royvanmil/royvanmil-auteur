@@ -93,18 +93,19 @@
       <label for="stand">Ton stand, ou des infos à ajouter <small>(nom du club, ville, horaires, site…)</small></label>
       <textarea id="stand" maxlength="1500"></textarea>
 
-      <label for="mail">Ton mail <small>(facultatif, jamais affiché — pour te répondre)</small></label>
+      <label for="mail">Ton mail <small>(facultatif, jamais affiché — seul Roy le voit, pour te répondre)</small></label>
       <input type="email" id="mail" maxlength="80" autocomplete="email">
 
       <label class="accord"><input type="checkbox" id="accord"> J'accepte que mon prénom, ma note et mon avis soient affichés sur cette page.</label>
+      <input type="text" id="site" name="site" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
 
       <button type="submit" class="bouton">&#9993;&#65039; Envoyer mon avis</button>
       <p id="erreur" class="erreur"></p>
-      <p class="petit">Ton appli mail s'ouvre avec ton avis déjà écrit : il reste à appuyer sur Envoyer. Roy lit chaque avis avant de le publier.</p>
+      <p class="petit">Roy lit chaque avis avant de le publier. 2 avis maximum par personne.<br>Ton avis est gardé sur le serveur de Roy (Cloudflare), sans publicité ni revente. Ton adresse internet n'est jamais gardée en clair.</p>
     </form>
     <div id="merci" class="carte merci">
-      <b>Merci !</b> Pense à appuyer sur <b>Envoyer</b> dans ton appli mail.<br>
-      Ton avis apparaîtra ici dès que Roy l'aura lu.
+      <b>Merci, ton avis est bien envoyé !</b><br>
+      Il apparaîtra ici dès que Roy l'aura lu.
     </div>
 
     <h2>&#128172; Ce qu'ils en pensent</h2>
@@ -118,12 +119,9 @@
   </div>
 
   <script>
-    // Avis publiés : ajoutés à la main après lecture (le plus récent en premier).
-    // Exemple : { prenom: 'Jean', note: 9, date: '2026-12-01', plait: '...', ameliorer: '...', reponse: '...' }
-    var AVIS = [];
-
     (function () {
       var API = 'https://compteurs.royvanmil86.workers.dev';
+      var SERVEUR_AVIS = 'https://avis-tircoach.royvanmil86.workers.dev';
       function compte(cle) {
         var url = API + '/compte?c=' + cle;
         try { if (navigator.sendBeacon && navigator.sendBeacon(url)) return; } catch (e) {}
@@ -153,30 +151,52 @@
         })(i);
       }
 
-      // Envoi par mail
+      // Envoi au serveur
+      var MESSAGES = {
+        limite: 'Tu as déjà laissé 2 avis. Merci beaucoup !',
+        prenom: 'Écris ton prénom ou un pseudo (2 lettres minimum).',
+        note: 'Choisis une note sur 10.',
+        plein: 'Trop d\'avis en attente pour le moment. Réessaie plus tard.'
+      };
       $('formulaire').addEventListener('submit', function (e) {
         e.preventDefault();
         var prenom = $('prenom').value.trim();
-        if (!prenom) { $('erreur').textContent = 'Écris ton prénom ou un pseudo.'; return; }
-        if (!note) { $('erreur').textContent = 'Choisis une note sur 10.'; return; }
+        if (prenom.length < 2) { $('erreur').textContent = MESSAGES.prenom; return; }
+        if (!note) { $('erreur').textContent = MESSAGES.note; return; }
         $('erreur').textContent = '';
-        var corps = 'Prénom ou pseudo : ' + prenom + '\n' +
-          'Note : ' + note + '/10\n\n' +
-          'Ce qui me plaît :\n' + ($('plait').value.trim() || '-') + '\n\n' +
-          'Points à améliorer :\n' + ($('ameliorer').value.trim() || '-') + '\n\n' +
-          'Mon stand / infos à ajouter :\n' + ($('stand').value.trim() || '-') + '\n\n' +
-          'Mon mail : ' + ($('mail').value.trim() || '-') + '\n' +
-          'Affichage sur la page : ' + ($('accord').checked ? 'OUI, j\'accepte' : 'NON, juste pour Roy') + '\n';
-        compte('tircoach-avis-envoi');
-        location.href = 'mailto:royvanmilperso@gmail.com?subject=' + encodeURIComponent('Avis Tir Coach — ' + note + '/10 — ' + prenom) + '&body=' + encodeURIComponent(corps);
-        $('formulaire').style.display = 'none';
-        $('merci').style.display = 'block';
+        var bouton = $('formulaire').querySelector('button[type=submit]');
+        bouton.disabled = true; bouton.textContent = 'Envoi…';
+        fetch(SERVEUR_AVIS + '/avis', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            prenom: prenom, note: note,
+            plait: $('plait').value, ameliorer: $('ameliorer').value, stand: $('stand').value,
+            mail: $('mail').value, accord: $('accord').checked, site: $('site').value
+          })
+        }).then(function (r) { return r.json(); }).then(function (res) {
+          if (res && res.ok) {
+            compte('tircoach-avis-envoi');
+            $('formulaire').style.display = 'none';
+            $('merci').style.display = 'block';
+            $('merci').scrollIntoView({ behavior: 'smooth', block: 'center' });
+          } else {
+            $('erreur').textContent = MESSAGES[res && res.erreur] || 'Oups, l\'envoi n\'a pas marché. Réessaie dans un moment.';
+            bouton.disabled = false; bouton.innerHTML = '&#9993;&#65039; Envoyer mon avis';
+          }
+        }).catch(function () {
+          $('erreur').textContent = 'Pas de connexion. Réessaie dans un moment.';
+          bouton.disabled = false; bouton.innerHTML = '&#9993;&#65039; Envoyer mon avis';
+        });
       });
 
-      // Affichage des avis publiés
-      if (!AVIS.length) {
-        $('liste').appendChild(texte('p', 'vide', 'Pas encore d\'avis publié. Sois le premier !'));
-      } else {
+      // Avis publiés
+      function afficher(AVIS) {
+        $('liste').innerHTML = '';
+        if (!AVIS.length) {
+          $('liste').appendChild(texte('p', 'vide', 'Pas encore d\'avis publié. Sois le premier !'));
+          return;
+        }
         var total = AVIS.reduce(function (s, a) { return s + a.note; }, 0);
         var moy = Math.round(total / AVIS.length * 10) / 10;
         $('moyenne').textContent = '🎯 ' + String(moy).replace('.', ',') + ' / 10 — ' + AVIS.length + ' avis';
@@ -195,6 +215,10 @@
           $('liste').appendChild(c);
         });
       }
+      fetch(SERVEUR_AVIS + '/publics', { cache: 'no-store' })
+        .then(function (r) { return r.json(); })
+        .then(function (l) { afficher(Array.isArray(l) ? l : []); })
+        .catch(function () { afficher([]); });
     })();
   </script>
 </body>

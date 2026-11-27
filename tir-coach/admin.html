@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Tir Coach — Admin des avis</title>
+  <link rel="icon" href="images/logo.svg">
+  <style>
+    :root { --fond:#14171c; --carte:#1f242c; --bord:#333a45; --texte:#f2f2f2; --gris:#9aa3ae; --or:#e0a32e; --rouge:#d62828; --vert:#2e9e5b; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--fond); color: var(--texte); font-family: system-ui, -apple-system, Roboto, sans-serif; line-height: 1.5; }
+    .page { max-width: 800px; margin: 0 auto; padding: 20px 16px 60px; }
+    h1 { color: var(--or); font-size: 26px; margin: 0 0 14px; }
+    h2 { color: var(--or); font-size: 20px; margin: 28px 0 10px; }
+    a { color: var(--or); }
+    .cache { display: none !important; }
+    .carte { background: var(--carte); border: 1px solid var(--bord); border-radius: 14px; padding: 14px 16px; margin-bottom: 12px; }
+    input, textarea { width: 100%; background: #14171c; color: var(--texte); border: 1px solid var(--bord); border-radius: 10px; padding: 12px; font-size: 16px; font-family: inherit; }
+    textarea { min-height: 70px; }
+    button { border: 0; border-radius: 10px; padding: 10px 14px; font-size: 15px; font-weight: 700; cursor: pointer; font-family: inherit; margin: 6px 6px 0 0; }
+    .or { background: var(--or); color: #111; }
+    .vert { background: var(--vert); color: #fff; }
+    .rouge { background: var(--rouge); color: #fff; }
+    .gris { background: #3a414c; color: var(--texte); }
+    .barre { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .tete { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+    .note { color: var(--or); font-weight: 800; }
+    .date, .petit { color: var(--gris); font-size: 14px; }
+    .bloc { margin-top: 8px; white-space: pre-wrap; }
+    .bloc b { color: var(--or); }
+    .prive { color: #ff6b6b; font-weight: 700; }
+    .ok { color: #6fdc9a; font-weight: 700; }
+    .vide { color: var(--gris); }
+    #msg { color: #ff6b6b; min-height: 1.4em; }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <h1>&#127919; Admin des avis</h1>
+
+    <div id="connexion" class="carte">
+      <p>Mot de passe admin :</p>
+      <input type="password" id="mdp" autocomplete="current-password" enterkeyhint="go">
+      <button class="or" id="btnConnexion">Entrer</button>
+      <p id="msg"></p>
+    </div>
+
+    <div id="contenu" class="cache">
+      <div class="barre">
+        <a href="avis.html">&rarr; Voir la page des avis</a>
+        <span>
+          <button class="gris" id="btnRafraichir">&#8635; Rafraîchir</button>
+          <button class="gris" id="btnSortir">Se déconnecter</button>
+        </span>
+      </div>
+      <h2>En attente <span id="nAttente"></span></h2>
+      <div id="attente"></div>
+      <h2>Publiés <span id="nPublie"></span></h2>
+      <div id="publie"></div>
+      <h2>Corbeille <span id="nCorbeille"></span></h2>
+      <div id="corbeille"></div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var SERVEUR_AVIS = 'https://avis-tircoach.royvanmil86.workers.dev';
+      var code = '';
+      try { code = localStorage.getItem('tircoach-admin') || ''; } catch (e) {}
+
+      function $(id) { return document.getElementById(id); }
+      function el(balise, classe, contenu) {
+        var x = document.createElement(balise);
+        if (classe) x.className = classe;
+        if (contenu != null) x.textContent = contenu;
+        return x;
+      }
+      function appel(donnees) {
+        donnees.code = code;
+        return fetch(SERVEUR_AVIS + '/admin', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(donnees)
+        }).then(function (r) { return r.json(); });
+      }
+
+      function charger() {
+        appel({ action: 'liste' }).then(function (res) {
+          if (!res.ok) {
+            $('msg').textContent = res.erreur === 'code' ? 'Mot de passe refusé.' : 'Erreur.';
+            $('connexion').classList.remove('cache'); $('contenu').classList.add('cache');
+            return;
+          }
+          try { localStorage.setItem('tircoach-admin', code); } catch (e) {}
+          $('connexion').classList.add('cache'); $('contenu').classList.remove('cache');
+          ['attente', 'publie', 'corbeille'].forEach(function (s) {
+            var l = res.avis.filter(function (a) { return a.statut === s; });
+            var nom = 'n' + s.charAt(0).toUpperCase() + s.slice(1);
+            $(nom).textContent = l.length ? '(' + l.length + ')' : '';
+            dessiner(s, l);
+          });
+        }).catch(function () { $('msg').textContent = 'Pas de connexion au serveur.'; });
+      }
+
+      function bouton(texte, classe, action, a) {
+        var b = el('button', classe, texte);
+        b.addEventListener('click', function () {
+          if (action === 'supprimer' && !confirm('Supprimer définitivement cet avis ?')) return;
+          var d = { action: action, id: a.id };
+          if (action === 'reponse') d.reponse = b.parentNode.querySelector('textarea').value;
+          appel(d).then(function (res) {
+            if (res.ok) charger();
+            else alert(res.erreur === 'pas_accord' ? "Cette personne n'a pas accepté d'être affichée." : 'Erreur : ' + (res.erreur || 'inconnue'));
+          });
+        });
+        return b;
+      }
+
+      function dessiner(statut, liste) {
+        var zone = $(statut); zone.innerHTML = '';
+        if (!liste.length) { zone.appendChild(el('p', 'vide', 'Rien ici.')); return; }
+        liste.forEach(function (a) {
+          var c = el('div', 'carte');
+          var tete = el('div', 'tete');
+          var g = el('span'); g.appendChild(el('b', '', a.prenom + ' ')); g.appendChild(el('span', 'note', a.note + '/10'));
+          tete.appendChild(g); tete.appendChild(el('span', 'date', a.date.split('-').reverse().join('/')));
+          c.appendChild(tete);
+          c.appendChild(el('div', a.accord ? 'ok' : 'prive', a.accord ? '✔ Accepte d’être affiché' : '✖ Privé : juste pour toi'));
+          [['👍 Ce qui plaît', a.plait], ['🔧 À améliorer', a.ameliorer], ['📍 Stand / infos', a.stand]].forEach(function (z) {
+            if (!z[1]) return;
+            var d = el('div', 'bloc'); d.appendChild(el('b', '', z[0] + ' : ')); d.appendChild(document.createTextNode(z[1])); c.appendChild(d);
+          });
+          if (a.mail) {
+            var m = el('div', 'bloc'); m.appendChild(el('b', '', '✉️ Mail : '));
+            var lien = el('a', '', a.mail); lien.href = 'mailto:' + a.mail + '?subject=' + encodeURIComponent('Ton avis sur Tir Coach');
+            m.appendChild(lien); c.appendChild(m);
+          }
+          var rep = el('div', 'bloc');
+          rep.appendChild(el('b', '', '💬 Ta réponse (affichée sous l’avis) :'));
+          var t = el('textarea'); t.value = a.reponse || ''; rep.appendChild(t);
+          rep.appendChild(bouton('Enregistrer la réponse', 'gris', 'reponse', a));
+          c.appendChild(rep);
+          var actions = el('div');
+          if (statut === 'attente') {
+            if (a.accord) actions.appendChild(bouton('✓ Publier', 'vert', 'publier', a));
+            actions.appendChild(bouton('🗑 Jeter', 'rouge', 'jeter', a));
+          } else if (statut === 'publie') {
+            actions.appendChild(bouton('Retirer du site', 'gris', 'retirer', a));
+            actions.appendChild(bouton('🗑 Jeter', 'rouge', 'jeter', a));
+          } else {
+            actions.appendChild(bouton('↩ Restaurer', 'gris', 'restaurer', a));
+            actions.appendChild(bouton('✕ Supprimer pour toujours', 'rouge', 'supprimer', a));
+          }
+          c.appendChild(actions);
+          zone.appendChild(c);
+        });
+      }
+
+      function entrer() { code = $('mdp').value.trim(); if (!code) { $('msg').textContent = 'Entre le mot de passe.'; return; } $('msg').textContent = ''; charger(); }
+      $('btnConnexion').addEventListener('click', entrer);
+      $('mdp').addEventListener('keydown', function (e) { if (e.key === 'Enter') entrer(); });
+      $('btnRafraichir').addEventListener('click', charger);
+      $('btnSortir').addEventListener('click', function () {
+        try { localStorage.removeItem('tircoach-admin'); } catch (e) {}
+        code = ''; $('mdp').value = ''; $('contenu').classList.add('cache'); $('connexion').classList.remove('cache');
+      });
+      if (code) charger();
+    })();
+  </script>
+</body>
+</html>
