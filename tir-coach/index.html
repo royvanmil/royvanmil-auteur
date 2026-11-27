@@ -50,6 +50,7 @@
       <div class="gros-mots"><span>GRATUIT</span><span>100 % LOCAL</span></div>
       <a id="telecharger" class="bouton" href="https://github.com/royvanmil/tir-coach/releases/latest/download/TirCoach.apk">&#11015;&#65039; Télécharger l'appli (Android)</a>
       <p class="petit">Fichier APK — environ 8 Mo — toujours la dernière version</p>
+      <p class="petit" id="versionDispo">Version disponible : <b id="numVersion">v1.0.16</b><span id="dateVersion"></span><br>Ta version : dans l'appli, appuie sur &#9432; (en bas de l'accueil).</p>
       <p class="petit">&#9888;&#65039; L'appli n'est pas encore sur Google Play : ton téléphone va te demander quelques autorisations. <a href="#installer">Voir comment faire</a>.</p>
       <p id="compteur" class="compteur"></p>
     </header>
@@ -124,6 +125,13 @@
       // Téléchargement et demande de test
       document.getElementById('telecharger').addEventListener('click', function () { compte('tircoach-telechargement'); });
       document.getElementById('testeur').addEventListener('click', function () { compte('tircoach-testeur'); });
+      // Dernière version publiée (GitHub)
+      fetch('https://api.github.com/repos/royvanmil/tir-coach/releases/latest').then(function (r) { return r.json(); }).then(function (rel) {
+        var m = /build-(\d+)/.exec(rel && rel.tag_name || '');
+        if (!m) return;
+        document.getElementById('numVersion').textContent = 'v1.0.' + m[1];
+        if (rel.published_at) document.getElementById('dateVersion').textContent = ' du ' + new Date(rel.published_at).toLocaleDateString('fr-FR');
+      }).catch(function () {});
       // Affichage du nombre de téléchargements
       fetch(API + '/periodes?cles=tircoach-telechargement').then(function (r) { return r.json(); }).then(function (s) {
         var d = s && s['tircoach-telechargement'];
