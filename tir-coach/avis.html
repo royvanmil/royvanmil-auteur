@@ -178,6 +178,9 @@
           if (res && res.ok) {
             compte('tircoach-avis-envoi');
             $('formulaire').style.display = 'none';
+            $('merci').innerHTML = $('accord').checked
+              ? '<b>Merci, ton avis est bien envoyé !</b><br>Il apparaîtra ici dès que Roy l\'aura lu.'
+              : '<b>Merci, ton avis est bien envoyé !</b><br>Roy va le lire. Comme tu l\'as demandé, il ne sera pas affiché sur cette page.';
             $('merci').style.display = 'block';
             $('merci').scrollIntoView({ behavior: 'smooth', block: 'center' });
           } else {
