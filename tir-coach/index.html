@@ -107,7 +107,7 @@
 
   <script>
     (function () {
-      var API = 'https://compteurs.royvanmil86.workers.dev';
+      var API = 'https://avis-tircoach.royvanmil86.workers.dev';
       function compte(cle) {
         var url = API + '/compte?c=' + cle;
         try { if (navigator.sendBeacon && navigator.sendBeacon(url)) return; } catch (e) {}
@@ -119,7 +119,7 @@
       document.getElementById('telecharger').addEventListener('click', function () { compte('tircoach-telechargement'); });
       document.getElementById('testeur').addEventListener('click', function () { compte('tircoach-testeur'); });
       // Affichage du nombre de téléchargements
-      fetch(API + '/stats').then(function (r) { return r.json(); }).then(function (s) {
+      fetch(API + '/periodes?cles=tircoach-telechargement').then(function (r) { return r.json(); }).then(function (s) {
         var d = s && s['tircoach-telechargement'];
         var n = d ? (d.total || 0) : 0;
         if (n > 0) document.getElementById('compteur').textContent = '🎯 Déjà ' + n + ' téléchargement' + (n > 1 ? 's' : '') + ' !';
