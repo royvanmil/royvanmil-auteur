@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tir Coach — le carnet de tir gratuit et 100 % local</title>
+  <meta name="description" content="Tir Coach : appli Android gratuite pour les tireurs sportifs. Carnet de tir, photos de cibles, râtelier, munitions, papiers, licence. Tout reste sur ton téléphone.">
+  <meta property="og:title" content="Tir Coach — le carnet de tir gratuit et 100 % local">
+  <meta property="og:description" content="Carnet de tir, cibles, râtelier, munitions, papiers, licence… Gratuit, sans compte, tout reste sur ton téléphone.">
+  <meta property="og:image" content="https://royvanmil.fr/tir-coach/images/c2-menu.jpg">
+  <link rel="icon" href="images/logo.svg">
+  <style>
+    :root { --fond:#14171c; --carte:#1f242c; --bord:#333a45; --texte:#f2f2f2; --gris:#9aa3ae; --or:#e0a32e; --rouge:#d62828; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--fond); color: var(--texte); font-family: system-ui, -apple-system, Roboto, sans-serif; line-height: 1.55; }
+    .page { max-width: 900px; margin: 0 auto; padding: 30px 18px 60px; }
+    header { text-align: center; padding: 10px 0 20px; }
+    header img { width: 130px; }
+    h1 { color: var(--or); letter-spacing: 6px; font-size: 40px; margin: 10px 0 0; }
+    .slogan { color: var(--gris); margin: 4px 0 18px; font-size: 18px; }
+    .gros-mots { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
+    .gros-mots span { border: 2px solid var(--or); color: var(--or); border-radius: 12px; padding: 6px 16px; font-weight: 800; font-size: 22px; letter-spacing: 1px; }
+    .bouton { display: block; text-align: center; text-decoration: none; background: var(--or); color: #111; font-weight: 800; font-size: 20px; border-radius: 16px; padding: 18px; margin: 24px auto 6px; max-width: 420px; }
+    .petit { color: var(--gris); font-size: 14px; text-align: center; margin: 0; }
+    .compteur { text-align: center; color: var(--or); font-weight: 700; margin-top: 8px; min-height: 1.4em; }
+    h2 { color: var(--or); margin: 40px 0 12px; font-size: 24px; }
+    .grille { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+    .carte { background: var(--carte); border: 1px solid var(--bord); border-radius: 14px; padding: 14px 16px; }
+    .carte b { color: var(--or); }
+    .captures { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 10px; scroll-snap-type: x mandatory; }
+    .captures img { width: 220px; flex-shrink: 0; border-radius: 18px; border: 1px solid var(--bord); scroll-snap-align: start; }
+    ol { padding-left: 22px; } li { margin: 6px 0; }
+    a { color: var(--or); }
+    .bientot { text-align: center; border: 1px dashed var(--or); border-radius: 14px; padding: 16px; margin-top: 30px; }
+    footer { text-align: center; color: var(--gris); font-size: 14px; margin-top: 50px; }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <img src="images/logo.svg" alt="Logo Tir Coach">
+      <h1>TIR COACH</h1>
+      <p class="slogan">Le carnet de tir dans ta poche</p>
+      <div class="gros-mots"><span>GRATUIT</span><span>100 % LOCAL</span></div>
+      <a id="telecharger" class="bouton" href="https://github.com/royvanmil/tir-coach/releases/latest/download/TirCoach.apk">&#11015;&#65039; Télécharger l'appli (Android)</a>
+      <p class="petit">Fichier APK — environ 8 Mo — toujours la dernière version</p>
+      <p id="compteur" class="compteur"></p>
+    </header>
+
+    <div class="captures">
+      <img src="images/c1-accueil.jpg" alt="Écran d'accueil">
+      <img src="images/c2-menu.jpg" alt="Menu de l'appli">
+      <img src="images/c3-seance.jpg" alt="Une séance du carnet de tir">
+      <img src="images/c4-munitions.jpg" alt="Stock de munitions avec les calibres">
+      <img src="images/c5-apprendre.jpg" alt="Espace Apprendre">
+      <img src="images/c6-jeu.jpg" alt="Jeu de précision">
+    </div>
+
+    <h2>Ce que fait Tir Coach</h2>
+    <div class="grille">
+      <div class="carte"><b>&#128214; Carnet de tir</b><br>Chaque séance : date, lieu, note sur 10, les armes tirées, les munitions, le nombre de coups, les photos de cibles et les scores.</div>
+      <div class="carte"><b>&#9989; Tirs contrôlés</b><br>Un compteur sur 12 mois, avec l'écart de 2 mois, pour savoir où tu en es.</div>
+      <div class="carte"><b>&#128452;&#65039; Mon râtelier</b><br>Tes armes en photos, les chargeurs, les modifications (organes de visée, détente…) et l'entretien.</div>
+      <div class="carte"><b>&#128230; Munitions</b><br>Ton stock à la maison, avec le dessin de chaque calibre. Les coups tirés se retirent tout seuls.</div>
+      <div class="carte"><b>&#128193; Mes papiers</b><br>Autorisations, papiers des armes, assurance : à montrer en plein écran en cas de contrôle.</div>
+      <div class="carte"><b>&#129706; Licence &amp; certificat</b><br>Ton numéro de licence en très grand (pratique pour le cahier de présence) et des rappels avant la fin de validité.</div>
+      <div class="carte"><b>&#128197; Stands &amp; tirs de contrôle</b><br>Les horaires et les dates de ton stand. Le T.A.A. d'Eauze est déjà dedans.</div>
+      <div class="carte"><b>&#127891; Apprendre &amp; &#127919; jouer</b><br>Le petit lexique du tireur (calibres, lunettes, visée, réglementation) et un jeu de précision.</div>
+    </div>
+
+    <h2>&#128274; 100 % local, vraiment</h2>
+    <div class="carte">
+      Pas de compte, pas de pub, pas de suivi. Tes données et tes photos restent sur ton téléphone, dans le dossier <b>Documents/TirCoach</b>. Rien n'est envoyé sur internet.
+      <a href="confidentialite.html">Politique de confidentialité</a>.
+    </div>
+
+    <h2>Installer l'appli en 3 étapes</h2>
+    <div class="carte">
+      <ol>
+        <li>Sur ton téléphone Android, appuie sur <b>« Télécharger l'appli »</b> en haut de cette page.</li>
+        <li>Ouvre le fichier <b>TirCoach.apk</b>. Si Android le demande, autorise l'installation depuis ton navigateur (« Autoriser cette source »).</li>
+        <li>Appuie sur <b>Installer</b>, puis ouvre Tir Coach. Pour les mises à jour, refais la même chose : la nouvelle version s'installe par-dessus, sans rien perdre.</li>
+      </ol>
+    </div>
+
+    <div class="bientot">
+      <b>&#11088; Bientôt sur Google Play !</b><br>
+      Tu veux faire partie des testeurs ? Envoie ton adresse Gmail (celle de ton Play Store, sur un téléphone Android).<br>
+      <a id="testeur" class="bouton" style="font-size:18px" href="mailto:royvanmilperso@gmail.com?subject=Tir%20Coach%20%E2%80%94%20je%20veux%20%C3%AAtre%20testeur&body=Bonjour%20Roy%2C%0A%0AJe%20veux%20bien%20tester%20Tir%20Coach.%0AMon%20adresse%20Gmail%20%3A%20">&#9993;&#65039; Je veux être testeur</a>
+    </div>
+
+    <footer>
+      Tir Coach — créé par Roy VAN MIL, tireur sportif.<br>
+      <a href="mailto:royvanmilperso@gmail.com?subject=Tir%20Coach">Une idée, un avis ? Écris-moi</a>
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      var API = 'https://compteurs.royvanmil86.workers.dev';
+      function compte(cle) {
+        var url = API + '/compte?c=' + cle;
+        try { if (navigator.sendBeacon && navigator.sendBeacon(url)) return; } catch (e) {}
+        try { fetch(url, { mode: 'cors', keepalive: true }); } catch (e) {}
+      }
+      // Visite (une fois par session)
+      try { if (!sessionStorage.getItem('vu-tircoach')) { sessionStorage.setItem('vu-tircoach', '1'); compte('tircoach-page'); } } catch (e) { compte('tircoach-page'); }
+      // Téléchargement et demande de test
+      document.getElementById('telecharger').addEventListener('click', function () { compte('tircoach-telechargement'); });
+      document.getElementById('testeur').addEventListener('click', function () { compte('tircoach-testeur'); });
+      // Affichage du nombre de téléchargements
+      fetch(API + '/stats').then(function (r) { return r.json(); }).then(function (s) {
+        var d = s && s['tircoach-telechargement'];
+        var n = d ? (d.total || 0) : 0;
+        if (n > 0) document.getElementById('compteur').textContent = '🎯 Déjà ' + n + ' téléchargement' + (n > 1 ? 's' : '') + ' !';
+      }).catch(function () {});
+    })();
+  </script>
+</body>
+</html>
