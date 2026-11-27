@@ -33,6 +33,10 @@
     .ok { color: #6fdc9a; font-weight: 700; }
     .vide { color: var(--gris); }
     #msg { color: #ff6b6b; min-height: 1.4em; }
+    .etiquette { font-weight: 700; margin: 12px 0 4px; }
+    .etiquette small { color: var(--gris); font-weight: 400; }
+    .ligneCase { display: flex; gap: 10px; align-items: center; margin: 8px 0; }
+    .ligneCase input { width: 22px; height: 22px; }
   </style>
 </head>
 <body>
@@ -54,6 +58,20 @@
           <button class="gris" id="btnSortir">Se déconnecter</button>
         </span>
       </div>
+      <h2>&#128227; Message dans l'appli</h2>
+      <div class="carte">
+        <p class="petit">S'affiche à l'ouverture de l'appli (si le téléphone est connecté). Chaque fois que tu enregistres, il réapparaît chez tout le monde.</p>
+        <label class="ligneCase"><input type="checkbox" id="mActif"> <b>Afficher ce message</b></label>
+        <p class="etiquette">Titre</p><input type="text" id="mTitre" maxlength="80">
+        <p class="etiquette">Texte</p><textarea id="mTexte" maxlength="800" style="min-height:120px"></textarea>
+        <p class="etiquette">Texte du bouton <small>(facultatif)</small></p><input type="text" id="mBouton" maxlength="40">
+        <p class="etiquette">Lien du bouton <small>(https://… ou mailto:…)</small></p><input type="text" id="mLien" maxlength="400">
+        <button class="gris" id="mModeleTesteurs">Modèle « testeurs »</button>
+        <button class="gris" id="mModeleVersion">Modèle « nouvelle version »</button>
+        <button class="or" id="mEnregistrer">Enregistrer</button>
+        <p id="mInfo" class="petit"></p>
+      </div>
+
       <h2>En attente <span id="nAttente"></span></h2>
       <div id="attente"></div>
       <h2>Publiés <span id="nPublie"></span></h2>
@@ -92,6 +110,9 @@
           }
           try { localStorage.setItem('tircoach-admin', code); } catch (e) {}
           $('connexion').classList.add('cache'); $('contenu').classList.remove('cache');
+          var m = res.message || {};
+          $('mActif').checked = !!m.actif; $('mTitre').value = m.titre || ''; $('mTexte').value = m.texte || '';
+          $('mBouton').value = m.bouton || ''; $('mLien').value = m.lien || '';
           ['attente', 'publie', 'corbeille'].forEach(function (s) {
             var l = res.avis.filter(function (a) { return a.statut === s; });
             var nom = 'n' + s.charAt(0).toUpperCase() + s.slice(1);
@@ -154,6 +175,27 @@
           zone.appendChild(c);
         });
       }
+
+      $('mModeleTesteurs').addEventListener('click', function () {
+        $('mTitre').value = '🙏 Roy a besoin de vous !';
+        $('mTexte').value = "Pour arriver sur le Play Store, Google demande que l'appli soit testée par au moins 12 personnes pendant 14 jours.\n\nTu as un téléphone Android et une adresse Gmail ? Deviens testeur !";
+        $('mBouton').value = '✉️ Je veux être testeur';
+        $('mLien').value = 'mailto:royvanmilperso@gmail.com?subject=' + encodeURIComponent('Tir Coach — je veux être testeur') + '&body=' + encodeURIComponent('Bonjour Roy,\n\nJe veux bien tester Tir Coach.\nMon adresse Gmail : ');
+        $('mActif').checked = true;
+      });
+      $('mModeleVersion').addEventListener('click', function () {
+        $('mTitre').value = '🎉 Nouvelle version de Tir Coach';
+        $('mTexte').value = "Une nouvelle version est prête.\nTélécharge-la et installe-la par-dessus : tu ne perds rien.";
+        $('mBouton').value = '⬇️ Télécharger';
+        $('mLien').value = 'https://royvanmil.fr/tir-coach/';
+        $('mActif').checked = true;
+      });
+      $('mEnregistrer').addEventListener('click', function () {
+        $('mInfo').textContent = 'Enregistrement…';
+        appel({ action: 'message', message: { actif: $('mActif').checked, titre: $('mTitre').value, texte: $('mTexte').value, bouton: $('mBouton').value, lien: $('mLien').value } })
+          .then(function (res) { $('mInfo').textContent = res.ok ? (res.message.actif ? '✔ Enregistré : le message est affiché dans l’appli.' : '✔ Enregistré : le message est caché.') : 'Erreur : ' + (res.erreur || 'inconnue'); })
+          .catch(function () { $('mInfo').textContent = 'Pas de connexion au serveur.'; });
+      });
 
       function entrer() { code = $('mdp').value.trim(); if (!code) { $('msg').textContent = 'Entre le mot de passe.'; return; } $('msg').textContent = ''; charger(); }
       $('btnConnexion').addEventListener('click', entrer);
