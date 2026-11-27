@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tir Coach — Les avis</title>
+  <meta name="description" content="Donne ton avis sur Tir Coach, l'appli de carnet de tir gratuite et 100 % locale : une note sur 10, ce qui te plaît, ce qu'il faut améliorer, ton stand.">
+  <meta property="og:title" content="Tir Coach — Donne ton avis">
+  <meta property="og:description" content="Une note sur 10, ce qui te plaît, ce qu'il faut améliorer. L'appli reste gratuite et s'améliore grâce à vous.">
+  <meta property="og:image" content="https://royvanmil.fr/tir-coach/images/c2-menu.jpg">
+  <link rel="icon" href="images/logo.svg">
+  <style>
+    :root { --fond:#14171c; --carte:#1f242c; --bord:#333a45; --texte:#f2f2f2; --gris:#9aa3ae; --or:#e0a32e; --rouge:#d62828; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--fond); color: var(--texte); font-family: system-ui, -apple-system, Roboto, sans-serif; line-height: 1.55; }
+    .page { max-width: 900px; margin: 0 auto; padding: 24px 18px 60px; }
+    .retour { color: var(--gris); text-decoration: none; font-size: 15px; }
+    header { text-align: center; padding: 6px 0 10px; }
+    header img { width: 90px; }
+    h1 { color: var(--or); letter-spacing: 4px; font-size: 32px; margin: 6px 0 0; }
+    h2 { color: var(--or); margin: 36px 0 12px; font-size: 24px; }
+    a { color: var(--or); }
+    .carte { background: var(--carte); border: 1px solid var(--bord); border-radius: 14px; padding: 16px 18px; }
+    .photos { display: flex; gap: 12px; justify-content: center; margin-bottom: 14px; }
+    .photos img { width: 48%; max-width: 260px; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 16px; border: 2px solid var(--or); }
+    .presentation p { margin: 0 0 12px; }
+    .signature { color: var(--or); font-weight: 700; }
+    .bouton { display: block; text-align: center; text-decoration: none; background: var(--or); color: #111; font-weight: 800; font-size: 19px; border: 0; border-radius: 16px; padding: 16px; margin: 18px auto 4px; width: 100%; max-width: 420px; cursor: pointer; font-family: inherit; }
+    .bouton.creux { background: transparent; color: var(--or); border: 2px solid var(--or); font-size: 17px; padding: 12px; }
+    label { display: block; font-weight: 700; margin: 16px 0 6px; }
+    label small { color: var(--gris); font-weight: 400; }
+    input[type=text], input[type=email], textarea { width: 100%; background: #14171c; color: var(--texte); border: 1px solid var(--bord); border-radius: 10px; padding: 12px; font-size: 16px; font-family: inherit; }
+    textarea { min-height: 90px; resize: vertical; }
+    .notes { display: grid; grid-template-columns: repeat(10, 1fr); gap: 6px; }
+    .notes button { background: #14171c; color: var(--texte); border: 1px solid var(--bord); border-radius: 10px; padding: 12px 0; font-size: 17px; font-weight: 700; cursor: pointer; font-family: inherit; }
+    .notes button.choisi { background: var(--or); color: #111; border-color: var(--or); }
+    .accord { display: flex; gap: 10px; align-items: flex-start; font-weight: 400; }
+    .accord input { width: 22px; height: 22px; flex-shrink: 0; margin-top: 2px; }
+    .erreur { color: #ff6b6b; text-align: center; min-height: 1.4em; margin: 8px 0 0; }
+    .petit { color: var(--gris); font-size: 14px; text-align: center; margin: 6px 0 0; }
+    .moyenne { text-align: center; font-size: 22px; font-weight: 800; color: var(--or); margin-bottom: 12px; }
+    .avis { margin-bottom: 12px; }
+    .avis .tete { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+    .avis .note { color: var(--or); font-weight: 800; }
+    .avis .date { color: var(--gris); font-size: 14px; }
+    .avis p { margin: 8px 0 0; }
+    .avis .ameliorer { color: var(--gris); }
+    .reponse { border-left: 3px solid var(--or); padding-left: 10px; margin-top: 10px; color: var(--gris); font-size: 15px; }
+    .vide { text-align: center; color: var(--gris); }
+    .merci { display: none; text-align: center; }
+    .pro { text-align: center; }
+    footer { text-align: center; color: var(--gris); font-size: 14px; margin-top: 50px; }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <a class="retour" href="./">&larr; Retour à Tir Coach</a>
+    <header>
+      <img src="images/logo.svg" alt="Logo Tir Coach">
+      <h1>LES AVIS</h1>
+    </header>
+
+    <div class="carte presentation">
+      <div class="photos">
+        <img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=800,fit=crop/YZ9X3e0BqbU24wBk/samedi-29-juilet-2023-370-YrDXyxWOLbFGpzLk.jpg" alt="Roy VAN MIL">
+        <img src="images/roy-2.jpg" alt="Roy VAN MIL au travail">
+      </div>
+      <p><b>Salut ! Moi, c'est Roy.</b> Artisan électricien, plombier et climaticien dans le Gers.</p>
+      <p>J'ai plusieurs passions, et je suis toujours très curieux : la moto, la photo, internet et les ordinateurs. J'ai démonté les premiers PC sous Windows 3.1 et 95, juste pour comprendre comment ça marche… Et je connais encore par cœur le bruit du modem 56k !</p>
+      <p>Et puis il y a le tir sportif. Un vrai sport, qui détend (sans jeu de mots…) et qui demande beaucoup de maîtrise.</p>
+      <p>Avec Tir Coach, j'espère vous donner envie d'aller plus souvent au stand, et de partager vos plus beaux cartons.</p>
+      <p>Laissez votre avis, et faites vos remarques (constructives, hein 😉). L'appli restera gratuite, et on va la rendre la meilleure possible, ensemble.</p>
+      <p class="signature">Roy VAN MIL</p>
+      <div class="pro">
+        <a class="bouton creux" href="https://pro2tec.net" target="_blank" rel="noopener">&#128295; Mon entreprise : Pro2Tec</a>
+      </div>
+    </div>
+
+    <h2>&#11088; Donne ton avis</h2>
+    <form id="formulaire" class="carte" novalidate>
+      <label for="prenom">Prénom ou pseudo</label>
+      <input type="text" id="prenom" maxlength="40" autocomplete="given-name">
+
+      <label>Ta note sur 10</label>
+      <div class="notes" id="notes"></div>
+
+      <label for="plait">Ce qui te plaît</label>
+      <textarea id="plait" maxlength="1500"></textarea>
+
+      <label for="ameliorer">Points à améliorer</label>
+      <textarea id="ameliorer" maxlength="1500"></textarea>
+
+      <label for="stand">Ton stand, ou des infos à ajouter <small>(nom du club, ville, horaires, site…)</small></label>
+      <textarea id="stand" maxlength="1500"></textarea>
+
+      <label for="mail">Ton mail <small>(facultatif, jamais affiché — pour te répondre)</small></label>
+      <input type="email" id="mail" maxlength="80" autocomplete="email">
+
+      <label class="accord"><input type="checkbox" id="accord"> J'accepte que mon prénom, ma note et mon avis soient affichés sur cette page.</label>
+
+      <button type="submit" class="bouton">&#9993;&#65039; Envoyer mon avis</button>
+      <p id="erreur" class="erreur"></p>
+      <p class="petit">Ton appli mail s'ouvre avec ton avis déjà écrit : il reste à appuyer sur Envoyer. Roy lit chaque avis avant de le publier.</p>
+    </form>
+    <div id="merci" class="carte merci">
+      <b>Merci !</b> Pense à appuyer sur <b>Envoyer</b> dans ton appli mail.<br>
+      Ton avis apparaîtra ici dès que Roy l'aura lu.
+    </div>
+
+    <h2>&#128172; Ce qu'ils en pensent</h2>
+    <div id="moyenne" class="moyenne"></div>
+    <div id="liste"></div>
+
+    <footer>
+      Tir Coach — créé par Roy VAN MIL, tireur sportif.<br>
+      <a href="./">Télécharger l'appli</a> · <a href="confidentialite.html">Confidentialité</a>
+    </footer>
+  </div>
+
+  <script>
+    // Avis publiés : ajoutés à la main après lecture (le plus récent en premier).
+    // Exemple : { prenom: 'Jean', note: 9, date: '2026-12-01', plait: '...', ameliorer: '...', reponse: '...' }
+    var AVIS = [];
+
+    (function () {
+      var API = 'https://compteurs.royvanmil86.workers.dev';
+      function compte(cle) {
+        var url = API + '/compte?c=' + cle;
+        try { if (navigator.sendBeacon && navigator.sendBeacon(url)) return; } catch (e) {}
+        try { fetch(url, { mode: 'cors', keepalive: true }); } catch (e) {}
+      }
+      try { if (!sessionStorage.getItem('vu-tircoach-avis')) { sessionStorage.setItem('vu-tircoach-avis', '1'); compte('tircoach-avis-page'); } } catch (e) {}
+
+      function $(id) { return document.getElementById(id); }
+      function texte(balise, classe, contenu) {
+        var el = document.createElement(balise);
+        if (classe) el.className = classe;
+        el.textContent = contenu;
+        return el;
+      }
+
+      // Boutons de note 1 à 10
+      var note = 0;
+      for (var i = 1; i <= 10; i++) {
+        (function (n) {
+          var b = document.createElement('button');
+          b.type = 'button'; b.textContent = n;
+          b.addEventListener('click', function () {
+            note = n;
+            Array.prototype.forEach.call($('notes').children, function (x, k) { x.classList.toggle('choisi', k + 1 === n); });
+          });
+          $('notes').appendChild(b);
+        })(i);
+      }
+
+      // Envoi par mail
+      $('formulaire').addEventListener('submit', function (e) {
+        e.preventDefault();
+        var prenom = $('prenom').value.trim();
+        if (!prenom) { $('erreur').textContent = 'Écris ton prénom ou un pseudo.'; return; }
+        if (!note) { $('erreur').textContent = 'Choisis une note sur 10.'; return; }
+        $('erreur').textContent = '';
+        var corps = 'Prénom ou pseudo : ' + prenom + '\n' +
+          'Note : ' + note + '/10\n\n' +
+          'Ce qui me plaît :\n' + ($('plait').value.trim() || '-') + '\n\n' +
+          'Points à améliorer :\n' + ($('ameliorer').value.trim() || '-') + '\n\n' +
+          'Mon stand / infos à ajouter :\n' + ($('stand').value.trim() || '-') + '\n\n' +
+          'Mon mail : ' + ($('mail').value.trim() || '-') + '\n' +
+          'Affichage sur la page : ' + ($('accord').checked ? 'OUI, j\'accepte' : 'NON, juste pour Roy') + '\n';
+        compte('tircoach-avis-envoi');
+        location.href = 'mailto:royvanmilperso@gmail.com?subject=' + encodeURIComponent('Avis Tir Coach — ' + note + '/10 — ' + prenom) + '&body=' + encodeURIComponent(corps);
+        $('formulaire').style.display = 'none';
+        $('merci').style.display = 'block';
+      });
+
+      // Affichage des avis publiés
+      if (!AVIS.length) {
+        $('liste').appendChild(texte('p', 'vide', 'Pas encore d\'avis publié. Sois le premier !'));
+      } else {
+        var total = AVIS.reduce(function (s, a) { return s + a.note; }, 0);
+        var moy = Math.round(total / AVIS.length * 10) / 10;
+        $('moyenne').textContent = '🎯 ' + String(moy).replace('.', ',') + ' / 10 — ' + AVIS.length + ' avis';
+        AVIS.forEach(function (a) {
+          var c = document.createElement('div'); c.className = 'carte avis';
+          var tete = document.createElement('div'); tete.className = 'tete';
+          var gauche = document.createElement('span');
+          gauche.appendChild(texte('b', '', a.prenom + ' '));
+          gauche.appendChild(texte('span', 'note', a.note + '/10'));
+          tete.appendChild(gauche);
+          if (a.date) tete.appendChild(texte('span', 'date', a.date.split('-').reverse().join('/')));
+          c.appendChild(tete);
+          if (a.plait) c.appendChild(texte('p', '', '👍 ' + a.plait));
+          if (a.ameliorer) c.appendChild(texte('p', 'ameliorer', '🔧 ' + a.ameliorer));
+          if (a.reponse) c.appendChild(texte('div', 'reponse', 'Réponse de Roy : ' + a.reponse));
+          $('liste').appendChild(c);
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
